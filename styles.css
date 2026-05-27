@@ -1719,6 +1719,18 @@ img.dropdown-logo.dropdown-logo-real {
   margin-bottom: 28px;
 }
 
+/* Tab acima da headline (centralizado) */
+.plans-tab-above {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 16px;
+}
+
+/* Section header sem espaço grande quando logo abaixo vêm os cards */
+.section-header-tight {
+  margin-bottom: 32px;
+}
+
 /* Tab no fundo preto */
 .plans-dark .plans-tab {
   background: rgba(255,255,255,0.06);
