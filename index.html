@@ -956,13 +956,36 @@
 
   <!-- ========== FOOTER ========== -->
   <footer class="footer" id="contato">
+
+    <!-- Selos de confiança no topo -->
+    <div class="footer-trust">
+      <div class="container footer-trust-inner">
+        <div class="footer-trust-item">
+          <i class="ph-fill ph-star"></i>
+          <div><strong>4,9 / 5</strong><span>2.382 avaliações no Google</span></div>
+        </div>
+        <div class="footer-trust-item">
+          <i class="ph-fill ph-lightning"></i>
+          <div><strong>100% Fibra Óptica</strong><span>Sem rádio, sem cabo compartilhado</span></div>
+        </div>
+        <div class="footer-trust-item">
+          <i class="ph-fill ph-map-pin"></i>
+          <div><strong>100% Joinville</strong><span>Atendimento local, equipe da região</span></div>
+        </div>
+        <div class="footer-trust-item">
+          <i class="ph-fill ph-handshake"></i>
+          <div><strong>Sem fidelidade</strong><span>Cancela quando quiser, sem multa</span></div>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="#" class="logo">
             <span class="logo-master">Master</span><span class="logo-info">Info</span>
           </a>
-          <p>Internet fibra óptica 100% em Joinville, SC. Mais de 10 anos conectando famílias e empresas da região.</p>
+          <p>Internet fibra óptica 100% em Joinville, SC. Mais de 6 anos conectando famílias e empresas da região.</p>
           <div class="footer-social">
             <a href="https://www.instagram.com/masterinfointernet" aria-label="Instagram" target="_blank"><i class="ph ph-instagram-logo"></i></a>
             <a href="https://www.facebook.com/masterinfointernet" aria-label="Facebook" target="_blank"><i class="ph ph-facebook-logo"></i></a>
@@ -972,7 +995,9 @@
         <div class="footer-col">
           <h4>Links</h4>
           <a href="#planos">Planos Residenciais</a>
+          <a href="#incluso">Tudo Incluso</a>
           <a href="#cobertura">Área de Cobertura</a>
+          <a href="#depoimentos">Depoimentos</a>
           <a href="#sobre">Sobre Nós</a>
           <a href="#faq">Dúvidas</a>
         </div>
@@ -991,8 +1016,27 @@
           <p><i class="ph ph-envelope"></i> masterinfo@masterinfointernet.com</p>
         </div>
       </div>
+
+      <!-- Métodos de pagamento -->
+      <div class="footer-payment">
+        <span class="footer-payment-label">Formas de pagamento</span>
+        <div class="footer-payment-icons">
+          <span class="payment-icon"><i class="ph-fill ph-currency-circle-dollar"></i> PIX</span>
+          <span class="payment-icon"><i class="ph-fill ph-barcode"></i> Boleto</span>
+          <span class="payment-icon"><i class="ph-fill ph-credit-card"></i> Cartão</span>
+          <span class="payment-icon"><i class="ph-fill ph-bank"></i> Débito automático</span>
+        </div>
+      </div>
+
       <div class="footer-bottom">
         <p>&copy; 2026 MasterInfo Internet. Todos os direitos reservados. CNPJ: XX.XXX.XXX/0001-XX</p>
+        <div class="footer-legal">
+          <a href="#">Termos de Uso</a>
+          <span>·</span>
+          <a href="#">Política de Privacidade</a>
+          <span>·</span>
+          <a href="#">LGPD</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -1159,10 +1203,26 @@
 
   <!-- ========== WHATSAPP FLOAT ========== -->
   <a href="https://wa.me/5547989212991?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20planos%20de%20internet" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
-    <span class="whatsapp-tooltip">Precisa de ajuda?</span>
+    <span class="whatsapp-tooltip">
+      <span class="whatsapp-tooltip-online"><span class="whatsapp-online-dot"></span> Online agora</span>
+      <span class="whatsapp-tooltip-text">Fala com a gente!</span>
+    </span>
     <i class="ph-fill ph-whatsapp-logo"></i>
     <span class="whatsapp-pulse"></span>
+    <span class="whatsapp-badge">1</span>
   </a>
+
+  <!-- ========== STICKY CTA MOBILE ========== -->
+  <div class="sticky-cta">
+    <a href="https://wa.me/5547989212991?text=Ol%C3%A1!%20Quero%20contratar%20internet%20fibra%20%C3%B3ptica" target="_blank" class="sticky-cta-btn sticky-cta-zap">
+      <i class="ph-fill ph-whatsapp-logo"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="#" onclick="openLeadModal(); return false;" class="sticky-cta-btn sticky-cta-main">
+      <i class="ph-fill ph-lightning"></i>
+      <span>Quero contratar</span>
+    </a>
+  </div>
 
   <script src="script.js"></script>
   <script src="modal.js"></script>
@@ -1462,6 +1522,59 @@
         card.style.setProperty('--tilt-x', '0deg');
         card.style.setProperty('--tilt-y', '0deg');
       });
+    });
+  })();
+  </script>
+
+  <!-- Scroll Reveal — fade/slide automático em todas as seções -->
+  <script>
+  (function() {
+    if (!('IntersectionObserver' in window)) return;
+
+    // Seletores: o que aparece com fade-up simples (header, blocos individuais)
+    var revealSelectors = [
+      '.section-header',
+      '.coverage-content',
+      '.coverage-visual',
+      '.final-cta-inner',
+      '.footer-trust-item'
+    ];
+
+    // Seletores: containers cujos filhos aparecem em sequência
+    var staggerContainers = [
+      '.plans-grid',
+      '.why-grid',
+      '.includes-track',
+      '.sp-wall',
+      '.faq-list',
+      '.coverage-neighborhoods'
+    ];
+
+    // Aplicar classes
+    revealSelectors.forEach(function(sel) {
+      document.querySelectorAll(sel).forEach(function(el) {
+        el.classList.add('reveal-up');
+      });
+    });
+
+    staggerContainers.forEach(function(sel) {
+      document.querySelectorAll(sel).forEach(function(el) {
+        el.classList.add('reveal-stagger');
+      });
+    });
+
+    // Observer único pra todos
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale, .reveal-stagger').forEach(function(el) {
+      revealObserver.observe(el);
     });
   })();
   </script>

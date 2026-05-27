@@ -2043,14 +2043,79 @@ button {
 .footer {
   background: var(--gray-950);
   border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 80px 0 0;
+  padding: 0 0 0;
+  position: relative;
+}
+
+/* Selos de confiança no topo */
+.footer-trust {
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 36px 0;
+  background: linear-gradient(180deg, var(--black) 0%, var(--gray-950) 100%);
+  position: relative;
+}
+
+.footer-trust::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,122,5,0.25), transparent);
+}
+
+.footer-trust-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.footer-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-trust-item i {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-brand);
+  border-radius: var(--radius-md);
+  font-size: 1.3rem;
+  color: var(--white);
+  flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(255,122,5,0.35);
+}
+
+.footer-trust-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.footer-trust-item strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.footer-trust-item span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.3;
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
   gap: 48px;
-  padding-bottom: 60px;
+  padding: 80px 0 48px;
 }
 
 .footer-brand p {
@@ -2120,15 +2185,88 @@ button {
   margin-right: 6px;
 }
 
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.05);
+/* Formas de pagamento */
+.footer-payment {
+  display: flex;
+  align-items: center;
+  gap: 18px;
   padding: 24px 0;
-  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+
+.footer-payment-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+.footer-payment-icons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.payment-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+}
+
+.payment-icon i {
+  color: var(--orange);
+  font-size: 1rem;
+}
+
+.payment-icon:hover {
+  border-color: rgba(255,122,5,0.3);
+  color: var(--text-primary);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-subtle);
+  padding: 22px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .footer-bottom p {
-  font-size: 0.8rem;
-  color: var(--gray-600);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.78rem;
+}
+
+.footer-legal a {
+  color: var(--text-muted);
+  transition: color var(--transition-fast);
+}
+
+.footer-legal a:hover {
+  color: var(--orange);
+}
+
+.footer-legal span {
+  color: var(--gray-700);
 }
 
 /* ========================================
@@ -2138,23 +2276,30 @@ button {
   position: fixed;
   bottom: 28px;
   right: 28px;
-  width: 60px;
-  height: 60px;
-  background: #25d366;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #25d366 0%, #20bd5c 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: var(--white);
   z-index: 999;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-  transition: all 0.3s;
+  box-shadow: 0 8px 28px rgba(37,211,102,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
+  transition: var(--transition-base);
+  animation: zapBob 3s ease-in-out infinite;
+}
+
+@keyframes zapBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 .whatsapp-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 30px rgba(37,211,102,0.5);
+  transform: scale(1.08) translateY(-4px);
+  box-shadow: 0 12px 36px rgba(37,211,102,0.6), inset 0 1px 0 rgba(255,255,255,0.3);
+  animation: none;
 }
 
 .whatsapp-pulse {
@@ -2162,32 +2307,91 @@ button {
   inset: -4px;
   border: 3px solid #25d366;
   border-radius: 50%;
-  animation: whatsappPulse 2s infinite;
+  animation: whatsappPulse 2.2s ease-out infinite;
+  pointer-events: none;
 }
 
 @keyframes whatsappPulse {
   0% { transform: scale(1); opacity: 0.6; }
-  100% { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
 
-/* WhatsApp Tooltip */
+.whatsapp-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--black);
+  box-shadow: 0 4px 12px rgba(230,57,70,0.45);
+  animation: badgePulse 1.6s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* WhatsApp Tooltip turbinado */
 .whatsapp-tooltip {
   position: absolute;
-  right: 72px;
+  right: 76px;
   top: 50%;
-  transform: translateY(-50%);
   background: var(--white);
   color: var(--black);
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
   white-space: nowrap;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s, transform 0.3s;
   transform: translateY(-50%) translateX(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-end;
+  line-height: 1.2;
+}
+
+.whatsapp-tooltip-online {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #22c55e;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.whatsapp-online-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34,197,94,0.6);
+  animation: onlineDot 1.4s ease-out infinite;
+}
+
+@keyframes onlineDot {
+  0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.55); }
+  100% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+}
+
+.whatsapp-tooltip-text {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0a0a0b;
 }
 
 .whatsapp-tooltip::after {
@@ -2204,6 +2408,79 @@ button {
 .whatsapp-float:hover .whatsapp-tooltip {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
+}
+
+/* ========================================
+   STICKY CTA MOBILE
+   ======================================== */
+.sticky-cta {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 998;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(8,8,10,0.85) 0%, rgba(8,8,10,0.98) 60%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-default);
+  gap: 8px;
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.5);
+}
+
+.sticky-cta-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 12px;
+  border-radius: var(--radius-lg);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: var(--transition-fast);
+}
+
+.sticky-cta-btn i {
+  font-size: 1.2rem;
+}
+
+.sticky-cta-zap {
+  background: linear-gradient(135deg, #25d366, #20bd5c);
+  color: var(--white);
+  box-shadow: 0 6px 16px rgba(37,211,102,0.35);
+}
+
+.sticky-cta-zap:active {
+  transform: scale(0.97);
+}
+
+.sticky-cta-main {
+  background: var(--gradient-brand);
+  color: var(--white);
+  box-shadow: 0 6px 16px rgba(255,122,5,0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.sticky-cta-main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 3.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 50% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.sticky-cta-main:active {
+  transform: scale(0.97);
 }
 
 /* ========================================
@@ -2300,6 +2577,68 @@ button {
 /* ========================================
    RESPONSIVE
    ======================================== */
+/* ========================================
+   SCROLL REVEAL (fase 4)
+   ======================================== */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.in-view.reveal-up,
+.in-view.reveal-left,
+.in-view.reveal-right,
+.in-view.reveal-scale {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered delays para grids */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-stagger.in-view > *:nth-child(1) { transition-delay: 0.00s; opacity: 1; transform: none; }
+.reveal-stagger.in-view > *:nth-child(2) { transition-delay: 0.08s; opacity: 1; transform: none; }
+.reveal-stagger.in-view > *:nth-child(3) { transition-delay: 0.16s; opacity: 1; transform: none; }
+.reveal-stagger.in-view > *:nth-child(4) { transition-delay: 0.24s; opacity: 1; transform: none; }
+.reveal-stagger.in-view > *:nth-child(5) { transition-delay: 0.32s; opacity: 1; transform: none; }
+.reveal-stagger.in-view > *:nth-child(6) { transition-delay: 0.40s; opacity: 1; transform: none; }
+.reveal-stagger.in-view > *:nth-child(7) { transition-delay: 0.48s; opacity: 1; transform: none; }
+.reveal-stagger.in-view > *:nth-child(8) { transition-delay: 0.56s; opacity: 1; transform: none; }
+.reveal-stagger.in-view > *:nth-child(9) { transition-delay: 0.64s; opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up, .reveal-left, .reveal-right, .reveal-scale,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 @media (max-width: 1024px) {
   .plans-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -2324,6 +2663,11 @@ button {
 
   .sp-wall {
     columns: 2;
+  }
+
+  .footer-trust-inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
   }
 }
 
@@ -2521,6 +2865,24 @@ button {
     font-size: 0.88rem;
   }
 
+  /* Mobile: troca whatsapp-float pelo sticky-cta */
+  .whatsapp-float {
+    display: none;
+  }
+
+  .sticky-cta {
+    display: flex;
+  }
+
+  /* Espaço extra no final pra sticky CTA não cobrir conteúdo */
+  body {
+    padding-bottom: 76px;
+  }
+
+  .footer {
+    padding-bottom: 84px;
+  }
+
   .final-cta-inner {
     padding: 60px 24px;
   }
@@ -2528,6 +2890,41 @@ button {
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+
+  .footer-trust {
+    padding: 28px 0;
+  }
+
+  .footer-trust-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .footer-trust-item i {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+
+  .footer-trust-item strong {
+    font-size: 0.85rem;
+  }
+
+  .footer-trust-item span {
+    font-size: 0.72rem;
+  }
+
+  .footer-payment {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
   }
 
   .section-title {
