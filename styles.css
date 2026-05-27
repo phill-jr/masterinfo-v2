@@ -2578,6 +2578,273 @@ button {
    RESPONSIVE
    ======================================== */
 /* ========================================
+   PLANS 2026 (linhas LITE/ULTRA + toggle preço)
+   ======================================== */
+
+/* Toggle de preço */
+.plans-toggle {
+  display: inline-flex;
+  margin: 0 auto 48px;
+  padding: 5px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  position: relative;
+  z-index: 2;
+}
+
+.plans-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
+  transition: var(--transition-base);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.plans-toggle-btn i {
+  font-size: 1rem;
+}
+
+.plans-toggle-btn.is-active {
+  background: var(--gradient-brand);
+  color: var(--white);
+  box-shadow: 0 6px 16px rgba(255,122,5,0.4);
+}
+
+.plans-toggle-btn:hover:not(.is-active) {
+  color: var(--text-primary);
+}
+
+/* Wrap pra centralizar o toggle */
+.plans .section-header + .plans-toggle {
+  display: flex;
+  justify-content: center;
+}
+.plans-toggle {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+/* Linha (LITE / ULTRA) */
+.plans-line {
+  margin-bottom: 64px;
+}
+
+.plans-line:last-child {
+  margin-bottom: 0;
+}
+
+.plans-line-head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.plans-line-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
+}
+
+.plans-line-tag-lite {
+  background: linear-gradient(135deg, var(--yellow), var(--amber));
+  color: var(--black);
+  box-shadow: 0 4px 14px rgba(252,195,5,0.35);
+}
+
+.plans-line-tag-ultra {
+  background: var(--gradient-brand);
+  color: var(--white);
+  box-shadow: 0 4px 14px rgba(230,57,70,0.4);
+}
+
+.plans-line-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+
+.plans-line-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* Grids específicos */
+.plans-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.plans-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* Linha Ultra com fundo destacado */
+.plans-line-ultra {
+  position: relative;
+  padding: 48px 32px;
+  background: linear-gradient(180deg, rgba(255,122,5,0.04) 0%, rgba(230,57,70,0.04) 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-2xl);
+  margin-top: 80px;
+}
+
+.plans-line-ultra::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+}
+
+/* Tagline (abaixo da velocidade) */
+.plan-tagline {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-top: 8px;
+  min-height: 1.2em;
+}
+
+/* Cores específicas dos planos */
+.plan-name-lite {
+  color: var(--yellow) !important;
+}
+
+.plan-name-ultra {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card Ultra */
+.plan-ultra-card {
+  background: linear-gradient(180deg, rgba(255,122,5,0.04) 0%, var(--gray-900) 60%);
+  border-color: rgba(255,122,5,0.15);
+}
+
+/* Preço com cents + period */
+.plan-price-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: 4px;
+}
+
+.plan-cents {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+}
+
+.plan-price-note {
+  display: block;
+  text-align: center;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: -16px;
+  margin-bottom: 16px;
+}
+
+.plan-price-note-essencial {
+  color: var(--orange-light);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* Hero offer: linha do plano e nota do preço */
+.hero-offer-line {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--orange-light);
+  margin-bottom: 12px;
+  margin-top: -4px;
+}
+
+.hero-offer-price-note {
+  display: block;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--gray-400);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Novos ícones de SVA */
+.include-icon-news   { background: linear-gradient(135deg, var(--orange-dark), var(--red)); box-shadow: 0 8px 24px rgba(193,18,31,0.35); }
+.include-icon-music  { background: linear-gradient(135deg, var(--yellow), var(--orange)); box-shadow: 0 8px 24px rgba(252,195,5,0.35); color: var(--black); }
+.include-icon-globe  { background: linear-gradient(135deg, var(--red), var(--orange-light)); box-shadow: 0 8px 24px rgba(230,57,70,0.4); }
+.include-icon-disney { background: linear-gradient(135deg, var(--orange), var(--red)); box-shadow: 0 8px 24px rgba(255,122,5,0.4); }
+
+/* Responsividade plans 2026 */
+@media (max-width: 1024px) {
+  .plans-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .plans-grid-4 {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .plans-grid-2 {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+
+  .plans-line-ultra {
+    padding: 36px 20px;
+  }
+
+  .plans-toggle {
+    flex-direction: column;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .plans-toggle-btn {
+    justify-content: center;
+  }
+}
+
+/* ========================================
    PROMO BAR (fase 5 - urgência topo)
    ======================================== */
 .promo-bar {

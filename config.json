@@ -125,86 +125,185 @@
   ],
   "planos": [
     {
-      "id": "lite-400",
-      "nome": "Lite",
+      "id": "lite-essencial",
+      "linha": "LITE",
+      "nome": "Lite Essencial",
+      "tagline": "Entrada / Social",
       "velocidade": "400",
       "unidade": "Mega",
-      "preco": 109,
-      "features": ["Wi-Fi incluso", "Roteador em comodato", "Instalacao gratis", "Suporte local 7 dias"],
-      "incluiTV": false,
+      "precoPontual": 99.90,
+      "precoCheio": 99.90,
+      "semDescontoPontualidade": true,
+      "features": ["Internet 400 Mega de fibra", "Jornal Z + Digilivro inclusos", "Wi-Fi + roteador grátis", "Instalação 24h, sem fidelidade"],
       "badge": null
     },
     {
-      "id": "ultra-500",
-      "nome": "Ultra",
-      "velocidade": "500",
-      "unidade": "Mega",
-      "preco": 129,
-      "features": ["Tudo do Lite +", "WatchTV (23 canais)", "Digilivro incluso", "Upload turbinado"],
-      "incluiTV": true,
-      "badge": null
-    },
-    {
-      "id": "ultra-600",
-      "nome": "Ultra+",
+      "id": "lite-casa",
+      "linha": "LITE",
+      "nome": "Lite Casa",
+      "tagline": "Casal / casa pequena",
       "velocidade": "600",
       "unidade": "Mega",
-      "preco": 149,
-      "features": ["Tudo do Ultra +", "Ideal p/ smart home", "Ate 10 dispositivos", "Prioridade no suporte"],
-      "incluiTV": true,
-      "badge": "Mais vendido"
+      "precoPontual": 99.90,
+      "precoCheio": 109.90,
+      "features": ["Internet 600 Mega de fibra", "SKY+ Light grátis (TV)", "Jornal Z + Digilivro inclusos", "Wi-Fi + instalação 24h"],
+      "badge": null
     },
     {
-      "id": "giga-1000",
-      "nome": "Giga",
+      "id": "lite-familia",
+      "linha": "LITE",
+      "nome": "Lite Família",
+      "tagline": "Família média / vários devices",
+      "velocidade": "800",
+      "unidade": "Mega",
+      "precoPontual": 109.00,
+      "precoCheio": 119.00,
+      "features": ["Internet 800 Mega de fibra", "SKY+ Light grátis (TV)", "Jornal Z + Digilivro inclusos", "Wi-Fi + instalação 24h"],
+      "badge": "Pra família"
+    },
+    {
+      "id": "lite-home-office",
+      "linha": "LITE",
+      "nome": "Lite Home Office",
+      "tagline": "Trabalho remoto / reuniões",
       "velocidade": "1",
       "unidade": "Giga",
-      "preco": 179,
-      "features": ["Tudo do Ultra+ e mais", "Velocidade maxima", "Gamers & streamers", "Sem limite de trafego"],
-      "incluiTV": true,
+      "precoPontual": 119.90,
+      "precoCheio": 129.90,
+      "features": ["Internet 1 Giga de fibra", "SKY+ Light ou Deezer (à escolha)", "Jornal Z + Digilivro inclusos", "Estabilidade pra reuniões"],
+      "badge": "Mais procurado",
+      "heroi": true
+    },
+    {
+      "id": "ultra-familia",
+      "linha": "ULTRA",
+      "nome": "Ultra Família",
+      "tagline": "Família grande + streaming completo",
+      "velocidade": "800",
+      "unidade": "Mega",
+      "precoPontual": 139.90,
+      "precoCheio": 159.90,
+      "features": ["Internet 800 Mega de fibra", "GloboPlay incluso", "Roteador Mesh (Wi-Fi em toda casa)", "Jornal Z + Digilivro"],
       "badge": null
+    },
+    {
+      "id": "ultra-home-office",
+      "linha": "ULTRA",
+      "nome": "Ultra Home Office",
+      "tagline": "Profissional / empresa em casa",
+      "velocidade": "1",
+      "unidade": "Giga",
+      "precoPontual": 218.60,
+      "precoCheio": 228.60,
+      "features": ["Internet 1 Giga de fibra", "SKY+ Light + Disney+", "Roteador Mesh premium", "Jornal Z + Digilivro"],
+      "badge": "Tudo incluso · Top",
+      "upsellTop": true
     }
   ],
   "addons": [
     {
-      "id": "mesh",
-      "nome": "Roteador Mesh",
-      "descricao": "Cobertura Wi-Fi em toda a casa, sem pontos cegos.",
-      "icone": "ph-fill ph-wifi-high",
-      "preco": 29.90,
-      "instalacao": 0,
-      "unidade": "/mes",
-      "incluidoEm": []
+      "id": "ponto-fast",
+      "nome": "Ponto adicional Fast",
+      "descricao": "Leve fibra para outro cômodo.",
+      "icone": "ph-fill ph-plug",
+      "preco": 10.00,
+      "unidade": "/mês"
     },
     {
-      "id": "watchtv",
-      "nome": "WatchTV / IPTV",
-      "descricao": "23 canais ao vivo + conteudo on demand na sua TV.",
+      "id": "ponto-giga",
+      "nome": "Ponto adicional Giga",
+      "descricao": "Ponto extra com velocidade Giga.",
+      "icone": "ph-fill ph-plug",
+      "preco": 20.00,
+      "unidade": "/mês"
+    },
+    {
+      "id": "ponto-giga-mesh",
+      "nome": "Ponto adicional Giga Mesh",
+      "descricao": "Ponto extra com cobertura mesh.",
+      "icone": "ph-fill ph-wifi-high",
+      "preco": 30.00,
+      "unidade": "/mês"
+    },
+    {
+      "id": "deezer",
+      "nome": "Deezer",
+      "descricao": "Música sem anúncios em alta qualidade.",
+      "icone": "ph-fill ph-music-notes",
+      "preco": 19.90,
+      "unidade": "/mês"
+    },
+    {
+      "id": "globoplay-ads",
+      "nome": "Globoplay com anúncios",
+      "descricao": "Novelas, séries e esportes ao vivo.",
+      "icone": "ph-fill ph-monitor-play",
+      "preco": 24.90,
+      "unidade": "/mês"
+    },
+    {
+      "id": "globoplay-noads",
+      "nome": "Globoplay sem anúncios",
+      "descricao": "Novelas, séries e esportes sem comerciais.",
+      "icone": "ph-fill ph-monitor-play",
+      "preco": 35.90,
+      "unidade": "/mês"
+    },
+    {
+      "id": "disney-ads",
+      "nome": "Disney+ com anúncios",
+      "descricao": "Disney, Pixar, Marvel, Star Wars.",
+      "icone": "ph-fill ph-popcorn",
+      "preco": 24.90,
+      "unidade": "/mês"
+    },
+    {
+      "id": "disney-noads",
+      "nome": "Disney+ sem anúncios",
+      "descricao": "Disney completo, sem comerciais.",
+      "icone": "ph-fill ph-popcorn",
+      "preco": 35.90,
+      "unidade": "/mês"
+    },
+    {
+      "id": "hbo-max",
+      "nome": "HBO Max",
+      "descricao": "Filmes, séries originais e Warner.",
+      "icone": "ph-fill ph-film-strip",
+      "preco": 34.90,
+      "unidade": "/mês"
+    },
+    {
+      "id": "sky-amazon",
+      "nome": "SKY+ Light + Amazon",
+      "descricao": "TV ao vivo + Prime Video.",
+      "icone": "ph-fill ph-television-simple",
+      "preco": 39.90,
+      "unidade": "/mês"
+    },
+    {
+      "id": "sky-light",
+      "nome": "SKY+ Light",
+      "descricao": "Canais ao vivo no celular e TV.",
       "icone": "ph-fill ph-television-simple",
       "preco": 19.90,
-      "instalacao": 0,
-      "unidade": "/mes",
-      "incluidoEm": ["ultra-500", "ultra-600", "giga-1000"]
+      "unidade": "/mês"
     },
     {
-      "id": "ip-fixo",
-      "nome": "IP Fixo",
-      "descricao": "IP publico dedicado ideal para cameras, servidores e VPN.",
-      "icone": "ph-fill ph-globe-simple",
-      "preco": 30.00,
-      "instalacao": 0,
-      "unidade": "/mes",
-      "incluidoEm": []
+      "id": "exitlag",
+      "nome": "Exitlag",
+      "descricao": "Otimizador de ping pra gamers.",
+      "icone": "ph-fill ph-game-controller",
+      "preco": 10.90,
+      "unidade": "/mês"
     },
     {
-      "id": "ponto-extra",
-      "nome": "Ponto Extra de Fibra",
-      "descricao": "Leve fibra para outro comodo com ponto adicional.",
-      "icone": "ph-fill ph-plug",
-      "preco": 15.00,
-      "instalacao": 50.00,
-      "unidade": "/mes",
-      "incluidoEm": []
+      "id": "kaspersky",
+      "nome": "Kaspersky 3 Licenças",
+      "descricao": "Antivírus premium pra 3 dispositivos.",
+      "icone": "ph-fill ph-shield-check",
+      "preco": 29.90,
+      "unidade": "/mês"
     }
   ],
   "tracking": {
