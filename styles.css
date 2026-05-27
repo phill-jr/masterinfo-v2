@@ -968,7 +968,8 @@ img.dropdown-logo {
 .hero-slideshow {
   position: relative;
   width: 100%;
-  height: clamp(520px, 70vh, 720px);
+  aspect-ratio: 16 / 9;
+  max-height: 88vh;
   overflow: hidden;
 }
 
@@ -4410,9 +4411,10 @@ img.dropdown-logo {
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
-  /* Hero slideshow mobile */
+  /* Hero slideshow mobile (16:9 fica achatado em vertical) */
   .hero-slideshow {
-    height: clamp(440px, 65vh, 600px);
+    aspect-ratio: 4 / 5;
+    max-height: 80vh;
   }
 
   .hero-slide-content {
