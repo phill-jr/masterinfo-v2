@@ -1,0 +1,13 @@
+# MasterInfo Internet - robots.txt
+User-agent: *
+Allow: /
+
+# Bloquear admin e APIs
+Disallow: /admin.html
+Disallow: /admin-login.html
+Disallow: /api/
+Disallow: /auth/
+Disallow: /secrets/
+
+# Sitemap
+Sitemap: https://masterinfointernet.com/sitemap.xml

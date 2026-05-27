@@ -1,0 +1,42 @@
+# ========================================
+# MasterInfo - Regras de Seguranca Apache
+# ========================================
+
+# Bloquear acesso direto a arquivos sensiveis
+<FilesMatch "^(config\.php|credentials\.php)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bloquear backups e arquivos temporarios
+<FilesMatch "\.(bak|log|sql|sh|env)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bloquear config.json.bak
+<Files "config.json.bak">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Bloquear pastas sensiveis
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Bloquear secrets/
+    RewriteRule ^secrets/.*$ - [F,L]
+
+    # Bloquear auth/ exceto endpoints permitidos
+    RewriteRule ^auth/(?!login\.php|logout\.php|check\.php).*$ - [F,L]
+</IfModule>
+
+# Impedir listagem de diretorios
+Options -Indexes
+
+# Forcar HTTPS em producao (descomentar quando tiver certificado SSL)
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+# </IfModule>

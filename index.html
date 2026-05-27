@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MasterInfo Internet | Fibra Óptica 100% em Joinville</title>
+  <meta name="description" content="Internet fibra óptica 100% em Joinville. Planos de 400Mega a 1Giga. Atendimento local, instalação rápida nos bairros Comasa, Boa Vista, Espinheiros e região.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+
+  <!-- Leaflet (mapa de cobertura) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Open Graph / WhatsApp / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MasterInfo Internet | Fibra Óptica 100% em Joinville">
+  <meta property="og:description" content="Internet fibra óptica de verdade em Joinville. Planos de 400 Mega a 1 Giga, sem fidelidade, instalação em 24h.">
+  <meta property="og:url" content="https://masterinfointernet.com">
+  <meta property="og:image" content="https://masterinfointernet.com/og-image.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="MasterInfo Internet">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MasterInfo Internet | Fibra Óptica em Joinville">
+  <meta name="twitter:description" content="Internet fibra óptica de verdade. Planos a partir de R$109/mês, sem fidelidade.">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "InternetServiceProvider",
+    "name": "MasterInfo Internet",
+    "description": "Provedor de internet fibra óptica em Joinville, SC",
+    "url": "https://masterinfointernet.com",
+    "telephone": "+554734341734",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Rua Baltazar Buschler, 628",
+      "addressLocality": "Joinville",
+      "addressRegion": "SC",
+      "postalCode": "89228-000",
+      "addressCountry": "BR"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Joinville"
+    },
+    "priceRange": "R$109 - R$179/mês"
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="modal.css">
+</head>
+<body>
+
+  <!-- ========== TOPBAR ========== -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div class="topbar-left">
+        <span><i class="ph ph-map-pin"></i> Joinville, SC</span>
+        <span class="topbar-divider"></span>
+        <span><i class="ph ph-phone"></i> (47) 3434-1734</span>
+      </div>
+      <div class="topbar-right">
+        <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" class="topbar-link">Central do Assinante</a>
+        <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" class="topbar-link">2ª Via de Boleto</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HEADER / NAV ========== -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <span class="logo-master">Master</span><span class="logo-info">Info</span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#planos" class="nav-link">Planos</a>
+        <a href="#cobertura" class="nav-link">Cobertura</a>
+        <a href="#sobre" class="nav-link">Sobre Nós</a>
+        <a href="#faq" class="nav-link">Dúvidas</a>
+        <a href="#contato" class="nav-link">Contato</a>
+      </nav>
+      <a href="#" onclick="openLeadModal(); return false;" class="btn btn-primary header-cta">
+        <i class="ph ph-user-plus"></i> Assine Já
+      </a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="ph-fill ph-lightning"></i>
+          <span>100% Fibra Óptica em Joinville</span>
+        </div>
+        <h1 class="hero-title">
+          Internet que<br>
+          <span class="hero-highlight">não te deixa</span><br>
+          na mão.
+        </h1>
+        <p class="hero-subtitle">
+          Chega de cair no meio do jogo, travar na live ou esperar o filme carregar.
+          <strong>Fibra óptica de verdade</strong> nos bairros Comasa, Boa Vista, Espinheiros e região.
+        </p>
+        <div class="hero-ctas">
+          <a href="#planos" class="btn btn-primary btn-lg">
+            Ver Planos <i class="ph ph-arrow-right"></i>
+          </a>
+          <a href="#" onclick="openLeadModal(); return false;" class="btn btn-outline btn-lg">
+            <i class="ph ph-map-pin"></i> Consultar Cobertura
+          </a>
+        </div>
+        <div class="hero-trust">
+          <div class="hero-trust-item">
+            <i class="ph-fill ph-clock"></i>
+            <span>Instalação em até <strong>24h</strong></span>
+          </div>
+          <div class="hero-trust-item">
+            <i class="ph-fill ph-handshake"></i>
+            <span><strong>Sem fidelidade</strong></span>
+          </div>
+          <div class="hero-trust-item">
+            <i class="ph-fill ph-star"></i>
+            <span><strong>+10 anos</strong> em Joinville</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="speed-display">
+          <div class="speed-ring">
+            <svg viewBox="0 0 200 200" class="speed-svg">
+              <circle cx="100" cy="100" r="90" class="speed-track"/>
+              <circle cx="100" cy="100" r="90" class="speed-fill"/>
+            </svg>
+            <div class="speed-inner">
+              <span class="speed-number" id="speedCounter">0</span>
+              <span class="speed-unit">Mega</span>
+            </div>
+          </div>
+          <p class="speed-caption">Velocidade real, sem pegadinha.</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <i class="ph ph-caret-double-down"></i>
+    </div>
+  </section>
+
+  <!-- ========== PLANOS ========== -->
+  <section class="plans" id="planos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Planos Residenciais</span>
+        <h2 class="section-title">Escolha a velocidade<br>que combina com você</h2>
+        <p class="section-desc">Todos os planos incluem Wi-Fi, roteador, instalação grátis e suporte local.</p>
+      </div>
+
+      <div class="plans-grid">
+
+        <!-- Plan 1 -->
+        <div class="plan-card" data-aos="fade-up">
+          <div class="plan-header">
+            <span class="plan-name">Lite</span>
+            <div class="plan-speed">
+              <span class="plan-speed-num">400</span>
+              <span class="plan-speed-unit">Mega</span>
+            </div>
+          </div>
+          <div class="plan-body">
+            <div class="plan-price">
+              <span class="plan-currency">R$</span>
+              <span class="plan-value">109</span>
+              <span class="plan-period">/mês</span>
+            </div>
+            <ul class="plan-features">
+              <li><i class="ph-fill ph-check-circle"></i> Wi-Fi incluso</li>
+              <li><i class="ph-fill ph-check-circle"></i> Roteador em comodato</li>
+              <li><i class="ph-fill ph-check-circle"></i> Instalação grátis</li>
+              <li><i class="ph-fill ph-check-circle"></i> Suporte local 7 dias</li>
+            </ul>
+            <a href="checkout.html?plano=lite-400" class="btn btn-plan">
+              Contratar <i class="ph ph-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Plan 2 -->
+        <div class="plan-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="plan-header">
+            <span class="plan-name">Ultra</span>
+            <div class="plan-speed">
+              <span class="plan-speed-num">500</span>
+              <span class="plan-speed-unit">Mega</span>
+            </div>
+          </div>
+          <div class="plan-body">
+            <div class="plan-price">
+              <span class="plan-currency">R$</span>
+              <span class="plan-value">129</span>
+              <span class="plan-period">/mês</span>
+            </div>
+            <ul class="plan-features">
+              <li><i class="ph-fill ph-check-circle"></i> Tudo do Lite +</li>
+              <li><i class="ph-fill ph-check-circle"></i> WatchTV (23 canais)</li>
+              <li><i class="ph-fill ph-check-circle"></i> Digilivro incluso</li>
+              <li><i class="ph-fill ph-check-circle"></i> Upload turbinado</li>
+            </ul>
+            <a href="checkout.html?plano=ultra-500" class="btn btn-plan">
+              Contratar <i class="ph ph-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Plan 3 - DESTAQUE -->
+        <div class="plan-card plan-featured" data-aos="fade-up" data-aos-delay="200">
+          <div class="plan-badge">Mais vendido</div>
+          <div class="plan-header">
+            <span class="plan-name">Ultra+</span>
+            <div class="plan-speed">
+              <span class="plan-speed-num">600</span>
+              <span class="plan-speed-unit">Mega</span>
+            </div>
+          </div>
+          <div class="plan-body">
+            <div class="plan-price">
+              <span class="plan-currency">R$</span>
+              <span class="plan-value">149</span>
+              <span class="plan-period">/mês</span>
+            </div>
+            <ul class="plan-features">
+              <li><i class="ph-fill ph-check-circle"></i> Tudo do Ultra +</li>
+              <li><i class="ph-fill ph-check-circle"></i> Ideal p/ smart home</li>
+              <li><i class="ph-fill ph-check-circle"></i> Até 10 dispositivos</li>
+              <li><i class="ph-fill ph-check-circle"></i> Prioridade no suporte</li>
+            </ul>
+            <a href="checkout.html?plano=ultra-600" class="btn btn-primary btn-plan">
+              Contratar <i class="ph ph-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Plan 4 -->
+        <div class="plan-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="plan-header">
+            <span class="plan-name">Giga</span>
+            <div class="plan-speed">
+              <span class="plan-speed-num">1</span>
+              <span class="plan-speed-unit">Giga</span>
+            </div>
+          </div>
+          <div class="plan-body">
+            <div class="plan-price">
+              <span class="plan-currency">R$</span>
+              <span class="plan-value">179</span>
+              <span class="plan-period">/mês</span>
+            </div>
+            <ul class="plan-features">
+              <li><i class="ph-fill ph-check-circle"></i> Tudo do Ultra+ e mais</li>
+              <li><i class="ph-fill ph-check-circle"></i> Velocidade máxima</li>
+              <li><i class="ph-fill ph-check-circle"></i> Gamers & streamers</li>
+              <li><i class="ph-fill ph-check-circle"></i> Sem limite de tráfego</li>
+            </ul>
+            <a href="checkout.html?plano=giga-1000" class="btn btn-plan">
+              Contratar <i class="ph ph-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== POR QUE MASTERINFO ========== -->
+  <section class="why" id="sobre">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Por que a MasterInfo?</span>
+        <h2 class="section-title">Não somos uma operadora<br>de São Paulo tentando te atender</h2>
+        <p class="section-desc">Somos de Joinville. Conhecemos cada bairro, cada rua. Quando dá problema, a gente resolve — sem robô, sem 0800.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">
+            <i class="ph-fill ph-map-trifold"></i>
+          </div>
+          <h3>Atendimento Local</h3>
+          <p>Nossa equipe mora aqui. O técnico que vai na sua casa conhece o bairro e fala com você pelo WhatsApp.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <i class="ph-fill ph-lightning"></i>
+          </div>
+          <h3>Fibra Óptica Real</h3>
+          <p>Nada de rádio ou cabo compartilhado. Fibra óptica direto até sua casa — a mesma velocidade chova ou faça sol.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <i class="ph-fill ph-wrench"></i>
+          </div>
+          <h3>Suporte Rápido</h3>
+          <p>Sem esperar 40 minutos num 0800. Manda um zap, a gente resolve. Simples assim.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <i class="ph-fill ph-shield-check"></i>
+          </div>
+          <h3>Sem Surpresas</h3>
+          <p>Preço fixo, sem reajuste escondido, sem fidelidade. Ficou insatisfeito? Cancela quando quiser.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <i class="ph-fill ph-game-controller"></i>
+          </div>
+          <h3>Internet de Gamer</h3>
+          <p>Ping baixo e estável. Ideal para quem joga online, faz stream ou trabalha de casa sem travamento.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <i class="ph-fill ph-clock-countdown"></i>
+          </div>
+          <h3>Instalação em 24h</h3>
+          <p>Contratou hoje, tá navegando amanhã. Sem enrolação, sem "aguarde de 7 a 15 dias úteis".</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== NÚMEROS / STATS ========== -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number" data-target="1200">0</div>
+          <div class="stat-label">Clientes conectados</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="99.8" data-suffix="%" data-decimal="true">0</div>
+          <div class="stat-label">Uptime da rede</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="10" data-suffix="+">0</div>
+          <div class="stat-label">Anos em Joinville</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="4.9" data-prefix="★ " data-decimal="true">0</div>
+          <div class="stat-label">Nota no Google</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COBERTURA ========== -->
+  <section class="coverage" id="cobertura">
+    <div class="container">
+      <div class="coverage-inner">
+        <div class="coverage-content">
+          <span class="section-tag">Área de Cobertura</span>
+          <h2 class="section-title">Fibra óptica no<br>seu bairro</h2>
+          <p class="section-desc">Estamos expandindo toda semana. Confira se já chegamos na sua rua.</p>
+          <div class="coverage-neighborhoods">
+            <span class="neighborhood-tag" data-bairro="Comasa">Comasa</span>
+            <span class="neighborhood-tag" data-bairro="Boa Vista">Boa Vista</span>
+            <span class="neighborhood-tag" data-bairro="Espinheiros">Espinheiros</span>
+            <span class="neighborhood-tag" data-bairro="Aventureiro">Aventureiro</span>
+            <span class="neighborhood-tag" data-bairro="Jd. Paraiso">Jardim Paraíso</span>
+            <span class="neighborhood-tag" data-bairro="Jd. Sofia">Jardim Sofia</span>
+            <span class="neighborhood-tag" data-bairro="Cubatao">Cubatão</span>
+            <span class="neighborhood-tag" data-bairro="Itinga">Itinga</span>
+            <span class="neighborhood-tag" data-bairro="Nova Brasilia">Nova Brasília</span>
+            <span class="neighborhood-tag" data-bairro="Rio Bonito">Rio Bonito</span>
+            <span class="neighborhood-tag" data-bairro="Estr. Timbe">Estrada Timbé</span>
+            <span class="neighborhood-tag" data-bairro="Paranaguamirim">Paranaguamirim</span>
+            <span class="neighborhood-tag" data-bairro="Iririu">Iririú</span>
+            <span class="neighborhood-tag neighborhood-new">+ Novos bairros em breve</span>
+          </div>
+          <a href="#" onclick="openLeadModal(); return false;" class="btn btn-primary btn-lg">
+            <i class="ph ph-map-pin"></i> Consultar meu endereço
+          </a>
+        </div>
+        <div class="coverage-visual">
+          <div class="coverage-map-real" id="coverageMap"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DEPOIMENTOS ========== -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Depoimentos</span>
+        <h2 class="section-title">Quem usa, recomenda</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+          </div>
+          <p>"Troquei da Vivo pra MasterInfo e a diferença é absurda. Nunca mais caiu a internet no meio do home office."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">R</div>
+            <div>
+              <strong>Rodrigo M.</strong>
+              <span>Bairro Comasa</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+          </div>
+          <p>"O suporte é outro nível. Mandei mensagem no WhatsApp às 21h e o técnico respondeu na hora. Nunca vi isso."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <strong>Ana Paula S.</strong>
+              <span>Bairro Boa Vista</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+          </div>
+          <p>"Meu filho joga o dia inteiro e eu trabalho com vídeo. Com 600 mega não trava nada. Melhor custo-benefício."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">C</div>
+            <div>
+              <strong>Carlos E.</strong>
+              <span>Bairro Aventureiro</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Dúvidas Frequentes</span>
+        <h2 class="section-title">Perguntas que<br>todo mundo faz</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Tem fidelidade?</span>
+            <i class="ph ph-caret-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p><strong>Não.</strong> Você pode cancelar quando quiser, sem multa. A gente acredita que você fica porque quer, não porque tem contrato te prendendo.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Quanto tempo demora a instalação?</span>
+            <i class="ph ph-caret-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Na maioria dos casos, <strong>instalamos em até 24 horas</strong> após a contratação. Sem aquela história de "7 a 15 dias úteis".</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>A velocidade é real?</span>
+            <i class="ph ph-caret-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Sim. Nossa fibra óptica entrega a velocidade contratada. Pode testar no <strong>speedtest.net</strong> assim que instalar — a gente tem orgulho do resultado.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>O Wi-Fi pega em toda a casa?</span>
+            <i class="ph ph-caret-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>O roteador incluso cobre a maioria das casas. Se precisar de mais alcance, oferecemos <strong>roteadores mesh</strong> como acessório para cobrir cada canto.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Vocês atendem meu bairro?</span>
+            <i class="ph ph-caret-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Atendemos Comasa, Boa Vista, Espinheiros, Aventureiro, Jardim Paraíso, Jardim Sofia, Cubatão, Itinga, Nova Brasília, Rio Bonito, Estrada Timbé, Paranaguamirim e Iririú. Estamos expandindo — <a href="#" onclick="openLeadModal(); return false;">verifique a cobertura aqui</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA FINAL ========== -->
+  <section class="final-cta">
+    <div class="container">
+      <div class="final-cta-inner">
+        <div class="final-cta-glow"></div>
+        <h2>Cansou de internet<br>que não funciona?</h2>
+        <p>Fala com a gente. Em 2 minutos você contrata e amanhã já tá navegando de verdade.</p>
+        <div class="final-cta-buttons">
+          <a href="https://wa.me/5547989212991?text=Ol%C3%A1!%20Quero%20contratar%20internet%20fibra%20%C3%B3ptica" class="btn btn-primary btn-xl" target="_blank">
+            <i class="ph ph-whatsapp-logo"></i> Falar no WhatsApp
+          </a>
+          <a href="tel:4734341734" class="btn btn-outline btn-xl">
+            <i class="ph ph-phone"></i> (47) 3434-1734
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" id="contato">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <span class="logo-master">Master</span><span class="logo-info">Info</span>
+          </a>
+          <p>Internet fibra óptica 100% em Joinville, SC. Mais de 10 anos conectando famílias e empresas da região.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/masterinfointernet" aria-label="Instagram" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+            <a href="https://www.facebook.com/masterinfointernet" aria-label="Facebook" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://wa.me/5547989212991" aria-label="WhatsApp" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Links</h4>
+          <a href="#planos">Planos Residenciais</a>
+          <a href="#cobertura">Área de Cobertura</a>
+          <a href="#sobre">Sobre Nós</a>
+          <a href="#faq">Dúvidas</a>
+        </div>
+        <div class="footer-col">
+          <h4>Assinante</h4>
+          <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank">Central do Assinante</a>
+          <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank">2ª Via de Boleto</a>
+          <a href="https://www.speedtest.net" target="_blank">Speedtest</a>
+          <a href="https://wa.me/5547989212991?text=Ol%C3%A1!%20Gostaria%20de%20saber%20sobre%20planos%20empresariais" target="_blank">Planos Empresariais</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <p><i class="ph ph-map-pin"></i> Rua Baltazar Buschler 628<br>Comasa – Joinville, SC<br>CEP: 89228-000</p>
+          <p><i class="ph ph-phone"></i> (47) 3434-1734</p>
+          <p><i class="ph ph-whatsapp-logo"></i> (47) 98921-2991</p>
+          <p><i class="ph ph-envelope"></i> masterinfo@masterinfointernet.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MasterInfo Internet. Todos os direitos reservados. CNPJ: XX.XXX.XXX/0001-XX</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== MODAL DE CONTRATAÇÃO (Multi-step) ========== -->
+  <div class="mi-modal-overlay" id="miModal" style="display:none;">
+    <div class="mi-modal-card">
+      <button class="mi-modal-close" onclick="closeLeadModal()" aria-label="Fechar">&times;</button>
+
+      <!-- Progress steps -->
+      <div class="mi-steps">
+        <div class="mi-step active" data-step="1"><span>1</span> Endereço</div>
+        <div class="mi-step-line"></div>
+        <div class="mi-step" data-step="2"><span>2</span> Dados</div>
+        <div class="mi-step-line"></div>
+        <div class="mi-step" data-step="3"><span>3</span> Pronto</div>
+      </div>
+
+      <!-- Tag do plano (aparece quando vem de um card) -->
+      <div class="mi-plan-tag mi-hidden" id="miPlanTag">
+        <i class="ph-fill ph-lightning"></i>
+      </div>
+
+      <input type="hidden" id="mi_plan" name="plan" value="">
+
+      <!-- ═══ STEP 1: Verificar Cobertura ═══ -->
+      <div id="miStep1" class="mi-step-content">
+        <div class="mi-modal-icon">
+          <i class="ph-fill ph-map-pin"></i>
+        </div>
+        <h2 class="mi-modal-title">Verificar cobertura</h2>
+        <p class="mi-modal-subtitle">Informe seu CEP para verificar se já temos fibra óptica no seu endereço.</p>
+
+        <div class="mi-field">
+          <label for="mi_cep">CEP</label>
+          <input type="tel" id="mi_cep" name="cep" placeholder="89228-000" maxlength="9" autocomplete="postal-code">
+        </div>
+
+        <!-- Endereço encontrado (aparece após consulta) -->
+        <div class="mi-address-result mi-hidden" id="miAddressResult">
+          <i class="ph-fill ph-map-trifold"></i>
+          <span id="miAddressText"></span>
+        </div>
+
+        <button type="button" class="mi-modal-btn" id="miCepBtn" onclick="verificarCobertura()">
+          <span id="miCepBtnText">Verificar <i class="ph ph-magnifying-glass"></i></span>
+          <span id="miCepBtnLoading" style="display:none;" class="mi-spinner">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m11.14 0l-2.83-2.83M9.76 9.76L6.93 6.93"/></svg>
+          </span>
+        </button>
+
+        <div class="mi-error" id="miCepError" style="display:none;"></div>
+
+        <div class="mi-trust-badges">
+          <span class="mi-badge"><i class="ph-fill ph-lightning"></i> 100% Fibra</span>
+          <span class="mi-badge"><i class="ph-fill ph-clock"></i> Instalação 24h</span>
+          <span class="mi-badge"><i class="ph-fill ph-handshake"></i> Sem fidelidade</span>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 2: Dados Pessoais ═══ -->
+      <div id="miStep2" class="mi-step-content" style="display:none;">
+        <div class="mi-modal-icon mi-icon-success">
+          <i class="ph-fill ph-check-circle"></i>
+        </div>
+        <h2 class="mi-modal-title">Cobertura confirmada!</h2>
+        <p class="mi-modal-subtitle">Preencha seus dados para finalizar o pré-pedido.</p>
+
+        <!-- Resumo do endereço -->
+        <div class="mi-address-confirmed" id="miAddressConfirmed">
+          <i class="ph-fill ph-map-pin"></i>
+          <span id="miConfirmedAddress"></span>
+        </div>
+
+        <form id="miLeadForm" onsubmit="return submitLead(event)">
+          <div class="mi-field">
+            <label for="mi_name">Nome completo</label>
+            <input type="text" id="mi_name" name="name" placeholder="Seu nome" autocomplete="name" required>
+          </div>
+
+          <div class="mi-field">
+            <label for="mi_phone">WhatsApp</label>
+            <input type="tel" id="mi_phone" name="phone" placeholder="(47) 99999-9999" autocomplete="tel" required>
+          </div>
+
+          <div class="mi-field">
+            <label for="mi_email">E-mail</label>
+            <input type="email" id="mi_email" name="email" placeholder="seu@email.com" autocomplete="email" required>
+          </div>
+
+          <button type="submit" class="mi-modal-btn" id="miSubmitBtn">
+            <span id="miBtnText">Enviar pré-pedido <i class="ph ph-arrow-right"></i></span>
+            <span id="miBtnLoading" style="display:none;" class="mi-spinner">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m11.14 0l-2.83-2.83M9.76 9.76L6.93 6.93"/></svg>
+            </span>
+          </button>
+
+          <div class="mi-error" id="miError" style="display:none;"></div>
+        </form>
+
+        <div class="mi-trust-badges">
+          <span class="mi-badge"><i class="ph-fill ph-lock-simple"></i> Dados seguros</span>
+          <span class="mi-badge"><i class="ph-fill ph-whatsapp-logo"></i> Atendimento rápido</span>
+        </div>
+
+        <button type="button" class="mi-back-btn" onclick="goToStep(1)">
+          <i class="ph ph-arrow-left"></i> Voltar
+        </button>
+      </div>
+
+      <!-- ═══ STEP 3: Sucesso ═══ -->
+      <div id="miStep3" class="mi-step-content" style="display:none;">
+        <div class="mi-success">
+          <div class="mi-success-icon">
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="30" class="mi-check-circle" stroke-width="2" fill="rgba(34,197,94,0.1)"/>
+              <path d="M20 33l8 8 16-16" class="mi-check-path" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Pré-pedido enviado!</h3>
+          <p class="mi-success-desc">Agora vamos finalizar sua contratação pelo WhatsApp. Clique abaixo para falar com nosso atendente.</p>
+          <a href="#" id="miWhatsappLink" class="mi-modal-btn mi-btn-whatsapp" target="_blank">
+            <i class="ph-fill ph-whatsapp-logo"></i> Finalizar pelo WhatsApp
+          </a>
+          <button type="button" class="mi-close-text" onclick="closeLeadModal()">Fechar</button>
+        </div>
+      </div>
+
+      <!-- ═══ Estado: Sem Cobertura ═══ -->
+      <div id="miNoCoverage" class="mi-step-content" style="display:none;">
+        <div class="mi-no-coverage">
+          <div class="mi-modal-icon mi-icon-warning">
+            <i class="ph-fill ph-map-pin-line"></i>
+          </div>
+          <h2 class="mi-modal-title">Ainda não chegamos aí</h2>
+          <p class="mi-modal-subtitle" id="miNoCoverageMsg">Estamos expandindo toda semana. Deixe seus dados e avisamos quando a fibra chegar no seu endereço.</p>
+
+          <form id="miWaitlistForm" onsubmit="return submitWaitlist(event)">
+            <div class="mi-field">
+              <label for="mi_wait_name">Nome</label>
+              <input type="text" id="mi_wait_name" placeholder="Seu nome" required>
+            </div>
+            <div class="mi-field">
+              <label for="mi_wait_phone">WhatsApp</label>
+              <input type="tel" id="mi_wait_phone" placeholder="(47) 99999-9999" required>
+            </div>
+            <button type="submit" class="mi-modal-btn mi-btn-secondary" id="miWaitBtn">
+              <span id="miWaitBtnText">Me avise quando chegar <i class="ph ph-bell-ringing"></i></span>
+              <span id="miWaitBtnLoading" style="display:none;" class="mi-spinner">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m11.14 0l-2.83-2.83M9.76 9.76L6.93 6.93"/></svg>
+              </span>
+            </button>
+            <div class="mi-error" id="miWaitError" style="display:none;"></div>
+          </form>
+
+          <button type="button" class="mi-back-btn" onclick="goToStep(1)">
+            <i class="ph ph-arrow-left"></i> Tentar outro CEP
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== WHATSAPP FLOAT ========== -->
+  <a href="https://wa.me/5547989212991?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20planos%20de%20internet" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <span class="whatsapp-tooltip">Precisa de ajuda?</span>
+    <i class="ph-fill ph-whatsapp-logo"></i>
+    <span class="whatsapp-pulse"></span>
+  </a>
+
+  <script src="script.js"></script>
+  <script src="modal.js"></script>
+
+  <!-- Mapa de Cobertura Leaflet -->
+  <script>
+  (function() {
+    var mapEl = document.getElementById('coverageMap');
+    if (!mapEl || typeof L === 'undefined') return;
+
+    // Bairros com coordenadas reais (Nominatim/OSM)
+    // tipDir: direcao do tooltip para evitar sobreposicao
+    var bairros = [
+      { nome: 'Comasa',         lat: -26.2798, lng: -48.8016, tipDir: 'left' },
+      { nome: 'Boa Vista',      lat: -26.2980, lng: -48.8224, tipDir: 'left' },
+      { nome: 'Espinheiros',    lat: -26.2836, lng: -48.7810, tipDir: 'right' },
+      { nome: 'Aventureiro',    lat: -26.2435, lng: -48.8105, tipDir: 'right' },
+      { nome: 'Itinga',         lat: -26.3827, lng: -48.8257, tipDir: 'top' },
+      { nome: 'Cubatao',        lat: -26.2175, lng: -48.7992, tipDir: 'right' },
+      { nome: 'Jd. Paraiso',    lat: -26.2124, lng: -48.8228, tipDir: 'left' },
+      { nome: 'Jd. Sofia',      lat: -26.2385, lng: -48.8410, tipDir: 'left' },
+      { nome: 'Nova Brasilia',  lat: -26.3418, lng: -48.8710, tipDir: 'top' },
+      { nome: 'Rio Bonito',     lat: -26.1682, lng: -48.8999, tipDir: 'right' },
+      { nome: 'Estr. Timbe',    lat: -26.2217, lng: -48.8234, tipDir: 'right' },
+      { nome: 'Paranaguamirim', lat: -26.3458, lng: -48.7705, tipDir: 'right' },
+      { nome: 'Iririu',         lat: -26.2650, lng: -48.8165, tipDir: 'top' },
+    ];
+
+    // Calcular bounds para enquadrar todos os pins
+    var bounds = L.latLngBounds(bairros.map(function(b) { return [b.lat, b.lng]; }));
+
+    var map = L.map(mapEl, {
+      center: bounds.getCenter(),
+      zoom: 12,
+      zoomControl: false,
+      attributionControl: false,
+      dragging: true,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      touchZoom: true,
+      keyboard: false,
+      zoomAnimation: true,
+    });
+
+    // CartoDB Dark Matter tiles
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      subdomains: 'abcd',
+      maxZoom: 19,
+    }).addTo(map);
+
+    // Enquadrar todos os bairros com padding
+    map.fitBounds(bounds, { padding: [40, 40] });
+    var initialBounds = map.getBounds();
+    var initialZoom = map.getZoom();
+    var isZoomed = false;
+
+    // Botao "Ver todos" para voltar ao zoom original
+    var resetBtn = document.createElement('button');
+    resetBtn.className = 'cov-reset-btn';
+    resetBtn.innerHTML = '<i class="ph ph-arrows-out"></i> Ver todos os bairros';
+    resetBtn.onclick = function() {
+      map.flyToBounds(initialBounds, { padding: [40, 40], duration: 0.8 });
+      isZoomed = false;
+      resetBtn.classList.remove('visible');
+    };
+    mapEl.appendChild(resetBtn);
+
+    // Custom icon laranja
+    var pinIcon = L.divIcon({
+      className: 'cov-marker',
+      html: '<div class="cov-marker-dot"></div><div class="cov-marker-pulse"></div>',
+      iconSize: [14, 14],
+      iconAnchor: [7, 7],
+    });
+
+    // Adicionar elementos com delay animado
+    bairros.forEach(function(b, i) {
+      setTimeout(function() {
+        // Circulo de cobertura (~800m raio visual)
+        var circle = L.circle([b.lat, b.lng], {
+          radius: 800,
+          color: '#ff7a05',
+          weight: 1,
+          fillColor: '#ff7a05',
+          fillOpacity: 0,
+          opacity: 0,
+        }).addTo(map);
+
+        // Animar o circulo aparecendo
+        var step = 0;
+        var anim = setInterval(function() {
+          step++;
+          circle.setStyle({
+            fillOpacity: Math.min(step * 0.005, 0.1),
+            opacity: Math.min(step * 0.02, 0.35),
+          });
+          if (step >= 20) clearInterval(anim);
+        }, 30);
+
+        // Marker
+        var marker = L.marker([b.lat, b.lng], { icon: pinIcon }).addTo(map);
+
+        // Tooltip com nome do bairro
+        var tipOffset = b.tipDir === 'top' ? [0, -12] :
+                        b.tipDir === 'right' ? [12, 0] :
+                        b.tipDir === 'left' ? [-12, 0] : [0, -12];
+        marker.bindTooltip(b.nome, {
+          permanent: true,
+          direction: b.tipDir || 'top',
+          offset: tipOffset,
+          className: 'cov-tooltip',
+        });
+
+        // Zoom ao clicar no pin
+        marker.on('click', function() {
+          map.flyTo([b.lat, b.lng], 15, { duration: 0.8 });
+          isZoomed = true;
+          resetBtn.classList.add('visible');
+        });
+
+        // Zoom ao clicar no circulo tambem
+        circle.on('click', function() {
+          map.flyTo([b.lat, b.lng], 15, { duration: 0.8 });
+          isZoomed = true;
+          resetBtn.classList.add('visible');
+        });
+
+      }, 400 + i * 350);
+    });
+
+    // Linhas de fibra conectando os bairros
+    setTimeout(function() {
+      var fiberCoords = bairros.map(function(b) { return [b.lat, b.lng]; });
+      var connections = [
+        [0, 2], [0, 1], [1, 3], [2, 1], [3, 4], [4, 6], [4, 7], [3, 5], [5, 8], [7, 8],
+        [9, 6], [10, 6], [10, 3], [11, 4], [11, 2], [12, 0], [12, 3]
+      ];
+      connections.forEach(function(c, i) {
+        if (c[0] >= fiberCoords.length || c[1] >= fiberCoords.length) return;
+        setTimeout(function() {
+          L.polyline(
+            [fiberCoords[c[0]], fiberCoords[c[1]]],
+            { color: '#ff7a05', weight: 1.5, opacity: 0.25, dashArray: '6 4' }
+          ).addTo(map);
+        }, i * 200);
+      });
+    }, bairros.length * 350 + 800);
+
+    // ── Interação: clicar na tag do bairro → zoom no mapa ──
+    var tags = document.querySelectorAll('.neighborhood-tag[data-bairro]');
+    tags.forEach(function(tag) {
+      tag.style.cursor = 'pointer';
+      tag.addEventListener('click', function() {
+        var nome = tag.getAttribute('data-bairro');
+        var bairro = bairros.find(function(b) { return b.nome === nome; });
+        if (bairro) {
+          // Scroll até o mapa primeiro
+          mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTimeout(function() {
+            map.flyTo([bairro.lat, bairro.lng], 15, { duration: 0.8 });
+            isZoomed = true;
+            resetBtn.classList.add('visible');
+          }, 400);
+          // Highlight na tag
+          tags.forEach(function(t) { t.classList.remove('tag-active'); });
+          tag.classList.add('tag-active');
+        }
+      });
+    });
+
+  })();
+  </script>
+
+  <!-- Stats Counter Animation -->
+  <script>
+  (function() {
+    var statNumbers = document.querySelectorAll('.stat-number[data-target]');
+    var animated = false;
+
+    function animateStats() {
+      if (animated) return;
+      animated = true;
+
+      statNumbers.forEach(function(el) {
+        var target = parseFloat(el.getAttribute('data-target'));
+        var suffix = el.getAttribute('data-suffix') || '';
+        var prefix = el.getAttribute('data-prefix') || '';
+        var isDecimal = el.getAttribute('data-decimal') === 'true';
+        var duration = 2000;
+        var start = performance.now();
+
+        function update(now) {
+          var elapsed = now - start;
+          var progress = Math.min(elapsed / duration, 1);
+          var ease = 1 - Math.pow(1 - progress, 3);
+          var value = ease * target;
+
+          if (isDecimal) {
+            el.textContent = prefix + value.toFixed(1) + suffix;
+          } else {
+            el.textContent = prefix + Math.round(value).toLocaleString('pt-BR') + suffix;
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          }
+        }
+
+        requestAnimationFrame(update);
+      });
+    }
+
+    var statsSection = document.querySelector('.stats');
+    if (statsSection) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) animateStats();
+        });
+      }, { threshold: 0.3 });
+      observer.observe(statsSection);
+    }
+  })();
+  </script>
+</body>
+</html>

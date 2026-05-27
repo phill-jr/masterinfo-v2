@@ -1,0 +1,139 @@
+/* ========================================
+   MASTERINFO - Modal de Captura de Leads
+   Light Theme Override
+   ======================================== */
+@import url('modal.css');
+
+/* Card */
+.mi-modal-card {
+  background: #ffffff;
+  border: 1px solid #e2e2e8;
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+/* Close button */
+.mi-modal-close {
+  background: #f4f4f5;
+  color: #71717a;
+}
+
+.mi-modal-close:hover {
+  background: #e4e4e7;
+  color: #18181b;
+}
+
+/* Title & subtitle */
+.mi-modal-title {
+  color: #18181b;
+}
+
+.mi-modal-subtitle {
+  color: #71717a;
+}
+
+/* Form fields */
+.mi-field label {
+  color: #3f3f46;
+}
+
+.mi-field input {
+  border-color: #e2e2e8;
+  color: #18181b;
+  background: #f9f9fb;
+}
+
+.mi-field input:focus {
+  background: #ffffff;
+  border-color: #ff7a05;
+  box-shadow: 0 0 0 4px rgba(255, 122, 5, 0.08);
+}
+
+.mi-field input::placeholder {
+  color: #a1a1aa;
+}
+
+/* Trust badges */
+.mi-badge {
+  background: #f4f4f5;
+  border-color: #e4e4e7;
+  color: #71717a;
+}
+
+/* Success state */
+.mi-success h3 {
+  color: #18181b;
+}
+
+.mi-success p {
+  color: #71717a;
+}
+
+/* Error */
+.mi-error {
+  background: rgba(220, 38, 38, 0.06);
+  border-color: rgba(220, 38, 38, 0.15);
+  color: #dc2626;
+}
+
+/* Step indicators */
+.mi-step {
+  color: #a1a1aa;
+}
+
+.mi-step span {
+  background: #f4f4f5;
+  border-color: #e2e2e8;
+  color: #a1a1aa;
+}
+
+.mi-step.completed {
+  color: #71717a;
+}
+
+.mi-step-line {
+  background: #e2e2e8;
+}
+
+/* Address result */
+.mi-address-result {
+  background: rgba(255, 122, 5, 0.04);
+  border-color: rgba(255, 122, 5, 0.12);
+  color: #3f3f46;
+}
+
+/* Address confirmed */
+.mi-address-confirmed {
+  background: #f4f4f5;
+  border-color: #e4e4e7;
+  color: #71717a;
+}
+
+/* Back button */
+.mi-back-btn {
+  color: #71717a;
+}
+
+.mi-back-btn:hover {
+  color: #18181b;
+}
+
+/* Close text */
+.mi-close-text {
+  color: #71717a;
+}
+
+.mi-close-text:hover {
+  color: #18181b;
+}
+
+/* Secondary button */
+.mi-btn-secondary {
+  background: linear-gradient(135deg, #52525a, #3f3f46) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.mi-btn-secondary:hover {
+  background: linear-gradient(135deg, #71717a, #52525a) !important;
+}

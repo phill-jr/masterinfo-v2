@@ -1,0 +1,576 @@
+@import url('styles.css');
+
+/* ========================================
+   MASTERINFO INTERNET - LIGHT THEME
+   Override-only: colors, backgrounds,
+   borders, shadows. No layout changes.
+   ======================================== */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  /* Neutrals (inverted scale) */
+  --black: #ffffff;
+  --gray-950: #f8f8fb;
+  --gray-900: #f2f2f5;
+  --gray-800: #e8e8ec;
+  --gray-700: #d4d4d8;
+  --gray-600: #a1a1aa;
+  --gray-500: #71717a;
+  --gray-400: #52525a;
+  --gray-300: #3a3a44;
+  --gray-200: #2a2a34;
+  --gray-100: #1a1a2e;
+  --white: #1a1a2e;
+
+  /* Shadows (lighter) */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.1);
+  --shadow-glow: 0 0 60px rgba(255,122,5,0.08);
+  --shadow-glow-strong: 0 0 80px rgba(255,122,5,0.14);
+}
+
+/* ---------- Base ---------- */
+body {
+  background: #ffffff;
+  color: #4a4a5a;
+  -webkit-font-smoothing: auto;
+}
+
+/* ---------- Section Typography ---------- */
+.section-tag {
+  background: rgba(255,122,5,0.06);
+  border-color: rgba(255,122,5,0.18);
+}
+
+.section-title {
+  color: #1a1a2e;
+}
+
+.section-desc {
+  color: #6a6a7a;
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(255,122,5,0.25);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 24px rgba(255,122,5,0.35);
+}
+
+.btn-outline {
+  color: #1a1a2e;
+  border-color: rgba(0,0,0,0.15);
+}
+
+.btn-outline:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: rgba(255,122,5,0.04);
+}
+
+.btn-plan {
+  background: rgba(0,0,0,0.03);
+  color: #1a1a2e;
+  border-color: rgba(0,0,0,0.08);
+}
+
+.btn-plan:hover {
+  color: #ffffff;
+}
+
+/* ========================================
+   TOPBAR
+   ======================================== */
+.topbar {
+  background: #f4f4f6;
+  border-bottom-color: rgba(0,0,0,0.06);
+  color: #6a6a7a;
+}
+
+.topbar-divider {
+  background: #d4d4d8;
+}
+
+.topbar-link {
+  color: #6a6a7a;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+.header {
+  background: rgba(255,255,255,0.88);
+  border-bottom-color: rgba(0,0,0,0.06);
+}
+
+.logo-master {
+  color: #1a1a2e;
+}
+
+.nav-link {
+  color: #5a5a6a;
+}
+
+.nav-link:hover {
+  color: #1a1a2e;
+  background: rgba(0,0,0,0.04);
+}
+
+.mobile-toggle span {
+  background: #1a1a2e;
+}
+
+/* ========================================
+   HERO
+   ======================================== */
+.hero {
+  background: linear-gradient(180deg, #ffffff 0%, #fef8f2 50%, #ffffff 100%);
+}
+
+.hero-bg-grid {
+  background-image:
+    linear-gradient(rgba(255,122,5,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,122,5,0.04) 1px, transparent 1px);
+}
+
+.hero-glow {
+  background: radial-gradient(circle, rgba(255,122,5,0.05) 0%, transparent 70%);
+}
+
+.hero-badge {
+  background: rgba(255,122,5,0.06);
+  border-color: rgba(255,122,5,0.2);
+}
+
+.hero-title {
+  color: #1a1a2e;
+}
+
+.hero-highlight {
+  background: linear-gradient(135deg, var(--orange-dark), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  color: #5a5a6a;
+}
+
+.hero-subtitle strong {
+  color: #1a1a2e;
+}
+
+.hero-trust-item {
+  color: #6a6a7a;
+}
+
+.hero-trust-item strong {
+  color: #3a3a44;
+}
+
+/* Speed Display */
+.speed-track {
+  stroke: #e8e8ec;
+}
+
+.speed-number {
+  color: #1a1a2e;
+}
+
+.speed-caption {
+  color: #6a6a7a;
+}
+
+.hero-scroll {
+  color: #a1a1aa;
+}
+
+/* ========================================
+   PLANS
+   ======================================== */
+.plans::before {
+  background: linear-gradient(90deg, transparent, rgba(255,122,5,0.15), transparent);
+}
+
+.plan-card {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.plan-card:hover {
+  border-color: rgba(255,122,5,0.25);
+  box-shadow: 0 8px 30px rgba(255,122,5,0.1);
+}
+
+.plan-card.plan-featured {
+  border-color: var(--orange);
+  background: linear-gradient(180deg, rgba(255,122,5,0.04) 0%, #ffffff 40%);
+  box-shadow: 0 4px 24px rgba(255,122,5,0.1);
+}
+
+.plan-card.plan-featured:hover {
+  box-shadow: 0 8px 40px rgba(255,122,5,0.16);
+}
+
+.plan-badge {
+  color: #ffffff;
+}
+
+.plan-speed-num {
+  color: #1a1a2e;
+}
+
+.plan-speed-unit {
+  color: #6a6a7a;
+}
+
+.plan-price {
+  border-bottom-color: rgba(0,0,0,0.06);
+}
+
+.plan-currency {
+  color: #6a6a7a;
+}
+
+.plan-value {
+  color: #1a1a2e;
+}
+
+.plan-period {
+  color: #6a6a7a;
+}
+
+.plan-features li {
+  color: #5a5a6a;
+}
+
+.plan-featured .btn-plan {
+  color: #ffffff;
+}
+
+.plan-featured .btn-plan:hover {
+  color: #ffffff;
+}
+
+/* ========================================
+   WHY SECTION
+   ======================================== */
+.why {
+  background: #f8f8fb;
+}
+
+.why::before,
+.why::after {
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06), transparent);
+}
+
+.why-card {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.06);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+}
+
+.why-card:hover {
+  background: #ffffff;
+  border-color: rgba(255,122,5,0.2);
+  box-shadow: 0 4px 20px rgba(255,122,5,0.06);
+}
+
+.why-icon {
+  background: rgba(255,122,5,0.07);
+  border-color: rgba(255,122,5,0.14);
+}
+
+.why-card h3 {
+  color: #1a1a2e;
+}
+
+.why-card p {
+  color: #6a6a7a;
+}
+
+/* ========================================
+   COVERAGE
+   ======================================== */
+
+/* Mapa container — light theme */
+.coverage-map-real {
+  border-color: rgba(0,0,0,0.1);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+}
+
+.coverage-map-real::after {
+  box-shadow: inset 0 0 40px rgba(255,255,255,0.3);
+}
+
+/* Leaflet background for light tiles */
+.coverage-map-real .leaflet-container {
+  background: #f2f2f5;
+}
+
+/* Tooltips — fundo branco com texto escuro, legível sobre mapa claro */
+.cov-tooltip {
+  background: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.12) !important;
+  color: #1a1a2e !important;
+  font-family: var(--font-main) !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  padding: 5px 12px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12) !important;
+  letter-spacing: 0 !important;
+}
+
+.cov-tooltip::before {
+  border-top-color: #ffffff !important;
+}
+
+/* Marcador — laranja com borda escura para contraste no mapa claro */
+.cov-marker-dot {
+  background: var(--orange);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 8px rgba(255,122,5,0.5), 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.cov-marker-pulse {
+  border-color: var(--orange);
+}
+
+/* Reset button — light style */
+.cov-reset-btn {
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.1);
+  color: var(--orange);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cov-reset-btn:hover {
+  background: rgba(255,122,5,0.08);
+  border-color: var(--orange);
+}
+
+.neighborhood-tag {
+  background: rgba(0,0,0,0.02);
+  border-color: rgba(0,0,0,0.1);
+  color: #3a3a44;
+}
+
+.neighborhood-tag:hover {
+  background: rgba(255,122,5,0.04);
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.neighborhood-tag.neighborhood-new {
+  border-color: rgba(255,122,5,0.35);
+  background: rgba(255,122,5,0.04);
+}
+
+/* ========================================
+   TESTIMONIALS
+   ======================================== */
+.testimonials {
+  background: #f8f8fb;
+}
+
+.testimonials::before {
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06), transparent);
+}
+
+.testimonial-card {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.06);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+}
+
+.testimonial-card:hover {
+  border-color: rgba(255,122,5,0.2);
+  box-shadow: 0 4px 16px rgba(255,122,5,0.06);
+}
+
+.testimonial-card p {
+  color: #4a4a5a;
+}
+
+.testimonial-avatar {
+  color: #ffffff;
+}
+
+.testimonial-author strong {
+  color: #1a1a2e;
+}
+
+.testimonial-author span {
+  color: #6a6a7a;
+}
+
+/* ========================================
+   FAQ
+   ======================================== */
+.faq-item {
+  border-bottom-color: rgba(0,0,0,0.06);
+}
+
+.faq-question {
+  color: #1a1a2e;
+}
+
+.faq-question i {
+  color: #a1a1aa;
+}
+
+.faq-answer p {
+  color: #5a5a6a;
+}
+
+/* ========================================
+   FINAL CTA
+   ======================================== */
+.final-cta-inner {
+  background: linear-gradient(180deg, rgba(255,122,5,0.05) 0%, rgba(255,122,5,0.02) 100%);
+  border-color: rgba(255,122,5,0.18);
+}
+
+.final-cta-glow {
+  background: radial-gradient(circle, rgba(255,122,5,0.08) 0%, transparent 70%);
+}
+
+.final-cta h2 {
+  color: #1a1a2e;
+}
+
+.final-cta p {
+  color: #5a5a6a;
+}
+
+/* ========================================
+   FOOTER (kept dark for contrast)
+   ======================================== */
+.footer {
+  background: #111118;
+  border-top-color: rgba(255,255,255,0.06);
+}
+
+.footer .logo-master {
+  color: #fafafa;
+}
+
+.footer-brand p {
+  color: #8a8a96;
+}
+
+.footer-social a {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.08);
+  color: #8a8a96;
+}
+
+.footer-social a:hover {
+  color: #ffffff;
+}
+
+.footer-col h4 {
+  color: #fafafa;
+}
+
+.footer-col a {
+  color: #8a8a96;
+}
+
+.footer-col p {
+  color: #8a8a96;
+}
+
+.footer-bottom {
+  border-top-color: rgba(255,255,255,0.06);
+}
+
+.footer-bottom p {
+  color: #5a5a66;
+}
+
+/* ========================================
+   WHATSAPP FLOAT
+   ======================================== */
+.whatsapp-float {
+  color: #ffffff;
+}
+
+/* ========================================
+   MOBILE NAV OVERLAY
+   ======================================== */
+@media (max-width: 768px) {
+  .nav {
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(20px);
+  }
+
+  .nav-link {
+    color: #3a3a44;
+  }
+
+  .nav-link:hover {
+    color: var(--orange);
+    background: rgba(255,122,5,0.05);
+  }
+}
+
+/* ========================================
+   STATS SECTION
+   ======================================== */
+.stats {
+  background: #f8f8fb;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.stat-number {
+  color: #1a1a2e;
+}
+
+.stat-label {
+  color: #6a6a7a;
+}
+
+.stat-divider {
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.1), transparent);
+}
+
+/* ========================================
+   WHATSAPP TOOLTIP
+   ======================================== */
+.whatsapp-tooltip {
+  background: #ffffff;
+  color: #1a1a2e;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.whatsapp-tooltip::after {
+  border-left-color: #ffffff;
+}
+
+/* ========================================
+   NAV ACTIVE
+   ======================================== */
+.nav-link.active {
+  color: #1a1a2e;
+  background: rgba(255,122,5,0.1);
+}
+
+/* ========================================
+   TAG ACTIVE (interação mapa)
+   ======================================== */
+.neighborhood-tag.tag-active {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: rgba(255,122,5,0.08);
+  box-shadow: 0 0 12px rgba(255,122,5,0.15);
+}

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | MasterInfo Internet</title>
+  <meta name="description" content="Finalize sua contratação de internet fibra óptica MasterInfo em Joinville.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://masterinfointernet.com/checkout.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+
+  <link rel="stylesheet" href="styles-light.css?v=2">
+  <link rel="stylesheet" href="modal-light.css?v=2">
+  <link rel="stylesheet" href="checkout.css?v=2">
+</head>
+<body>
+
+  <!-- ========== HEADER SIMPLIFICADO ========== -->
+  <header class="checkout-header">
+    <div class="container checkout-header-inner">
+      <a href="index-light.html" class="logo">
+        <img src="logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img">
+      </a>
+      <a href="index-light.html" class="checkout-back-link">
+        <i class="ph ph-arrow-left"></i> Voltar aos planos
+      </a>
+    </div>
+  </header>
+
+  <!-- ========== STEP BAR ========== -->
+  <div class="checkout-steps">
+    <div class="container">
+      <div class="checkout-steps-bar">
+        <div class="ck-step active" data-step="1">
+          <span class="ck-step-num">1</span>
+          <span class="ck-step-label">Plano</span>
+        </div>
+        <div class="ck-step-line"></div>
+        <div class="ck-step" data-step="2">
+          <span class="ck-step-num">2</span>
+          <span class="ck-step-label">Extras</span>
+        </div>
+        <div class="ck-step-line"></div>
+        <div class="ck-step" data-step="3">
+          <span class="ck-step-num">3</span>
+          <span class="ck-step-label">Cadastro</span>
+        </div>
+        <div class="ck-step-line"></div>
+        <div class="ck-step" data-step="4">
+          <span class="ck-step-num">4</span>
+          <span class="ck-step-label">Revisao</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MAIN LAYOUT ========== -->
+  <main class="checkout-main">
+    <div class="container checkout-layout">
+
+      <!-- ═══ COLUNA PRINCIPAL ═══ -->
+      <div class="checkout-content">
+
+        <!-- ═══ STEP 1: Plano + Viabilidade ═══ -->
+        <section id="ckStep1" class="ck-step-content">
+          <h2 class="ck-title">Escolha seu plano</h2>
+          <p class="ck-subtitle">Selecione o plano ideal e verifique a cobertura no seu endereco.</p>
+
+          <!-- Plano selecionado (renderizado via JS) -->
+          <div id="ckSelectedPlan" class="ck-selected-plan"></div>
+
+          <!-- Seletor de planos (quando nao tem query param) -->
+          <div id="ckPlanSelector" class="ck-plan-selector" style="display:none;">
+            <div class="ck-plans-grid" id="ckPlansGrid"></div>
+          </div>
+
+          <!-- Viabilidade -->
+          <div class="ck-section" id="ckViabilidade">
+            <h3 class="ck-section-title"><i class="ph-fill ph-map-pin"></i> Verificar cobertura</h3>
+            <p class="ck-section-desc">Informe seu CEP para confirmar a disponibilidade de fibra optica.</p>
+            <div class="ck-cep-row">
+              <div class="mi-field ck-cep-field">
+                <input type="tel" id="ck_cep" placeholder="89228-000" maxlength="9" autocomplete="postal-code">
+              </div>
+              <button type="button" class="ck-btn-verify" id="ckCepBtn" onclick="verificarCobertura()">
+                <span id="ckCepBtnText">Verificar</span>
+                <span id="ckCepBtnLoading" style="display:none;" class="mi-spinner">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m11.14 0l-2.83-2.83M9.76 9.76L6.93 6.93"/></svg>
+                </span>
+              </button>
+            </div>
+
+            <!-- Resultado do endereco -->
+            <div class="ck-address-result mi-hidden" id="ckAddressResult">
+              <div class="ck-address-found">
+                <i class="ph-fill ph-check-circle"></i>
+                <div>
+                  <strong>Cobertura disponivel!</strong>
+                  <span id="ckAddressText"></span>
+                </div>
+              </div>
+              <div class="ck-cto-info" id="ckCtoInfo">
+                <i class="ph-fill ph-broadcast"></i>
+                <span id="ckCtoText"></span>
+              </div>
+            </div>
+
+            <!-- Sem cobertura -->
+            <div class="ck-no-coverage mi-hidden" id="ckNoCoverage">
+              <div class="ck-no-coverage-icon">
+                <i class="ph-fill ph-map-pin-line"></i>
+              </div>
+              <h4>Ainda nao chegamos ai</h4>
+              <p id="ckNoCoverageMsg">Estamos expandindo toda semana.</p>
+              <form id="ckWaitlistForm" onsubmit="return submitWaitlist(event)">
+                <div class="ck-waitlist-row">
+                  <div class="mi-field">
+                    <input type="text" id="ck_wait_name" placeholder="Seu nome" required>
+                  </div>
+                  <div class="mi-field">
+                    <input type="tel" id="ck_wait_phone" placeholder="(47) 99999-9999" required>
+                  </div>
+                  <button type="submit" class="ck-btn-waitlist">Me avise</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="mi-error" id="ckCepError" style="display:none;"></div>
+          </div>
+
+          <div class="ck-step-nav">
+            <span></span>
+            <button type="button" class="ck-btn-next" id="ckStep1Next" disabled onclick="goToStep(2)">
+              Continuar <i class="ph ph-arrow-right"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- ═══ STEP 2: Produtos Extras ═══ -->
+        <section id="ckStep2" class="ck-step-content" style="display:none;">
+          <h2 class="ck-title">Turbine sua conexao</h2>
+          <p class="ck-subtitle">Adicione produtos extras ao seu plano. Voce pode pular esta etapa.</p>
+
+          <div id="ckAddonsList" class="ck-addons-grid"></div>
+
+          <div class="ck-step-nav">
+            <button type="button" class="ck-btn-back" onclick="goToStep(1)">
+              <i class="ph ph-arrow-left"></i> Voltar
+            </button>
+            <button type="button" class="ck-btn-next" onclick="goToStep(3)">
+              Continuar <i class="ph ph-arrow-right"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- ═══ STEP 3: Cadastro ═══ -->
+        <section id="ckStep3" class="ck-step-content" style="display:none;">
+          <h2 class="ck-title">Seus dados</h2>
+          <p class="ck-subtitle">Preencha suas informacoes para finalizar a contratacao.</p>
+
+          <form id="ckCadastroForm">
+            <div class="ck-form-section">
+              <h3 class="ck-section-title"><i class="ph-fill ph-user"></i> Dados pessoais</h3>
+              <div class="ck-form-grid">
+                <div class="mi-field ck-field-full">
+                  <label for="ck_nome">Nome completo *</label>
+                  <input type="text" id="ck_nome" placeholder="Seu nome completo" autocomplete="name" required>
+                </div>
+                <div class="mi-field">
+                  <label for="ck_cpf">CPF *</label>
+                  <input type="tel" id="ck_cpf" placeholder="000.000.000-00" maxlength="14" autocomplete="off">
+                </div>
+                <div class="mi-field">
+                  <label for="ck_nascimento">Data de nascimento *</label>
+                  <input type="tel" id="ck_nascimento" placeholder="DD/MM/AAAA" maxlength="10" autocomplete="bday">
+                </div>
+                <div class="mi-field">
+                  <label for="ck_rg">RG</label>
+                  <input type="text" id="ck_rg" placeholder="Numero do RG" autocomplete="off">
+                </div>
+                <div class="mi-field">
+                  <label for="ck_whatsapp">WhatsApp *</label>
+                  <input type="tel" id="ck_whatsapp" placeholder="(47) 99999-9999" maxlength="15" autocomplete="tel">
+                </div>
+                <div class="mi-field ck-field-full">
+                  <label for="ck_email">E-mail *</label>
+                  <input type="email" id="ck_email" placeholder="seu@email.com" autocomplete="email" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="ck-form-section">
+              <h3 class="ck-section-title"><i class="ph-fill ph-house"></i> Endereco de instalacao</h3>
+              <div class="ck-form-grid">
+                <div class="mi-field ck-field-2-3">
+                  <label for="ck_logradouro">Logradouro</label>
+                  <input type="text" id="ck_logradouro" readonly>
+                </div>
+                <div class="mi-field ck-field-1-3">
+                  <label for="ck_numero">Numero *</label>
+                  <input type="text" id="ck_numero" placeholder="N" required>
+                </div>
+                <div class="mi-field">
+                  <label for="ck_complemento">Complemento</label>
+                  <input type="text" id="ck_complemento" placeholder="Apto, bloco...">
+                </div>
+                <div class="mi-field">
+                  <label for="ck_bairro">Bairro</label>
+                  <input type="text" id="ck_bairro" readonly>
+                </div>
+                <div class="mi-field">
+                  <label for="ck_cidade_uf">Cidade/UF</label>
+                  <input type="text" id="ck_cidade_uf" readonly>
+                </div>
+                <div class="mi-field">
+                  <label for="ck_referencia">Referencia</label>
+                  <input type="text" id="ck_referencia" placeholder="Proximo a...">
+                </div>
+              </div>
+            </div>
+
+            <div class="mi-error" id="ckCadastroError" style="display:none;"></div>
+          </form>
+
+          <div class="ck-step-nav">
+            <button type="button" class="ck-btn-back" onclick="goToStep(2)">
+              <i class="ph ph-arrow-left"></i> Voltar
+            </button>
+            <button type="button" class="ck-btn-next" id="ckStep3Next" onclick="validarEAvancar()">
+              Revisar Pedido <i class="ph ph-arrow-right"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- ═══ STEP 4: Revisao ═══ -->
+        <section id="ckStep4" class="ck-step-content" style="display:none;">
+          <h2 class="ck-title">Revise seu pedido</h2>
+          <p class="ck-subtitle">Confira todos os dados antes de finalizar.</p>
+
+          <div id="ckReviewContent" class="ck-review"></div>
+
+          <div class="ck-terms">
+            <label class="ck-checkbox-label">
+              <input type="checkbox" id="ckTerms" class="ck-checkbox">
+              <span class="ck-checkmark"></span>
+              Li e concordo com os <a href="#" target="_blank">termos de contratacao</a>
+            </label>
+          </div>
+
+          <div class="mi-error" id="ckReviewError" style="display:none;"></div>
+
+          <div class="ck-step-nav">
+            <button type="button" class="ck-btn-back" onclick="goToStep(3)">
+              <i class="ph ph-arrow-left"></i> Voltar
+            </button>
+            <button type="button" class="ck-btn-submit" id="ckSubmitBtn" onclick="submitOrder()">
+              <span id="ckSubmitText"><i class="ph-fill ph-check-circle"></i> Finalizar Contratacao</span>
+              <span id="ckSubmitLoading" style="display:none;" class="mi-spinner">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m11.14 0l-2.83-2.83M9.76 9.76L6.93 6.93"/></svg>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ═══ SUCESSO ═══ -->
+        <section id="ckSuccess" class="ck-step-content" style="display:none;">
+          <div class="ck-success">
+            <div class="ck-success-icon">
+              <svg width="80" height="80" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="30" class="mi-check-circle" stroke-width="2" fill="rgba(34,197,94,0.1)"/>
+                <path d="M20 33l8 8 16-16" class="mi-check-path" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h2>Contratacao realizada!</h2>
+            <p class="ck-success-order">Pedido <strong id="ckOrderNumber">MI-2026-00001</strong></p>
+            <p class="ck-success-desc">Seu pedido foi registrado com sucesso. Em breve nossa equipe entrara em contato pelo WhatsApp para agendar a instalacao.</p>
+            <a href="#" id="ckWhatsappLink" class="ck-btn-whatsapp" target="_blank">
+              <i class="ph-fill ph-whatsapp-logo"></i> Falar com atendente
+            </a>
+            <a href="index-light.html" class="ck-btn-back-home">
+              <i class="ph ph-arrow-left"></i> Voltar ao site
+            </a>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ═══ SIDEBAR: Resumo do Pedido ═══ -->
+      <aside class="checkout-sidebar" id="ckSidebar">
+        <div class="ck-summary-card">
+          <h3 class="ck-summary-title"><i class="ph-fill ph-shopping-cart"></i> Resumo do pedido</h3>
+
+          <!-- Plano -->
+          <div id="ckSummaryPlan" class="ck-summary-plan">
+            <span class="ck-summary-empty">Selecione um plano</span>
+          </div>
+
+          <!-- Addons -->
+          <div id="ckSummaryAddons" class="ck-summary-addons"></div>
+
+          <!-- Divider -->
+          <div class="ck-summary-divider"></div>
+
+          <!-- Total mensal -->
+          <div class="ck-summary-total">
+            <span>Total mensal</span>
+            <strong id="ckSummaryTotal">R$ 0,00</strong>
+          </div>
+
+          <!-- Taxa instalacao (se houver) -->
+          <div id="ckSummarySetup" class="ck-summary-setup" style="display:none;">
+            <span>Instalacao (unica)</span>
+            <strong id="ckSetupTotal">R$ 0,00</strong>
+          </div>
+
+          <!-- Trust badges -->
+          <div class="ck-summary-badges">
+            <span class="ck-summary-badge"><i class="ph-fill ph-lock-simple"></i> Dados seguros</span>
+            <span class="ck-summary-badge"><i class="ph-fill ph-clock"></i> Instalacao 24h</span>
+            <span class="ck-summary-badge"><i class="ph-fill ph-handshake"></i> Sem fidelidade</span>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Mobile bottom summary -->
+  <div class="ck-mobile-summary" id="ckMobileSummary">
+    <div class="ck-mobile-summary-inner">
+      <div class="ck-mobile-summary-info">
+        <span class="ck-mobile-plan-name" id="ckMobilePlanName">--</span>
+        <strong class="ck-mobile-total" id="ckMobileTotal">R$ 0,00<small>/mes</small></strong>
+      </div>
+      <button type="button" class="ck-mobile-summary-btn" id="ckMobileSummaryBtn" onclick="toggleMobileSummary()">
+        <i class="ph ph-caret-up"></i>
+      </button>
+    </div>
+  </div>
+
+  <script src="checkout.js"></script>
+
+  <!-- Tracking: GTM, GA4, Google Ads, Facebook Pixel (IDs no config.json) -->
+  <script src="tracking.js" defer></script>
+</body>
+</html>

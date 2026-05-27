@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | MasterInfo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --surface-2: #f0f0f4;
+      --border: #e2e2e8;
+      --text: #1a1a2e;
+      --text-muted: #6a6a7a;
+      --orange: #ff7a05;
+      --orange-hover: #ff9533;
+      --green: #22c55e;
+      --red: #ef4444;
+      --radius: 12px;
+    }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    /* Layout */
+    .admin-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .admin-logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+    .admin-logo span { color: var(--orange); }
+    .admin-actions { display: flex; gap: 10px; align-items: center; }
+    .admin-status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: var(--surface-2);
+    }
+    .admin-status.saved { color: var(--green); }
+    .admin-status.error { color: var(--red); }
+
+    .admin-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 32px;
+      background: var(--surface);
+      padding: 4px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .tab {
+      flex: 1;
+      padding: 12px 16px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s;
+      border: none;
+      background: none;
+    }
+    .tab:hover { color: var(--text); background: var(--surface-2); }
+    .tab.active { background: var(--orange); color: #fff; }
+    .tab i { margin-right: 6px; }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title i { color: var(--orange); }
+
+    /* Form */
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 10px 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-group select { cursor: pointer; }
+
+    /* Toggle */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-info h4 { font-size: 0.95rem; font-weight: 600; }
+    .toggle-info p { font-size: 0.8rem; color: var(--text-muted); }
+    .toggle-switch {
+      width: 48px;
+      height: 26px;
+      border-radius: 13px;
+      background: #d4d4d8;
+      border: 2px solid #d4d4d8;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.25s;
+      flex-shrink: 0;
+    }
+    .toggle-switch.on { background: var(--orange); border-color: var(--orange); }
+    .toggle-switch::after {
+      content: '';
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .toggle-switch.on::after { transform: translateX(22px); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--orange);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--orange-hover); }
+    .btn-danger {
+      background: rgba(239,68,68,0.1);
+      color: var(--red);
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+    .btn-danger:hover { background: rgba(239,68,68,0.2); }
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+    .btn-save {
+      background: var(--green);
+      color: #fff;
+      padding: 12px 28px;
+      font-size: 1rem;
+    }
+    .btn-save:hover { filter: brightness(1.1); }
+
+    /* Item list */
+    .item-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 12px;
+      position: relative;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .item-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .item-card-header h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .item-card-actions { display: flex; gap: 6px; }
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-icon:hover { border-color: var(--orange); color: var(--orange); }
+    .btn-icon.danger:hover { border-color: var(--red); color: var(--red); }
+
+    /* Features tags */
+    .features-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .feature-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      background: rgba(255,122,5,0.08);
+      border: 1px solid rgba(255,122,5,0.2);
+      border-radius: 20px;
+      color: var(--orange);
+    }
+    .feature-tag .remove-feat {
+      cursor: pointer;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+    .feature-tag .remove-feat:hover { opacity: 1; }
+    .add-feature-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .add-feature-row input { flex: 1; }
+    .add-feature-row button {
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--orange);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Included plans checkboxes */
+    .included-plans {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .plan-check {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .plan-check.checked {
+      border-color: var(--orange);
+      background: rgba(255,122,5,0.08);
+      color: var(--orange);
+    }
+
+    /* Badge */
+    .badge-input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Save bar */
+    .save-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      z-index: 50;
+    }
+    .save-bar .btn-save { min-width: 200px; justify-content: center; }
+
+    /* Bottom padding for save bar */
+    .admin-body { padding-bottom: 100px; }
+
+    /* Icon picker helper */
+    .icon-picker-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .icon-picker-hint i {
+      font-size: 1.5rem;
+      color: var(--orange);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,122,5,0.08);
+      border-radius: 6px;
+    }
+    .icon-picker-hint a {
+      font-size: 0.75rem;
+      color: var(--orange);
+      text-decoration: none;
+    }
+    .icon-picker-hint a:hover { text-decoration: underline; }
+
+    /* Section helpers */
+    .section-help {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(255,122,5,0.06);
+      border: 1px solid rgba(255,122,5,0.15);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .section-help i { color: var(--orange); flex-shrink: 0; }
+
+    /* Preview badge */
+    .icon-preview {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: rgba(255,122,5,0.08);
+      border-radius: 6px;
+      font-size: 1.1rem;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    /* Drag handle */
+    .drag-handle {
+      cursor: grab;
+      color: var(--text-muted);
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    .drag-handle:hover { opacity: 1; }
+
+    /* Stat card compact */
+    .stat-preview {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: var(--surface-2);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+    }
+    .stat-preview-value {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--orange);
+      min-width: 80px;
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .tabs { flex-wrap: wrap; }
+      .tab { font-size: 0.8rem; padding: 10px 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="admin-header">
+    <div class="admin-logo"><img src="logo-masterinfo.png" alt="MasterInfo" style="height:30px;"> Admin</div>
+    <div class="admin-actions">
+      <span class="admin-status" id="saveStatus">Nenhuma alteracao</span>
+      <a href="index-light.html" class="btn btn-secondary" style="text-decoration:none;">
+        <i class="ph ph-arrow-left"></i> Ver site
+      </a>
+      <a href="auth/logout.php" class="btn btn-danger" style="text-decoration:none;">
+        <i class="ph ph-sign-out"></i> Sair
+      </a>
+    </div>
+  </header>
+
+  <div class="admin-body">
+    <!-- Tabs -->
+    <div class="tabs" style="flex-wrap:wrap;">
+      <button class="tab active" data-tab="empresa" onclick="switchTab('empresa')">
+        <i class="ph ph-buildings"></i> Empresa
+      </button>
+      <button class="tab" data-tab="hero" onclick="switchTab('hero')">
+        <i class="ph ph-megaphone"></i> Hero
+      </button>
+      <button class="tab" data-tab="conteudo" onclick="switchTab('conteudo')">
+        <i class="ph ph-article"></i> Conteudo
+      </button>
+      <button class="tab" data-tab="cobertura" onclick="switchTab('cobertura')">
+        <i class="ph ph-map-pin"></i> Cobertura
+      </button>
+      <button class="tab" data-tab="social" onclick="switchTab('social')">
+        <i class="ph ph-chat-circle-dots"></i> Social
+      </button>
+      <button class="tab" data-tab="planos" onclick="switchTab('planos')">
+        <i class="ph ph-lightning"></i> Planos
+      </button>
+      <button class="tab" data-tab="addons" onclick="switchTab('addons')">
+        <i class="ph ph-plus-circle"></i> Extras
+      </button>
+      <button class="tab" data-tab="tracking" onclick="switchTab('tracking')">
+        <i class="ph ph-chart-bar"></i> Tracking
+      </button>
+    </div>
+
+    <!-- TAB: Empresa -->
+    <div class="tab-content active" id="tab-empresa">
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-buildings"></i> Dados da empresa</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Telefone</label>
+            <input type="text" id="cfgTelefone" placeholder="(47) 3434-1734" oninput="updateEmpresa('telefone',this.value)">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp (DDI+DDD, so numeros)</label>
+            <input type="text" id="cfgWhatsapp" placeholder="5547989212991" oninput="updateEmpresa('whatsapp',this.value)">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp formatado</label>
+            <input type="text" id="cfgWhatsappFmt" placeholder="(47) 98921-2991" oninput="updateEmpresa('whatsappFormatado',this.value)">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="cfgEmail" placeholder="contato@empresa.com" oninput="updateEmpresa('email',this.value)">
+          </div>
+          <div class="form-group">
+            <label>CNPJ</label>
+            <input type="text" id="cfgCnpj" placeholder="XX.XXX.XXX/0001-XX" oninput="updateEmpresa('cnpj',this.value)">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Endereco</label>
+            <input type="text" id="cfgEndereco" placeholder="Rua..." oninput="updateEmpresa('endereco',this.value)">
+          </div>
+          <div class="form-group">
+            <label>Bairro</label>
+            <input type="text" id="cfgBairroEnd" placeholder="Comasa" oninput="updateEmpresa('bairroEndereco',this.value)">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Cidade, UF</label>
+            <input type="text" id="cfgCidade" placeholder="Joinville, SC" oninput="updateEmpresa('cidade',this.value)">
+          </div>
+          <div class="form-group">
+            <label>CEP</label>
+            <input type="text" id="cfgCep" placeholder="89228-000" oninput="updateEmpresa('cep',this.value)">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Instagram (URL completa)</label>
+            <input type="url" id="cfgInstagram" placeholder="https://www.instagram.com/..." oninput="updateEmpresa('instagram',this.value)">
+          </div>
+          <div class="form-group">
+            <label>Facebook (URL completa)</label>
+            <input type="url" id="cfgFacebook" placeholder="https://www.facebook.com/..." oninput="updateEmpresa('facebook',this.value)">
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-shopping-cart"></i> Checkout</div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <h4>Modo do checkout</h4>
+            <p id="checkoutModeDesc">Simples: Nome + WhatsApp → envia pro WhatsApp</p>
+          </div>
+          <div class="toggle-switch" id="toggleCheckoutMode" onclick="toggleCheckout()" role="switch" aria-checked="false" aria-label="Modo do checkout" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCheckout();}"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Hero -->
+    <div class="tab-content" id="tab-hero">
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-megaphone"></i> Banner principal</div>
+        <div class="section-help">
+          <i class="ph ph-info"></i>
+          Preview: O titulo aparece em 3 linhas. A linha 2 fica em <strong style="color:var(--orange);">laranja destaque</strong>.
+        </div>
+        <div class="form-group" style="margin-bottom:14px;">
+          <label>Badge (etiqueta laranja no topo)</label>
+          <input type="text" id="cfgHeroBadge" oninput="updateHero('badge',this.value)" placeholder="100% Fibra Optica em Joinville">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Titulo — linha 1</label>
+            <input type="text" id="cfgHeroTitulo" oninput="updateHero('titulo',this.value)" placeholder="Internet que">
+          </div>
+          <div class="form-group">
+            <label>Titulo — linha 2 (destaque laranja)</label>
+            <input type="text" id="cfgHeroDestaque" oninput="updateHero('tituloDestaque',this.value)" placeholder="nao te deixa" style="border-color:var(--orange);background:rgba(255,122,5,0.04);">
+          </div>
+          <div class="form-group">
+            <label>Titulo — linha 3</label>
+            <input type="text" id="cfgHeroFim" oninput="updateHero('tituloFim',this.value)" placeholder="na mao.">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:14px;">
+          <label>Subtitulo (aceita HTML: &lt;strong&gt;texto&lt;/strong&gt;)</label>
+          <textarea id="cfgHeroSub" rows="3" oninput="updateHero('subtitulo',this.value)"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Itens de confianca (aceita HTML)</label>
+          <div id="heroConfiancaContainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Conteudo (Stats + Diferenciais) -->
+    <div class="tab-content" id="tab-conteudo">
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-chart-line-up"></i> Numeros / Estatisticas</div>
+        <div class="section-help">
+          <i class="ph ph-info"></i>
+          Os 4 contadores animados que aparecem no site. Use sufixo "+" ou "%" e prefixo para simbolos como estrela.
+        </div>
+        <div id="statsContainer"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-star"></i> Diferenciais ("Por que MasterInfo")</div>
+        <div class="section-help">
+          <i class="ph ph-info"></i>
+          Cards da secao "Por que a MasterInfo?". Icones: use classes Phosphor como <code>ph-fill ph-lightning</code>.
+          <a href="https://phosphoricons.com" target="_blank" style="color:var(--orange);margin-left:4px;">Ver icones</a>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+          <button class="btn btn-primary" onclick="addDiferencial()"><i class="ph ph-plus"></i> Novo</button>
+        </div>
+        <div id="diferenciaisContainer"></div>
+      </div>
+    </div>
+
+    <!-- TAB: Cobertura -->
+    <div class="tab-content" id="tab-cobertura">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3 style="font-size:1.1rem;font-weight:700;">Bairros atendidos <span id="bairrosCount" style="font-size:0.8rem;font-weight:500;color:var(--text-muted);background:var(--surface-2);padding:2px 10px;border-radius:12px;margin-left:8px;">0 bairros</span></h3>
+        <button class="btn btn-primary" onclick="addBairro()"><i class="ph ph-plus"></i> Novo bairro</button>
+      </div>
+      <div class="section-help">
+        <i class="ph ph-info"></i>
+        Cada bairro aparece como tag clicavel + pin no mapa. Use <a href="https://www.google.com/maps" target="_blank" style="color:var(--orange);">Google Maps</a> para obter lat/lng (clique direito no mapa → copiar coordenadas).
+      </div>
+      <div id="bairrosContainer"></div>
+    </div>
+
+    <!-- TAB: Social (Depoimentos + FAQ) -->
+    <div class="tab-content" id="tab-social">
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-quotes"></i> Depoimentos</div>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+          <button class="btn btn-primary" onclick="addDepoimento()"><i class="ph ph-plus"></i> Novo</button>
+        </div>
+        <div id="depoimentosContainer"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-question"></i> FAQ — Perguntas frequentes</div>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+          <button class="btn btn-primary" onclick="addFaq()"><i class="ph ph-plus"></i> Nova pergunta</button>
+        </div>
+        <div id="faqContainer"></div>
+      </div>
+    </div>
+
+    <!-- TAB: Planos -->
+    <div class="tab-content" id="tab-planos">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3 style="font-size:1.1rem;font-weight:700;">Planos</h3>
+        <button class="btn btn-primary" onclick="addPlano()"><i class="ph ph-plus"></i> Novo plano</button>
+      </div>
+      <div id="planosContainer"></div>
+    </div>
+
+    <!-- TAB: Extras -->
+    <div class="tab-content" id="tab-addons">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3 style="font-size:1.1rem;font-weight:700;">Produtos extras</h3>
+        <button class="btn btn-primary" onclick="addAddon()"><i class="ph ph-plus"></i> Novo extra</button>
+      </div>
+      <div id="addonsContainer"></div>
+    </div>
+
+    <!-- TAB: Tracking (Google Ads, GA4, GTM, Facebook Pixel) -->
+    <div class="tab-content" id="tab-tracking">
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-chart-bar"></i> Google Tag Manager</div>
+        <div class="section-help">
+          <i class="ph ph-info"></i>
+          O GTM gerencia todas as tags do site. Crie um container em <a href="https://tagmanager.google.com" target="_blank" style="color:var(--orange);">tagmanager.google.com</a> e cole o ID aqui.
+        </div>
+        <div class="form-group">
+          <label>GTM Container ID</label>
+          <input type="text" id="cfgGtmId" placeholder="GTM-XXXXXXX" oninput="updateTracking('gtmId',this.value)">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-chart-line-up"></i> Google Analytics 4 (GA4)</div>
+        <div class="section-help">
+          <i class="ph ph-info"></i>
+          Crie uma propriedade GA4 em <a href="https://analytics.google.com" target="_blank" style="color:var(--orange);">analytics.google.com</a>. O ID fica em Admin → Data Streams.
+        </div>
+        <div class="form-group">
+          <label>GA4 Measurement ID</label>
+          <input type="text" id="cfgGa4Id" placeholder="G-XXXXXXXXXX" oninput="updateTracking('ga4Id',this.value)">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-google-logo"></i> Google Ads</div>
+        <div class="section-help">
+          <i class="ph ph-info"></i>
+          Em Google Ads → Ferramentas → Conversoes, crie 3 acoes (Lead, Compra, WhatsApp). Cole os IDs abaixo. O formato e: AW-XXXXXXXXX para o ID e XXXXX para cada label.
+        </div>
+        <div class="form-group" style="margin-bottom:14px;">
+          <label>Google Ads ID</label>
+          <input type="text" id="cfgGoogleAdsId" placeholder="AW-XXXXXXXXX" oninput="updateTracking('googleAdsId',this.value)">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Conversao: Lead (label)</label>
+            <input type="text" id="cfgConvLead" placeholder="AbCdEfGhIjK" oninput="updateTrackingConv('lead',this.value)">
+          </div>
+          <div class="form-group">
+            <label>Conversao: Compra (label)</label>
+            <input type="text" id="cfgConvPurchase" placeholder="LmNoPqRsTuV" oninput="updateTrackingConv('purchase',this.value)">
+          </div>
+          <div class="form-group">
+            <label>Conversao: WhatsApp (label)</label>
+            <input type="text" id="cfgConvWhatsapp" placeholder="WxYzAbCdEfG" oninput="updateTrackingConv('whatsappClick',this.value)">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-meta-logo"></i> Facebook / Meta Pixel</div>
+        <div class="form-group">
+          <label>Facebook Pixel ID</label>
+          <input type="text" id="cfgFbPixelId" placeholder="123456789012345" oninput="updateTracking('facebookPixelId',this.value)">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-toggle-right"></i> Ativar tracking</div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <h4>Rastreamento ativo</h4>
+            <p id="trackingModeDesc">Desativado: nenhum pixel ou tag sera carregado</p>
+          </div>
+          <div class="toggle-switch" id="toggleTracking" onclick="toggleTrackingMode()" role="switch" aria-checked="false" aria-label="Ativar tracking" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTrackingMode();}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Save bar -->
+  <div class="save-bar">
+    <button class="btn btn-save" onclick="saveConfig()">
+      <i class="ph-fill ph-floppy-disk"></i> Salvar alteracoes
+    </button>
+    <span style="font-size:0.75rem;color:var(--text-muted);align-self:center;">Ctrl+S</span>
+  </div>
+
+<script>
+(function() {
+  var config = null;
+  var dirty = false;
+  var CSRF_TOKEN = '';
+
+  // ─── Ctrl+S / Cmd+S para salvar ───
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      if (dirty) saveConfig();
+    }
+  });
+
+  // ─── Check auth first ───
+  function checkAuth() {
+    fetch('auth/check.php', { credentials: 'same-origin' })
+      .then(function(r) {
+        if (r.status === 401) {
+          window.location.href = 'admin-login.html';
+          return null;
+        }
+        return r.json();
+      })
+      .then(function(data) {
+        if (!data || !data.ok) return;
+        CSRF_TOKEN = data.csrf_token || '';
+        loadConfig();
+      })
+      .catch(function() {
+        // Se auth/check.php nao existe (dev local), carrega direto
+        loadConfig();
+      });
+  }
+
+  // ─── Load config ───
+  function loadConfig() {
+    fetch('api/admin-config.php', { credentials: 'same-origin' })
+      .then(function(r) {
+        if (r.status === 401) {
+          window.location.href = 'admin-login.html';
+          return null;
+        }
+        return r.json();
+      })
+      .then(function(data) {
+        if (!data) return;
+        config = data;
+        renderAll();
+      })
+      .catch(function() {
+        // Fallback: try loading config.json directly (dev local sem PHP)
+        fetch('config.json')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            config = data;
+            renderAll();
+          });
+      });
+  }
+
+  function renderAll() {
+    renderEmpresa();
+    renderHero();
+    renderStats();
+    renderDiferenciais();
+    renderBairros();
+    renderDepoimentos();
+    renderFaqAdmin();
+    renderPlanos();
+    renderAddons();
+    renderTracking();
+  }
+
+  function markDirty() {
+    dirty = true;
+    var el = document.getElementById('saveStatus');
+    el.textContent = 'Alteracoes nao salvas';
+    el.className = 'admin-status error';
+  }
+
+  // ─── Save ───
+  window.saveConfig = function() {
+    var el = document.getElementById('saveStatus');
+    el.textContent = 'Salvando...';
+    el.className = 'admin-status';
+
+    // Sync whatsapp empresa → checkout
+    if (config.empresa && config.empresa.whatsapp) {
+      config.checkout.whatsapp = config.empresa.whatsapp;
+    }
+
+    fetch('api/admin-config.php', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': CSRF_TOKEN
+      },
+      body: JSON.stringify(config)
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.ok) {
+        el.textContent = 'Salvo com sucesso!';
+        el.className = 'admin-status saved';
+        dirty = false;
+        setTimeout(function() {
+          if (!dirty) {
+            el.textContent = 'Tudo salvo';
+            el.className = 'admin-status saved';
+          }
+        }, 2000);
+      } else {
+        el.textContent = 'Erro: ' + (data.error || 'desconhecido');
+        el.className = 'admin-status error';
+      }
+    })
+    .catch(function() {
+      el.textContent = 'Erro de conexao';
+      el.className = 'admin-status error';
+    });
+  };
+
+  // ─── Tab switching ───
+  window.switchTab = function(tab) {
+    document.querySelectorAll('.tab').forEach(function(t) {
+      t.classList.toggle('active', t.getAttribute('data-tab') === tab);
+    });
+    document.querySelectorAll('.tab-content').forEach(function(c) {
+      c.classList.toggle('active', c.id === 'tab-' + tab);
+    });
+  };
+
+  // ─── Empresa ───
+  function renderEmpresa() {
+    if (!config.empresa) config.empresa = {};
+    var e = config.empresa;
+    setVal('cfgTelefone', e.telefone);
+    setVal('cfgWhatsapp', e.whatsapp);
+    setVal('cfgWhatsappFmt', e.whatsappFormatado);
+    setVal('cfgEmail', e.email);
+    setVal('cfgCnpj', e.cnpj);
+    setVal('cfgEndereco', e.endereco);
+    setVal('cfgBairroEnd', e.bairroEndereco);
+    setVal('cfgCidade', e.cidade);
+    setVal('cfgCep', e.cep);
+    setVal('cfgInstagram', e.instagram);
+    setVal('cfgFacebook', e.facebook);
+
+    // Checkout toggle
+    var toggle = document.getElementById('toggleCheckoutMode');
+    var desc = document.getElementById('checkoutModeDesc');
+    var isSimples = config.checkout.modo === 'simples';
+    toggle.className = 'toggle-switch' + (isSimples ? '' : ' on');
+    toggle.setAttribute('aria-checked', isSimples ? 'false' : 'true');
+    desc.textContent = isSimples
+      ? 'Simples: Nome + WhatsApp → envia direto pro WhatsApp'
+      : 'Completo: Plano → Extras → Cadastro → Revisao (4 etapas)';
+  }
+
+  window.updateEmpresa = function(key, val) {
+    config.empresa[key] = val;
+    if (key === 'whatsapp') config.checkout.whatsapp = val;
+    markDirty();
+  };
+
+  window.toggleCheckout = function() {
+    config.checkout.modo = config.checkout.modo === 'simples' ? 'completo' : 'simples';
+    renderEmpresa();
+    markDirty();
+  };
+
+  // ─── Hero ───
+  function renderHero() {
+    if (!config.hero) config.hero = { badge: '', titulo: '', tituloDestaque: '', tituloFim: '', subtitulo: '', confianca: [] };
+    var h = config.hero;
+    setVal('cfgHeroBadge', h.badge);
+    setVal('cfgHeroTitulo', h.titulo);
+    setVal('cfgHeroDestaque', h.tituloDestaque);
+    setVal('cfgHeroFim', h.tituloFim);
+    setVal('cfgHeroSub', h.subtitulo);
+
+    var cont = document.getElementById('heroConfiancaContainer');
+    if (cont && h.confianca) {
+      var icons = ['ph-fill ph-clock', 'ph-fill ph-handshake', 'ph-fill ph-star'];
+      var html = '';
+      h.confianca.forEach(function(item, i) {
+        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">' +
+          '<span class="icon-preview"><i class="' + (icons[i] || 'ph-fill ph-check') + '"></i></span>' +
+          '<span style="font-size:0.75rem;color:var(--text-muted);min-width:16px;">' + (i + 1) + '.</span>' +
+          '<div class="form-group" style="flex:1;margin:0;">' +
+            '<input type="text" value="' + esc(item) + '" oninput="updateConfianca(' + i + ',this.value)" placeholder="Texto com <strong>negrito</strong>">' +
+          '</div>' +
+          '<button class="btn-icon danger" onclick="removeConfianca(' + i + ')"><i class="ph ph-trash"></i></button>' +
+        '</div>';
+      });
+      if (h.confianca.length < 4) {
+        html += '<button class="btn btn-secondary" onclick="addConfianca()" style="margin-top:4px;"><i class="ph ph-plus"></i> Adicionar item</button>';
+      }
+      cont.innerHTML = html;
+    }
+  }
+
+  window.updateHero = function(key, val) { config.hero[key] = val; markDirty(); };
+  window.updateConfianca = function(i, val) { config.hero.confianca[i] = val; markDirty(); };
+  window.removeConfianca = function(i) { config.hero.confianca.splice(i, 1); renderHero(); markDirty(); };
+  window.addConfianca = function() { config.hero.confianca.push('Novo item'); renderHero(); markDirty(); };
+
+  // ─── Stats ───
+  function renderStats() {
+    if (!config.stats) config.stats = [];
+    var cont = document.getElementById('statsContainer');
+    if (!cont) return;
+    var html = '';
+    config.stats.forEach(function(s, i) {
+      // Preview do valor formatado
+      var preview = (s.prefixo || '') + (s.decimal ? parseFloat(s.valor).toFixed(1) : Math.round(s.valor).toLocaleString('pt-BR')) + (s.sufixo || '');
+      html += '<div class="item-card">' +
+        '<div class="stat-preview"><span class="stat-preview-value">' + esc(preview) + '</span><span>' + esc(s.label) + '</span></div>' +
+        '<div class="form-row">' +
+          '<div class="form-group"><label>Valor</label>' +
+            '<input type="number" step="0.1" value="' + s.valor + '" oninput="updateStat(' + i + ',\'valor\',parseFloat(this.value));renderStats()"></div>' +
+          '<div class="form-group"><label>Sufixo (ex: +, %)</label>' +
+            '<input type="text" value="' + esc(s.sufixo || '') + '" oninput="updateStat(' + i + ',\'sufixo\',this.value);renderStats()"></div>' +
+          '<div class="form-group"><label>Prefixo (ex: ★)</label>' +
+            '<input type="text" value="' + esc(s.prefixo || '') + '" oninput="updateStat(' + i + ',\'prefixo\',this.value);renderStats()"></div>' +
+          '<div class="form-group"><label>Label</label>' +
+            '<input type="text" value="' + esc(s.label) + '" oninput="updateStat(' + i + ',\'label\',this.value);renderStats()"></div>' +
+        '</div>' +
+      '</div>';
+    });
+    cont.innerHTML = html;
+  }
+
+  window.updateStat = function(i, key, val) { config.stats[i][key] = val; markDirty(); };
+  window.renderStats = renderStats;
+
+  // ─── Diferenciais ───
+  function renderDiferenciais() {
+    if (!config.diferenciais) config.diferenciais = [];
+    var cont = document.getElementById('diferenciaisContainer');
+    if (!cont) return;
+    if (config.diferenciais.length === 0) {
+      cont.innerHTML = '<div style="text-align:center;padding:32px;color:var(--text-muted);"><i class="ph ph-star" style="font-size:2rem;opacity:0.3;display:block;margin-bottom:8px;"></i>Nenhum diferencial cadastrado.<br>Clique em "Novo" para adicionar.</div>';
+      return;
+    }
+    var html = '';
+    config.diferenciais.forEach(function(d, i) {
+      html += '<div class="item-card">' +
+        '<div class="item-card-header"><h4><span class="icon-preview"><i class="' + d.icone + '"></i></span> ' + esc(d.titulo) + '</h4>' +
+          '<button class="btn-icon danger" onclick="removeDiferencial(' + i + ')"><i class="ph ph-trash"></i></button></div>' +
+        '<div class="form-row">' +
+          '<div class="form-group"><label>Titulo</label>' +
+            '<input type="text" value="' + esc(d.titulo) + '" oninput="updateDif(' + i + ',\'titulo\',this.value)"></div>' +
+          '<div class="form-group"><label>Icone (Phosphor)</label>' +
+            '<input type="text" value="' + esc(d.icone) + '" oninput="updateDif(' + i + ',\'icone\',this.value)" placeholder="ph-fill ph-star">' +
+            '<div class="icon-picker-hint"><i class="' + d.icone + '"></i><a href="https://phosphoricons.com" target="_blank">Buscar icones &rarr;</a></div></div>' +
+        '</div>' +
+        '<div class="form-group"><label>Descricao</label>' +
+          '<textarea rows="2" oninput="updateDif(' + i + ',\'descricao\',this.value)">' + esc(d.descricao) + '</textarea></div>' +
+      '</div>';
+    });
+    cont.innerHTML = html;
+  }
+
+  window.updateDif = function(i, key, val) { config.diferenciais[i][key] = val; if (key === 'titulo' || key === 'icone') renderDiferenciais(); markDirty(); };
+  window.removeDiferencial = function(i) { if (!confirm('Remover "' + config.diferenciais[i].titulo + '"?')) return; config.diferenciais.splice(i, 1); renderDiferenciais(); markDirty(); };
+  window.addDiferencial = function() {
+    config.diferenciais.push({ icone: 'ph-fill ph-star', titulo: 'Novo diferencial', descricao: 'Descricao aqui.' });
+    renderDiferenciais(); markDirty();
+  };
+
+  // ─── Bairros ───
+  function renderBairros() {
+    if (!config.bairros) config.bairros = [];
+    var cont = document.getElementById('bairrosContainer');
+    if (!cont) return;
+
+    // Atualizar contador no header
+    var countEl = document.getElementById('bairrosCount');
+    if (countEl) countEl.textContent = config.bairros.length + ' bairros';
+
+    if (config.bairros.length === 0) {
+      cont.innerHTML = '<div style="text-align:center;padding:32px;color:var(--text-muted);"><i class="ph ph-map-pin" style="font-size:2rem;opacity:0.3;display:block;margin-bottom:8px;"></i>Nenhum bairro cadastrado.<br>Clique em "Novo bairro" para adicionar.</div>';
+      return;
+    }
+
+    var html = '';
+    config.bairros.forEach(function(b, i) {
+      html += '<div class="item-card">' +
+        '<div class="item-card-header"><h4><i class="ph-fill ph-map-pin" style="color:var(--orange);margin-right:4px;"></i> ' + esc(b.nome) + '</h4>' +
+          '<button class="btn-icon danger" onclick="removeBairro(' + i + ')"><i class="ph ph-trash"></i></button></div>' +
+        '<div class="form-row">' +
+          '<div class="form-group"><label>Nome (exibicao)</label>' +
+            '<input type="text" value="' + esc(b.nome) + '" oninput="updateBairro(' + i + ',\'nome\',this.value)"></div>' +
+          '<div class="form-group"><label>Data-bairro (ID no mapa)</label>' +
+            '<input type="text" value="' + esc(b.dataBairro) + '" oninput="updateBairro(' + i + ',\'dataBairro\',this.value)"></div>' +
+          '<div class="form-group"><label>Latitude</label>' +
+            '<input type="number" step="0.0001" value="' + b.lat + '" oninput="updateBairro(' + i + ',\'lat\',parseFloat(this.value))"></div>' +
+          '<div class="form-group"><label>Longitude</label>' +
+            '<input type="number" step="0.0001" value="' + b.lng + '" oninput="updateBairro(' + i + ',\'lng\',parseFloat(this.value))"></div>' +
+        '</div>' +
+      '</div>';
+    });
+    cont.innerHTML = html;
+  }
+
+  window.updateBairro = function(i, key, val) { config.bairros[i][key] = val; if (key === 'nome') renderBairros(); markDirty(); };
+  window.removeBairro = function(i) { if (!confirm('Remover "' + config.bairros[i].nome + '"?')) return; config.bairros.splice(i, 1); renderBairros(); markDirty(); };
+  window.addBairro = function() {
+    config.bairros.push({ nome: 'Novo Bairro', dataBairro: 'Novo Bairro', lat: -26.30, lng: -48.85 });
+    renderBairros(); markDirty();
+  };
+
+  // ─── Depoimentos ───
+  function renderDepoimentos() {
+    if (!config.depoimentos) config.depoimentos = [];
+    var cont = document.getElementById('depoimentosContainer');
+    if (!cont) return;
+    if (config.depoimentos.length === 0) {
+      cont.innerHTML = '<div style="text-align:center;padding:32px;color:var(--text-muted);"><i class="ph ph-quotes" style="font-size:2rem;opacity:0.3;display:block;margin-bottom:8px;"></i>Nenhum depoimento.<br>Clique em "Novo" para adicionar.</div>';
+      return;
+    }
+    var html = '';
+    config.depoimentos.forEach(function(d, i) {
+      var stars = '';
+      for (var s = 0; s < (d.estrelas || 5); s++) stars += '<i class="ph-fill ph-star" style="color:#f59e0b;font-size:0.75rem;"></i>';
+      html += '<div class="item-card">' +
+        '<div class="item-card-header"><h4>' + stars + ' ' + esc(d.nome) + ' — ' + esc(d.local) + '</h4>' +
+          '<button class="btn-icon danger" onclick="removeDepoimento(' + i + ')"><i class="ph ph-trash"></i></button></div>' +
+        '<div class="form-row">' +
+          '<div class="form-group"><label>Nome</label>' +
+            '<input type="text" value="' + esc(d.nome) + '" oninput="updateDep(' + i + ',\'nome\',this.value)"></div>' +
+          '<div class="form-group"><label>Local (ex: Bairro Comasa)</label>' +
+            '<input type="text" value="' + esc(d.local) + '" oninput="updateDep(' + i + ',\'local\',this.value)"></div>' +
+          '<div class="form-group"><label>Estrelas (1-5)</label>' +
+            '<input type="number" min="1" max="5" value="' + (d.estrelas || 5) + '" oninput="updateDep(' + i + ',\'estrelas\',parseInt(this.value))"></div>' +
+        '</div>' +
+        '<div class="form-group"><label>Texto do depoimento</label>' +
+          '<textarea rows="2" oninput="updateDep(' + i + ',\'texto\',this.value)">' + esc(d.texto) + '</textarea></div>' +
+      '</div>';
+    });
+    cont.innerHTML = html;
+  }
+
+  window.updateDep = function(i, key, val) { config.depoimentos[i][key] = val; if (key === 'texto') renderDepoimentos(); markDirty(); };
+  window.removeDepoimento = function(i) { if (!confirm('Remover depoimento?')) return; config.depoimentos.splice(i, 1); renderDepoimentos(); markDirty(); };
+  window.addDepoimento = function() {
+    config.depoimentos.push({ nome: 'Nome S.', local: 'Bairro', texto: 'Texto do depoimento aqui.', estrelas: 5 });
+    renderDepoimentos(); markDirty();
+  };
+
+  // ─── FAQ ───
+  function renderFaqAdmin() {
+    if (!config.faq) config.faq = [];
+    var cont = document.getElementById('faqContainer');
+    if (!cont) return;
+    if (config.faq.length === 0) {
+      cont.innerHTML = '<div style="text-align:center;padding:32px;color:var(--text-muted);"><i class="ph ph-question" style="font-size:2rem;opacity:0.3;display:block;margin-bottom:8px;"></i>Nenhuma pergunta cadastrada.<br>Clique em "Nova pergunta" para adicionar.</div>';
+      return;
+    }
+    var html = '';
+    config.faq.forEach(function(f, i) {
+      html += '<div class="item-card">' +
+        '<div class="item-card-header"><h4><i class="ph ph-question" style="color:var(--orange);margin-right:4px;"></i> ' + esc(f.pergunta) + '</h4>' +
+          '<button class="btn-icon danger" onclick="removeFaqItem(' + i + ')"><i class="ph ph-trash"></i></button></div>' +
+        '<div class="form-group" style="margin-bottom:12px;"><label>Pergunta</label>' +
+          '<input type="text" value="' + esc(f.pergunta) + '" oninput="updateFaq(' + i + ',\'pergunta\',this.value)"></div>' +
+        '<div class="form-group"><label>Resposta (aceita HTML)</label>' +
+          '<textarea rows="3" oninput="updateFaq(' + i + ',\'resposta\',this.value)">' + esc(f.resposta) + '</textarea></div>' +
+      '</div>';
+    });
+    cont.innerHTML = html;
+  }
+
+  window.updateFaq = function(i, key, val) { config.faq[i][key] = val; if (key === 'pergunta') renderFaqAdmin(); markDirty(); };
+  window.removeFaqItem = function(i) { if (!confirm('Remover pergunta?')) return; config.faq.splice(i, 1); renderFaqAdmin(); markDirty(); };
+  window.addFaq = function() {
+    config.faq.push({ pergunta: 'Nova pergunta?', resposta: 'Resposta aqui.' });
+    renderFaqAdmin(); markDirty();
+  };
+
+  // ─── Helper: set input value ───
+  function setVal(id, val) {
+    var el = document.getElementById(id);
+    if (el) el.value = val || '';
+  }
+
+  // ─── Planos ───
+  function renderPlanos() {
+    var container = document.getElementById('planosContainer');
+    var html = '';
+
+    config.planos.forEach(function(p, i) {
+      html += '<div class="item-card" data-index="' + i + '">' +
+        '<div class="item-card-header">' +
+          '<h4>' + p.nome + ' — ' + p.velocidade + ' ' + p.unidade + '</h4>' +
+          '<div class="item-card-actions">' +
+            '<button class="btn-icon danger" onclick="removePlano(' + i + ')" title="Remover"><i class="ph ph-trash"></i></button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-row">' +
+          '<div class="form-group">' +
+            '<label>Nome</label>' +
+            '<input type="text" value="' + esc(p.nome) + '" oninput="updatePlano(' + i + ',\'nome\',this.value)">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Velocidade</label>' +
+            '<input type="text" value="' + esc(p.velocidade) + '" oninput="updatePlano(' + i + ',\'velocidade\',this.value)">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Unidade</label>' +
+            '<select onchange="updatePlano(' + i + ',\'unidade\',this.value)">' +
+              '<option value="Mega"' + (p.unidade === 'Mega' ? ' selected' : '') + '>Mega</option>' +
+              '<option value="Giga"' + (p.unidade === 'Giga' ? ' selected' : '') + '>Giga</option>' +
+            '</select>' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Preco (R$/mes)</label>' +
+            '<input type="number" step="0.01" value="' + p.preco + '" oninput="updatePlano(' + i + ',\'preco\',parseFloat(this.value))">' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-row">' +
+          '<div class="form-group">' +
+            '<label>Badge (deixe vazio para sem badge)</label>' +
+            '<input type="text" value="' + esc(p.badge || '') + '" placeholder="Ex: Mais vendido" oninput="updatePlano(' + i + ',\'badge\',this.value||null)">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Inclui TV?</label>' +
+            '<select onchange="updatePlano(' + i + ',\'incluiTV\',this.value===\'true\')">' +
+              '<option value="false"' + (!p.incluiTV ? ' selected' : '') + '>Nao</option>' +
+              '<option value="true"' + (p.incluiTV ? ' selected' : '') + '>Sim</option>' +
+            '</select>' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label>Diferenciais</label>' +
+          '<div class="features-list" id="features-' + i + '">' +
+            p.features.map(function(f, fi) {
+              return '<span class="feature-tag">' + esc(f) +
+                ' <span class="remove-feat" onclick="removeFeature(' + i + ',' + fi + ')">&times;</span></span>';
+            }).join('') +
+          '</div>' +
+          '<div class="add-feature-row">' +
+            '<input type="text" placeholder="Nova feature" id="newFeat-' + i + '" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addFeature(' + i + ')}">' +
+            '<button onclick="addFeature(' + i + ')">+ Adicionar</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    });
+
+    container.innerHTML = html;
+  }
+
+  window.updatePlano = function(i, key, val) {
+    config.planos[i][key] = val;
+    // Auto-generate ID
+    if (key === 'nome' || key === 'velocidade') {
+      var p = config.planos[i];
+      p.id = slugify(p.nome) + '-' + p.velocidade;
+    }
+    markDirty();
+  };
+
+  window.addFeature = function(i) {
+    var input = document.getElementById('newFeat-' + i);
+    var val = input.value.trim();
+    if (!val) return;
+    config.planos[i].features.push(val);
+    input.value = '';
+    renderPlanos();
+    markDirty();
+  };
+
+  window.removeFeature = function(i, fi) {
+    config.planos[i].features.splice(fi, 1);
+    renderPlanos();
+    markDirty();
+  };
+
+  window.addPlano = function() {
+    config.planos.push({
+      id: 'novo-plano',
+      nome: 'Novo Plano',
+      velocidade: '300',
+      unidade: 'Mega',
+      preco: 99,
+      features: [],
+      incluiTV: false,
+      badge: null
+    });
+    renderPlanos();
+    markDirty();
+  };
+
+  window.removePlano = function(i) {
+    if (!confirm('Remover o plano "' + config.planos[i].nome + '"?')) return;
+    config.planos.splice(i, 1);
+    renderPlanos();
+    markDirty();
+  };
+
+  // ─── Addons ───
+  function renderAddons() {
+    var container = document.getElementById('addonsContainer');
+    var html = '';
+
+    config.addons.forEach(function(a, i) {
+      html += '<div class="item-card">' +
+        '<div class="item-card-header">' +
+          '<h4><i class="' + a.icone + '" style="color:var(--orange);margin-right:6px;"></i> ' + esc(a.nome) + '</h4>' +
+          '<div class="item-card-actions">' +
+            '<button class="btn-icon danger" onclick="removeAddon(' + i + ')" title="Remover"><i class="ph ph-trash"></i></button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-row">' +
+          '<div class="form-group">' +
+            '<label>Nome</label>' +
+            '<input type="text" value="' + esc(a.nome) + '" oninput="updateAddon(' + i + ',\'nome\',this.value)">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Icone (classe Phosphor)</label>' +
+            '<input type="text" value="' + esc(a.icone) + '" oninput="updateAddon(' + i + ',\'icone\',this.value)">' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-group" style="margin-bottom:14px;">' +
+          '<label>Descricao</label>' +
+          '<input type="text" value="' + esc(a.descricao) + '" oninput="updateAddon(' + i + ',\'descricao\',this.value)">' +
+        '</div>' +
+        '<div class="form-row">' +
+          '<div class="form-group">' +
+            '<label>Preco (R$/mes)</label>' +
+            '<input type="number" step="0.01" value="' + a.preco + '" oninput="updateAddon(' + i + ',\'preco\',parseFloat(this.value))">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Taxa instalacao (R$)</label>' +
+            '<input type="number" step="0.01" value="' + a.instalacao + '" oninput="updateAddon(' + i + ',\'instalacao\',parseFloat(this.value))">' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label>Ja incluso nos planos:</label>' +
+          '<div class="included-plans">' +
+            config.planos.map(function(p) {
+              var isIncl = a.incluidoEm.indexOf(p.id) !== -1;
+              return '<span class="plan-check' + (isIncl ? ' checked' : '') + '" onclick="toggleAddonPlan(' + i + ',\'' + p.id + '\')">' +
+                (isIncl ? '<i class="ph-fill ph-check-square"></i>' : '<i class="ph ph-square"></i>') +
+                ' ' + p.nome + '</span>';
+            }).join('') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    });
+
+    container.innerHTML = html;
+  }
+
+  window.updateAddon = function(i, key, val) {
+    config.addons[i][key] = val;
+    if (key === 'nome') {
+      config.addons[i].id = slugify(val);
+    }
+    markDirty();
+  };
+
+  window.toggleAddonPlan = function(i, planId) {
+    var arr = config.addons[i].incluidoEm;
+    var idx = arr.indexOf(planId);
+    if (idx === -1) {
+      arr.push(planId);
+    } else {
+      arr.splice(idx, 1);
+    }
+    renderAddons();
+    markDirty();
+  };
+
+  window.addAddon = function() {
+    config.addons.push({
+      id: 'novo-extra',
+      nome: 'Novo Extra',
+      descricao: 'Descricao do produto extra.',
+      icone: 'ph-fill ph-star',
+      preco: 19.90,
+      instalacao: 0,
+      unidade: '/mes',
+      incluidoEm: []
+    });
+    renderAddons();
+    markDirty();
+  };
+
+  window.removeAddon = function(i) {
+    if (!confirm('Remover "' + config.addons[i].nome + '"?')) return;
+    config.addons.splice(i, 1);
+    renderAddons();
+    markDirty();
+  };
+
+  // ─── Tracking ───
+  function renderTracking() {
+    if (!config.tracking) config.tracking = { gtmId: '', ga4Id: '', googleAdsId: '', googleAdsConversions: { lead: '', purchase: '', whatsappClick: '' }, facebookPixelId: '', enableTracking: false };
+    var t = config.tracking;
+    setVal('cfgGtmId', t.gtmId);
+    setVal('cfgGa4Id', t.ga4Id);
+    setVal('cfgGoogleAdsId', t.googleAdsId);
+    setVal('cfgFbPixelId', t.facebookPixelId);
+
+    var conv = t.googleAdsConversions || {};
+    setVal('cfgConvLead', conv.lead);
+    setVal('cfgConvPurchase', conv.purchase);
+    setVal('cfgConvWhatsapp', conv.whatsappClick);
+
+    // Toggle
+    var toggle = document.getElementById('toggleTracking');
+    var desc = document.getElementById('trackingModeDesc');
+    if (toggle && desc) {
+      var active = !!t.enableTracking;
+      toggle.className = 'toggle-switch' + (active ? ' on' : '');
+      toggle.setAttribute('aria-checked', active ? 'true' : 'false');
+      desc.textContent = active
+        ? 'Ativado: GTM, GA4, Google Ads e Facebook Pixel serao carregados'
+        : 'Desativado: nenhum pixel ou tag sera carregado';
+    }
+  }
+
+  window.updateTracking = function(key, val) {
+    if (!config.tracking) config.tracking = {};
+    config.tracking[key] = val;
+    markDirty();
+  };
+
+  window.updateTrackingConv = function(key, val) {
+    if (!config.tracking) config.tracking = {};
+    if (!config.tracking.googleAdsConversions) config.tracking.googleAdsConversions = {};
+    config.tracking.googleAdsConversions[key] = val;
+    markDirty();
+  };
+
+  window.toggleTrackingMode = function() {
+    if (!config.tracking) config.tracking = {};
+    config.tracking.enableTracking = !config.tracking.enableTracking;
+    renderTracking();
+    markDirty();
+  };
+
+  // ─── Utils ───
+  function esc(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function slugify(str) {
+    return str.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  // Warn on leave
+  window.addEventListener('beforeunload', function(e) {
+    if (dirty) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
+
+  // Boot — check auth first, then load config
+  checkAuth();
+})();
+</script>
+</body>
+</html>

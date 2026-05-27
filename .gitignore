@@ -1,0 +1,4 @@
+api/config.php
+secrets/
+.claude/
+node_modules/

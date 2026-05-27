@@ -1,0 +1,222 @@
+{
+  "empresa": {
+    "telefone": "(47) 3434-1734",
+    "whatsapp": "5547989212991",
+    "whatsappFormatado": "(47) 98921-2991",
+    "email": "masterinfo@masterinfointernet.com",
+    "endereco": "Rua Baltazar Buschler 628",
+    "bairroEndereco": "Comasa",
+    "cidade": "Joinville, SC",
+    "cep": "89228-000",
+    "cnpj": "XX.XXX.XXX/0001-XX",
+    "instagram": "https://www.instagram.com/masterinfointernet",
+    "facebook": "https://www.facebook.com/masterinfointernet"
+  },
+  "checkout": {
+    "modo": "simples",
+    "whatsapp": "5547989212991"
+  },
+  "hero": {
+    "badge": "100% Fibra Óptica em Joinville",
+    "titulo": "Internet que",
+    "tituloDestaque": "não te deixa",
+    "tituloFim": "na mão.",
+    "subtitulo": "Chega de cair no meio do jogo, travar na live ou esperar o filme carregar. <strong>Fibra óptica de verdade</strong> nos bairros Comasa, Boa Vista, Espinheiros e região.",
+    "confianca": [
+      "Instalação em até <strong>24h</strong>",
+      "<strong>Sem fidelidade</strong>",
+      "<strong>+6 anos</strong> em Joinville"
+    ]
+  },
+  "stats": [
+    { "valor": 10000, "sufixo": "+", "decimal": false, "label": "Clientes conectados" },
+    { "valor": 99.8, "sufixo": "%", "decimal": true, "label": "Uptime da rede" },
+    { "valor": 6, "sufixo": "+", "decimal": false, "label": "Anos em Joinville" },
+    { "valor": 4.9, "prefixo": "★ ", "sufixo": "", "decimal": true, "label": "Nota no Google" }
+  ],
+  "diferenciais": [
+    {
+      "icone": "ph-fill ph-map-trifold",
+      "titulo": "Atendimento Local",
+      "descricao": "Nossa equipe mora aqui. O técnico que vai na sua casa conhece o bairro e fala com você pelo WhatsApp."
+    },
+    {
+      "icone": "ph-fill ph-lightning",
+      "titulo": "Fibra Óptica Real",
+      "descricao": "Nada de rádio ou cabo compartilhado. Fibra óptica direto até sua casa — a mesma velocidade chova ou faça sol."
+    },
+    {
+      "icone": "ph-fill ph-wrench",
+      "titulo": "Suporte Rápido",
+      "descricao": "Sem esperar 40 minutos num 0800. Manda um zap, a gente resolve. Simples assim."
+    },
+    {
+      "icone": "ph-fill ph-shield-check",
+      "titulo": "Sem Surpresas",
+      "descricao": "Preço fixo, sem reajuste escondido, sem fidelidade. Ficou insatisfeito? Cancela quando quiser."
+    },
+    {
+      "icone": "ph-fill ph-game-controller",
+      "titulo": "Internet de Gamer",
+      "descricao": "Ping baixo e estável. Ideal para quem joga online, faz stream ou trabalha de casa sem travamento."
+    },
+    {
+      "icone": "ph-fill ph-clock-countdown",
+      "titulo": "Instalação em 24h",
+      "descricao": "Contratou hoje, tá navegando amanhã. Sem enrolação, sem \"aguarde de 7 a 15 dias úteis\"."
+    }
+  ],
+  "bairros": [
+    { "nome": "Comasa", "dataBairro": "Comasa", "lat": -26.2798, "lng": -48.8016 },
+    { "nome": "Boa Vista", "dataBairro": "Boa Vista", "lat": -26.2980, "lng": -48.8224 },
+    { "nome": "Espinheiros", "dataBairro": "Espinheiros", "lat": -26.2836, "lng": -48.7810 },
+    { "nome": "Aventureiro", "dataBairro": "Aventureiro", "lat": -26.2435, "lng": -48.8105 },
+    { "nome": "Jardim Paraíso", "dataBairro": "Jd. Paraiso", "lat": -26.2124, "lng": -48.8228 },
+    { "nome": "Jardim Sofia", "dataBairro": "Jd. Sofia", "lat": -26.2385, "lng": -48.8410 },
+    { "nome": "Cubatão", "dataBairro": "Cubatao", "lat": -26.2175, "lng": -48.7992 },
+    { "nome": "Itinga", "dataBairro": "Itinga", "lat": -26.3827, "lng": -48.8257 },
+    { "nome": "Nova Brasília", "dataBairro": "Nova Brasilia", "lat": -26.3418, "lng": -48.8710 },
+    { "nome": "Rio Bonito", "dataBairro": "Rio Bonito", "lat": -26.1682, "lng": -48.8999 },
+    { "nome": "Estrada Timbé", "dataBairro": "Estr. Timbe", "lat": -26.2217, "lng": -48.8234 },
+    { "nome": "Paranaguamirim", "dataBairro": "Paranaguamirim", "lat": -26.3458, "lng": -48.7705 },
+    { "nome": "Iririú", "dataBairro": "Iririu", "lat": -26.2650, "lng": -48.8165 }
+  ],
+  "depoimentos": [
+    {
+      "nome": "Rodrigo M.",
+      "local": "Bairro Comasa",
+      "texto": "Troquei da Vivo pra MasterInfo e a diferença é absurda. Nunca mais caiu a internet no meio do home office.",
+      "estrelas": 5
+    },
+    {
+      "nome": "Ana Paula S.",
+      "local": "Bairro Boa Vista",
+      "texto": "O suporte é outro nível. Mandei mensagem no WhatsApp às 21h e o técnico respondeu na hora. Nunca vi isso.",
+      "estrelas": 5
+    },
+    {
+      "nome": "Carlos E.",
+      "local": "Bairro Aventureiro",
+      "texto": "Meu filho joga o dia inteiro e eu trabalho com vídeo. Com 600 mega não trava nada. Melhor custo-benefício.",
+      "estrelas": 5
+    }
+  ],
+  "faq": [
+    {
+      "pergunta": "Tem fidelidade?",
+      "resposta": "<strong>Não.</strong> Você pode cancelar quando quiser, sem multa. A gente acredita que você fica porque quer, não porque tem contrato te prendendo."
+    },
+    {
+      "pergunta": "Quanto tempo demora a instalação?",
+      "resposta": "Na maioria dos casos, <strong>instalamos em até 24 horas</strong> após a contratação. Sem aquela história de \"7 a 15 dias úteis\"."
+    },
+    {
+      "pergunta": "A velocidade é real?",
+      "resposta": "Sim. Nossa fibra óptica entrega a velocidade contratada. Pode testar no <strong>speedtest.net</strong> assim que instalar — a gente tem orgulho do resultado."
+    },
+    {
+      "pergunta": "O Wi-Fi pega em toda a casa?",
+      "resposta": "O roteador incluso cobre a maioria das casas. Se precisar de mais alcance, oferecemos <strong>roteadores mesh</strong> como acessório para cobrir cada canto."
+    },
+    {
+      "pergunta": "Vocês atendem meu bairro?",
+      "resposta": "Estamos expandindo toda semana. <a href=\"#\" onclick=\"openLeadModal(); return false;\">Verifique a cobertura aqui</a>."
+    }
+  ],
+  "planos": [
+    {
+      "id": "lite-400",
+      "nome": "Lite",
+      "velocidade": "400",
+      "unidade": "Mega",
+      "preco": 109,
+      "features": ["Wi-Fi incluso", "Roteador em comodato", "Instalacao gratis", "Suporte local 7 dias"],
+      "incluiTV": false,
+      "badge": null
+    },
+    {
+      "id": "ultra-500",
+      "nome": "Ultra",
+      "velocidade": "500",
+      "unidade": "Mega",
+      "preco": 129,
+      "features": ["Tudo do Lite +", "WatchTV (23 canais)", "Digilivro incluso", "Upload turbinado"],
+      "incluiTV": true,
+      "badge": null
+    },
+    {
+      "id": "ultra-600",
+      "nome": "Ultra+",
+      "velocidade": "600",
+      "unidade": "Mega",
+      "preco": 149,
+      "features": ["Tudo do Ultra +", "Ideal p/ smart home", "Ate 10 dispositivos", "Prioridade no suporte"],
+      "incluiTV": true,
+      "badge": "Mais vendido"
+    },
+    {
+      "id": "giga-1000",
+      "nome": "Giga",
+      "velocidade": "1",
+      "unidade": "Giga",
+      "preco": 179,
+      "features": ["Tudo do Ultra+ e mais", "Velocidade maxima", "Gamers & streamers", "Sem limite de trafego"],
+      "incluiTV": true,
+      "badge": null
+    }
+  ],
+  "addons": [
+    {
+      "id": "mesh",
+      "nome": "Roteador Mesh",
+      "descricao": "Cobertura Wi-Fi em toda a casa, sem pontos cegos.",
+      "icone": "ph-fill ph-wifi-high",
+      "preco": 29.90,
+      "instalacao": 0,
+      "unidade": "/mes",
+      "incluidoEm": []
+    },
+    {
+      "id": "watchtv",
+      "nome": "WatchTV / IPTV",
+      "descricao": "23 canais ao vivo + conteudo on demand na sua TV.",
+      "icone": "ph-fill ph-television-simple",
+      "preco": 19.90,
+      "instalacao": 0,
+      "unidade": "/mes",
+      "incluidoEm": ["ultra-500", "ultra-600", "giga-1000"]
+    },
+    {
+      "id": "ip-fixo",
+      "nome": "IP Fixo",
+      "descricao": "IP publico dedicado ideal para cameras, servidores e VPN.",
+      "icone": "ph-fill ph-globe-simple",
+      "preco": 30.00,
+      "instalacao": 0,
+      "unidade": "/mes",
+      "incluidoEm": []
+    },
+    {
+      "id": "ponto-extra",
+      "nome": "Ponto Extra de Fibra",
+      "descricao": "Leve fibra para outro comodo com ponto adicional.",
+      "icone": "ph-fill ph-plug",
+      "preco": 15.00,
+      "instalacao": 50.00,
+      "unidade": "/mes",
+      "incluidoEm": []
+    }
+  ],
+  "tracking": {
+    "gtmId": "",
+    "ga4Id": "",
+    "googleAdsId": "",
+    "googleAdsConversions": {
+      "lead": "",
+      "purchase": "",
+      "whatsappClick": ""
+    },
+    "facebookPixelId": "",
+    "enableTracking": false
+  }
+}
