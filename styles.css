@@ -1717,9 +1717,29 @@ img.dropdown-logo.dropdown-logo-real {
   padding: 8px 18px;
   border-radius: var(--radius-full);
   margin-bottom: 28px;
+}
+
+/* Tab no fundo preto */
+.plans-dark .plans-tab {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Tab no fundo branco */
+.plans-light .plans-tab {
   background: rgba(0,0,0,0.05);
   color: #1a1a1a;
   border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Section preta — espacamento menor pra encostar na branca */
+.plans-dark {
+  padding-bottom: 80px;
+}
+
+.plans-light {
+  padding-top: 80px;
 }
 
 .plans::before {
