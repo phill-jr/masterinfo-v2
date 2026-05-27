@@ -530,43 +530,30 @@ button {
   transform: translateX(3px);
 }
 
-.dropdown-icon {
+/* Logos reais dos apps (chip 30x30) */
+.dropdown-logo {
   width: 30px;
   height: 30px;
   flex-shrink: 0;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
-  font-size: 0.95rem;
-  color: var(--white);
+  overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 
-/* === Internet (planos) === */
-.dd-ico-home    { background: linear-gradient(135deg, var(--orange), var(--red)); }
-.dd-ico-gamer   { background: linear-gradient(135deg, #6d28d9, #4c1d95); }
-.dd-ico-mesh    { background: linear-gradient(135deg, var(--red-deep), var(--red)); }
-.dd-ico-wifi    { background: linear-gradient(135deg, var(--yellow), var(--orange)); color: var(--black); }
+.dropdown-logo svg {
+  width: 100%;
+  height: 100%;
+}
 
-/* === Aplicativos (cores das marcas) === */
-.dd-ico-sky      { background: linear-gradient(135deg, #0073e6, #003d80); }
-.dd-ico-deezer   { background: linear-gradient(135deg, #ef5466, #a238ff); }
-.dd-ico-globo    { background: linear-gradient(135deg, #ff5252, #c5001a); }
-.dd-ico-disney   { background: linear-gradient(135deg, #1a2980, #113ccf); }
-.dd-ico-hbo      { background: linear-gradient(135deg, #6d28d9, #1f0a52); }
-.dd-ico-prime    { background: linear-gradient(135deg, #00a8e1, #006391); }
-.dd-ico-news     { background: linear-gradient(135deg, var(--orange-dark), var(--red)); }
-.dd-ico-book     { background: linear-gradient(135deg, #16a34a, #047857); }
-.dd-ico-exitlag  { background: linear-gradient(135deg, #1a1a1a, #c1121f); }
-.dd-ico-kaspersky{ background: linear-gradient(135deg, #00a88e, #007a66); }
-
-/* === Ajuda === */
-.dd-ico-zap     { background: linear-gradient(135deg, #25d366, #128c7e); }
-.dd-ico-speed   { background: linear-gradient(135deg, #141526, #6366f1); }
-.dd-ico-faq     { background: linear-gradient(135deg, var(--yellow), var(--amber)); color: var(--black); }
-.dd-ico-report  { background: linear-gradient(135deg, var(--success), #15803d); }
-.dd-ico-bill    { background: linear-gradient(135deg, var(--red), var(--red-deep)); }
+/* Logo vinda de CDN (Disney+, HBO, Deezer, Prime, Kaspersky) — fica branca de fundo pra logo colorida aparecer */
+.dropdown-logo-img {
+  background: var(--white);
+  padding: 5px;
+  object-fit: contain;
+}
 
 /* Backdrop quando mega abre */
 .mega-backdrop {
