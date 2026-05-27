@@ -134,7 +134,7 @@
       "precoPontual": 99.90,
       "precoCheio": 99.90,
       "semDescontoPontualidade": true,
-      "features": ["Internet 400 Mega de fibra", "Jornal Z + Digilivro inclusos", "Wi-Fi + roteador grátis", "Instalação 24h, sem fidelidade"],
+      "features": ["Internet 400 Mega de fibra", "Wi-Fi + roteador grátis", "Instalação 24h, sem fidelidade"],
       "badge": null
     },
     {
@@ -146,7 +146,7 @@
       "unidade": "Mega",
       "precoPontual": 99.90,
       "precoCheio": 109.90,
-      "features": ["Internet 600 Mega de fibra", "SKY+ Light grátis (TV)", "Jornal Z + Digilivro inclusos", "Wi-Fi + instalação 24h"],
+      "features": ["Internet 600 Mega de fibra", "SKY+ Light grátis (TV)", "Wi-Fi + instalação 24h"],
       "badge": null
     },
     {
@@ -158,7 +158,7 @@
       "unidade": "Mega",
       "precoPontual": 109.00,
       "precoCheio": 119.00,
-      "features": ["Internet 800 Mega de fibra", "SKY+ Light grátis (TV)", "Jornal Z + Digilivro inclusos", "Wi-Fi + instalação 24h"],
+      "features": ["Internet 800 Mega de fibra", "SKY+ Light grátis (TV)", "Wi-Fi + instalação 24h"],
       "badge": "Pra família"
     },
     {
@@ -170,7 +170,7 @@
       "unidade": "Giga",
       "precoPontual": 119.90,
       "precoCheio": 129.90,
-      "features": ["Internet 1 Giga de fibra", "SKY+ Light ou Deezer (à escolha)", "Jornal Z + Digilivro inclusos", "Estabilidade pra reuniões"],
+      "features": ["Internet 1 Giga de fibra", "SKY+ Light ou Deezer (à escolha)", "Estabilidade pra reuniões"],
       "badge": "Mais procurado",
       "heroi": true
     },
@@ -183,7 +183,7 @@
       "unidade": "Mega",
       "precoPontual": 139.90,
       "precoCheio": 159.90,
-      "features": ["Internet 800 Mega de fibra", "GloboPlay incluso", "Roteador Mesh (Wi-Fi em toda casa)", "Jornal Z + Digilivro"],
+      "features": ["Internet 800 Mega de fibra", "GloboPlay incluso", "Roteador Mesh (Wi-Fi em toda casa)"],
       "badge": null
     },
     {
@@ -195,7 +195,7 @@
       "unidade": "Giga",
       "precoPontual": 218.60,
       "precoCheio": 228.60,
-      "features": ["Internet 1 Giga de fibra", "SKY+ Light + Disney+", "Roteador Mesh premium", "Jornal Z + Digilivro"],
+      "features": ["Internet 1 Giga de fibra", "SKY+ Light + Disney+", "Roteador Mesh premium"],
       "badge": "Tudo incluso · Top",
       "upsellTop": true
     }
