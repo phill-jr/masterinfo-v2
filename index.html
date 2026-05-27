@@ -60,8 +60,8 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20260527g">
-  <link rel="stylesheet" href="modal.css?v=20260527g">
+  <link rel="stylesheet" href="styles.css?v=20260527h">
+  <link rel="stylesheet" href="modal.css?v=20260527h">
 </head>
 <body>
 
@@ -212,76 +212,18 @@
     <div class="mega-backdrop" id="megaBackdrop"></div>
   </header>
 
-  <!-- ========== HERO (slideshow full-bleed) ========== -->
+  <!-- ========== HERO (slideshow só imagem) ========== -->
   <section class="hero" id="hero">
     <div class="hero-slideshow" id="heroSlideshow">
 
-      <!-- Slide 1 — Lite Essencial -->
-      <article class="hero-slide is-active hero-bg-essencial" data-slide="0">
-        <!-- IMG futura aqui: <img class="hero-slide-img" src="imgs/lite-essencial.jpg" alt=""> -->
-        <div class="hero-slide-shade"></div>
-        <div class="container hero-slide-content">
-          <span class="hero-slide-tag hero-slide-tag-lite">LITE</span>
-          <h1 class="hero-slide-title">Lite Essencial<br><span>400 Mega de fibra</span></h1>
-          <p class="hero-slide-price">a partir de <strong>R$ 99,90</strong> <em>/mês</em></p>
-          <a href="/familia/lite-essencial" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
-        </div>
-      </article>
-
-      <!-- Slide 2 — Lite Casa -->
-      <article class="hero-slide hero-bg-casa" data-slide="1">
-        <div class="hero-slide-shade"></div>
-        <div class="container hero-slide-content">
-          <span class="hero-slide-tag hero-slide-tag-lite">LITE</span>
-          <h1 class="hero-slide-title">Lite Casa<br><span>600 Mega de fibra</span></h1>
-          <p class="hero-slide-price">a partir de <strong>R$ 99,90</strong> <em>/mês</em></p>
-          <a href="/familia/lite-casa" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
-        </div>
-      </article>
-
-      <!-- Slide 3 — Lite Família -->
-      <article class="hero-slide hero-bg-familia" data-slide="2">
-        <div class="hero-slide-shade"></div>
-        <div class="container hero-slide-content">
-          <span class="hero-slide-tag hero-slide-tag-lite">LITE</span>
-          <h1 class="hero-slide-title">Lite Família<br><span>800 Mega de fibra</span></h1>
-          <p class="hero-slide-price">a partir de <strong>R$ 109,00</strong> <em>/mês</em></p>
-          <a href="/familia/lite-familia" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
-        </div>
-      </article>
-
-      <!-- Slide 4 — Lite Home Office -->
-      <article class="hero-slide hero-bg-home" data-slide="3">
-        <div class="hero-slide-shade"></div>
-        <div class="container hero-slide-content">
-          <span class="hero-slide-tag hero-slide-tag-fire"><i class="ph-fill ph-fire"></i> Mais procurado</span>
-          <h1 class="hero-slide-title">Lite Home Office<br><span>1 Giga de fibra</span></h1>
-          <p class="hero-slide-price">a partir de <strong>R$ 119,90</strong> <em>/mês</em></p>
-          <a href="/familia/lite-home-office" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
-        </div>
-      </article>
-
-      <!-- Slide 5 — Ultra Família -->
-      <article class="hero-slide hero-bg-ufamilia" data-slide="4">
-        <div class="hero-slide-shade"></div>
-        <div class="container hero-slide-content">
-          <span class="hero-slide-tag hero-slide-tag-ultra">ULTRA</span>
-          <h1 class="hero-slide-title">Ultra Família<br><span>800 Mega de fibra</span></h1>
-          <p class="hero-slide-price">a partir de <strong>R$ 139,90</strong> <em>/mês</em></p>
-          <a href="/familia/ultra-familia" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
-        </div>
-      </article>
-
-      <!-- Slide 6 — Ultra Home Office -->
-      <article class="hero-slide hero-bg-uhome" data-slide="5">
-        <div class="hero-slide-shade"></div>
-        <div class="container hero-slide-content">
-          <span class="hero-slide-tag hero-slide-tag-top"><i class="ph-fill ph-rocket-launch"></i> Tudo incluso</span>
-          <h1 class="hero-slide-title">Ultra Home Office<br><span>1 Giga de fibra</span></h1>
-          <p class="hero-slide-price">a partir de <strong>R$ 218,60</strong> <em>/mês</em></p>
-          <a href="/familia/ultra-home-office" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
-        </div>
-      </article>
+      <a href="/home-office" class="hero-slide is-active hero-bg-home" data-slide="0" aria-label="Home Office">
+        <!-- IMAGEM FUTURA: trocar bg class por <img class="hero-slide-img" src="imgs/home-office.jpg" alt=""> -->
+      </a>
+      <a href="/gamer" class="hero-slide hero-bg-uhome" data-slide="1" aria-label="Gamer"></a>
+      <a href="/com-2-roteadores" class="hero-slide hero-bg-ufamilia" data-slide="2" aria-label="Com 2 Roteadores"></a>
+      <a href="/com-1-roteador" class="hero-slide hero-bg-casa" data-slide="3" aria-label="Com 1 Roteador"></a>
+      <a href="/home-office" class="hero-slide hero-bg-familia" data-slide="4" aria-label="Home Office"></a>
+      <a href="/aplicativos/disney-plus" class="hero-slide hero-bg-essencial" data-slide="5" aria-label="Aplicativos"></a>
 
       <!-- Setas suaves -->
       <button class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Slide anterior">
@@ -2088,9 +2030,17 @@
         });
       });
 
-      // Pausa hover
-      heroSlideshow.addEventListener('mouseenter', function() { paused = true; });
-      heroSlideshow.addEventListener('mouseleave', function() { paused = false; });
+      // Pausa hover apenas nas setas/dots (nao no slide inteiro)
+      [prevBtn, nextBtn].forEach(function(b) {
+        if (!b) return;
+        b.addEventListener('mouseenter', function() { paused = true; });
+        b.addEventListener('mouseleave', function() { paused = false; });
+      });
+      var dotsContainer = document.getElementById('heroDots');
+      if (dotsContainer) {
+        dotsContainer.addEventListener('mouseenter', function() { paused = true; });
+        dotsContainer.addEventListener('mouseleave', function() { paused = false; });
+      }
 
       // Swipe touch
       var touchStartX = 0;

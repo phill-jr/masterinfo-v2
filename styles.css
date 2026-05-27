@@ -530,10 +530,12 @@ button {
   transform: translateX(3px);
 }
 
-/* Logos reais dos apps (chip 30x30) */
+/* Logos dos apps — chip fixo 28x28 */
 .dropdown-logo {
-  width: 30px;
-  height: 30px;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px;
+  min-height: 28px;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
@@ -541,17 +543,19 @@ button {
   border-radius: var(--radius-sm);
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  box-sizing: border-box;
 }
 
 .dropdown-logo svg {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
-/* Logo vinda de CDN (Disney+, HBO, Deezer, Prime, Kaspersky) — fica branca de fundo pra logo colorida aparecer */
-.dropdown-logo-img {
+/* IMG vindas do CDN — fundo branco pra logo colorida aparecer */
+img.dropdown-logo {
   background: var(--white);
-  padding: 5px;
+  padding: 4px;
   object-fit: contain;
 }
 
