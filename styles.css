@@ -1674,6 +1674,7 @@ img.dropdown-logo.dropdown-logo-real {
 .plans {
   padding: 120px 0;
   position: relative;
+  background: #000;
 }
 
 .plans::before {
@@ -3514,13 +3515,13 @@ img.dropdown-logo.dropdown-logo-real {
   margin: 0 auto;
 }
 
-/* Linha Ultra com fundo destacado */
+/* Linha Ultra — sem fundo destacado */
 .plans-line-ultra {
   position: relative;
-  padding: 48px 32px;
-  background: linear-gradient(180deg, rgba(255,122,5,0.04) 0%, rgba(230,57,70,0.04) 100%);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-2xl);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
   margin-top: 80px;
 }
 

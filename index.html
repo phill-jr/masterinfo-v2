@@ -60,8 +60,8 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20260527n">
-  <link rel="stylesheet" href="modal.css?v=20260527n">
+  <link rel="stylesheet" href="styles.css?v=20260527o">
+  <link rel="stylesheet" href="modal.css?v=20260527o">
 </head>
 <body>
 
@@ -234,17 +234,6 @@
         <span class="section-tag">Planos Residenciais 2026</span>
         <h2 class="section-title">Escolha a linha que<br><span class="title-fire">combina com você</span></h2>
         <p class="section-desc">Todos os planos incluem Wi-Fi, roteador, instalação grátis e suporte local 7 dias. Sem fidelidade.</p>
-      </div>
-
-      <!-- ── Toggle de pagamento ── -->
-      <div class="plans-toggle" role="tablist">
-        <button class="plans-toggle-btn is-active" data-price="pontual" role="tab">
-          <i class="ph-fill ph-check-circle"></i>
-          <span>Com desconto pontualidade</span>
-        </button>
-        <button class="plans-toggle-btn" data-price="cheio" role="tab">
-          <span>Preço cheio</span>
-        </button>
       </div>
 
       <!-- ── LINHA LITE ── -->
@@ -1939,26 +1928,6 @@
       if (e.key === 'Escape') closeAllMega();
     });
 
-    // ── Toggle de preço (pontual / cheio) ──
-    var toggleBtns = document.querySelectorAll('.plans-toggle-btn');
-    var priceEls = document.querySelectorAll('.plan-value[data-price-pontual]');
-
-    function setPriceMode(mode) {
-      priceEls.forEach(function(el) {
-        var v = el.getAttribute('data-price-' + mode);
-        if (v) el.textContent = v;
-      });
-      toggleBtns.forEach(function(b) {
-        b.classList.toggle('is-active', b.getAttribute('data-price') === mode);
-      });
-      document.body.setAttribute('data-price-mode', mode);
-    }
-
-    toggleBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        setPriceMode(btn.getAttribute('data-price'));
-      });
-    });
   })();
   </script>
 
