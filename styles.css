@@ -1731,24 +1731,22 @@ img.dropdown-logo.dropdown-logo-real {
   margin-bottom: 32px;
 }
 
-/* Tab no fundo preto */
-.plans-dark .plans-tab {
-  background: rgba(255,255,255,0.06);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.12);
-}
-
-/* Tab no fundo branco */
+/* Tab (em ambas as secoes - fundo branco agora) */
+.plans-dark .plans-tab,
 .plans-light .plans-tab {
   background: rgba(0,0,0,0.05);
   color: #1a1a1a;
   border: 1px solid rgba(0,0,0,0.08);
 }
 
-/* Section preta — espacamento menor pra encostar na branca */
+/* Ambas as secoes agora brancas */
 .plans-dark {
+  background: #fff;
+  color: #1a1a1a;
   padding-bottom: 80px;
 }
+
+.plans-dark .section-title { color: #1a1a1a; }
 
 .plans-light {
   padding-top: 80px;
@@ -1772,22 +1770,22 @@ img.dropdown-logo.dropdown-logo-real {
 
 .plan-card {
   position: relative;
-  background: var(--gray-900);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .plan-card:hover {
-  border-color: rgba(255,122,5,0.2);
+  border-color: rgba(255,122,5,0.35);
   transform: translateY(-4px);
   box-shadow: var(--shadow-glow);
 }
 
 .plan-card.plan-featured {
   border-color: rgba(255,122,5,0.6);
-  background: linear-gradient(180deg, rgba(230,57,70,0.08) 0%, rgba(255,122,5,0.06) 30%, var(--gray-900) 70%);
+  background: #000;
   box-shadow: var(--shadow-glow), 0 0 0 1px rgba(255,122,5,0.15);
   transform: translateY(-8px);
 }
@@ -3640,7 +3638,7 @@ img.dropdown-logo.dropdown-logo-real {
 
 /* Card Ultra */
 .plan-ultra-card {
-  background: linear-gradient(180deg, rgba(255,122,5,0.04) 0%, var(--gray-900) 60%);
+  background: #000;
   border-color: rgba(255,122,5,0.15);
 }
 
