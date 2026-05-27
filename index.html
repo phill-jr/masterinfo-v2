@@ -65,6 +65,26 @@
 </head>
 <body>
 
+  <!-- ========== PROMO BAR (urgência) ========== -->
+  <div class="promo-bar" id="promoBar">
+    <div class="container promo-bar-inner">
+      <div class="promo-bar-content">
+        <span class="promo-bar-emoji"><i class="ph-fill ph-fire"></i></span>
+        <span class="promo-bar-text">
+          <strong>OFERTA DO MÊS</strong>
+          <span class="promo-bar-sep">·</span>
+          <span class="promo-bar-offer">600 MEGA por R$ 149/mês</span>
+          <span class="promo-bar-sep">·</span>
+          <span class="promo-bar-cta-text">Instalação grátis</span>
+        </span>
+        <a href="#planos" class="promo-bar-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
+      </div>
+      <button class="promo-bar-close" id="promoBarClose" aria-label="Fechar">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+  </div>
+
   <!-- ========== TOPBAR ========== -->
   <div class="topbar">
     <div class="container topbar-inner">
@@ -191,6 +211,21 @@
             <li><i class="ph-fill ph-check-circle"></i> WatchTV (23 canais) grátis</li>
             <li><i class="ph-fill ph-check-circle"></i> Instalação em 24h · Sem fidelidade</li>
           </ul>
+
+          <div class="hero-offer-countdown" id="heroCountdown">
+            <span class="hero-offer-countdown-label">
+              <i class="ph-fill ph-clock-countdown"></i> Oferta termina em
+            </span>
+            <div class="hero-offer-countdown-time">
+              <div class="countdown-unit"><span class="countdown-num" data-cd="days">7</span><span class="countdown-tag">dias</span></div>
+              <span class="countdown-sep">:</span>
+              <div class="countdown-unit"><span class="countdown-num" data-cd="hours">23</span><span class="countdown-tag">horas</span></div>
+              <span class="countdown-sep">:</span>
+              <div class="countdown-unit"><span class="countdown-num" data-cd="minutes">59</span><span class="countdown-tag">min</span></div>
+              <span class="countdown-sep">:</span>
+              <div class="countdown-unit"><span class="countdown-num" data-cd="seconds">59</span><span class="countdown-tag">seg</span></div>
+            </div>
+          </div>
 
           <a href="checkout.html?plano=ultra-600" class="btn hero-offer-cta">
             Quero esse plano <i class="ph ph-arrow-right"></i>
@@ -408,6 +443,114 @@
       <div class="includes-footnote">
         <i class="ph-fill ph-info"></i>
         <span>Benefícios variam por plano. Sujeito a análise de crédito.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMPARATIVO ========== -->
+  <section class="compare" id="comparativo">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Cara a cara</span>
+        <h2 class="section-title">A diferença que faz<br><span class="title-fire">diferença</span></h2>
+        <p class="section-desc">Sem rodeios. Veja por que tanta gente em Joinville tá trocando de operadora.</p>
+      </div>
+
+      <div class="compare-table">
+
+        <div class="compare-head">
+          <div class="compare-head-item compare-head-them">
+            <span class="compare-head-tag">Outras operadoras</span>
+            <i class="ph-fill ph-buildings"></i>
+          </div>
+          <div class="compare-head-item compare-head-us">
+            <span class="compare-head-tag">MasterInfo</span>
+            <span class="compare-head-logo">Master<span>Info</span></span>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-label">Atendimento</div>
+          <div class="compare-cell compare-cell-bad">
+            <i class="ph ph-x-circle"></i>
+            <span>0800 com 40 min de espera<br><small>Robô · São Paulo</small></span>
+          </div>
+          <div class="compare-cell compare-cell-good">
+            <i class="ph-fill ph-check-circle"></i>
+            <span>WhatsApp respondido na hora<br><small>Pessoa real · Joinville</small></span>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-label">Instalação</div>
+          <div class="compare-cell compare-cell-bad">
+            <i class="ph ph-x-circle"></i>
+            <span>7 a 15 dias úteis<br><small>Reagenda 3x</small></span>
+          </div>
+          <div class="compare-cell compare-cell-good">
+            <i class="ph-fill ph-check-circle"></i>
+            <span>Em até 24 horas<br><small>No dia e hora marcados</small></span>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-label">Velocidade</div>
+          <div class="compare-cell compare-cell-bad">
+            <i class="ph ph-x-circle"></i>
+            <span>Cai no peak<br><small>Cabo compartilhado · rádio</small></span>
+          </div>
+          <div class="compare-cell compare-cell-good">
+            <i class="ph-fill ph-check-circle"></i>
+            <span>Velocidade real, sempre<br><small>100% fibra dedicada</small></span>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-label">Fidelidade</div>
+          <div class="compare-cell compare-cell-bad">
+            <i class="ph ph-x-circle"></i>
+            <span>12 a 24 meses<br><small>Multa rescisória pesada</small></span>
+          </div>
+          <div class="compare-cell compare-cell-good">
+            <i class="ph-fill ph-check-circle"></i>
+            <span>Sem fidelidade<br><small>Cancela quando quiser</small></span>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-label">Conta surpresa</div>
+          <div class="compare-cell compare-cell-bad">
+            <i class="ph ph-x-circle"></i>
+            <span>Reajustes silenciosos<br><small>Aparece no boleto</small></span>
+          </div>
+          <div class="compare-cell compare-cell-good">
+            <i class="ph-fill ph-check-circle"></i>
+            <span>Preço fixo do contrato<br><small>O que combina vale</small></span>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-label">Suporte técnico</div>
+          <div class="compare-cell compare-cell-bad">
+            <i class="ph ph-x-circle"></i>
+            <span>Visita só em horário comercial<br><small>Você se vira</small></span>
+          </div>
+          <div class="compare-cell compare-cell-good">
+            <i class="ph-fill ph-check-circle"></i>
+            <span>De domingo a domingo<br><small>Inclusive feriado</small></span>
+          </div>
+        </div>
+
+        <div class="compare-row compare-row-cta">
+          <div class="compare-label"></div>
+          <div class="compare-cell-cta">
+            <span class="compare-cta-text">Cansou de operadora ruim?</span>
+            <a href="#planos" class="compare-cta-btn">
+              Quero a MasterInfo <i class="ph ph-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -875,6 +1018,47 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ========== CTA BANNER INTERMEDIÁRIO ========== -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-banner-inner">
+        <div class="cta-banner-bg"></div>
+        <div class="cta-banner-content">
+          <div class="cta-banner-stars">
+            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+          </div>
+          <h3>Ainda em dúvida?</h3>
+          <p>Liga ou manda zap. Em <strong>2 minutos</strong> a gente tira todas as dúvidas e <strong>checa a cobertura na sua rua</strong>. Sem compromisso.</p>
+          <div class="cta-banner-buttons">
+            <a href="https://wa.me/5547989212991?text=Ol%C3%A1!%20Tenho%20d%C3%BAvidas%20sobre%20os%20planos" target="_blank" class="cta-banner-btn cta-banner-zap">
+              <i class="ph-fill ph-whatsapp-logo"></i> Mandar zap agora
+            </a>
+            <a href="tel:4734341734" class="cta-banner-btn cta-banner-call">
+              <i class="ph ph-phone"></i> (47) 3434-1734
+            </a>
+          </div>
+          <div class="cta-banner-trust">
+            <i class="ph-fill ph-shield-check"></i>
+            <span>Atendimento humano · Pessoa real responde · Sem robô</span>
+          </div>
+        </div>
+        <div class="cta-banner-visual">
+          <div class="cta-banner-avatars">
+            <div class="cta-avatar" style="background: linear-gradient(135deg, #ff7a05, #fcc305);">R</div>
+            <div class="cta-avatar" style="background: linear-gradient(135deg, #e63946, #ff7a05);">A</div>
+            <div class="cta-avatar" style="background: linear-gradient(135deg, #fcc305, #ff9a3c);">M</div>
+            <div class="cta-avatar" style="background: linear-gradient(135deg, #c1121f, #e63946);">L</div>
+            <div class="cta-avatar cta-avatar-more">+99</div>
+          </div>
+          <div class="cta-banner-stat">
+            <strong>2.382</strong>
+            <span>clientes já estão conectados em Joinville</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1526,6 +1710,70 @@
   })();
   </script>
 
+  <!-- Promo Bar close + Countdown -->
+  <script>
+  (function() {
+    // ── Promo bar fechar (lembra por 24h) ──
+    var promoBar = document.getElementById('promoBar');
+    var promoBarClose = document.getElementById('promoBarClose');
+    var PROMO_KEY = 'mi_promo_closed_at';
+
+    if (promoBar) {
+      var closedAt = localStorage.getItem(PROMO_KEY);
+      if (closedAt && Date.now() - parseInt(closedAt, 10) < 86400000) {
+        promoBar.classList.add('is-hidden');
+      }
+    }
+
+    if (promoBarClose) {
+      promoBarClose.addEventListener('click', function() {
+        promoBar.classList.add('is-hidden');
+        try { localStorage.setItem(PROMO_KEY, Date.now().toString()); } catch (e) {}
+      });
+    }
+
+    // ── Countdown no card oferta (7d fixo a partir da próxima segunda) ──
+    var countdownEl = document.getElementById('heroCountdown');
+    if (!countdownEl) return;
+
+    function nextSunday23h59m() {
+      var d = new Date();
+      var diff = (7 - d.getDay()) % 7;
+      if (diff === 0 && d.getHours() >= 23 && d.getMinutes() >= 59) diff = 7;
+      d.setDate(d.getDate() + diff);
+      d.setHours(23, 59, 59, 0);
+      return d.getTime();
+    }
+
+    var target = nextSunday23h59m();
+    var dEl = countdownEl.querySelector('[data-cd="days"]');
+    var hEl = countdownEl.querySelector('[data-cd="hours"]');
+    var mEl = countdownEl.querySelector('[data-cd="minutes"]');
+    var sEl = countdownEl.querySelector('[data-cd="seconds"]');
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function tick() {
+      var diff = target - Date.now();
+      if (diff <= 0) {
+        target = nextSunday23h59m();
+        diff = target - Date.now();
+      }
+      var days = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var mins = Math.floor((diff % 3600000) / 60000);
+      var secs = Math.floor((diff % 60000) / 1000);
+      if (dEl) dEl.textContent = pad(days);
+      if (hEl) hEl.textContent = pad(hours);
+      if (mEl) mEl.textContent = pad(mins);
+      if (sEl) sEl.textContent = pad(secs);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+  </script>
+
   <!-- Scroll Reveal — fade/slide automático em todas as seções -->
   <script>
   (function() {
@@ -1537,7 +1785,9 @@
       '.coverage-content',
       '.coverage-visual',
       '.final-cta-inner',
-      '.footer-trust-item'
+      '.footer-trust-item',
+      '.compare-table',
+      '.cta-banner-inner'
     ];
 
     // Seletores: containers cujos filhos aparecem em sequência
