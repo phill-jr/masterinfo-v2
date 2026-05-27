@@ -559,6 +559,44 @@ img.dropdown-logo {
   object-fit: contain;
 }
 
+/* Fallback (chip de texto pra apps sem logo pública) */
+.dd-fb {
+  color: var(--white);
+  font-weight: 900;
+  font-size: 0.82rem;
+  font-family: var(--font-main);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.dd-fb sup {
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.dd-fb-sky    { background: #0073e6; font-size: 0.62rem; }
+.dd-fb-globo  { background: #ff003c; font-style: italic; }
+.dd-fb-jornal { background: linear-gradient(135deg, #ff7a05, #e63946); font-style: italic; font-size: 0.95rem; }
+.dd-fb-digi   { background: linear-gradient(135deg, #16a34a, #047857); font-size: 0.95rem; }
+.dd-fb-exit   { background: #000; color: #39ff14; font-size: 0.72rem; }
+
+/* Dropdown rola se passar da viewport */
+.mega-menu-simple .mega-menu-inner {
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-700) transparent;
+}
+
+.mega-menu-simple .mega-menu-inner::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mega-menu-simple .mega-menu-inner::-webkit-scrollbar-thumb {
+  background: var(--gray-700);
+  border-radius: 3px;
+}
+
 /* Backdrop quando mega abre */
 .mega-backdrop {
   position: fixed;
