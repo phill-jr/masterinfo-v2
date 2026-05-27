@@ -60,8 +60,8 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20260527c">
-  <link rel="stylesheet" href="modal.css?v=20260527c">
+  <link rel="stylesheet" href="styles.css?v=20260527d">
+  <link rel="stylesheet" href="modal.css?v=20260527d">
 </head>
 <body>
 
@@ -104,6 +104,7 @@
               Internet <i class="ph ph-caret-down nav-trigger-caret"></i>
             </button>
             <div class="mega-menu mega-menu-internet">
+              <div class="mega-menu-inner">
               <div class="mega-menu-grid">
 
                 <div class="mega-col">
@@ -187,6 +188,7 @@
                 </div>
 
               </div>
+              </div>
             </div>
           </li>
 
@@ -208,6 +210,7 @@
               Aplicativos <i class="ph ph-caret-down nav-trigger-caret"></i>
             </button>
             <div class="mega-menu mega-menu-apps">
+              <div class="mega-menu-inner">
               <div class="mega-apps-head">
                 <span class="mega-apps-title">Aplicativos disponíveis nos planos</span>
                 <span class="mega-apps-sub">O que vem com cada plano MasterInfo</span>
@@ -264,6 +267,7 @@
                   <span>Antivírus</span>
                 </a>
               </div>
+              </div>
             </div>
           </li>
 
@@ -273,6 +277,7 @@
               Ajuda <i class="ph ph-caret-down nav-trigger-caret"></i>
             </button>
             <div class="mega-menu mega-menu-help">
+              <div class="mega-menu-inner">
               <div class="mega-help-grid">
                 <a href="https://wa.me/5547989212991" target="_blank" class="mega-help-item">
                   <div class="mega-help-ico"><i class="ph-fill ph-whatsapp-logo"></i></div>
@@ -317,6 +322,7 @@
                   </div>
                 </a>
               </div>
+              </div>
             </div>
           </li>
         </ul>
@@ -338,174 +344,95 @@
     <div class="mega-backdrop" id="megaBackdrop"></div>
   </header>
 
-  <!-- ========== HERO (slideshow dos planos) ========== -->
-  <section class="hero hero-slideshow" id="hero">
-    <div class="container">
-      <div class="hero-slides-wrap" id="heroSlideshow">
+  <!-- ========== HERO (slideshow full-bleed) ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-slideshow" id="heroSlideshow">
 
-        <div class="hero-slides">
-
-          <!-- Slide 1 — Lite Essencial -->
-          <article class="hero-slide is-active" data-slide="0">
-            <div class="hero-slide-img hero-slide-bg-essencial">
-              <!-- IMAGEM FUTURA: substituir o bloco abaixo por <img src="imgs/lite-essencial.jpg" alt="..."> -->
-              <div class="hero-slide-placeholder">
-                <i class="ph-fill ph-house-simple"></i>
-                <span class="hero-slide-placeholder-lbl">imagem futura</span>
-              </div>
-            </div>
-            <div class="hero-slide-content">
-              <span class="hero-slide-tag hero-slide-tag-lite">LITE · Entrada</span>
-              <h2 class="hero-slide-title">Lite Essencial<br><span>400 Mega de fibra</span></h2>
-              <p class="hero-slide-desc">O essencial bem feito. Jornal Z e Digilivro inclusos, instalação em 24h.</p>
-              <div class="hero-slide-price-row">
-                <div class="hero-slide-price"><span>R$</span><strong>99</strong><sup>,90</sup><em>/mês</em></div>
-              </div>
-              <div class="hero-slide-actions">
-                <a href="/familia/lite-essencial" class="hero-slide-cta">Conhecer plano <i class="ph ph-arrow-right"></i></a>
-                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Slide 2 — Lite Casa -->
-          <article class="hero-slide" data-slide="1">
-            <div class="hero-slide-img hero-slide-bg-casa">
-              <div class="hero-slide-placeholder">
-                <i class="ph-fill ph-house-line"></i>
-                <span class="hero-slide-placeholder-lbl">imagem futura</span>
-              </div>
-            </div>
-            <div class="hero-slide-content">
-              <span class="hero-slide-tag hero-slide-tag-lite">LITE · Casal / casa pequena</span>
-              <h2 class="hero-slide-title">Lite Casa<br><span>600 Mega de fibra</span></h2>
-              <p class="hero-slide-desc">Internet com SKY+ Light grátis. Pra quem assiste, joga e trabalha.</p>
-              <div class="hero-slide-price-row">
-                <div class="hero-slide-price"><span>R$</span><strong>99</strong><sup>,90</sup><em>/mês</em></div>
-                <span class="hero-slide-price-note">cheio R$ 109,90</span>
-              </div>
-              <div class="hero-slide-actions">
-                <a href="/familia/lite-casa" class="hero-slide-cta">Conhecer plano <i class="ph ph-arrow-right"></i></a>
-                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Slide 3 — Lite Família -->
-          <article class="hero-slide" data-slide="2">
-            <div class="hero-slide-img hero-slide-bg-familia">
-              <div class="hero-slide-placeholder">
-                <i class="ph-fill ph-users-three"></i>
-                <span class="hero-slide-placeholder-lbl">imagem futura</span>
-              </div>
-            </div>
-            <div class="hero-slide-content">
-              <span class="hero-slide-tag hero-slide-tag-lite">LITE · Família média</span>
-              <h2 class="hero-slide-title">Lite Família<br><span>800 Mega de fibra</span></h2>
-              <p class="hero-slide-desc">Vários dispositivos conectados ao mesmo tempo, sem travar. Com SKY+ Light.</p>
-              <div class="hero-slide-price-row">
-                <div class="hero-slide-price"><span>R$</span><strong>109</strong><sup>,00</sup><em>/mês</em></div>
-                <span class="hero-slide-price-note">cheio R$ 119,00</span>
-              </div>
-              <div class="hero-slide-actions">
-                <a href="/familia/lite-familia" class="hero-slide-cta">Conhecer plano <i class="ph ph-arrow-right"></i></a>
-                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Slide 4 — Lite Home Office (HERÓI) -->
-          <article class="hero-slide hero-slide-featured" data-slide="3">
-            <div class="hero-slide-img hero-slide-bg-home">
-              <div class="hero-slide-placeholder">
-                <i class="ph-fill ph-briefcase"></i>
-                <span class="hero-slide-placeholder-lbl">imagem futura</span>
-              </div>
-              <span class="hero-slide-flag"><i class="ph-fill ph-fire"></i> Mais procurado</span>
-            </div>
-            <div class="hero-slide-content">
-              <span class="hero-slide-tag hero-slide-tag-lite">LITE · Home Office</span>
-              <h2 class="hero-slide-title">Lite Home Office<br><span>1 Giga de fibra</span></h2>
-              <p class="hero-slide-desc">Estabilidade pra reunião, upload turbinado. SKY+ Light <strong>ou</strong> Deezer grátis.</p>
-              <div class="hero-slide-price-row">
-                <div class="hero-slide-price"><span>R$</span><strong>119</strong><sup>,90</sup><em>/mês</em></div>
-                <span class="hero-slide-price-note">cheio R$ 129,90</span>
-              </div>
-              <div class="hero-slide-actions">
-                <a href="/familia/lite-home-office" class="hero-slide-cta">Quero esse plano <i class="ph ph-arrow-right"></i></a>
-                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Slide 5 — Ultra Família -->
-          <article class="hero-slide" data-slide="4">
-            <div class="hero-slide-img hero-slide-bg-ufamilia">
-              <div class="hero-slide-placeholder">
-                <i class="ph-fill ph-popcorn"></i>
-                <span class="hero-slide-placeholder-lbl">imagem futura</span>
-              </div>
-            </div>
-            <div class="hero-slide-content">
-              <span class="hero-slide-tag hero-slide-tag-ultra">ULTRA · Família grande</span>
-              <h2 class="hero-slide-title">Ultra Família<br><span>800 Mega de fibra</span></h2>
-              <p class="hero-slide-desc">Globoplay + Roteador Mesh inclusos. Streaming sem trava na sala E no quarto.</p>
-              <div class="hero-slide-price-row">
-                <div class="hero-slide-price"><span>R$</span><strong>139</strong><sup>,90</sup><em>/mês</em></div>
-                <span class="hero-slide-price-note">cheio R$ 159,90</span>
-              </div>
-              <div class="hero-slide-actions">
-                <a href="/familia/ultra-familia" class="hero-slide-cta">Conhecer plano <i class="ph ph-arrow-right"></i></a>
-                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Slide 6 — Ultra Home Office -->
-          <article class="hero-slide" data-slide="5">
-            <div class="hero-slide-img hero-slide-bg-uhome">
-              <div class="hero-slide-placeholder">
-                <i class="ph-fill ph-rocket-launch"></i>
-                <span class="hero-slide-placeholder-lbl">imagem futura</span>
-              </div>
-              <span class="hero-slide-flag hero-slide-flag-top"><i class="ph-fill ph-rocket-launch"></i> Tudo incluso · Top</span>
-            </div>
-            <div class="hero-slide-content">
-              <span class="hero-slide-tag hero-slide-tag-ultra">ULTRA · Home Office</span>
-              <h2 class="hero-slide-title">Ultra Home Office<br><span>1 Giga de fibra</span></h2>
-              <p class="hero-slide-desc">SKY+ Light + Disney+ + Mesh. Pra quem trabalha em casa com a empresa toda.</p>
-              <div class="hero-slide-price-row">
-                <div class="hero-slide-price"><span>R$</span><strong>218</strong><sup>,60</sup><em>/mês</em></div>
-                <span class="hero-slide-price-note">cheio R$ 228,60</span>
-              </div>
-              <div class="hero-slide-actions">
-                <a href="/familia/ultra-home-office" class="hero-slide-cta">Conhecer plano <i class="ph ph-arrow-right"></i></a>
-                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
-              </div>
-            </div>
-          </article>
-
+      <!-- Slide 1 — Lite Essencial -->
+      <article class="hero-slide is-active hero-bg-essencial" data-slide="0">
+        <!-- IMG futura aqui: <img class="hero-slide-img" src="imgs/lite-essencial.jpg" alt=""> -->
+        <div class="hero-slide-shade"></div>
+        <div class="container hero-slide-content">
+          <span class="hero-slide-tag hero-slide-tag-lite">LITE</span>
+          <h1 class="hero-slide-title">Lite Essencial<br><span>400 Mega de fibra</span></h1>
+          <p class="hero-slide-price">a partir de <strong>R$ 99,90</strong> <em>/mês</em></p>
+          <a href="/familia/lite-essencial" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
         </div>
+      </article>
 
-        <!-- Setas -->
-        <button class="hero-slide-arrow hero-slide-arrow-prev" id="heroPrev" aria-label="Slide anterior">
-          <i class="ph ph-caret-left"></i>
-        </button>
-        <button class="hero-slide-arrow hero-slide-arrow-next" id="heroNext" aria-label="Próximo slide">
-          <i class="ph ph-caret-right"></i>
-        </button>
-
-        <!-- Dots + progresso autoplay -->
-        <div class="hero-slide-dots" id="heroDots">
-          <button class="hero-slide-dot is-active" data-go="0" aria-label="Lite Essencial"><span></span></button>
-          <button class="hero-slide-dot" data-go="1" aria-label="Lite Casa"><span></span></button>
-          <button class="hero-slide-dot" data-go="2" aria-label="Lite Família"><span></span></button>
-          <button class="hero-slide-dot" data-go="3" aria-label="Lite Home Office"><span></span></button>
-          <button class="hero-slide-dot" data-go="4" aria-label="Ultra Família"><span></span></button>
-          <button class="hero-slide-dot" data-go="5" aria-label="Ultra Home Office"><span></span></button>
+      <!-- Slide 2 — Lite Casa -->
+      <article class="hero-slide hero-bg-casa" data-slide="1">
+        <div class="hero-slide-shade"></div>
+        <div class="container hero-slide-content">
+          <span class="hero-slide-tag hero-slide-tag-lite">LITE</span>
+          <h1 class="hero-slide-title">Lite Casa<br><span>600 Mega de fibra</span></h1>
+          <p class="hero-slide-price">a partir de <strong>R$ 99,90</strong> <em>/mês</em></p>
+          <a href="/familia/lite-casa" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
         </div>
+      </article>
 
+      <!-- Slide 3 — Lite Família -->
+      <article class="hero-slide hero-bg-familia" data-slide="2">
+        <div class="hero-slide-shade"></div>
+        <div class="container hero-slide-content">
+          <span class="hero-slide-tag hero-slide-tag-lite">LITE</span>
+          <h1 class="hero-slide-title">Lite Família<br><span>800 Mega de fibra</span></h1>
+          <p class="hero-slide-price">a partir de <strong>R$ 109,00</strong> <em>/mês</em></p>
+          <a href="/familia/lite-familia" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
+        </div>
+      </article>
+
+      <!-- Slide 4 — Lite Home Office -->
+      <article class="hero-slide hero-bg-home" data-slide="3">
+        <div class="hero-slide-shade"></div>
+        <div class="container hero-slide-content">
+          <span class="hero-slide-tag hero-slide-tag-fire"><i class="ph-fill ph-fire"></i> Mais procurado</span>
+          <h1 class="hero-slide-title">Lite Home Office<br><span>1 Giga de fibra</span></h1>
+          <p class="hero-slide-price">a partir de <strong>R$ 119,90</strong> <em>/mês</em></p>
+          <a href="/familia/lite-home-office" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
+        </div>
+      </article>
+
+      <!-- Slide 5 — Ultra Família -->
+      <article class="hero-slide hero-bg-ufamilia" data-slide="4">
+        <div class="hero-slide-shade"></div>
+        <div class="container hero-slide-content">
+          <span class="hero-slide-tag hero-slide-tag-ultra">ULTRA</span>
+          <h1 class="hero-slide-title">Ultra Família<br><span>800 Mega de fibra</span></h1>
+          <p class="hero-slide-price">a partir de <strong>R$ 139,90</strong> <em>/mês</em></p>
+          <a href="/familia/ultra-familia" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
+        </div>
+      </article>
+
+      <!-- Slide 6 — Ultra Home Office -->
+      <article class="hero-slide hero-bg-uhome" data-slide="5">
+        <div class="hero-slide-shade"></div>
+        <div class="container hero-slide-content">
+          <span class="hero-slide-tag hero-slide-tag-top"><i class="ph-fill ph-rocket-launch"></i> Tudo incluso</span>
+          <h1 class="hero-slide-title">Ultra Home Office<br><span>1 Giga de fibra</span></h1>
+          <p class="hero-slide-price">a partir de <strong>R$ 218,60</strong> <em>/mês</em></p>
+          <a href="/familia/ultra-home-office" class="hero-slide-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
+        </div>
+      </article>
+
+      <!-- Setas suaves -->
+      <button class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Slide anterior">
+        <i class="ph ph-caret-left"></i>
+      </button>
+      <button class="hero-arrow hero-arrow-next" id="heroNext" aria-label="Próximo slide">
+        <i class="ph ph-caret-right"></i>
+      </button>
+
+      <!-- Dots -->
+      <div class="hero-dots" id="heroDots">
+        <button class="hero-dot is-active" data-go="0" aria-label="Lite Essencial"></button>
+        <button class="hero-dot" data-go="1" aria-label="Lite Casa"></button>
+        <button class="hero-dot" data-go="2" aria-label="Lite Família"></button>
+        <button class="hero-dot" data-go="3" aria-label="Lite Home Office"></button>
+        <button class="hero-dot" data-go="4" aria-label="Ultra Família"></button>
+        <button class="hero-dot" data-go="5" aria-label="Ultra Home Office"></button>
       </div>
+
     </div>
   </section>
 
@@ -2251,12 +2178,12 @@
     var heroSlideshow = document.getElementById('heroSlideshow');
     if (heroSlideshow) {
       var slides = heroSlideshow.querySelectorAll('.hero-slide');
-      var dots = heroSlideshow.querySelectorAll('.hero-slide-dot');
+      var dots = heroSlideshow.querySelectorAll('.hero-dot');
       var prevBtn = document.getElementById('heroPrev');
       var nextBtn = document.getElementById('heroNext');
       var current = 0;
       var total = slides.length;
-      var autoplayDelay = 6000;
+      var autoplayDelay = 10000;
       var autoplayTimer;
       var paused = false;
 
