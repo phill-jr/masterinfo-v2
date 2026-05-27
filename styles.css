@@ -490,6 +490,44 @@ button {
   z-index: 1;
 }
 
+/* ── Dropdown simples (lista vertical) ── */
+.mega-menu-simple {
+  min-width: 220px;
+}
+
+.mega-menu-simple .mega-menu-inner {
+  padding: 8px;
+}
+
+.dropdown-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-list li {
+  list-style: none;
+}
+
+.dropdown-link {
+  display: block;
+  padding: 11px 18px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast), color var(--transition-fast), padding-left var(--transition-fast);
+  white-space: nowrap;
+}
+
+.dropdown-link:hover {
+  color: var(--orange);
+  background: rgba(255,122,5,0.08);
+  padding-left: 22px;
+}
+
 /* Backdrop quando mega abre */
 .mega-backdrop {
   position: fixed;
