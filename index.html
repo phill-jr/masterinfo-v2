@@ -145,18 +145,57 @@
         </div>
       </div>
       <div class="hero-visual">
-        <div class="speed-display">
-          <div class="speed-ring">
-            <svg viewBox="0 0 200 200" class="speed-svg">
-              <circle cx="100" cy="100" r="90" class="speed-track"/>
-              <circle cx="100" cy="100" r="90" class="speed-fill"/>
-            </svg>
-            <div class="speed-inner">
-              <span class="speed-number" id="speedCounter">0</span>
-              <span class="speed-unit">Mega</span>
+        <div class="hero-offer-card">
+          <div class="hero-offer-flames"></div>
+          <div class="hero-offer-badge">
+            <i class="ph-fill ph-fire"></i>
+            <span>Oferta do mês · Mais vendido</span>
+          </div>
+
+          <div class="hero-offer-speed-wrap">
+            <div class="speed-ring">
+              <svg viewBox="0 0 200 200" class="speed-svg">
+                <defs>
+                  <linearGradient id="fireGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#e63946"/>
+                    <stop offset="50%" stop-color="#ff7a05"/>
+                    <stop offset="100%" stop-color="#fcc305"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="100" cy="100" r="90" class="speed-track"/>
+                <circle cx="100" cy="100" r="90" class="speed-fill"/>
+              </svg>
+              <div class="speed-inner">
+                <span class="speed-number" id="speedCounter">0</span>
+                <span class="speed-unit">Mega</span>
+              </div>
             </div>
           </div>
-          <p class="speed-caption">Velocidade real, sem pegadinha.</p>
+
+          <div class="hero-offer-divider"></div>
+
+          <div class="hero-offer-price">
+            <span class="hero-offer-price-prefix">por apenas</span>
+            <div class="hero-offer-price-main">
+              <span class="hero-offer-currency">R$</span>
+              <span class="hero-offer-amount">149</span>
+              <div class="hero-offer-price-side">
+                <span class="hero-offer-cents">,90</span>
+                <span class="hero-offer-period">/mês</span>
+              </div>
+            </div>
+          </div>
+
+          <ul class="hero-offer-features">
+            <li><i class="ph-fill ph-check-circle"></i> Wi-Fi incluso + roteador</li>
+            <li><i class="ph-fill ph-check-circle"></i> WatchTV (23 canais) grátis</li>
+            <li><i class="ph-fill ph-check-circle"></i> Instalação em 24h · Sem fidelidade</li>
+          </ul>
+
+          <a href="checkout.html?plano=ultra-600" class="btn hero-offer-cta">
+            Quero esse plano <i class="ph ph-arrow-right"></i>
+          </a>
+          <span class="hero-offer-disclaimer">Sujeito a análise de crédito</span>
         </div>
       </div>
     </div>
@@ -204,7 +243,8 @@
         </div>
 
         <!-- Plan 2 -->
-        <div class="plan-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="plan-card plan-popular" data-aos="fade-up" data-aos-delay="100">
+          <div class="plan-badge plan-badge-popular"><i class="ph-fill ph-trend-up"></i> Mais popular</div>
           <div class="plan-header">
             <span class="plan-name">Ultra</span>
             <div class="plan-speed">
@@ -232,7 +272,7 @@
 
         <!-- Plan 3 - DESTAQUE -->
         <div class="plan-card plan-featured" data-aos="fade-up" data-aos-delay="200">
-          <div class="plan-badge">Mais vendido</div>
+          <div class="plan-badge plan-badge-bestseller"><i class="ph-fill ph-fire"></i> Mais vendido</div>
           <div class="plan-header">
             <span class="plan-name">Ultra+</span>
             <div class="plan-speed">
@@ -259,7 +299,8 @@
         </div>
 
         <!-- Plan 4 -->
-        <div class="plan-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="plan-card plan-premium" data-aos="fade-up" data-aos-delay="300">
+          <div class="plan-badge plan-badge-premium"><i class="ph-fill ph-rocket-launch"></i> Melhor oferta</div>
           <div class="plan-header">
             <span class="plan-name">Giga</span>
             <div class="plan-speed">
@@ -285,6 +326,88 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TUDO INCLUSO (extras) ========== -->
+  <section class="includes" id="incluso">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Sem letra miúda</span>
+        <h2 class="section-title">Tudo que vem<br><span class="title-fire">incluso</span> no seu plano</h2>
+        <p class="section-desc">Sem taxas escondidas, sem upgrade pago, sem pegadinha. O que tá escrito, tá entregue.</p>
+      </div>
+
+      <div class="includes-carousel">
+        <div class="includes-track">
+
+          <div class="include-card">
+            <div class="include-icon include-icon-tv">
+              <i class="ph-fill ph-television-simple"></i>
+            </div>
+            <div class="include-tag">incluso</div>
+            <h3>WatchTV</h3>
+            <p><strong>23 canais ao vivo</strong> direto no seu celular, smart TV ou computador.</p>
+            <span class="include-foot">Planos Ultra, Ultra+ e Giga</span>
+          </div>
+
+          <div class="include-card">
+            <div class="include-icon include-icon-book">
+              <i class="ph-fill ph-book-open-text"></i>
+            </div>
+            <div class="include-tag">incluso</div>
+            <h3>Digilivro</h3>
+            <p>Biblioteca digital com <strong>milhares de e-books</strong> grátis para toda a família.</p>
+            <span class="include-foot">Planos Ultra, Ultra+ e Giga</span>
+          </div>
+
+          <div class="include-card">
+            <div class="include-icon include-icon-wifi">
+              <i class="ph-fill ph-wifi-high"></i>
+            </div>
+            <div class="include-tag">incluso</div>
+            <h3>Wi-Fi + Roteador</h3>
+            <p>Roteador em <strong>comodato grátis</strong>. Velocidade Wi-Fi de verdade na sua casa.</p>
+            <span class="include-foot">Todos os planos</span>
+          </div>
+
+          <div class="include-card">
+            <div class="include-icon include-icon-install">
+              <i class="ph-fill ph-clock-countdown"></i>
+            </div>
+            <div class="include-tag">incluso</div>
+            <h3>Instalação em 24h</h3>
+            <p>Contratou hoje, conectado amanhã. <strong>Sem custo</strong> de instalação.</p>
+            <span class="include-foot">Todos os planos</span>
+          </div>
+
+          <div class="include-card">
+            <div class="include-icon include-icon-support">
+              <i class="ph-fill ph-whatsapp-logo"></i>
+            </div>
+            <div class="include-tag">incluso</div>
+            <h3>Suporte 7 dias</h3>
+            <p>Problema? Manda zap. <strong>Atendimento local</strong> de domingo a domingo.</p>
+            <span class="include-foot">Todos os planos</span>
+          </div>
+
+          <div class="include-card">
+            <div class="include-icon include-icon-secure">
+              <i class="ph-fill ph-shield-check"></i>
+            </div>
+            <div class="include-tag">incluso</div>
+            <h3>Sem fidelidade</h3>
+            <p>Sem multa de rescisão. <strong>Cancela quando quiser</strong>, do jeito que quiser.</p>
+            <span class="include-foot">Todos os planos</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="includes-footnote">
+        <i class="ph-fill ph-info"></i>
+        <span>Benefícios variam por plano. Sujeito a análise de crédito.</span>
       </div>
     </div>
   </section>
