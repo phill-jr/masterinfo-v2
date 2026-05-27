@@ -1677,6 +1677,51 @@ img.dropdown-logo.dropdown-logo-real {
   background: #000;
 }
 
+/* Variante fundo branco */
+.plans.plans-light {
+  background: #fff;
+  color: #1a1a1a;
+}
+
+.plans-light .section-title {
+  color: #1a1a1a;
+}
+
+.plans-light .title-fire {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.plans-light::before {
+  display: none;
+}
+
+/* Grupo (Com 1 Roteador / Com 2 Roteadores) */
+.plans-group {
+  margin-bottom: 64px;
+}
+
+.plans-group:last-child {
+  margin-bottom: 0;
+}
+
+.plans-tab {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  margin-bottom: 28px;
+  background: rgba(0,0,0,0.05);
+  color: #1a1a1a;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
 .plans::before {
   content: '';
   position: absolute;
