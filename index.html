@@ -85,160 +85,427 @@
     </div>
   </div>
 
-  <!-- ========== TOPBAR ========== -->
-  <div class="topbar">
-    <div class="container topbar-inner">
-      <div class="topbar-left">
-        <span><i class="ph ph-map-pin"></i> Joinville, SC</span>
-        <span class="topbar-divider"></span>
-        <span><i class="ph ph-phone"></i> (47) 3434-1734</span>
-      </div>
-      <div class="topbar-right">
-        <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" class="topbar-link">Central do Assinante</a>
-        <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" class="topbar-link">2ª Via de Boleto</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========== HEADER / NAV ========== -->
+  <!-- ========== HEADER / NAV (mega menu) ========== -->
   <header class="header" id="header">
     <div class="container header-inner">
+
       <a href="#" class="logo">
         <span class="logo-master">Master</span><span class="logo-info">Info</span>
       </a>
+
       <nav class="nav" id="nav">
-        <a href="#planos" class="nav-link">Planos</a>
-        <a href="#cobertura" class="nav-link">Cobertura</a>
-        <a href="#sobre" class="nav-link">Sobre Nós</a>
-        <a href="#faq" class="nav-link">Dúvidas</a>
-        <a href="#contato" class="nav-link">Contato</a>
+
+        <!-- ── BLOCO VENDAS (esquerda do pipe) ── -->
+        <ul class="nav-list nav-list-sales">
+
+          <!-- Internet (mega menu) -->
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button" aria-haspopup="true">
+              Internet <i class="ph ph-caret-down nav-trigger-caret"></i>
+            </button>
+            <div class="mega-menu mega-menu-internet">
+              <div class="mega-menu-grid">
+
+                <div class="mega-col">
+                  <div class="mega-col-head">
+                    <span class="mega-col-tag mega-col-tag-lite">LITE</span>
+                    <span class="mega-col-desc">Pra todo dia</span>
+                  </div>
+
+                  <a href="/familia/lite-essencial" class="mega-card">
+                    <div class="mega-card-ico mega-ico-essencial"><i class="ph-fill ph-house-simple"></i></div>
+                    <div class="mega-card-text">
+                      <strong>Lite Essencial</strong>
+                      <span>400 Mega · R$ 99,90/mês</span>
+                    </div>
+                  </a>
+
+                  <a href="/familia/lite-casa" class="mega-card">
+                    <div class="mega-card-ico mega-ico-casa"><i class="ph-fill ph-house-line"></i></div>
+                    <div class="mega-card-text">
+                      <strong>Lite Casa</strong>
+                      <span>600 Mega · R$ 99,90/mês</span>
+                    </div>
+                  </a>
+
+                  <a href="/familia/lite-familia" class="mega-card">
+                    <div class="mega-card-ico mega-ico-familia"><i class="ph-fill ph-users-three"></i></div>
+                    <div class="mega-card-text">
+                      <strong>Lite Família</strong>
+                      <span>800 Mega · R$ 109,00/mês</span>
+                    </div>
+                  </a>
+
+                  <a href="/familia/lite-home-office" class="mega-card mega-card-highlight">
+                    <div class="mega-card-ico mega-ico-home"><i class="ph-fill ph-briefcase"></i></div>
+                    <div class="mega-card-text">
+                      <strong>Lite Home Office <span class="mega-badge"><i class="ph-fill ph-fire"></i></span></strong>
+                      <span>1 Giga · R$ 119,90/mês</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="mega-col">
+                  <div class="mega-col-head">
+                    <span class="mega-col-tag mega-col-tag-ultra">ULTRA</span>
+                    <span class="mega-col-desc">Pra quem quer o melhor</span>
+                  </div>
+
+                  <a href="/familia/ultra-familia" class="mega-card">
+                    <div class="mega-card-ico mega-ico-ufamilia"><i class="ph-fill ph-popcorn"></i></div>
+                    <div class="mega-card-text">
+                      <strong>Ultra Família</strong>
+                      <span>800 Mega · R$ 139,90/mês</span>
+                    </div>
+                  </a>
+
+                  <a href="/familia/ultra-home-office" class="mega-card">
+                    <div class="mega-card-ico mega-ico-uhome"><i class="ph-fill ph-rocket-launch"></i></div>
+                    <div class="mega-card-text">
+                      <strong>Ultra Home Office</strong>
+                      <span>1 Giga · R$ 218,60/mês</span>
+                    </div>
+                  </a>
+
+                  <a href="#planos" class="mega-link-all">
+                    Ver todos os planos <i class="ph ph-arrow-right"></i>
+                  </a>
+                </div>
+
+                <div class="mega-col mega-col-promo">
+                  <div class="mega-promo-tag">
+                    <i class="ph-fill ph-fire"></i> Oferta do mês
+                  </div>
+                  <div class="mega-promo-headline">
+                    1 Giga por<br><strong>R$ 119,90/mês</strong>
+                  </div>
+                  <p>Com SKY+ Light ou Deezer grátis. Estabilidade pra trabalhar em paz.</p>
+                  <a href="/familia/lite-home-office" class="mega-promo-btn">
+                    Quero esse plano <i class="ph ph-arrow-right"></i>
+                  </a>
+                  <span class="mega-promo-fine">Sujeito a análise de crédito</span>
+                </div>
+
+              </div>
+            </div>
+          </li>
+
+          <li class="nav-item"><a href="#incluso" class="nav-link">TV e Streaming</a></li>
+          <li class="nav-item"><a href="#cobertura" class="nav-link">Cobertura</a></li>
+          <li class="nav-item"><a href="#sobre" class="nav-link">Nossa História</a></li>
+          <li class="nav-item"><a href="#contato" class="nav-link">Contato</a></li>
+        </ul>
+
+        <!-- ── DIVISOR ── -->
+        <span class="nav-divider" aria-hidden="true"></span>
+
+        <!-- ── BLOCO CLIENTE (direita do pipe) ── -->
+        <ul class="nav-list nav-list-client">
+
+          <!-- Aplicativos (mega menu) -->
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button" aria-haspopup="true">
+              Aplicativos <i class="ph ph-caret-down nav-trigger-caret"></i>
+            </button>
+            <div class="mega-menu mega-menu-apps">
+              <div class="mega-apps-head">
+                <span class="mega-apps-title">Aplicativos disponíveis nos planos</span>
+                <span class="mega-apps-sub">O que vem com cada plano MasterInfo</span>
+              </div>
+              <div class="mega-apps-grid">
+                <a href="#" class="mega-app">
+                  <div class="mega-app-ico mega-app-ico-tv"><i class="ph-fill ph-television-simple"></i></div>
+                  <strong>SKY+ Light</strong>
+                  <span>TV ao vivo</span>
+                </a>
+                <a href="#" class="mega-app">
+                  <div class="mega-app-ico mega-app-ico-music"><i class="ph-fill ph-music-notes"></i></div>
+                  <strong>Deezer</strong>
+                  <span>Música sem ads</span>
+                </a>
+                <a href="#" class="mega-app">
+                  <div class="mega-app-ico mega-app-ico-globo"><i class="ph-fill ph-monitor-play"></i></div>
+                  <strong>Globoplay</strong>
+                  <span>Novelas + esporte</span>
+                </a>
+                <a href="#" class="mega-app">
+                  <div class="mega-app-ico mega-app-ico-disney"><i class="ph-fill ph-popcorn"></i></div>
+                  <strong>Disney+</strong>
+                  <span>Pixar, Marvel</span>
+                </a>
+                <a href="#" class="mega-app">
+                  <div class="mega-app-ico mega-app-ico-hbo"><i class="ph-fill ph-film-strip"></i></div>
+                  <strong>HBO Max</strong>
+                  <span>Filmes Warner</span>
+                </a>
+                <a href="#" class="mega-app">
+                  <div class="mega-app-ico mega-app-ico-news"><i class="ph-fill ph-newspaper-clipping"></i></div>
+                  <strong>Jornal Z</strong>
+                  <span>Notícias locais</span>
+                </a>
+                <a href="#" class="mega-app">
+                  <div class="mega-app-ico mega-app-ico-book"><i class="ph-fill ph-book-open-text"></i></div>
+                  <strong>Digilivro</strong>
+                  <span>E-books</span>
+                </a>
+                <a href="#" class="mega-app">
+                  <div class="mega-app-ico mega-app-ico-amazon"><i class="ph-fill ph-package"></i></div>
+                  <strong>Prime Video</strong>
+                  <span>Combo SKY+</span>
+                </a>
+                <a href="#" class="mega-app">
+                  <div class="mega-app-ico mega-app-ico-exitlag"><i class="ph-fill ph-game-controller"></i></div>
+                  <strong>Exitlag</strong>
+                  <span>Ping baixo</span>
+                </a>
+                <a href="#" class="mega-app">
+                  <div class="mega-app-ico mega-app-ico-kaspersky"><i class="ph-fill ph-shield-check"></i></div>
+                  <strong>Kaspersky</strong>
+                  <span>Antivírus</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <!-- Ajuda (mega menu) -->
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button" aria-haspopup="true">
+              Ajuda <i class="ph ph-caret-down nav-trigger-caret"></i>
+            </button>
+            <div class="mega-menu mega-menu-help">
+              <div class="mega-help-grid">
+                <a href="https://wa.me/5547989212991" target="_blank" class="mega-help-item">
+                  <div class="mega-help-ico"><i class="ph-fill ph-whatsapp-logo"></i></div>
+                  <div>
+                    <strong>Suporte WhatsApp</strong>
+                    <span>Resposta na hora · 7 dias por semana</span>
+                  </div>
+                </a>
+                <a href="https://www.speedtest.net" target="_blank" class="mega-help-item">
+                  <div class="mega-help-ico mega-help-ico-purple"><i class="ph-fill ph-speedometer"></i></div>
+                  <div>
+                    <strong>Speedtest</strong>
+                    <span>Teste sua velocidade agora</span>
+                  </div>
+                </a>
+                <a href="#" class="mega-help-item">
+                  <div class="mega-help-ico mega-help-ico-blue"><i class="ph-fill ph-wifi-high"></i></div>
+                  <div>
+                    <strong>Configurar Wi-Fi</strong>
+                    <span>Ajustar senha, canal e cobertura</span>
+                  </div>
+                </a>
+                <a href="#faq" class="mega-help-item">
+                  <div class="mega-help-ico mega-help-ico-yellow"><i class="ph-fill ph-question"></i></div>
+                  <div>
+                    <strong>Perguntas frequentes</strong>
+                    <span>Tira a dúvida em 1 minuto</span>
+                  </div>
+                </a>
+                <a href="#" class="mega-help-item">
+                  <div class="mega-help-ico mega-help-ico-green"><i class="ph-fill ph-tools"></i></div>
+                  <div>
+                    <strong>Reportar problema</strong>
+                    <span>Abrir chamado técnico</span>
+                  </div>
+                </a>
+                <a href="#" class="mega-help-item">
+                  <div class="mega-help-ico mega-help-ico-red"><i class="ph-fill ph-file-text"></i></div>
+                  <div>
+                    <strong>Boletos e faturas</strong>
+                    <span>Segunda via, histórico, PIX</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <!-- ── Botão Área do Cliente ── -->
+        <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" class="header-client-btn">
+          <i class="ph-fill ph-user-circle"></i>
+          <span>Área do Cliente</span>
+        </a>
+
       </nav>
-      <a href="#" onclick="openLeadModal(); return false;" class="btn btn-primary header-cta">
-        <i class="ph ph-user-plus"></i> Assine Já
-      </a>
+
       <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
+
+    <!-- Backdrop quando mega menu abre -->
+    <div class="mega-backdrop" id="megaBackdrop"></div>
   </header>
 
-  <!-- ========== HERO ========== -->
-  <section class="hero" id="hero">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-glow"></div>
-    <div class="container hero-inner">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <i class="ph-fill ph-lightning"></i>
-          <span>100% Fibra Óptica em Joinville</span>
-        </div>
-        <h1 class="hero-title">
-          Internet que<br>
-          <span class="hero-highlight">não te deixa</span><br>
-          na mão.
-        </h1>
-        <p class="hero-subtitle">
-          Chega de cair no meio do jogo, travar na live ou esperar o filme carregar.
-          <strong>Fibra óptica de verdade</strong> nos bairros Comasa, Boa Vista, Espinheiros e região.
-        </p>
-        <div class="hero-ctas">
-          <a href="#planos" class="btn btn-primary btn-lg">
-            Ver Planos <i class="ph ph-arrow-right"></i>
-          </a>
-          <a href="#" onclick="openLeadModal(); return false;" class="btn btn-outline btn-lg">
-            <i class="ph ph-map-pin"></i> Consultar Cobertura
-          </a>
-        </div>
-        <div class="hero-trust">
-          <div class="hero-trust-item">
-            <i class="ph-fill ph-clock"></i>
-            <span>Instalação em até <strong>24h</strong></span>
-          </div>
-          <div class="hero-trust-item">
-            <i class="ph-fill ph-handshake"></i>
-            <span><strong>Sem fidelidade</strong></span>
-          </div>
-          <div class="hero-trust-item">
-            <i class="ph-fill ph-star"></i>
-            <span><strong>+10 anos</strong> em Joinville</span>
-          </div>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-offer-card">
-          <div class="hero-offer-flames"></div>
-          <div class="hero-offer-badge">
-            <i class="ph-fill ph-fire"></i>
-            <span>Herói de volume · Mais procurado</span>
-          </div>
+  <!-- ========== HERO (slideshow dos planos) ========== -->
+  <section class="hero hero-slideshow" id="hero">
+    <div class="container">
+      <div class="hero-slides-wrap" id="heroSlideshow">
 
-          <div class="hero-offer-line">Lite Home Office</div>
+        <div class="hero-slides">
 
-          <div class="hero-offer-speed-wrap">
-            <div class="speed-ring">
-              <svg viewBox="0 0 200 200" class="speed-svg">
-                <defs>
-                  <linearGradient id="fireGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#e63946"/>
-                    <stop offset="50%" stop-color="#ff7a05"/>
-                    <stop offset="100%" stop-color="#fcc305"/>
-                  </linearGradient>
-                </defs>
-                <circle cx="100" cy="100" r="90" class="speed-track"/>
-                <circle cx="100" cy="100" r="90" class="speed-fill"/>
-              </svg>
-              <div class="speed-inner">
-                <span class="speed-number" id="speedCounter">0</span>
-                <span class="speed-unit">Mega</span>
+          <!-- Slide 1 — Lite Essencial -->
+          <article class="hero-slide is-active" data-slide="0">
+            <div class="hero-slide-img hero-slide-bg-essencial">
+              <!-- IMAGEM FUTURA: substituir o bloco abaixo por <img src="imgs/lite-essencial.jpg" alt="..."> -->
+              <div class="hero-slide-placeholder">
+                <i class="ph-fill ph-house-simple"></i>
+                <span class="hero-slide-placeholder-lbl">imagem futura</span>
               </div>
             </div>
-          </div>
-
-          <div class="hero-offer-divider"></div>
-
-          <div class="hero-offer-price">
-            <span class="hero-offer-price-prefix">por apenas</span>
-            <div class="hero-offer-price-main">
-              <span class="hero-offer-currency">R$</span>
-              <span class="hero-offer-amount">119</span>
-              <div class="hero-offer-price-side">
-                <span class="hero-offer-cents">,90</span>
-                <span class="hero-offer-period">/mês</span>
+            <div class="hero-slide-content">
+              <span class="hero-slide-tag hero-slide-tag-lite">LITE · Entrada</span>
+              <h2 class="hero-slide-title">Lite Essencial<br><span>400 Mega de fibra</span></h2>
+              <p class="hero-slide-desc">O essencial bem feito. Jornal Z e Digilivro inclusos, instalação em 24h.</p>
+              <div class="hero-slide-price-row">
+                <div class="hero-slide-price"><span>R$</span><strong>99</strong><sup>,90</sup><em>/mês</em></div>
+              </div>
+              <div class="hero-slide-actions">
+                <a href="/familia/lite-essencial" class="hero-slide-cta">Conhecer plano <i class="ph ph-arrow-right"></i></a>
+                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
               </div>
             </div>
-            <span class="hero-offer-price-note">com desconto de pontualidade · R$ 129,90 cheio</span>
-          </div>
+          </article>
 
-          <ul class="hero-offer-features">
-            <li><i class="ph-fill ph-check-circle"></i> SKY+ Light <strong>ou</strong> Deezer grátis</li>
-            <li><i class="ph-fill ph-check-circle"></i> Jornal Z + Digilivro inclusos</li>
-            <li><i class="ph-fill ph-check-circle"></i> Wi-Fi · Instalação 24h · Sem fidelidade</li>
-          </ul>
-
-          <div class="hero-offer-countdown" id="heroCountdown">
-            <span class="hero-offer-countdown-label">
-              <i class="ph-fill ph-clock-countdown"></i> Oferta termina em
-            </span>
-            <div class="hero-offer-countdown-time">
-              <div class="countdown-unit"><span class="countdown-num" data-cd="days">7</span><span class="countdown-tag">dias</span></div>
-              <span class="countdown-sep">:</span>
-              <div class="countdown-unit"><span class="countdown-num" data-cd="hours">23</span><span class="countdown-tag">horas</span></div>
-              <span class="countdown-sep">:</span>
-              <div class="countdown-unit"><span class="countdown-num" data-cd="minutes">59</span><span class="countdown-tag">min</span></div>
-              <span class="countdown-sep">:</span>
-              <div class="countdown-unit"><span class="countdown-num" data-cd="seconds">59</span><span class="countdown-tag">seg</span></div>
+          <!-- Slide 2 — Lite Casa -->
+          <article class="hero-slide" data-slide="1">
+            <div class="hero-slide-img hero-slide-bg-casa">
+              <div class="hero-slide-placeholder">
+                <i class="ph-fill ph-house-line"></i>
+                <span class="hero-slide-placeholder-lbl">imagem futura</span>
+              </div>
             </div>
-          </div>
+            <div class="hero-slide-content">
+              <span class="hero-slide-tag hero-slide-tag-lite">LITE · Casal / casa pequena</span>
+              <h2 class="hero-slide-title">Lite Casa<br><span>600 Mega de fibra</span></h2>
+              <p class="hero-slide-desc">Internet com SKY+ Light grátis. Pra quem assiste, joga e trabalha.</p>
+              <div class="hero-slide-price-row">
+                <div class="hero-slide-price"><span>R$</span><strong>99</strong><sup>,90</sup><em>/mês</em></div>
+                <span class="hero-slide-price-note">cheio R$ 109,90</span>
+              </div>
+              <div class="hero-slide-actions">
+                <a href="/familia/lite-casa" class="hero-slide-cta">Conhecer plano <i class="ph ph-arrow-right"></i></a>
+                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
+              </div>
+            </div>
+          </article>
 
-          <a href="checkout.html?plano=ultra-600" class="btn hero-offer-cta">
-            Quero esse plano <i class="ph ph-arrow-right"></i>
-          </a>
-          <span class="hero-offer-disclaimer">Sujeito a análise de crédito</span>
+          <!-- Slide 3 — Lite Família -->
+          <article class="hero-slide" data-slide="2">
+            <div class="hero-slide-img hero-slide-bg-familia">
+              <div class="hero-slide-placeholder">
+                <i class="ph-fill ph-users-three"></i>
+                <span class="hero-slide-placeholder-lbl">imagem futura</span>
+              </div>
+            </div>
+            <div class="hero-slide-content">
+              <span class="hero-slide-tag hero-slide-tag-lite">LITE · Família média</span>
+              <h2 class="hero-slide-title">Lite Família<br><span>800 Mega de fibra</span></h2>
+              <p class="hero-slide-desc">Vários dispositivos conectados ao mesmo tempo, sem travar. Com SKY+ Light.</p>
+              <div class="hero-slide-price-row">
+                <div class="hero-slide-price"><span>R$</span><strong>109</strong><sup>,00</sup><em>/mês</em></div>
+                <span class="hero-slide-price-note">cheio R$ 119,00</span>
+              </div>
+              <div class="hero-slide-actions">
+                <a href="/familia/lite-familia" class="hero-slide-cta">Conhecer plano <i class="ph ph-arrow-right"></i></a>
+                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 4 — Lite Home Office (HERÓI) -->
+          <article class="hero-slide hero-slide-featured" data-slide="3">
+            <div class="hero-slide-img hero-slide-bg-home">
+              <div class="hero-slide-placeholder">
+                <i class="ph-fill ph-briefcase"></i>
+                <span class="hero-slide-placeholder-lbl">imagem futura</span>
+              </div>
+              <span class="hero-slide-flag"><i class="ph-fill ph-fire"></i> Mais procurado</span>
+            </div>
+            <div class="hero-slide-content">
+              <span class="hero-slide-tag hero-slide-tag-lite">LITE · Home Office</span>
+              <h2 class="hero-slide-title">Lite Home Office<br><span>1 Giga de fibra</span></h2>
+              <p class="hero-slide-desc">Estabilidade pra reunião, upload turbinado. SKY+ Light <strong>ou</strong> Deezer grátis.</p>
+              <div class="hero-slide-price-row">
+                <div class="hero-slide-price"><span>R$</span><strong>119</strong><sup>,90</sup><em>/mês</em></div>
+                <span class="hero-slide-price-note">cheio R$ 129,90</span>
+              </div>
+              <div class="hero-slide-actions">
+                <a href="/familia/lite-home-office" class="hero-slide-cta">Quero esse plano <i class="ph ph-arrow-right"></i></a>
+                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 5 — Ultra Família -->
+          <article class="hero-slide" data-slide="4">
+            <div class="hero-slide-img hero-slide-bg-ufamilia">
+              <div class="hero-slide-placeholder">
+                <i class="ph-fill ph-popcorn"></i>
+                <span class="hero-slide-placeholder-lbl">imagem futura</span>
+              </div>
+            </div>
+            <div class="hero-slide-content">
+              <span class="hero-slide-tag hero-slide-tag-ultra">ULTRA · Família grande</span>
+              <h2 class="hero-slide-title">Ultra Família<br><span>800 Mega de fibra</span></h2>
+              <p class="hero-slide-desc">Globoplay + Roteador Mesh inclusos. Streaming sem trava na sala E no quarto.</p>
+              <div class="hero-slide-price-row">
+                <div class="hero-slide-price"><span>R$</span><strong>139</strong><sup>,90</sup><em>/mês</em></div>
+                <span class="hero-slide-price-note">cheio R$ 159,90</span>
+              </div>
+              <div class="hero-slide-actions">
+                <a href="/familia/ultra-familia" class="hero-slide-cta">Conhecer plano <i class="ph ph-arrow-right"></i></a>
+                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 6 — Ultra Home Office -->
+          <article class="hero-slide" data-slide="5">
+            <div class="hero-slide-img hero-slide-bg-uhome">
+              <div class="hero-slide-placeholder">
+                <i class="ph-fill ph-rocket-launch"></i>
+                <span class="hero-slide-placeholder-lbl">imagem futura</span>
+              </div>
+              <span class="hero-slide-flag hero-slide-flag-top"><i class="ph-fill ph-rocket-launch"></i> Tudo incluso · Top</span>
+            </div>
+            <div class="hero-slide-content">
+              <span class="hero-slide-tag hero-slide-tag-ultra">ULTRA · Home Office</span>
+              <h2 class="hero-slide-title">Ultra Home Office<br><span>1 Giga de fibra</span></h2>
+              <p class="hero-slide-desc">SKY+ Light + Disney+ + Mesh. Pra quem trabalha em casa com a empresa toda.</p>
+              <div class="hero-slide-price-row">
+                <div class="hero-slide-price"><span>R$</span><strong>218</strong><sup>,60</sup><em>/mês</em></div>
+                <span class="hero-slide-price-note">cheio R$ 228,60</span>
+              </div>
+              <div class="hero-slide-actions">
+                <a href="/familia/ultra-home-office" class="hero-slide-cta">Conhecer plano <i class="ph ph-arrow-right"></i></a>
+                <a href="#" onclick="openLeadModal(); return false;" class="hero-slide-cta-outline">Consultar cobertura</a>
+              </div>
+            </div>
+          </article>
+
         </div>
+
+        <!-- Setas -->
+        <button class="hero-slide-arrow hero-slide-arrow-prev" id="heroPrev" aria-label="Slide anterior">
+          <i class="ph ph-caret-left"></i>
+        </button>
+        <button class="hero-slide-arrow hero-slide-arrow-next" id="heroNext" aria-label="Próximo slide">
+          <i class="ph ph-caret-right"></i>
+        </button>
+
+        <!-- Dots + progresso autoplay -->
+        <div class="hero-slide-dots" id="heroDots">
+          <button class="hero-slide-dot is-active" data-go="0" aria-label="Lite Essencial"><span></span></button>
+          <button class="hero-slide-dot" data-go="1" aria-label="Lite Casa"><span></span></button>
+          <button class="hero-slide-dot" data-go="2" aria-label="Lite Família"><span></span></button>
+          <button class="hero-slide-dot" data-go="3" aria-label="Lite Home Office"><span></span></button>
+          <button class="hero-slide-dot" data-go="4" aria-label="Ultra Família"><span></span></button>
+          <button class="hero-slide-dot" data-go="5" aria-label="Ultra Home Office"><span></span></button>
+        </div>
+
       </div>
-    </div>
-    <div class="hero-scroll">
-      <i class="ph ph-caret-double-down"></i>
     </div>
   </section>
 
@@ -1320,7 +1587,7 @@
           <a href="#" class="logo">
             <span class="logo-master">Master</span><span class="logo-info">Info</span>
           </a>
-          <p>Internet fibra óptica 100% em Joinville, SC. Mais de 6 anos conectando famílias e empresas da região.</p>
+          <p>Internet fibra óptica de verdade. Mais de 6 anos conectando famílias e empresas.</p>
           <div class="footer-social">
             <a href="https://www.instagram.com/masterinfointernet" aria-label="Instagram" target="_blank"><i class="ph ph-instagram-logo"></i></a>
             <a href="https://www.facebook.com/masterinfointernet" aria-label="Facebook" target="_blank"><i class="ph ph-facebook-logo"></i></a>
@@ -1328,27 +1595,27 @@
           </div>
         </div>
         <div class="footer-col">
-          <h4>Links</h4>
-          <a href="#planos">Planos Residenciais</a>
+          <h4>Planos</h4>
+          <a href="#lite-essencial">Lite Essencial</a>
+          <a href="#lite-casa">Lite Casa</a>
+          <a href="#lite-familia">Lite Família</a>
+          <a href="#lite-home-office">Lite Home Office</a>
+          <a href="#ultra-familia">Ultra Família</a>
+          <a href="#ultra-home-office">Ultra Home Office</a>
+        </div>
+        <div class="footer-col">
+          <h4>Institucional</h4>
           <a href="#incluso">Tudo Incluso</a>
-          <a href="#cobertura">Área de Cobertura</a>
+          <a href="#cobertura">Cobertura</a>
           <a href="#depoimentos">Depoimentos</a>
-          <a href="#sobre">Sobre Nós</a>
+          <a href="#sobre">Nossa História</a>
           <a href="#faq">Dúvidas</a>
         </div>
         <div class="footer-col">
-          <h4>Assinante</h4>
-          <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank">Central do Assinante</a>
-          <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank">2ª Via de Boleto</a>
-          <a href="https://www.speedtest.net" target="_blank">Speedtest</a>
-          <a href="https://wa.me/5547989212991?text=Ol%C3%A1!%20Gostaria%20de%20saber%20sobre%20planos%20empresariais" target="_blank">Planos Empresariais</a>
-        </div>
-        <div class="footer-col">
-          <h4>Contato</h4>
-          <p><i class="ph ph-map-pin"></i> Rua Baltazar Buschler 628<br>Comasa – Joinville, SC<br>CEP: 89228-000</p>
-          <p><i class="ph ph-phone"></i> (47) 3434-1734</p>
-          <p><i class="ph ph-whatsapp-logo"></i> (47) 98921-2991</p>
-          <p><i class="ph ph-envelope"></i> masterinfo@masterinfointernet.com</p>
+          <h4>Fale com a gente</h4>
+          <a href="https://wa.me/5547989212991" target="_blank"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp</a>
+          <a href="mailto:masterinfo@masterinfointernet.com"><i class="ph ph-envelope"></i> E-mail</a>
+          <a href="https://www.instagram.com/masterinfointernet" target="_blank"><i class="ph ph-instagram-logo"></i> Instagram</a>
         </div>
       </div>
 
@@ -1922,6 +2189,134 @@
 
     tick();
     setInterval(tick, 1000);
+
+    // ── MEGA MENU (hover desktop + click mobile) ──
+    var navItems = document.querySelectorAll('.nav-item.has-mega');
+    var megaBackdrop = document.getElementById('megaBackdrop');
+
+    function closeAllMega() {
+      navItems.forEach(function(it) { it.classList.remove('is-open'); });
+      if (megaBackdrop) megaBackdrop.classList.remove('is-visible');
+    }
+
+    navItems.forEach(function(item) {
+      var trigger = item.querySelector('.nav-trigger');
+      var hoverTimer;
+
+      // Hover (desktop)
+      item.addEventListener('mouseenter', function() {
+        if (window.innerWidth < 1024) return;
+        clearTimeout(hoverTimer);
+        navItems.forEach(function(it) {
+          if (it !== item) it.classList.remove('is-open');
+        });
+        item.classList.add('is-open');
+        if (megaBackdrop) megaBackdrop.classList.add('is-visible');
+      });
+      item.addEventListener('mouseleave', function() {
+        if (window.innerWidth < 1024) return;
+        hoverTimer = setTimeout(function() {
+          item.classList.remove('is-open');
+          if (megaBackdrop) megaBackdrop.classList.remove('is-visible');
+        }, 120);
+      });
+
+      // Click (toggle, funciona em mobile)
+      if (trigger) {
+        trigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          var wasOpen = item.classList.contains('is-open');
+          closeAllMega();
+          if (!wasOpen) {
+            item.classList.add('is-open');
+            if (megaBackdrop && window.innerWidth >= 1024) megaBackdrop.classList.add('is-visible');
+          }
+        });
+      }
+    });
+
+    // Fechar mega menu ao clicar fora
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-item.has-mega') && !e.target.closest('.mega-menu')) {
+        closeAllMega();
+      }
+    });
+
+    // Esc fecha
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllMega();
+    });
+
+    // ── HERO SLIDESHOW ──
+    var heroSlideshow = document.getElementById('heroSlideshow');
+    if (heroSlideshow) {
+      var slides = heroSlideshow.querySelectorAll('.hero-slide');
+      var dots = heroSlideshow.querySelectorAll('.hero-slide-dot');
+      var prevBtn = document.getElementById('heroPrev');
+      var nextBtn = document.getElementById('heroNext');
+      var current = 0;
+      var total = slides.length;
+      var autoplayDelay = 6000;
+      var autoplayTimer;
+      var paused = false;
+
+      function goTo(idx) {
+        current = (idx + total) % total;
+        slides.forEach(function(s, i) {
+          s.classList.toggle('is-active', i === current);
+        });
+        dots.forEach(function(d, i) {
+          d.classList.toggle('is-active', i === current);
+        });
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      function startAutoplay() {
+        stopAutoplay();
+        autoplayTimer = setInterval(function() {
+          if (!paused) next();
+        }, autoplayDelay);
+      }
+      function stopAutoplay() {
+        if (autoplayTimer) clearInterval(autoplayTimer);
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', function() { next(); startAutoplay(); });
+      if (prevBtn) prevBtn.addEventListener('click', function() { prev(); startAutoplay(); });
+
+      dots.forEach(function(dot) {
+        dot.addEventListener('click', function() {
+          goTo(parseInt(dot.getAttribute('data-go'), 10));
+          startAutoplay();
+        });
+      });
+
+      // Pausa hover
+      heroSlideshow.addEventListener('mouseenter', function() { paused = true; });
+      heroSlideshow.addEventListener('mouseleave', function() { paused = false; });
+
+      // Swipe touch
+      var touchStartX = 0;
+      heroSlideshow.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      heroSlideshow.addEventListener('touchend', function(e) {
+        var dx = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(dx) > 50) {
+          if (dx < 0) next(); else prev();
+          startAutoplay();
+        }
+      }, { passive: true });
+
+      // Pausa se aba não está visível
+      document.addEventListener('visibilitychange', function() {
+        paused = document.hidden;
+      });
+
+      startAutoplay();
+    }
 
     // ── Toggle de preço (pontual / cheio) ──
     var toggleBtns = document.querySelectorAll('.plans-toggle-btn');
