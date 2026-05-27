@@ -559,6 +559,14 @@ img.dropdown-logo {
   object-fit: contain;
 }
 
+/* Logos reais baixadas (já têm fundo próprio da marca) */
+img.dropdown-logo.dropdown-logo-real {
+  background: transparent;
+  padding: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* Fallback (chip de texto pra apps sem logo pública) */
 .dd-fb {
   color: var(--white);
