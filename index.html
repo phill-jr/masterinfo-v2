@@ -60,8 +60,8 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20260527m">
-  <link rel="stylesheet" href="modal.css?v=20260527m">
+  <link rel="stylesheet" href="styles.css?v=20260527n">
+  <link rel="stylesheet" href="modal.css?v=20260527n">
 </head>
 <body>
 
@@ -1939,85 +1939,6 @@
       if (e.key === 'Escape') closeAllMega();
     });
 
-    // ── HERO SLIDESHOW ──
-    var heroSlideshow = document.getElementById('heroSlideshow');
-    if (heroSlideshow) {
-      var slides = heroSlideshow.querySelectorAll('.hero-slide');
-      var dots = heroSlideshow.querySelectorAll('.hero-dot');
-      var prevBtn = document.getElementById('heroPrev');
-      var nextBtn = document.getElementById('heroNext');
-      var current = 0;
-      var total = slides.length;
-      var autoplayDelay = 10000;
-      var autoplayTimer;
-      var paused = false;
-
-      function goTo(idx) {
-        current = (idx + total) % total;
-        slides.forEach(function(s, i) {
-          s.classList.toggle('is-active', i === current);
-        });
-        dots.forEach(function(d, i) {
-          d.classList.toggle('is-active', i === current);
-        });
-      }
-
-      function next() { goTo(current + 1); }
-      function prev() { goTo(current - 1); }
-
-      function startAutoplay() {
-        stopAutoplay();
-        autoplayTimer = setInterval(function() {
-          if (!paused) next();
-        }, autoplayDelay);
-      }
-      function stopAutoplay() {
-        if (autoplayTimer) clearInterval(autoplayTimer);
-      }
-
-      if (nextBtn) nextBtn.addEventListener('click', function() { next(); startAutoplay(); });
-      if (prevBtn) prevBtn.addEventListener('click', function() { prev(); startAutoplay(); });
-
-      dots.forEach(function(dot) {
-        dot.addEventListener('click', function() {
-          goTo(parseInt(dot.getAttribute('data-go'), 10));
-          startAutoplay();
-        });
-      });
-
-      // Pausa hover apenas nas setas/dots (nao no slide inteiro)
-      [prevBtn, nextBtn].forEach(function(b) {
-        if (!b) return;
-        b.addEventListener('mouseenter', function() { paused = true; });
-        b.addEventListener('mouseleave', function() { paused = false; });
-      });
-      var dotsContainer = document.getElementById('heroDots');
-      if (dotsContainer) {
-        dotsContainer.addEventListener('mouseenter', function() { paused = true; });
-        dotsContainer.addEventListener('mouseleave', function() { paused = false; });
-      }
-
-      // Swipe touch
-      var touchStartX = 0;
-      heroSlideshow.addEventListener('touchstart', function(e) {
-        touchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
-      heroSlideshow.addEventListener('touchend', function(e) {
-        var dx = e.changedTouches[0].screenX - touchStartX;
-        if (Math.abs(dx) > 50) {
-          if (dx < 0) next(); else prev();
-          startAutoplay();
-        }
-      }, { passive: true });
-
-      // Pausa se aba não está visível
-      document.addEventListener('visibilitychange', function() {
-        paused = document.hidden;
-      });
-
-      startAutoplay();
-    }
-
     // ── Toggle de preço (pontual / cheio) ──
     var toggleBtns = document.querySelectorAll('.plans-toggle-btn');
     var priceEls = document.querySelectorAll('.plan-value[data-price-pontual]');
@@ -2038,6 +1959,53 @@
         setPriceMode(btn.getAttribute('data-price'));
       });
     });
+  })();
+  </script>
+
+  <!-- HERO SLIDESHOW — script isolado pra rodar mesmo se algo antes falhar -->
+  <script>
+  (function() {
+    var sl = document.getElementById('heroSlideshow');
+    if (!sl) return;
+    var slides = sl.querySelectorAll('.hero-slide');
+    var dots = sl.querySelectorAll('.hero-dot');
+    var prev = document.getElementById('heroPrev');
+    var next = document.getElementById('heroNext');
+    var i = 0;
+    var n = slides.length;
+    var timer;
+
+    function show(idx) {
+      i = ((idx % n) + n) % n;
+      for (var k = 0; k < n; k++) {
+        slides[k].classList.toggle('is-active', k === i);
+        if (dots[k]) dots[k].classList.toggle('is-active', k === i);
+      }
+    }
+
+    function go(dir) { show(i + dir); }
+
+    function play() {
+      clearInterval(timer);
+      timer = setInterval(function() { show(i + 1); }, 10000);
+    }
+
+    if (next) next.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); go(1); play(); });
+    if (prev) prev.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); go(-1); play(); });
+
+    for (var d = 0; d < dots.length; d++) {
+      (function(dot) {
+        dot.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          show(parseInt(dot.getAttribute('data-go'), 10));
+          play();
+        });
+      })(dots[d]);
+    }
+
+    show(0);
+    play();
   })();
   </script>
 
