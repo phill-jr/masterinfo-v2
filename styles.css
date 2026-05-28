@@ -2233,6 +2233,11 @@ img.dropdown-logo.dropdown-logo-real {
 .coverage {
   padding: 120px 0;
   position: relative;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(255,122,5,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 75%, rgba(230,57,70,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(193,18,31,0.10) 0%, transparent 65%),
+    var(--black);
 }
 
 .coverage-inner {
