@@ -24,7 +24,7 @@
     "subtitulo": "Chega de cair no meio do jogo, travar na live ou esperar o filme carregar. <strong>Fibra óptica de verdade</strong> nos bairros Comasa, Boa Vista, Espinheiros e região.",
     "confianca": [
       "Instalação em até <strong>3 dias</strong>",
-      "<strong>Sem fidelidade</strong>",
+      "<strong>Suporte local</strong>",
       "<strong>+6 anos</strong> em Joinville"
     ]
   },
@@ -53,7 +53,7 @@
     {
       "icone": "ph-fill ph-shield-check",
       "titulo": "Sem Surpresas",
-      "descricao": "Preço fixo, sem reajuste escondido, sem fidelidade. Ficou insatisfeito? Cancela quando quiser."
+      "descricao": "Preço fixo, sem reajuste escondido. O que você contrata é o que você paga — sem pegadinha no boleto."
     },
     {
       "icone": "ph-fill ph-game-controller",
@@ -103,24 +103,24 @@
   ],
   "faq": [
     {
-      "pergunta": "Tem fidelidade?",
-      "resposta": "<strong>Não.</strong> Você pode cancelar quando quiser, sem multa. A gente acredita que você fica porque quer, não porque tem contrato te prendendo."
+      "pergunta": "Vocês são de Joinville?",
+      "resposta": "<strong>Sim.</strong> Nossa empresa nasceu aqui — são <strong>mais de 6 anos</strong> levando internet pra Joinville. Equipe local, técnicos da região."
     },
     {
       "pergunta": "Quanto tempo demora a instalação?",
       "resposta": "Na maioria dos casos, <strong>instalamos em até 3 dias</strong> após a contratação. Sem aquela história de \"7 a 15 dias úteis\"."
     },
     {
-      "pergunta": "A velocidade é real?",
-      "resposta": "Sim. Nossa fibra óptica entrega a velocidade contratada. Pode testar no <strong>speedtest.net</strong> assim que instalar — a gente tem orgulho do resultado."
+      "pergunta": "Tem fidelidade?",
+      "resposta": "<strong>Sim, 12 meses.</strong> É o padrão pra garantir o investimento da instalação. Depois disso, você fica porque quer."
+    },
+    {
+      "pergunta": "A internet é boa pra gamer?",
+      "resposta": "Muito. <strong>Ping baixo e latência estável</strong> — fibra óptica direto até sua casa, sem cabo compartilhado. Ideal pra jogar online, streamar e fazer live sem travamento."
     },
     {
       "pergunta": "O Wi-Fi pega em toda a casa?",
-      "resposta": "O roteador incluso cobre a maioria das casas. Se precisar de mais alcance, oferecemos <strong>roteadores mesh</strong> como acessório para cobrir cada canto."
-    },
-    {
-      "pergunta": "Vocês atendem meu bairro?",
-      "resposta": "Estamos expandindo toda semana. <a href=\"#\" onclick=\"openLeadModal(); return false;\">Verifique a cobertura aqui</a>."
+      "resposta": "Sim. Trabalhamos com <strong>metodologia de Wi-Fi premium</strong> — temos planos que já vêm com <strong>2 roteadores</strong> pra cobrir cada canto da casa, sem ponto cego."
     }
   ],
   "planos": [
@@ -134,7 +134,7 @@
       "precoPontual": 99.90,
       "precoCheio": 99.90,
       "semDescontoPontualidade": true,
-      "features": ["Internet 400 Mega de fibra", "Wi-Fi + roteador grátis", "Instalação 3 dias, sem fidelidade"],
+      "features": ["Internet 400 Mega de fibra", "Wi-Fi + roteador grátis", "Instalação em até 3 dias"],
       "badge": null
     },
     {
