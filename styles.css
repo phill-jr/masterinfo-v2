@@ -1196,11 +1196,11 @@ img.dropdown-logo.dropdown-logo-real {
   transform: translateX(3px);
 }
 
-/* Botão fixo do slideshow — lado direito, abaixo do conteúdo (safe zone) */
+/* Botão fixo do slideshow — alinhado com a marcação do user (abaixo do FIFA, lado direito) */
 .hero-cta-fixed {
   position: absolute;
-  bottom: 80px;
-  right: 100px;
+  bottom: 24%;
+  right: 22%;
   z-index: 6;
   display: inline-flex;
   align-items: center;
