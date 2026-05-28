@@ -1891,6 +1891,24 @@ img.dropdown-logo.dropdown-logo-real {
 
 .plan-body {
   padding: 0 28px 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ordem dos elementos no card */
+.plan-body .plan-price       { order: 1; }
+.plan-body .plan-apps        { order: 2; }
+.plan-body .plan-features    { order: 3; }
+.plan-body .plan-price-note  { order: 4; }
+.plan-body .btn-plan         { order: 5; margin-top: auto; }
+
+.plan-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-card .plan-body {
+  flex: 1;
 }
 
 .plan-price {
@@ -3664,9 +3682,11 @@ img.dropdown-logo.dropdown-logo-real {
   font-size: 0.7rem;
   color: var(--text-muted);
   font-style: italic;
-  margin-top: -16px;
-  margin-bottom: 20px;
+  margin-top: 14px;
+  margin-bottom: 18px;
   letter-spacing: 0.02em;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(255,255,255,0.08);
 }
 
 /* ── Faixa de apps inclusos ── */
@@ -3674,8 +3694,8 @@ img.dropdown-logo.dropdown-logo-real {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 14px 12px;
+  gap: 14px;
+  padding: 18px 14px 16px;
   margin-bottom: 22px;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,122,5,0.18);
@@ -3696,17 +3716,24 @@ img.dropdown-logo.dropdown-logo-real {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  min-height: 38px;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.plan-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
 .plan-app-logo {
-  width: 38px;
-  height: 38px;
-  border-radius: var(--radius-sm);
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
   object-fit: cover;
   background: var(--white);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.08);
   transition: transform var(--transition-base);
 }
 
@@ -3714,19 +3741,29 @@ img.dropdown-logo.dropdown-logo-real {
   transform: scale(1.08);
 }
 
+.plan-app-name {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
 .plan-app-or,
 .plan-app-plus {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--text-muted);
+  align-self: center;
+  margin-top: -14px;
 }
 
 .plan-app-plus {
   color: var(--orange);
-  font-size: 1.1rem;
+  font-size: 1.4rem;
 }
 
 /* Faixa vazia (plano sem streaming) */
