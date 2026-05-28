@@ -1200,7 +1200,7 @@ img.dropdown-logo.dropdown-logo-real {
 .hero-cta-fixed {
   position: absolute;
   bottom: 24%;
-  right: 22%;
+  right: 32%;
   z-index: 6;
   display: inline-flex;
   align-items: center;
