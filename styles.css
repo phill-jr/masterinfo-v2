@@ -1848,14 +1848,14 @@ img.dropdown-logo.dropdown-logo-real {
 }
 
 .plan-header {
-  padding: 40px 28px 20px;
+  padding: 48px 28px 12px;
   text-align: center;
 }
 
 .plan-featured .plan-header,
 .plan-popular .plan-header,
 .plan-premium .plan-header {
-  padding-top: 52px;
+  padding-top: 64px;
 }
 
 .plan-name {
@@ -3661,17 +3661,99 @@ img.dropdown-logo.dropdown-logo-real {
 .plan-price-note {
   display: block;
   text-align: center;
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   font-style: italic;
   margin-top: -16px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
 }
 
-.plan-price-note-essencial {
-  color: var(--orange-light);
-  font-style: normal;
+/* ── Faixa de apps inclusos ── */
+.plan-apps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 12px;
+  margin-bottom: 22px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,122,5,0.18);
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.plan-apps-label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--orange);
+}
+
+.plan-apps-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 38px;
+}
+
+.plan-app-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--white);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
+  transition: transform var(--transition-base);
+}
+
+.plan-card:hover .plan-app-logo {
+  transform: scale(1.08);
+}
+
+.plan-app-or,
+.plan-app-plus {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.plan-app-plus {
+  color: var(--orange);
+  font-size: 1.1rem;
+}
+
+/* Faixa vazia (plano sem streaming) */
+.plan-apps-empty {
+  border-color: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.015);
+  padding: 18px 12px;
+}
+
+.plan-apps-empty .plan-apps-label {
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: none;
+  font-style: italic;
   font-weight: 500;
+}
+
+/* Variacoes de faixa por card destacado */
+.plan-card.plan-featured .plan-apps {
+  border-color: rgba(255,122,5,0.4);
+  background: rgba(255,122,5,0.06);
+  box-shadow: 0 0 24px rgba(255,122,5,0.1) inset;
+}
+
+.plan-card.plan-premium .plan-apps {
+  border-color: rgba(230,57,70,0.35);
+  background: rgba(230,57,70,0.05);
 }
 
 /* Hero offer: linha do plano e nota do preço */
