@@ -60,8 +60,8 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20260527-dd">
-  <link rel="stylesheet" href="modal.css?v=20260527-dd">
+  <link rel="stylesheet" href="styles.css?v=20260527-ee">
+  <link rel="stylesheet" href="modal.css?v=20260527-ee">
 </head>
 <body>
 
@@ -257,14 +257,27 @@
   <section class="hero" id="hero">
     <div class="hero-slideshow" id="heroSlideshow">
 
-      <a href="/home-office" class="hero-slide is-active hero-bg-home" data-slide="0" aria-label="Home Office">
-        <!-- IMAGEM FUTURA: trocar bg class por <img class="hero-slide-img" src="imgs/home-office.jpg" alt=""> -->
+      <!-- Cada slide carrega imagem REAL de imgs/hero/.
+           Se a imagem nao existir/quebrar, o gradient bg do .hero-bg-* aparece como fallback. -->
+
+      <a href="#planos" class="hero-slide is-active hero-bg-home" data-slide="0" aria-label="Copa do Mundo 2026">
+        <img class="hero-slide-img" src="imgs/hero/banner-copa.jpg" alt="" loading="eager" onerror="this.style.display='none'">
       </a>
-      <a href="/gamer" class="hero-slide hero-bg-uhome" data-slide="1" aria-label="Gamer"></a>
-      <a href="/com-2-roteadores" class="hero-slide hero-bg-ufamilia" data-slide="2" aria-label="Com 2 Roteadores"></a>
-      <a href="/com-1-roteador" class="hero-slide hero-bg-casa" data-slide="3" aria-label="Com 1 Roteador"></a>
-      <a href="/home-office" class="hero-slide hero-bg-familia" data-slide="4" aria-label="Home Office"></a>
-      <a href="/aplicativos/disney-plus" class="hero-slide hero-bg-essencial" data-slide="5" aria-label="Aplicativos"></a>
+      <a href="/home-office" class="hero-slide hero-bg-uhome" data-slide="1" aria-label="Home Office">
+        <img class="hero-slide-img" src="imgs/hero/banner-home-office.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+      </a>
+      <a href="/com-2-roteadores" class="hero-slide hero-bg-ufamilia" data-slide="2" aria-label="Com 2 Roteadores">
+        <img class="hero-slide-img" src="imgs/hero/banner-2-roteadores.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+      </a>
+      <a href="/com-1-roteador" class="hero-slide hero-bg-casa" data-slide="3" aria-label="Com 1 Roteador">
+        <img class="hero-slide-img" src="imgs/hero/banner-1-roteador.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+      </a>
+      <a href="/gamer" class="hero-slide hero-bg-familia" data-slide="4" aria-label="Gamer">
+        <img class="hero-slide-img" src="imgs/hero/banner-gamer.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+      </a>
+      <a href="/aplicativos/disney-plus" class="hero-slide hero-bg-essencial" data-slide="5" aria-label="Aplicativos">
+        <img class="hero-slide-img" src="imgs/hero/banner-aplicativos.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+      </a>
 
       <!-- Setas suaves -->
       <button class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Slide anterior">
