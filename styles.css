@@ -1848,10 +1848,16 @@ img.dropdown-logo.dropdown-logo-real {
 }
 
 .plan-header {
-  padding: 48px 28px 12px;
+  padding: 64px 28px 12px;
   text-align: center;
+  min-height: 156px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Todos os cards ja tem padding-top 64px pra alinhar */
 .plan-featured .plan-header,
 .plan-popular .plan-header,
 .plan-premium .plan-header {
@@ -1944,7 +1950,8 @@ img.dropdown-logo.dropdown-logo-real {
 
 .plan-features {
   list-style: none;
-  margin-bottom: 28px;
+  margin-bottom: 8px;
+  min-height: 120px;
 }
 
 .plan-features li {
@@ -3694,6 +3701,7 @@ img.dropdown-logo.dropdown-logo-real {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 14px;
   padding: 18px 14px 16px;
   margin-bottom: 22px;
@@ -3701,6 +3709,7 @@ img.dropdown-logo.dropdown-logo-real {
   border: 1px solid rgba(255,122,5,0.18);
   border-radius: var(--radius-md);
   position: relative;
+  min-height: 156px;
 }
 
 .plan-apps-label {
