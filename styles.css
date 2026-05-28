@@ -4802,6 +4802,306 @@ body.copa-locked {
 }
 
 /* ========================================
+   SUBPÁGINAS (Internet / Aplicativos)
+   ======================================== */
+.sub-hero {
+  position: relative;
+  padding: 140px 0 100px;
+  overflow: hidden;
+  color: #fff;
+}
+
+.sub-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+}
+
+.sub-hero-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(8px);
+  margin-bottom: 22px;
+}
+
+.sub-hero-title {
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+.sub-hero-subtitle {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 32px;
+  max-width: 600px;
+}
+
+.sub-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 30px;
+  background: #fff;
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 0.98rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.25);
+  transition: var(--transition-base);
+}
+
+.sub-hero-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  background: var(--gradient-brand);
+  color: #fff;
+}
+
+.sub-hero-icon-bg {
+  position: absolute;
+  top: 50%;
+  right: -50px;
+  transform: translateY(-50%);
+  font-size: 26rem;
+  opacity: 0.08;
+  color: #fff;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Hero variante APP (logo grande) ── */
+.sub-hero-app {
+  background: linear-gradient(135deg, #0d0d10 0%, #1a1a22 100%);
+  padding: 120px 0 80px;
+}
+
+.sub-hero-app-inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: 100%;
+}
+
+.sub-app-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 220px;
+  background: #fff;
+  border-radius: 36px;
+  padding: 24px;
+  box-shadow: 0 30px 80px rgba(255,122,5,0.3), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.sub-app-logo-big {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 24px;
+}
+
+.sub-app-content { min-width: 0; }
+
+/* ── Seções gerais ── */
+.sub-section { padding: 80px 0; }
+.sub-section-light { background: #fff; color: #1a1a1a; }
+.sub-section-light .section-title { color: #1a1a1a; }
+.sub-section-dark { background: #000; }
+.sub-section-narrow > * { max-width: 760px; margin-left: auto; margin-right: auto; }
+
+/* ── Highlights (3 colunas com emoji) ── */
+.sub-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 16px;
+}
+
+.sub-highlight {
+  padding: 32px 28px;
+  background: #faf8f4;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-base);
+}
+
+.sub-highlight:hover {
+  border-color: rgba(255,122,5,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.sub-highlight-emoji {
+  font-size: 2.4rem;
+  margin-bottom: 14px;
+  line-height: 1;
+}
+
+.sub-highlight h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.sub-highlight p {
+  font-size: 0.92rem;
+  color: #555;
+  line-height: 1.55;
+}
+
+/* ── Cards de planos disponíveis ── */
+.sub-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.sub-plan-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 28px 22px;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: var(--transition-base);
+  color: #1a1a1a;
+}
+
+.sub-plan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(255,122,5,0.25);
+}
+
+.sub-plan-speed {
+  font-size: 2.6rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.sub-plan-speed small {
+  font-size: 0.95rem;
+  color: #777;
+  font-weight: 500;
+}
+
+.sub-plan-name {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #777;
+  margin-top: 6px;
+}
+
+.sub-plan-price {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 8px 0 12px;
+}
+
+.sub-plan-price em {
+  font-style: normal;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #777;
+}
+
+.sub-plan-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--orange);
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+/* ── Lista de features (app) ── */
+.sub-app-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sub-app-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #faf8f4;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+
+.sub-app-features li i {
+  color: var(--success);
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.sub-app-incluso {
+  text-align: center;
+  font-size: 0.92rem;
+  color: #555;
+  padding: 16px 20px;
+  background: rgba(255,122,5,0.08);
+  border: 1px dashed rgba(255,122,5,0.35);
+  border-radius: var(--radius-md);
+}
+
+.sub-app-incluso strong {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+/* ── Responsivo ── */
+@media (max-width: 1024px) {
+  .sub-highlights { grid-template-columns: 1fr; }
+  .sub-hero-app-inner { grid-template-columns: 1fr; text-align: center; gap: 32px; }
+  .sub-app-logo-wrap { margin: 0 auto; }
+}
+
+@media (max-width: 768px) {
+  .sub-hero { padding: 100px 0 80px; }
+  .sub-hero-icon-bg { font-size: 18rem; right: -80px; }
+  .sub-app-logo-wrap { width: 160px; height: 160px; padding: 18px; }
+}
+
+/* ========================================
    NOSSA HISTÓRIA (acolhedor, humano)
    ======================================== */
 .story {
