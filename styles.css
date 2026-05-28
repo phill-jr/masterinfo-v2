@@ -1196,11 +1196,11 @@ img.dropdown-logo.dropdown-logo-real {
   transform: translateX(3px);
 }
 
-/* Botão fixo do slideshow — canto inferior direito (safe zone definida pelo padrão dos banners) */
+/* Botão fixo do slideshow — lado direito, abaixo do conteúdo (safe zone) */
 .hero-cta-fixed {
   position: absolute;
-  bottom: 64px;
-  right: 64px;
+  bottom: 80px;
+  right: 100px;
   z-index: 6;
   display: inline-flex;
   align-items: center;
