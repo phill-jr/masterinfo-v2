@@ -23,7 +23,7 @@
     "tituloFim": "na mão.",
     "subtitulo": "Chega de cair no meio do jogo, travar na live ou esperar o filme carregar. <strong>Fibra óptica de verdade</strong> nos bairros Comasa, Boa Vista, Espinheiros e região.",
     "confianca": [
-      "Instalação em até <strong>24h</strong>",
+      "Instalação em até <strong>3 dias</strong>",
       "<strong>Sem fidelidade</strong>",
       "<strong>+6 anos</strong> em Joinville"
     ]
@@ -62,7 +62,7 @@
     },
     {
       "icone": "ph-fill ph-clock-countdown",
-      "titulo": "Instalação em 24h",
+      "titulo": "Instalação em 3 dias",
       "descricao": "Contratou hoje, tá navegando amanhã. Sem enrolação, sem \"aguarde de 7 a 15 dias úteis\"."
     }
   ],
@@ -108,7 +108,7 @@
     },
     {
       "pergunta": "Quanto tempo demora a instalação?",
-      "resposta": "Na maioria dos casos, <strong>instalamos em até 24 horas</strong> após a contratação. Sem aquela história de \"7 a 15 dias úteis\"."
+      "resposta": "Na maioria dos casos, <strong>instalamos em até 3 dias</strong> após a contratação. Sem aquela história de \"7 a 15 dias úteis\"."
     },
     {
       "pergunta": "A velocidade é real?",
@@ -134,7 +134,7 @@
       "precoPontual": 99.90,
       "precoCheio": 99.90,
       "semDescontoPontualidade": true,
-      "features": ["Internet 400 Mega de fibra", "Wi-Fi + roteador grátis", "Instalação 24h, sem fidelidade"],
+      "features": ["Internet 400 Mega de fibra", "Wi-Fi + roteador grátis", "Instalação 3 dias, sem fidelidade"],
       "badge": null
     },
     {
@@ -146,7 +146,7 @@
       "unidade": "Mega",
       "precoPontual": 99.90,
       "precoCheio": 109.90,
-      "features": ["Internet 600 Mega de fibra", "SKY+ Light grátis (TV)", "Wi-Fi + instalação 24h"],
+      "features": ["Internet 600 Mega de fibra", "SKY+ Light grátis (TV)", "Wi-Fi + instalação 3 dias"],
       "badge": null
     },
     {
@@ -158,7 +158,7 @@
       "unidade": "Mega",
       "precoPontual": 109.00,
       "precoCheio": 119.00,
-      "features": ["Internet 800 Mega de fibra", "SKY+ Light grátis (TV)", "Wi-Fi + instalação 24h"],
+      "features": ["Internet 800 Mega de fibra", "SKY+ Light grátis (TV)", "Wi-Fi + instalação 3 dias"],
       "badge": "Pra família"
     },
     {
