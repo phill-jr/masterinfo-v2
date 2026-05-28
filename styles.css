@@ -3738,6 +3738,332 @@ img.dropdown-logo.dropdown-logo-real {
 }
 
 /* ========================================
+   POPUP COPA DO MUNDO 2026
+   ======================================== */
+.copa-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.copa-popup.is-open {
+  display: flex;
+  opacity: 1;
+}
+
+body.copa-locked {
+  overflow: hidden;
+}
+
+.copa-popup-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+.copa-popup-card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #0d0d10 0%, #1a1a22 100%);
+  border: 1px solid rgba(255,122,5,0.4);
+  border-radius: var(--radius-2xl);
+  padding: 44px 32px 28px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 100px rgba(255,122,5,0.25);
+  animation: copaPop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes copaPop {
+  0% { transform: scale(0.9) translateY(20px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.copa-popup-flames {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(255,122,5,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(230,57,70,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 0%, rgba(252,195,5,0.12) 0%, transparent 60%);
+  pointer-events: none;
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+}
+
+.copa-popup-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.copa-popup-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  z-index: 2;
+}
+
+.copa-popup-close:hover {
+  background: rgba(255,255,255,0.18);
+  transform: rotate(90deg);
+}
+
+.copa-popup-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 8px 18px;
+  background: var(--gradient-brand);
+  color: #fff;
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 20px rgba(255,122,5,0.45);
+  margin-bottom: 22px;
+}
+
+.copa-popup-flag i {
+  font-size: 1rem;
+  animation: copaBall 1.5s ease-in-out infinite;
+}
+
+@keyframes copaBall {
+  0%, 100% { transform: rotate(-15deg) scale(1); }
+  50% { transform: rotate(15deg) scale(1.1); }
+}
+
+.copa-popup-title {
+  font-size: clamp(1.4rem, 4.5vw, 1.8rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 22px;
+}
+
+.copa-popup-highlight {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.copa-popup-speed {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.copa-popup-speed-num {
+  font-size: clamp(4.5rem, 14vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 8px 28px rgba(255,122,5,0.45));
+}
+
+.copa-popup-speed-unit {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+.copa-popup-price {
+  margin-bottom: 24px;
+}
+
+.copa-popup-price-prefix {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 6px;
+}
+
+.copa-popup-price-main {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+}
+
+.copa-popup-currency {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.copa-popup-amount {
+  font-size: 4.2rem;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.copa-popup-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.copa-popup-side sup {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.copa-popup-side em {
+  font-style: normal;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  margin-top: 2px;
+}
+
+.copa-popup-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  margin-bottom: 22px;
+}
+
+.copa-popup-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.copa-popup-feature-ico {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 1.1rem;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.copa-ico-sky { background: linear-gradient(135deg, #0073e6, #003d80); }
+.copa-ico-wifi { background: var(--gradient-brand); }
+.copa-ico-clock { background: linear-gradient(135deg, var(--red), var(--red-deep)); }
+
+.copa-popup-feature strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.copa-popup-feature span {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.1;
+}
+
+.copa-popup-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 18px 24px;
+  background: var(--gradient-brand);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.05rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 14px 32px rgba(255,122,5,0.5);
+  transition: var(--transition-base);
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.copa-popup-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 2.4s ease-in-out infinite;
+}
+
+.copa-popup-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(255,122,5,0.6);
+}
+
+.copa-popup-cta i {
+  position: relative;
+  z-index: 1;
+}
+
+.copa-popup-fine {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.45);
+  font-style: italic;
+}
+
+@media (max-width: 480px) {
+  .copa-popup-card {
+    padding: 36px 22px 22px;
+  }
+  .copa-popup-speed-num { font-size: 4rem; }
+  .copa-popup-amount { font-size: 3.4rem; }
+}
+
+/* ========================================
    PROMO BAR (fase 5 - urgência topo)
    ======================================== */
 .promo-bar {

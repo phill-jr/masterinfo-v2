@@ -60,10 +60,70 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20260527v">
-  <link rel="stylesheet" href="modal.css?v=20260527v">
+  <link rel="stylesheet" href="styles.css?v=20260527w">
+  <link rel="stylesheet" href="modal.css?v=20260527w">
 </head>
 <body>
+
+  <!-- ========== POPUP COPA DO MUNDO 2026 ========== -->
+  <div class="copa-popup" id="copaPopup" aria-hidden="true">
+    <div class="copa-popup-overlay" onclick="closeCopaPopup()"></div>
+    <div class="copa-popup-card" role="dialog" aria-labelledby="copaTitle">
+      <button type="button" class="copa-popup-close" onclick="closeCopaPopup()" aria-label="Fechar">
+        <i class="ph ph-x"></i>
+      </button>
+
+      <div class="copa-popup-flames"></div>
+
+      <div class="copa-popup-flag">
+        <i class="ph-fill ph-soccer-ball"></i>
+        <span>OFERTA COPA DO MUNDO 2026</span>
+      </div>
+
+      <h2 id="copaTitle" class="copa-popup-title">
+        Vai vibrar com a Seleção?<br>
+        <span class="copa-popup-highlight">Vibra com 1 Giga.</span>
+      </h2>
+
+      <div class="copa-popup-speed">
+        <span class="copa-popup-speed-num">1</span>
+        <span class="copa-popup-speed-unit">GIGA</span>
+      </div>
+
+      <div class="copa-popup-price">
+        <span class="copa-popup-price-prefix">por apenas</span>
+        <div class="copa-popup-price-main">
+          <span class="copa-popup-currency">R$</span>
+          <strong class="copa-popup-amount">119</strong>
+          <span class="copa-popup-side">
+            <sup>,90</sup>
+            <em>/mês</em>
+          </span>
+        </div>
+      </div>
+
+      <div class="copa-popup-features">
+        <div class="copa-popup-feature">
+          <div class="copa-popup-feature-ico copa-ico-sky"><i class="ph-fill ph-television-simple"></i></div>
+          <div><strong>SKY+ Light</strong><span>grátis</span></div>
+        </div>
+        <div class="copa-popup-feature">
+          <div class="copa-popup-feature-ico copa-ico-wifi"><i class="ph-fill ph-wifi-high"></i></div>
+          <div><strong>Wi-Fi</strong><span>incluso</span></div>
+        </div>
+        <div class="copa-popup-feature">
+          <div class="copa-popup-feature-ico copa-ico-clock"><i class="ph-fill ph-clock"></i></div>
+          <div><strong>Instalação</strong><span>em 24h</span></div>
+        </div>
+      </div>
+
+      <a href="#planos" onclick="closeCopaPopup()" class="copa-popup-cta">
+        Quero esse plano <i class="ph ph-arrow-right"></i>
+      </a>
+
+      <span class="copa-popup-fine">Sujeito a análise de crédito · Oferta limitada</span>
+    </div>
+  </div>
 
   <!-- ========== PROMO BAR (urgência) ========== -->
   <div class="promo-bar" id="promoBar">
@@ -1834,6 +1894,32 @@
       if (e.key === 'Escape') closeAllMega();
     });
 
+  })();
+  </script>
+
+  <!-- POPUP COPA DO MUNDO — abre ao carregar a página -->
+  <script>
+  function closeCopaPopup() {
+    var p = document.getElementById('copaPopup');
+    if (p) {
+      p.classList.remove('is-open');
+      document.body.classList.remove('copa-locked');
+    }
+    try { sessionStorage.setItem('copa-popup-closed', '1'); } catch (e) {}
+  }
+  (function() {
+    try {
+      if (sessionStorage.getItem('copa-popup-closed')) return;
+    } catch (e) {}
+    setTimeout(function() {
+      var p = document.getElementById('copaPopup');
+      if (!p) return;
+      p.classList.add('is-open');
+      document.body.classList.add('copa-locked');
+    }, 700);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeCopaPopup();
+    });
   })();
   </script>
 
