@@ -1199,8 +1199,8 @@ img.dropdown-logo.dropdown-logo-real {
 /* Botão fixo do slideshow — canto inferior direito (safe zone definida pelo padrão dos banners) */
 .hero-cta-fixed {
   position: absolute;
-  bottom: 28px;
-  right: 28px;
+  bottom: 64px;
+  right: 64px;
   z-index: 6;
   display: inline-flex;
   align-items: center;
