@@ -5110,8 +5110,18 @@ body.copa-locked {
   gap: 14px;
 }
 
-.story-quote-author .story-author-photo {
-  display: flex;
+.story-quote-authors {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.story-author {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .story-author-info {
