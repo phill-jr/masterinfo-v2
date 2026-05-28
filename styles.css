@@ -295,12 +295,13 @@ button {
 }
 
 .logo-img {
-  height: 36px;
+  height: 40px;
   width: auto;
+  display: block;
 }
 
-.logo-img-footer {
-  filter: brightness(0) invert(1);
+.footer-brand .logo-img {
+  height: 44px;
 }
 
 .logo-master { color: var(--white); }
