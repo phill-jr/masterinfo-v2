@@ -186,8 +186,8 @@ def head(title, depth):
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
   <link rel="icon" type="image/svg+xml" href="{base}favicon.svg">
-  <link rel="stylesheet" href="{base}styles.css?v=20260531-c">
-  <link rel="stylesheet" href="{base}modal.css?v=20260531-c">
+  <link rel="stylesheet" href="{base}styles.css?v=20260531-d">
+  <link rel="stylesheet" href="{base}modal.css?v=20260531-d">
 </head>
 <body>'''
 
@@ -374,12 +374,23 @@ def footer(depth):
 
 # ─── TEMPLATES DAS PÁGINAS ────────────────────────────────────────────
 
-VIDEO_BG = {
-    "home-office":      "home-office.mp4",
-    "gamer":            "gamer.mp4",
-    "com-2-roteadores": "2-roteadores.mp4",
-    "com-1-roteador":   "1-roteador.mp4",
+# Imagens de fundo do hero das subpáginas Internet.
+# Aceita extensões: jpg, png, webp (ordem de preferência).
+IMG_BG = {
+    "home-office":      "home-office",
+    "gamer":            "gamer",
+    "com-2-roteadores": "2-roteadores",
+    "com-1-roteador":   "1-roteador",
 }
+
+def find_img(slug, base_path):
+    """Encontra arquivo imgs/hero/sub/{slug}.{ext} no disco."""
+    for ext in ("jpg", "jpeg", "png", "webp"):
+        rel = f"imgs/hero/sub/{slug}.{ext}"
+        if os.path.exists(os.path.join(base_path, rel)):
+            return rel
+    return None
+
 
 def page_internet(p, depth=1):
     plan_cards = ""
@@ -434,18 +445,14 @@ def page_internet(p, depth=1):
           <p>{desc}</p>
         </div>'''
 
-    video = VIDEO_BG.get(p["slug"])
-    video_html = f'''
-    <video class="sub-hero-video" autoplay muted loop playsinline preload="metadata">
-      <source src="../imgs/hero/video/{video}" type="video/mp4">
-    </video>
-    <div class="sub-hero-overlay"></div>''' if video else ""
+    img_rel = find_img(IMG_BG.get(p["slug"], ""), BASE_DIR)
+    img_style = f"background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.4)), url('../{img_rel}'); background-size: cover; background-position: center;" if img_rel else f"background: {p['gradient']};"
 
     return f'''{head(p["title"], depth)}
 {header(depth)}
 
-  <!-- HERO da subpágina (vídeo de fundo cinematográfico) -->
-  <section class="sub-hero sub-hero-video-wrap" style="--sub-hero-fallback: {p["gradient"]};">{video_html}
+  <!-- HERO da subpágina (imagem de fundo) -->
+  <section class="sub-hero" style="{img_style}">
     <div class="container sub-hero-inner">
       <span class="sub-hero-tag">{p["tag"]}</span>
       <h1 class="sub-hero-title">{p["title"]}</h1>
