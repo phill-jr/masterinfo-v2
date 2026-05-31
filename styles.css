@@ -4869,6 +4869,21 @@ body.copa-locked {
   isolation: isolate;
 }
 
+/* Slideshow do hero das subpáginas */
+.sub-hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  z-index: 1;
+}
+
+.sub-hero-slide.is-active {
+  opacity: 1;
+}
+
 /* Video de fundo cinematográfico */
 .sub-hero-video-wrap {
   background: var(--sub-hero-fallback, #000); /* fallback enquanto vídeo carrega */

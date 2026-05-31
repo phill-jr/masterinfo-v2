@@ -11,8 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="stylesheet" href="../styles.css?v=20260531-d">
-  <link rel="stylesheet" href="../modal.css?v=20260531-d">
+  <link rel="stylesheet" href="../styles.css?v=20260531-e">
+  <link rel="stylesheet" href="../modal.css?v=20260531-e">
 </head>
 <body>
 
@@ -97,7 +97,7 @@
     <div class="mega-backdrop" id="megaBackdrop"></div>
   </header>
 
-  <!-- HERO da subpágina (imagem de fundo) -->
+  <!-- HERO da subpágina -->
   <section class="sub-hero" style="background: linear-gradient(135deg, #6b3d00 0%, #c19000 50%, #fcc305 100%);">
     <div class="container sub-hero-inner">
       <span class="sub-hero-tag">INTERNET · ENTRADA</span>
@@ -304,6 +304,21 @@
     if (mt && nv) mt.addEventListener('click', function() {
       mt.classList.toggle('active'); nv.classList.toggle('open');
     });
+
+    // Slideshow do hero (rotaciona slides com fade)
+    var slideshow = document.querySelector('.sub-hero-slideshow');
+    if (slideshow) {
+      var slides = slideshow.querySelectorAll('.sub-hero-slide');
+      var interval = parseInt(slideshow.getAttribute('data-interval'), 10) || 5000;
+      if (slides.length > 1) {
+        var current = 0;
+        setInterval(function() {
+          slides[current].classList.remove('is-active');
+          current = (current + 1) % slides.length;
+          slides[current].classList.add('is-active');
+        }, interval);
+      }
+    }
   })();
   </script>
 </body>

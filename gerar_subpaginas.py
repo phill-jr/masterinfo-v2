@@ -186,8 +186,8 @@ def head(title, depth):
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
   <link rel="icon" type="image/svg+xml" href="{base}favicon.svg">
-  <link rel="stylesheet" href="{base}styles.css?v=20260531-d">
-  <link rel="stylesheet" href="{base}modal.css?v=20260531-d">
+  <link rel="stylesheet" href="{base}styles.css?v=20260531-e">
+  <link rel="stylesheet" href="{base}modal.css?v=20260531-e">
 </head>
 <body>'''
 
@@ -366,6 +366,21 @@ def footer(depth):
     if (mt && nv) mt.addEventListener('click', function() {{
       mt.classList.toggle('active'); nv.classList.toggle('open');
     }});
+
+    // Slideshow do hero (rotaciona slides com fade)
+    var slideshow = document.querySelector('.sub-hero-slideshow');
+    if (slideshow) {{
+      var slides = slideshow.querySelectorAll('.sub-hero-slide');
+      var interval = parseInt(slideshow.getAttribute('data-interval'), 10) || 5000;
+      if (slides.length > 1) {{
+        var current = 0;
+        setInterval(function() {{
+          slides[current].classList.remove('is-active');
+          current = (current + 1) % slides.length;
+          slides[current].classList.add('is-active');
+        }}, interval);
+      }}
+    }}
   }})();
   </script>
 </body>
@@ -384,12 +399,28 @@ IMG_BG = {
 }
 
 def find_img(slug, base_path):
-    """Encontra arquivo imgs/hero/sub/{slug}.{ext} no disco."""
+    """Encontra arquivo imgs/hero/sub/{slug}.{ext} (single) no disco."""
     for ext in ("jpg", "jpeg", "png", "webp"):
         rel = f"imgs/hero/sub/{slug}.{ext}"
         if os.path.exists(os.path.join(base_path, rel)):
             return rel
     return None
+
+
+def find_imgs(slug, base_path):
+    """Encontra todas imagens imgs/hero/sub/{slug}-N.{ext} (slideshow). Fallback: single."""
+    imgs = []
+    for i in range(1, 21):  # até 20 slides
+        for ext in ("jpg", "jpeg", "png", "webp"):
+            rel = f"imgs/hero/sub/{slug}-{i}.{ext}"
+            if os.path.exists(os.path.join(base_path, rel)):
+                imgs.append(rel)
+                break
+    if imgs:
+        return imgs
+    # fallback: imagem única
+    single = find_img(slug, base_path)
+    return [single] if single else []
 
 
 def page_internet(p, depth=1):
@@ -445,14 +476,24 @@ def page_internet(p, depth=1):
           <p>{desc}</p>
         </div>'''
 
-    img_rel = find_img(IMG_BG.get(p["slug"], ""), BASE_DIR)
-    img_style = f"background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.4)), url('../{img_rel}'); background-size: cover; background-position: center;" if img_rel else f"background: {p['gradient']};"
+    imgs = find_imgs(IMG_BG.get(p["slug"], ""), BASE_DIR)
+    if len(imgs) >= 2:
+        slides_html = "\n      ".join(
+            f'<div class="sub-hero-slide{" is-active" if i == 0 else ""}" style="background-image: url(\'../{img}\');"></div>'
+            for i, img in enumerate(imgs)
+        )
+        hero_open = f'<section class="sub-hero sub-hero-slideshow" data-interval="5000" style="background: {p["gradient"]};">\n      {slides_html}\n      <div class="sub-hero-overlay"></div>'
+    elif len(imgs) == 1:
+        style = f"background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.4)), url('../{imgs[0]}'); background-size: cover; background-position: center;"
+        hero_open = f'<section class="sub-hero" style="{style}">'
+    else:
+        hero_open = f'<section class="sub-hero" style="background: {p["gradient"]};">'
 
     return f'''{head(p["title"], depth)}
 {header(depth)}
 
-  <!-- HERO da subpágina (imagem de fundo) -->
-  <section class="sub-hero" style="{img_style}">
+  <!-- HERO da subpágina -->
+  {hero_open}
     <div class="container sub-hero-inner">
       <span class="sub-hero-tag">{p["tag"]}</span>
       <h1 class="sub-hero-title">{p["title"]}</h1>
