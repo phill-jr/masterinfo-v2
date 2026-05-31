@@ -374,6 +374,13 @@ def footer(depth):
 
 # ─── TEMPLATES DAS PÁGINAS ────────────────────────────────────────────
 
+VIDEO_BG = {
+    "home-office":      "home-office.mp4",
+    "gamer":            "gamer.mp4",
+    "com-2-roteadores": "2-roteadores.mp4",
+    "com-1-roteador":   "1-roteador.mp4",
+}
+
 def page_internet(p, depth=1):
     plan_cards = ""
     for plan_id in p["plans"]:
@@ -427,18 +434,24 @@ def page_internet(p, depth=1):
           <p>{desc}</p>
         </div>'''
 
+    video = VIDEO_BG.get(p["slug"])
+    video_html = f'''
+    <video class="sub-hero-video" autoplay muted loop playsinline preload="metadata">
+      <source src="../imgs/hero/video/{video}" type="video/mp4">
+    </video>
+    <div class="sub-hero-overlay"></div>''' if video else ""
+
     return f'''{head(p["title"], depth)}
 {header(depth)}
 
-  <!-- HERO da subpágina -->
-  <section class="sub-hero" style="background: {p["gradient"]};">
+  <!-- HERO da subpágina (vídeo de fundo cinematográfico) -->
+  <section class="sub-hero sub-hero-video-wrap" style="--sub-hero-fallback: {p["gradient"]};">{video_html}
     <div class="container sub-hero-inner">
       <span class="sub-hero-tag">{p["tag"]}</span>
       <h1 class="sub-hero-title">{p["title"]}</h1>
       <p class="sub-hero-subtitle">{p["subtitle"]}</p>
       <a href="../#planos" class="sub-hero-cta">{p["cta"]} <i class="ph ph-arrow-right"></i></a>
     </div>
-    <div class="sub-hero-icon-bg"><i class="ph-fill {p["ico"]}"></i></div>
   </section>
 
   <!-- Por que esse plano -->
