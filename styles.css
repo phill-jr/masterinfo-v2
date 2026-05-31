@@ -5598,6 +5598,21 @@ body.copa-locked {
 
 .story-milestone-photo {
   margin-bottom: 14px;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f3f0e9;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.story-milestone-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.story-milestone:hover .story-milestone-photo img {
+  transform: scale(1.05);
 }
 
 .story-milestone h4 {
