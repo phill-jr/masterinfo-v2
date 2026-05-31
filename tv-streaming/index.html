@@ -132,6 +132,59 @@
       object-fit: contain;
       filter: drop-shadow(0 10px 24px rgba(0,0,0,0.18));
     }
+
+    /* Grid de capas/conteúdo (poster vertical 2:3) */
+    .tvs-app-visual-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 24px;
+      background: var(--bg, linear-gradient(135deg, #f3f0e9, #fff));
+      border-radius: 22px;
+    }
+    .tvs-app-visual-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+    }
+    .tvs-app-visual-logo img {
+      max-width: 160px;
+      max-height: 70px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.2));
+    }
+    .tvs-thumbs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .tvs-thumb {
+      aspect-ratio: 2 / 3;
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04));
+      border: 1px dashed rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.55);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-align: center;
+      padding: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+    }
+    .tvs-thumb:hover { transform: translateY(-2px); }
+    .tvs-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
     .tvs-app-content h2 {
       font-size: clamp(1.6rem, 3vw, 2.4rem);
       font-weight: 900;
@@ -422,7 +475,18 @@
   <section class="tvs-app tvs-app-skylight">
     <div class="container">
       <div class="tvs-app-inner">
-        <div class="tvs-app-visual"><img src="../imgs/sky.jpg" alt="SKY+ Light" class="tvs-app-logo"></div>
+        <div class="tvs-app-visual tvs-app-visual-stack">
+          <div class="tvs-app-visual-logo"><img src="../imgs/sky.jpg" alt="SKY+ Light"></div>
+          <div class="tvs-thumbs-grid">
+            <!-- TROCAR cada <div class="tvs-thumb"> por <div class="tvs-thumb"><img src="caminho-da-capa.jpg" alt="..."></div> -->
+            <div class="tvs-thumb">Canal 1</div>
+            <div class="tvs-thumb">Canal 2</div>
+            <div class="tvs-thumb">Canal 3</div>
+            <div class="tvs-thumb">Canal 4</div>
+            <div class="tvs-thumb">Canal 5</div>
+            <div class="tvs-thumb">Canal 6</div>
+          </div>
+        </div>
         <div class="tvs-app-content">
           <span class="tvs-app-tag">TV ao vivo no app</span>
           <h2>SKY+ Light</h2>
@@ -455,7 +519,17 @@
           <span class="tvs-app-incluso"><strong>Incluso:</strong> Ultra Família 800 Mega</span>
           <div><a href="../aplicativos/globoplay/" class="tvs-app-cta">Ver detalhes <i class="ph ph-arrow-right"></i></a></div>
         </div>
-        <div class="tvs-app-visual"><img src="../imgs/globoplay.png" alt="Globoplay" class="tvs-app-logo"></div>
+        <div class="tvs-app-visual tvs-app-visual-stack">
+          <div class="tvs-app-visual-logo"><img src="../imgs/globoplay.png" alt="Globoplay"></div>
+          <div class="tvs-thumbs-grid">
+            <div class="tvs-thumb">Novela 1</div>
+            <div class="tvs-thumb">Novela 2</div>
+            <div class="tvs-thumb">Série 1</div>
+            <div class="tvs-thumb">Futebol</div>
+            <div class="tvs-thumb">Telecine</div>
+            <div class="tvs-thumb">Original</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -464,7 +538,17 @@
   <section class="tvs-app tvs-app-disney">
     <div class="container">
       <div class="tvs-app-inner">
-        <div class="tvs-app-visual"><img src="../imgs/disney-plus.png" alt="Disney+" class="tvs-app-logo"></div>
+        <div class="tvs-app-visual tvs-app-visual-stack">
+          <div class="tvs-app-visual-logo"><img src="../imgs/disney-plus.png" alt="Disney+"></div>
+          <div class="tvs-thumbs-grid">
+            <div class="tvs-thumb">Marvel</div>
+            <div class="tvs-thumb">Star Wars</div>
+            <div class="tvs-thumb">Pixar</div>
+            <div class="tvs-thumb">Disney</div>
+            <div class="tvs-thumb">Nat Geo</div>
+            <div class="tvs-thumb">Original</div>
+          </div>
+        </div>
         <div class="tvs-app-content">
           <span class="tvs-app-tag">Disney, Pixar, Marvel, Star Wars</span>
           <h2>Disney+</h2>
@@ -497,7 +581,17 @@
           <span class="tvs-app-incluso"><strong>Add-on:</strong> disponível em todos os planos</span>
           <div><a href="../aplicativos/hbo-max/" class="tvs-app-cta">Ver detalhes <i class="ph ph-arrow-right"></i></a></div>
         </div>
-        <div class="tvs-app-visual"><img src="../imgs/hbo-max.jpg" alt="HBO Max" class="tvs-app-logo"></div>
+        <div class="tvs-app-visual tvs-app-visual-stack">
+          <div class="tvs-app-visual-logo"><img src="../imgs/hbo-max.jpg" alt="HBO Max"></div>
+          <div class="tvs-thumbs-grid">
+            <div class="tvs-thumb">GoT</div>
+            <div class="tvs-thumb">House Dragon</div>
+            <div class="tvs-thumb">Last of Us</div>
+            <div class="tvs-thumb">Warner</div>
+            <div class="tvs-thumb">DC</div>
+            <div class="tvs-thumb">HBO</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -506,7 +600,17 @@
   <section class="tvs-app tvs-app-prime">
     <div class="container">
       <div class="tvs-app-inner">
-        <div class="tvs-app-visual"><img src="../imgs/prime-video.png" alt="Prime Video" class="tvs-app-logo"></div>
+        <div class="tvs-app-visual tvs-app-visual-stack">
+          <div class="tvs-app-visual-logo"><img src="../imgs/prime-video.png" alt="Prime Video"></div>
+          <div class="tvs-thumbs-grid">
+            <div class="tvs-thumb">The Boys</div>
+            <div class="tvs-thumb">Reacher</div>
+            <div class="tvs-thumb">Fallout</div>
+            <div class="tvs-thumb">Rings</div>
+            <div class="tvs-thumb">Original</div>
+            <div class="tvs-thumb">Filme</div>
+          </div>
+        </div>
         <div class="tvs-app-content">
           <span class="tvs-app-tag">Amazon Originals + filmes</span>
           <h2>Prime Video</h2>
