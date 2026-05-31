@@ -232,7 +232,7 @@ def header(depth):
               </div>
             </div>
           </li>
-          <li class="nav-item"><a href="{base}#planos" class="nav-link">TV e Streaming</a></li>
+          <li class="nav-item"><a href="{base}tv-streaming/" class="nav-link">TV e Streaming</a></li>
           <li class="nav-item"><a href="{base}#cobertura" class="nav-link">Cobertura</a></li>
           <li class="nav-item"><a href="{base}#nossa-historia" class="nav-link">Nossa História</a></li>
           <li class="nav-item"><a href="{base}#contato" class="nav-link">Contato</a></li>

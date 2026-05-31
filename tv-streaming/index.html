@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV e Streaming | MasterInfo Internet</title>
+  <meta name="description" content="TV ao vivo, streaming e mais — tudo incluso no plano MasterInfo. SKY+ Light, Disney+, HBO Max, Globoplay, Prime Video, Deezer.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../styles.css?v=20260531-l">
+  <link rel="stylesheet" href="../modal.css?v=20260531-l">
+
+  <style>
+    /* ───────── Página TV e Streaming ───────── */
+    .tvs-hero {
+      position: relative;
+      padding: 120px 0 80px;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d0407 40%, #8b0a17 100%);
+      color: #fff;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .tvs-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 122, 5, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(252, 195, 5, 0.18) 0%, transparent 50%);
+      z-index: -1;
+    }
+    .tvs-hero-inner { max-width: 920px; margin: 0 auto; text-align: center; }
+    .tvs-hero-tag {
+      display: inline-block;
+      padding: 8px 18px;
+      background: rgba(255, 122, 5, 0.18);
+      border: 1px solid rgba(255, 122, 5, 0.5);
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #ff9a3c;
+      margin-bottom: 24px;
+    }
+    .tvs-hero h1 {
+      font-size: clamp(2rem, 5.5vw, 3.6rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+    .tvs-hero h1 span {
+      background: linear-gradient(135deg, #ff7a05, #fcc305);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .tvs-hero p {
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      color: rgba(255,255,255,0.78);
+      max-width: 680px;
+      margin: 0 auto 32px;
+      line-height: 1.55;
+    }
+    .tvs-hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #ff7a05, #fcc305);
+      color: #1a1a1a;
+      font-weight: 800;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 12px 32px rgba(255, 122, 5, 0.4);
+      transition: transform 0.2s;
+    }
+    .tvs-hero-cta:hover { transform: translateY(-2px); }
+    .tvs-hero-logos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 50px;
+    }
+    .tvs-hero-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      object-fit: contain;
+      background: #fff;
+      padding: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      transition: transform 0.3s;
+    }
+    .tvs-hero-logo:hover { transform: translateY(-4px) scale(1.05); }
+
+    /* App blocks */
+    .tvs-app {
+      padding: 70px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .tvs-app:nth-child(even) { background: #faf7f2; }
+    .tvs-app-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .tvs-app-inner { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+    }
+    .tvs-app-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      background: var(--bg, linear-gradient(135deg, #f3f0e9, #fff));
+      border-radius: 22px;
+      min-height: 240px;
+    }
+    .tvs-app-logo {
+      max-width: 220px;
+      max-height: 160px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.18));
+    }
+    .tvs-app-content h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: #1a1a1a;
+    }
+    .tvs-app-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .tvs-app-content p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #444;
+      margin-bottom: 18px;
+    }
+    .tvs-app-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tvs-app-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.98rem;
+      color: #333;
+    }
+    .tvs-app-features i { color: #00b86b; font-size: 1.15rem; }
+    .tvs-app-incluso {
+      display: inline-block;
+      padding: 8px 14px;
+      background: linear-gradient(135deg, rgba(252,195,5,0.15), rgba(255,122,5,0.15));
+      border: 1px solid rgba(255,122,5,0.3);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      color: #c1121f;
+      margin-bottom: 18px;
+    }
+    .tvs-app-incluso strong { color: #1a1a1a; }
+    .tvs-app-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 22px;
+      background: var(--orange);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .tvs-app-cta:hover { background: var(--red); }
+
+    /* Brand-colored backgrounds per app */
+    .tvs-app-skylight .tvs-app-visual { background: linear-gradient(135deg, #d4001a 0%, #ff0024 100%); }
+    .tvs-app-globoplay .tvs-app-visual { background: linear-gradient(135deg, #ff5400 0%, #ff8800 100%); }
+    .tvs-app-disney .tvs-app-visual { background: linear-gradient(135deg, #001a4d 0%, #003daa 100%); }
+    .tvs-app-hbomax .tvs-app-visual { background: linear-gradient(135deg, #0a0a23 0%, #2d1b69 100%); }
+    .tvs-app-prime .tvs-app-visual { background: linear-gradient(135deg, #00050a 0%, #001a3d 100%); }
+    .tvs-app-deezer .tvs-app-visual { background: linear-gradient(135deg, #a238ff 0%, #ef5466 100%); }
+    .tvs-app-exitlag .tvs-app-visual { background: linear-gradient(135deg, #ff5300 0%, #ffb800 100%); }
+    .tvs-app-kaspersky .tvs-app-visual { background: linear-gradient(135deg, #006d3a 0%, #00a85a 100%); }
+
+    /* Matriz de planos */
+    .tvs-matrix {
+      padding: 80px 0;
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .tvs-matrix-header { text-align: center; margin-bottom: 50px; }
+    .tvs-matrix-header h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .tvs-matrix-header p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .tvs-matrix-wrap {
+      overflow-x: auto;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      padding: 20px;
+    }
+    .tvs-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 680px;
+    }
+    .tvs-matrix-table th,
+    .tvs-matrix-table td {
+      padding: 16px 14px;
+      text-align: center;
+      font-size: 0.92rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .tvs-matrix-table th {
+      background: rgba(255,255,255,0.06);
+      font-weight: 700;
+      color: #fcc305;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .tvs-matrix-table th:first-child,
+    .tvs-matrix-table td:first-child {
+      text-align: left;
+      font-weight: 700;
+    }
+    .tvs-matrix-app {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tvs-matrix-app img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: #fff;
+      padding: 3px;
+    }
+    .tvs-matrix-yes { color: #00d97e; font-size: 1.3rem; font-weight: 900; }
+    .tvs-matrix-no { color: rgba(255,255,255,0.25); font-size: 1.1rem; }
+    .tvs-matrix-addon {
+      display: inline-block;
+      padding: 3px 8px;
+      background: rgba(252,195,5,0.18);
+      border: 1px solid rgba(252,195,5,0.4);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      color: #fcc305;
+      font-weight: 700;
+    }
+    .tvs-matrix-choice {
+      display: inline-block;
+      padding: 3px 8px;
+      background: rgba(0,217,126,0.15);
+      border: 1px solid rgba(0,217,126,0.4);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      color: #00d97e;
+      font-weight: 700;
+    }
+
+    /* CTA final */
+    .tvs-final {
+      padding: 90px 0;
+      text-align: center;
+      background: linear-gradient(135deg, #ff7a05 0%, #fcc305 100%);
+      color: #1a1a1a;
+    }
+    .tvs-final h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .tvs-final p {
+      font-size: 1.1rem;
+      max-width: 540px;
+      margin: 0 auto 30px;
+      opacity: 0.85;
+    }
+    .tvs-final-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 18px 38px;
+      background: #1a1a1a;
+      color: #fff;
+      font-weight: 800;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 14px 32px rgba(0,0,0,0.25);
+      transition: transform 0.2s;
+    }
+    .tvs-final-cta:hover { transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="../" class="logo">
+        <img src="../imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img">
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav-list nav-list-sales">
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button">Internet <i class="ph ph-caret-down nav-trigger-caret"></i></button>
+            <div class="mega-menu mega-menu-simple">
+              <div class="mega-menu-inner">
+                <ul class="dropdown-list">
+                  <li><a href="../familia/" class="dropdown-link">Família</a></li>
+                  <li><a href="../home-office/" class="dropdown-link">Home Office</a></li>
+                  <li><a href="../gamer/" class="dropdown-link">Gamer</a></li>
+                  <li><a href="../com-2-roteadores/" class="dropdown-link">Com 2 Roteadores</a></li>
+                  <li><a href="../com-1-roteador/" class="dropdown-link">Com 1 Roteador</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="../tv-streaming/" class="nav-link">TV e Streaming</a></li>
+          <li class="nav-item"><a href="../#cobertura" class="nav-link">Cobertura</a></li>
+          <li class="nav-item"><a href="../#nossa-historia" class="nav-link">Nossa História</a></li>
+          <li class="nav-item"><a href="../#contato" class="nav-link">Contato</a></li>
+        </ul>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <ul class="nav-list nav-list-client">
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button">Aplicativos <i class="ph ph-caret-down nav-trigger-caret"></i></button>
+            <div class="mega-menu mega-menu-simple">
+              <div class="mega-menu-inner">
+                <ul class="dropdown-list">
+                  <li><a href="../aplicativos/sky-light/" class="dropdown-link"><img class="dropdown-logo dropdown-logo-real" src="../imgs/sky.jpg" alt="">SKY+ Light</a></li>
+                  <li><a href="../aplicativos/deezer/" class="dropdown-link"><img class="dropdown-logo dropdown-logo-real" src="../imgs/deezer.webp" alt="">Deezer</a></li>
+                  <li><a href="../aplicativos/globoplay/" class="dropdown-link"><img class="dropdown-logo dropdown-logo-real" src="../imgs/globoplay.png" alt="">Globoplay</a></li>
+                  <li><a href="../aplicativos/disney-plus/" class="dropdown-link"><img class="dropdown-logo dropdown-logo-real" src="../imgs/disney-plus.png" alt="">Disney+</a></li>
+                  <li><a href="../aplicativos/hbo-max/" class="dropdown-link"><img class="dropdown-logo dropdown-logo-real" src="../imgs/hbo-max.jpg" alt="">HBO Max</a></li>
+                  <li><a href="../aplicativos/prime-video/" class="dropdown-link"><img class="dropdown-logo dropdown-logo-real" src="../imgs/prime-video.png" alt="">Prime Video</a></li>
+                  <li><a href="../aplicativos/exitlag/" class="dropdown-link"><img class="dropdown-logo dropdown-logo-real" src="../imgs/exitlag.png" alt="">Exitlag</a></li>
+                  <li><a href="../aplicativos/kaspersky/" class="dropdown-link"><img class="dropdown-logo dropdown-logo-real" src="../imgs/kaspersky.webp" alt="">Kaspersky</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button">Ajuda <i class="ph ph-caret-down nav-trigger-caret"></i></button>
+            <div class="mega-menu mega-menu-simple">
+              <div class="mega-menu-inner">
+                <ul class="dropdown-list">
+                  <li><a href="https://wa.me/5547989212991" target="_blank" class="dropdown-link">Suporte WhatsApp</a></li>
+                  <li><a href="https://www.speedtest.net" target="_blank" class="dropdown-link">Speedtest</a></li>
+                  <li><a href="../#faq" class="dropdown-link">Perguntas frequentes</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" class="header-client-btn">
+          <i class="ph-fill ph-user-circle"></i><span>Área do Cliente</span>
+        </a>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mega-backdrop" id="megaBackdrop"></div>
+  </header>
+
+  <!-- HERO -->
+  <section class="tvs-hero">
+    <div class="container">
+      <div class="tvs-hero-inner">
+        <span class="tvs-hero-tag">TV E STREAMING</span>
+        <h1>O melhor da TV e do streaming <span>já vem no seu plano</span></h1>
+        <p>Não precisa pagar 6 assinaturas separadas. A gente já incluiu SKY+ Light, Globoplay, Disney+ e mais nos planos MasterInfo. Maratone sem travar, da estreia ao último episódio.</p>
+        <a href="../#planos" class="tvs-hero-cta">Ver planos com TV e streaming <i class="ph ph-arrow-right"></i></a>
+        <div class="tvs-hero-logos">
+          <img src="../imgs/sky.jpg" alt="SKY+ Light" class="tvs-hero-logo">
+          <img src="../imgs/globoplay.png" alt="Globoplay" class="tvs-hero-logo">
+          <img src="../imgs/disney-plus.png" alt="Disney+" class="tvs-hero-logo">
+          <img src="../imgs/hbo-max.jpg" alt="HBO Max" class="tvs-hero-logo">
+          <img src="../imgs/prime-video.png" alt="Prime Video" class="tvs-hero-logo">
+          <img src="../imgs/deezer.webp" alt="Deezer" class="tvs-hero-logo">
+          <img src="../imgs/exitlag.png" alt="Exitlag" class="tvs-hero-logo">
+          <img src="../imgs/kaspersky.webp" alt="Kaspersky" class="tvs-hero-logo">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKY+ Light -->
+  <section class="tvs-app tvs-app-skylight">
+    <div class="container">
+      <div class="tvs-app-inner">
+        <div class="tvs-app-visual"><img src="../imgs/sky.jpg" alt="SKY+ Light" class="tvs-app-logo"></div>
+        <div class="tvs-app-content">
+          <span class="tvs-app-tag">TV ao vivo no app</span>
+          <h2>SKY+ Light</h2>
+          <p>50+ canais ao vivo no celular, smart TV ou computador. Esportes, jornalismo, novelas — onde você estiver, sem antena, sem parabólica.</p>
+          <ul class="tvs-app-features">
+            <li><i class="ph-fill ph-check-circle"></i> Mais de 50 canais ao vivo</li>
+            <li><i class="ph-fill ph-check-circle"></i> App pra smart TV, celular e PC</li>
+            <li><i class="ph-fill ph-check-circle"></i> Sem antena, sem parabólica</li>
+          </ul>
+          <span class="tvs-app-incluso"><strong>Incluso:</strong> Lite Casa, Família, Home Office e toda linha Ultra</span>
+          <div><a href="../aplicativos/sky-light/" class="tvs-app-cta">Ver detalhes <i class="ph ph-arrow-right"></i></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Globoplay -->
+  <section class="tvs-app tvs-app-globoplay">
+    <div class="container">
+      <div class="tvs-app-inner">
+        <div class="tvs-app-content">
+          <span class="tvs-app-tag">Novelas, séries e futebol</span>
+          <h2>Globoplay</h2>
+          <p>Novelas inéditas, séries originais, futebol ao vivo e todo conteúdo da Globo on demand — incluindo filmes Telecine.</p>
+          <ul class="tvs-app-features">
+            <li><i class="ph-fill ph-check-circle"></i> Novelas e séries Globo</li>
+            <li><i class="ph-fill ph-check-circle"></i> Futebol ao vivo (Brasileirão, Libertadores)</li>
+            <li><i class="ph-fill ph-check-circle"></i> Filmes Telecine inclusos</li>
+          </ul>
+          <span class="tvs-app-incluso"><strong>Incluso:</strong> Ultra Família 800 Mega</span>
+          <div><a href="../aplicativos/globoplay/" class="tvs-app-cta">Ver detalhes <i class="ph ph-arrow-right"></i></a></div>
+        </div>
+        <div class="tvs-app-visual"><img src="../imgs/globoplay.png" alt="Globoplay" class="tvs-app-logo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Disney+ -->
+  <section class="tvs-app tvs-app-disney">
+    <div class="container">
+      <div class="tvs-app-inner">
+        <div class="tvs-app-visual"><img src="../imgs/disney-plus.png" alt="Disney+" class="tvs-app-logo"></div>
+        <div class="tvs-app-content">
+          <span class="tvs-app-tag">Disney, Pixar, Marvel, Star Wars</span>
+          <h2>Disney+</h2>
+          <p>Os universos que sua família ama — Disney, Pixar, Marvel, Star Wars e National Geographic — num único app, sem anúncios.</p>
+          <ul class="tvs-app-features">
+            <li><i class="ph-fill ph-check-circle"></i> Tudo da Disney, Pixar e Marvel</li>
+            <li><i class="ph-fill ph-check-circle"></i> Star Wars e National Geographic</li>
+            <li><i class="ph-fill ph-check-circle"></i> 4K, Dolby Atmos, sem ads</li>
+          </ul>
+          <span class="tvs-app-incluso"><strong>Incluso:</strong> Ultra Home Office 1000 Mega</span>
+          <div><a href="../aplicativos/disney-plus/" class="tvs-app-cta">Ver detalhes <i class="ph ph-arrow-right"></i></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HBO Max -->
+  <section class="tvs-app tvs-app-hbomax">
+    <div class="container">
+      <div class="tvs-app-inner">
+        <div class="tvs-app-content">
+          <span class="tvs-app-tag">Séries HBO + Warner</span>
+          <h2>HBO Max</h2>
+          <p>Game of Thrones, House of the Dragon, The Last of Us — todas as séries originais HBO + filmes Warner em estreia + DC Universe completo.</p>
+          <ul class="tvs-app-features">
+            <li><i class="ph-fill ph-check-circle"></i> Game of Thrones, House of the Dragon</li>
+            <li><i class="ph-fill ph-check-circle"></i> Filmes Warner em estreia</li>
+            <li><i class="ph-fill ph-check-circle"></i> DC Universe completo</li>
+          </ul>
+          <span class="tvs-app-incluso"><strong>Add-on:</strong> disponível em todos os planos</span>
+          <div><a href="../aplicativos/hbo-max/" class="tvs-app-cta">Ver detalhes <i class="ph ph-arrow-right"></i></a></div>
+        </div>
+        <div class="tvs-app-visual"><img src="../imgs/hbo-max.jpg" alt="HBO Max" class="tvs-app-logo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prime Video -->
+  <section class="tvs-app tvs-app-prime">
+    <div class="container">
+      <div class="tvs-app-inner">
+        <div class="tvs-app-visual"><img src="../imgs/prime-video.png" alt="Prime Video" class="tvs-app-logo"></div>
+        <div class="tvs-app-content">
+          <span class="tvs-app-tag">Amazon Originals + filmes</span>
+          <h2>Prime Video</h2>
+          <p>The Boys, Reacher, Fallout, Rings of Power. Filmes em estreia e clássicos. Combo Prime Video + SKY+ Light disponível.</p>
+          <ul class="tvs-app-features">
+            <li><i class="ph-fill ph-check-circle"></i> The Boys, Reacher, Fallout</li>
+            <li><i class="ph-fill ph-check-circle"></i> Filmes em estreia</li>
+            <li><i class="ph-fill ph-check-circle"></i> Combo com SKY+ Light disponível</li>
+          </ul>
+          <span class="tvs-app-incluso"><strong>Add-on:</strong> combo SKY+ Light + Amazon</span>
+          <div><a href="../aplicativos/prime-video/" class="tvs-app-cta">Ver detalhes <i class="ph ph-arrow-right"></i></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deezer -->
+  <section class="tvs-app tvs-app-deezer">
+    <div class="container">
+      <div class="tvs-app-inner">
+        <div class="tvs-app-content">
+          <span class="tvs-app-tag">Música sem anúncios</span>
+          <h2>Deezer</h2>
+          <p>90 milhões de músicas em alta qualidade. Sem propaganda, modo offline pra baixar tudo, playlists personalizadas pelo seu gosto.</p>
+          <ul class="tvs-app-features">
+            <li><i class="ph-fill ph-check-circle"></i> 90M+ músicas em HD</li>
+            <li><i class="ph-fill ph-check-circle"></i> Modo offline (baixe e ouça sem net)</li>
+            <li><i class="ph-fill ph-check-circle"></i> Sem nenhum anúncio</li>
+          </ul>
+          <span class="tvs-app-incluso"><strong>Incluso:</strong> Lite Home Office (à escolha entre SKY+ Light ou Deezer)</span>
+          <div><a href="../aplicativos/deezer/" class="tvs-app-cta">Ver detalhes <i class="ph ph-arrow-right"></i></a></div>
+        </div>
+        <div class="tvs-app-visual"><img src="../imgs/deezer.webp" alt="Deezer" class="tvs-app-logo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exitlag -->
+  <section class="tvs-app tvs-app-exitlag">
+    <div class="container">
+      <div class="tvs-app-inner">
+        <div class="tvs-app-visual"><img src="../imgs/exitlag.png" alt="Exitlag" class="tvs-app-logo"></div>
+        <div class="tvs-app-content">
+          <span class="tvs-app-tag">Otimizador pra gamers</span>
+          <h2>Exitlag</h2>
+          <p>Reduz seu ping até 70% em jogos online — Valorant, CS, LoL, Fortnite. Conexão otimizada por servidores dedicados.</p>
+          <ul class="tvs-app-features">
+            <li><i class="ph-fill ph-check-circle"></i> Ping até 70% menor</li>
+            <li><i class="ph-fill ph-check-circle"></i> Suporta 1.000+ jogos</li>
+            <li><i class="ph-fill ph-check-circle"></i> Servidores dedicados pra gamers</li>
+          </ul>
+          <span class="tvs-app-incluso"><strong>Add-on:</strong> disponível em todos os planos</span>
+          <div><a href="../aplicativos/exitlag/" class="tvs-app-cta">Ver detalhes <i class="ph ph-arrow-right"></i></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kaspersky -->
+  <section class="tvs-app tvs-app-kaspersky">
+    <div class="container">
+      <div class="tvs-app-inner">
+        <div class="tvs-app-content">
+          <span class="tvs-app-tag">Antivírus premium</span>
+          <h2>Kaspersky</h2>
+          <p>Proteção completa pra 3 dispositivos. Antivírus + VPN ilimitada + gerenciador de senhas + controle parental pra criança.</p>
+          <ul class="tvs-app-features">
+            <li><i class="ph-fill ph-check-circle"></i> Protege até 3 dispositivos</li>
+            <li><i class="ph-fill ph-check-circle"></i> VPN ilimitada inclusa</li>
+            <li><i class="ph-fill ph-check-circle"></i> Controle parental e antivírus</li>
+          </ul>
+          <span class="tvs-app-incluso"><strong>Add-on:</strong> disponível em todos os planos</span>
+          <div><a href="../aplicativos/kaspersky/" class="tvs-app-cta">Ver detalhes <i class="ph ph-arrow-right"></i></a></div>
+        </div>
+        <div class="tvs-app-visual"><img src="../imgs/kaspersky.webp" alt="Kaspersky" class="tvs-app-logo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATRIZ DE PLANOS -->
+  <section class="tvs-matrix">
+    <div class="container">
+      <div class="tvs-matrix-header">
+        <h2>O que vem em cada plano</h2>
+        <p>Confira rapidamente qual app entra em qual plano MasterInfo.</p>
+      </div>
+      <div class="tvs-matrix-wrap">
+        <table class="tvs-matrix-table">
+          <thead>
+            <tr>
+              <th>App</th>
+              <th>Lite Casa<br><small style="opacity:0.6;font-size:0.65rem">600 Mega</small></th>
+              <th>Lite Família<br><small style="opacity:0.6;font-size:0.65rem">800 Mega</small></th>
+              <th>Lite Home Office<br><small style="opacity:0.6;font-size:0.65rem">1000 Mega</small></th>
+              <th>Ultra Família<br><small style="opacity:0.6;font-size:0.65rem">800 Mega</small></th>
+              <th>Ultra Home Office<br><small style="opacity:0.6;font-size:0.65rem">1000 Mega</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="tvs-matrix-app"><img src="../imgs/sky.jpg" alt="">SKY+ Light</div></td>
+              <td><span class="tvs-matrix-yes">✓</span></td>
+              <td><span class="tvs-matrix-yes">✓</span></td>
+              <td><span class="tvs-matrix-choice">à escolha</span></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td><div class="tvs-matrix-app"><img src="../imgs/deezer.webp" alt="">Deezer</div></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-choice">à escolha</span></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+            </tr>
+            <tr>
+              <td><div class="tvs-matrix-app"><img src="../imgs/globoplay.png" alt="">Globoplay</div></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-yes">✓</span></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+            </tr>
+            <tr>
+              <td><div class="tvs-matrix-app"><img src="../imgs/disney-plus.png" alt="">Disney+</div></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-no">—</span></td>
+              <td><span class="tvs-matrix-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td><div class="tvs-matrix-app"><img src="../imgs/hbo-max.jpg" alt="">HBO Max</div></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+            </tr>
+            <tr>
+              <td><div class="tvs-matrix-app"><img src="../imgs/prime-video.png" alt="">Prime Video</div></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+            </tr>
+            <tr>
+              <td><div class="tvs-matrix-app"><img src="../imgs/exitlag.png" alt="">Exitlag</div></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+            </tr>
+            <tr>
+              <td><div class="tvs-matrix-app"><img src="../imgs/kaspersky.webp" alt="">Kaspersky</div></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+              <td><span class="tvs-matrix-addon">add-on</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="tvs-final">
+    <div class="container">
+      <h2>Pronto pra ter tudo isso em casa?</h2>
+      <p>Escolha um plano MasterInfo e leve a internet de verdade + os apps que sua família ama.</p>
+      <a href="../#planos" class="tvs-final-cta">Ver todos os planos <i class="ph ph-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contato">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../" class="logo"><img src="../imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img"></a>
+          <p>Internet fibra óptica de verdade. Mais de 6 anos conectando famílias e empresas.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/masterinfointernet" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+            <a href="https://www.facebook.com/masterinfointernet" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://wa.me/5547989212991" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Internet</h4>
+          <a href="../familia/">Família</a>
+          <a href="../home-office/">Home Office</a>
+          <a href="../gamer/">Gamer</a>
+          <a href="../com-2-roteadores/">Com 2 Roteadores</a>
+          <a href="../com-1-roteador/">Com 1 Roteador</a>
+        </div>
+        <div class="footer-col">
+          <h4>Institucional</h4>
+          <a href="../#cobertura">Cobertura</a>
+          <a href="../#depoimentos">Depoimentos</a>
+          <a href="../#nossa-historia">Nossa História</a>
+          <a href="../#faq">Dúvidas</a>
+        </div>
+        <div class="footer-col">
+          <h4>Fale com a gente</h4>
+          <a href="https://wa.me/5547989212991" target="_blank"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp</a>
+          <a href="mailto:masterinfo@masterinfointernet.com"><i class="ph ph-envelope"></i> E-mail</a>
+          <a href="https://www.instagram.com/masterinfointernet" target="_blank"><i class="ph ph-instagram-logo"></i> Instagram</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MasterInfo Internet. Todos os direitos reservados.</p>
+        <div class="footer-legal">
+          <a href="#">Termos de Uso</a><span>·</span>
+          <a href="#">Política de Privacidade</a><span>·</span>
+          <a href="#">LGPD</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5547989212991" class="whatsapp-float" target="_blank">
+    <span class="whatsapp-tooltip">
+      <span class="whatsapp-tooltip-online"><span class="whatsapp-online-dot"></span> Online agora</span>
+      <span class="whatsapp-tooltip-text">Fala com a gente!</span>
+    </span>
+    <i class="ph-fill ph-whatsapp-logo"></i>
+    <span class="whatsapp-pulse"></span>
+  </a>
+
+  <script>
+  (function() {
+    var navItems = document.querySelectorAll('.nav-item.has-mega');
+    navItems.forEach(function(item) {
+      var trigger = item.querySelector('.nav-trigger');
+      if (trigger) {
+        trigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          var wasOpen = item.classList.contains('is-open');
+          navItems.forEach(function(it) { it.classList.remove('is-open'); });
+          if (!wasOpen) item.classList.add('is-open');
+        });
+      }
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-item.has-mega') && !e.target.closest('.mega-menu')) {
+        navItems.forEach(function(it) { it.classList.remove('is-open'); });
+      }
+    });
+    var mt = document.getElementById('mobileToggle');
+    var nv = document.getElementById('nav');
+    if (mt && nv) mt.addEventListener('click', function() {
+      mt.classList.toggle('active'); nv.classList.toggle('open');
+    });
+  })();
+  </script>
+</body>
+</html>
