@@ -1903,11 +1903,59 @@ img.dropdown-logo.dropdown-logo-real {
 }
 
 /* Ordem dos elementos no card */
-.plan-body .plan-price       { order: 1; }
-.plan-body .plan-apps        { order: 2; }
-.plan-body .plan-features    { order: 3; }
-.plan-body .plan-price-note  { order: 4; }
-.plan-body .btn-plan         { order: 5; margin-top: auto; }
+.plan-body .plan-price-original { order: 0; }
+.plan-body .plan-price          { order: 1; }
+.plan-body .plan-discount-tag   { order: 2; }
+.plan-body .plan-apps           { order: 3; }
+.plan-body .plan-features       { order: 4; }
+.plan-body .plan-price-note     { order: 5; }
+.plan-body .btn-plan            { order: 6; margin-top: auto; }
+
+/* Preço cheio (riscado) acima do preço com desconto */
+.plan-price-original {
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.plan-price-original s {
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-decoration: line-through;
+  text-decoration-color: var(--orange);
+  text-decoration-thickness: 2px;
+}
+
+/* Chip de desconto laranja embaixo do preço */
+.plan-discount-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin: 6px auto 18px;
+  padding: 7px 16px;
+  background: var(--gradient-brand);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 16px rgba(255,122,5,0.4);
+  white-space: nowrap;
+}
+
+.plan-discount-tag strong {
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.plan-discount-tag i {
+  font-size: 0.9rem;
+}
 
 .plan-card {
   display: flex;
