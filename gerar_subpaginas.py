@@ -39,6 +39,21 @@ INTERNET = [
         "cta": "Quero internet de gamer",
     },
     {
+        "slug": "familia",
+        "tag": "INTERNET · PRA FAMÍLIA",
+        "title": "Internet pra família toda usar ao mesmo tempo",
+        "subtitle": "Vários celulares, TV no streaming, criança no tablet, jogo do filho online — tudo junto, sem travar. Wi-Fi com força pra casa cheia.",
+        "ico": "ph-users-three",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "highlights": [
+            ("👨‍👩‍👧‍👦", "Tudo rodando junto", "Mãe na novela, pai no jogo, filhos no TikTok — tudo ao mesmo tempo, sem trava."),
+            ("📺", "Streaming em 4K", "Netflix, Disney+, Globoplay e SKY+ rodando em qualquer TV da casa."),
+            ("🛡️", "Wi-Fi seguro pra criança", "Suporte pra controle parental e antivírus Kaspersky opcional."),
+        ],
+        "plans": ["lite-familia", "ultra-familia"],
+        "cta": "Quero internet pra família",
+    },
+    {
         "slug": "com-2-roteadores",
         "tag": "INTERNET · WI-FI EM TODA A CASA",
         "title": "Wi-Fi em toda a casa, sem ponto cego",
@@ -208,6 +223,7 @@ def header(depth):
             <div class="mega-menu mega-menu-simple">
               <div class="mega-menu-inner">
                 <ul class="dropdown-list">
+                  <li><a href="{base}familia/" class="dropdown-link">Família</a></li>
                   <li><a href="{base}home-office/" class="dropdown-link">Home Office</a></li>
                   <li><a href="{base}gamer/" class="dropdown-link">Gamer</a></li>
                   <li><a href="{base}com-2-roteadores/" class="dropdown-link">Com 2 Roteadores</a></li>
@@ -303,6 +319,7 @@ def footer(depth):
         </div>
         <div class="footer-col">
           <h4>Internet</h4>
+          <a href="{base}familia/">Família</a>
           <a href="{base}home-office/">Home Office</a>
           <a href="{base}gamer/">Gamer</a>
           <a href="{base}com-2-roteadores/">Com 2 Roteadores</a>
@@ -394,6 +411,7 @@ def footer(depth):
 IMG_BG = {
     "home-office":      "home-office",
     "gamer":            "gamer",
+    "familia":          "familia",
     "com-2-roteadores": "2-roteadores",
     "com-1-roteador":   "1-roteador",
 }
@@ -576,7 +594,7 @@ def write_file(path, content):
     print(f"  + {os.path.relpath(path, BASE_DIR)}")
 
 
-print("Internet (4 páginas)…")
+print("Internet (5 páginas)…")
 for p in INTERNET:
     write_file(os.path.join(BASE_DIR, p["slug"], "index.html"), page_internet(p, depth=1))
 
@@ -584,4 +602,4 @@ print("\nAplicativos (8 páginas)…")
 for a in APLICATIVOS:
     write_file(os.path.join(BASE_DIR, "aplicativos", a["slug"], "index.html"), page_app(a, depth=2))
 
-print("\n✓ 12 subpáginas geradas.")
+print("\n✓ 13 subpáginas geradas.")
