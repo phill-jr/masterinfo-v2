@@ -125,19 +125,6 @@
   ],
   "planos": [
     {
-      "id": "lite-essencial",
-      "linha": "LITE",
-      "nome": "Lite Essencial",
-      "tagline": "Entrada / Social",
-      "velocidade": "400",
-      "unidade": "Mega",
-      "precoPontual": 99.90,
-      "precoCheio": 99.90,
-      "semDescontoPontualidade": true,
-      "features": ["Internet 400 Mega de fibra", "Wi-Fi + roteador grátis", "Instalação em até 3 dias"],
-      "badge": null
-    },
-    {
       "id": "lite-casa",
       "linha": "LITE",
       "nome": "Lite Casa",

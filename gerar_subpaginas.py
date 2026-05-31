@@ -65,7 +65,7 @@ INTERNET = [
             ("💸", "Preço justo", "A partir de R$ 79,90/mês — sem letra miúda."),
             ("⚡", "Fibra óptica real", "Mesmo plano de entrada, mesma fibra dos planos premium."),
         ],
-        "plans": ["lite-essencial", "lite-casa", "lite-familia", "lite-home-office"],
+        "plans": ["lite-casa", "lite-familia", "lite-home-office"],
         "cta": "Quero plano com 1 roteador",
     },
 ]
@@ -114,7 +114,6 @@ APLICATIVOS = [
 ]
 
 PLANS_MAP = {
-    "lite-essencial":     {"nome": "Lite Essencial",    "speed": "400",  "preco": "99,90"},
     "lite-casa":          {"nome": "Lite Casa",         "speed": "600",  "preco": "99,90"},
     "lite-familia":       {"nome": "Lite Família",      "speed": "800",  "preco": "109,00"},
     "lite-home-office":   {"nome": "Lite Home Office",  "speed": "1000", "preco": "119,90"},
