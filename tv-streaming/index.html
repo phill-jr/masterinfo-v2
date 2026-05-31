@@ -188,6 +188,23 @@
       object-fit: cover;
       display: block;
     }
+    .tvs-thumb img + .tvs-thumb-label { display: none; }
+    /* Variantes coloridas pra canais sem imagem */
+    .tvs-thumb-globo    { background: linear-gradient(135deg, #c91414, #f04d4d); }
+    .tvs-thumb-sbt      { background: linear-gradient(135deg, #e8000a, #ff6b00); }
+    .tvs-thumb-espn     { background: linear-gradient(135deg, #d00000, #ff3333); }
+    .tvs-thumb-sportv   { background: linear-gradient(135deg, #002d62, #0066cc); }
+    .tvs-thumb-discovery{ background: linear-gradient(135deg, #002F65, #0066cc); }
+    .tvs-thumb-cartoon  { background: linear-gradient(135deg, #1a1a1a, #444); }
+    .tvs-thumb-brasileirao { background: linear-gradient(135deg, #009c3b, #ffdf00); }
+    .tvs-thumb-telecine    { background: linear-gradient(135deg, #b40000, #ff3333); }
+    .tvs-thumb-renascer    { background: linear-gradient(135deg, #4d2600, #b35900); }
+    .tvs-thumb-travessia   { background: linear-gradient(135deg, #1c5891, #38a3ff); }
+    .tvs-thumb-pantanal    { background: linear-gradient(135deg, #2b5d1d, #6cb04c); }
+    .tvs-thumb-sob-pressao { background: linear-gradient(135deg, #1a1a1a, #4a4a4a); }
+    .tvs-thumb-reacher     { background: linear-gradient(135deg, #1f3a47, #4a6b7d); }
+    .tvs-thumb-fallout     { background: linear-gradient(135deg, #1c4e1a, #5fae5b); }
+    .tvs-thumb-citadel     { background: linear-gradient(135deg, #2b0a0a, #8b1414); }
     .tvs-app-content h2 {
       font-size: clamp(1.6rem, 3vw, 2.4rem);
       font-weight: 900;
@@ -481,13 +498,12 @@
         <div class="tvs-app-visual tvs-app-visual-stack">
           <div class="tvs-app-visual-logo"><img src="../imgs/sky.jpg" alt="SKY+ Light"></div>
           <div class="tvs-thumbs-grid">
-            <!-- TROCAR cada <div class="tvs-thumb"> por <div class="tvs-thumb"><img src="caminho-da-capa.jpg" alt="..."></div> -->
-            <div class="tvs-thumb">Globo</div>
-            <div class="tvs-thumb">SBT</div>
-            <div class="tvs-thumb">ESPN</div>
-            <div class="tvs-thumb">SporTV</div>
-            <div class="tvs-thumb">Discovery</div>
-            <div class="tvs-thumb">Cartoon</div>
+            <div class="tvs-thumb tvs-thumb-globo">Globo</div>
+            <div class="tvs-thumb tvs-thumb-sbt">SBT</div>
+            <div class="tvs-thumb tvs-thumb-espn">ESPN</div>
+            <div class="tvs-thumb tvs-thumb-sportv">SporTV</div>
+            <div class="tvs-thumb tvs-thumb-discovery">Discovery</div>
+            <div class="tvs-thumb tvs-thumb-cartoon">Cartoon</div>
           </div>
         </div>
         <div class="tvs-app-content">
@@ -525,12 +541,12 @@
         <div class="tvs-app-visual tvs-app-visual-stack">
           <div class="tvs-app-visual-logo"><img src="../imgs/globoplay.png" alt="Globoplay"></div>
           <div class="tvs-thumbs-grid">
-            <div class="tvs-thumb">Renascer</div>
-            <div class="tvs-thumb">Travessia</div>
-            <div class="tvs-thumb">Cidade Invisível</div>
-            <div class="tvs-thumb">Brasileirão</div>
-            <div class="tvs-thumb">Telecine</div>
-            <div class="tvs-thumb">Sob Pressão</div>
+            <div class="tvs-thumb tvs-thumb-renascer">Renascer</div>
+            <div class="tvs-thumb tvs-thumb-travessia">Travessia</div>
+            <div class="tvs-thumb tvs-thumb-pantanal">Pantanal</div>
+            <div class="tvs-thumb tvs-thumb-brasileirao">Brasileirão</div>
+            <div class="tvs-thumb tvs-thumb-telecine">Telecine</div>
+            <div class="tvs-thumb tvs-thumb-sob-pressao">Sob Pressão</div>
           </div>
         </div>
       </div>
@@ -544,12 +560,12 @@
         <div class="tvs-app-visual tvs-app-visual-stack">
           <div class="tvs-app-visual-logo"><img src="../imgs/disney-plus.png" alt="Disney+"></div>
           <div class="tvs-thumbs-grid">
-            <div class="tvs-thumb">The Mandalorian</div>
-            <div class="tvs-thumb">Loki</div>
-            <div class="tvs-thumb">WandaVision</div>
-            <div class="tvs-thumb">Frozen</div>
-            <div class="tvs-thumb">Toy Story</div>
-            <div class="tvs-thumb">Encanto</div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/disney/mandalorian.jpg" alt="The Mandalorian"></div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/disney/loki.jpg" alt="Loki"></div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/disney/wandavision.jpg" alt="WandaVision"></div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/disney/frozen.jpg" alt="Frozen"></div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/disney/toy-story.jpg" alt="Toy Story"></div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/disney/encanto.jpg" alt="Encanto"></div>
           </div>
         </div>
         <div class="tvs-app-content">
@@ -587,12 +603,12 @@
         <div class="tvs-app-visual tvs-app-visual-stack">
           <div class="tvs-app-visual-logo"><img src="../imgs/hbo-max.jpg" alt="HBO Max"></div>
           <div class="tvs-thumbs-grid">
-            <div class="tvs-thumb">Game of Thrones</div>
-            <div class="tvs-thumb">House of the Dragon</div>
-            <div class="tvs-thumb">The Last of Us</div>
-            <div class="tvs-thumb">Friends</div>
-            <div class="tvs-thumb">Succession</div>
-            <div class="tvs-thumb">Euphoria</div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/hbo/got.jpg" alt="Game of Thrones"></div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/hbo/house-dragon.jpg" alt="House of the Dragon"></div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/hbo/last-of-us.jpg" alt="The Last of Us"></div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/hbo/friends.jpg" alt="Friends"></div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/hbo/succession.jpg" alt="Succession"></div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/hbo/euphoria.jpg" alt="Euphoria"></div>
           </div>
         </div>
       </div>
@@ -606,12 +622,12 @@
         <div class="tvs-app-visual tvs-app-visual-stack">
           <div class="tvs-app-visual-logo"><img src="../imgs/prime-video.png" alt="Prime Video"></div>
           <div class="tvs-thumbs-grid">
-            <div class="tvs-thumb">The Boys</div>
-            <div class="tvs-thumb">Reacher</div>
-            <div class="tvs-thumb">Fallout</div>
-            <div class="tvs-thumb">Rings of Power</div>
-            <div class="tvs-thumb">Citadel</div>
-            <div class="tvs-thumb">Wheel of Time</div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/prime/the-boys.jpg" alt="The Boys"></div>
+            <div class="tvs-thumb tvs-thumb-reacher">Reacher</div>
+            <div class="tvs-thumb tvs-thumb-fallout">Fallout</div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/prime/rings-power.jpg" alt="Rings of Power"></div>
+            <div class="tvs-thumb tvs-thumb-citadel">Citadel</div>
+            <div class="tvs-thumb"><img src="../imgs/streaming/prime/wheel-time.jpg" alt="Wheel of Time"></div>
           </div>
         </div>
         <div class="tvs-app-content">
