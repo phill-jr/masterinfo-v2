@@ -4109,6 +4109,27 @@ body.copa-locked {
   color: rgba(255,255,255,0.6);
   margin-bottom: 6px;
 }
+.copa-popup-price-prefix s {
+  color: rgba(255,255,255,0.45);
+  margin-right: 4px;
+}
+.copa-popup-discount-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, rgba(252, 195, 5, 0.18), rgba(255, 122, 5, 0.18));
+  border: 1px solid rgba(252, 195, 5, 0.45);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fcc305;
+  letter-spacing: 0.02em;
+}
+.copa-popup-discount-tag i {
+  font-size: 0.85rem;
+}
 
 .copa-popup-price-main {
   display: inline-flex;
