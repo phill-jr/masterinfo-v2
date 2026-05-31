@@ -62,7 +62,7 @@ INTERNET = [
         "gradient": "linear-gradient(135deg, #8b0a17 0%, #e63946 50%, #ff7a05 100%)",
         "highlights": [
             ("📶", "Cobertura total", "Dois roteadores cobrem casas grandes, sobrados e quintal."),
-            ("🔄", "Roaming inteligente", "Seu celular troca de roteador sozinho, sem cair conexão."),
+            ("🔄", "Rede inteligente", "Seu celular troca de roteador sozinho, sem cair conexão."),
             ("🚀", "Wi-Fi 6", "Velocidade máxima nos dispositivos modernos."),
         ],
         "plans": ["ultra-familia", "ultra-home-office"],
