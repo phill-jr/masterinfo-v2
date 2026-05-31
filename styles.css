@@ -4959,13 +4959,6 @@ body.copa-locked {
   display: none; /* substituído por vídeo de fundo */
 }
 
-/* Mobile: vídeo fica pesado, esconde e usa só fallback gradient */
-@media (max-width: 768px) {
-  .sub-hero-video { display: none; }
-  .sub-hero-video-wrap { background: var(--sub-hero-fallback, #000); }
-  .sub-hero-overlay { background: rgba(0,0,0,0.35); }
-}
-
 /* ── Hero variante APP (logo grande) ── */
 .sub-hero-app {
   background: linear-gradient(135deg, #0d0d10 0%, #1a1a22 100%);
