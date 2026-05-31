@@ -114,11 +114,59 @@ APLICATIVOS = [
 ]
 
 PLANS_MAP = {
-    "lite-casa":          {"nome": "1 Roteador",   "speed": "600",  "preco": "99,90"},
-    "lite-familia":       {"nome": "1 Roteador",   "speed": "800",  "preco": "109,00"},
-    "lite-home-office":   {"nome": "1 Roteador",   "speed": "1000", "preco": "119,90"},
-    "ultra-familia":      {"nome": "2 Roteadores", "speed": "800",  "preco": "139,90"},
-    "ultra-home-office":  {"nome": "2 Roteadores", "speed": "1000", "preco": "218,60"},
+    "lite-casa": {
+        "nome": "1 Roteador", "speed": "600", "preco": "99,90", "preco_cheio": "109,90",
+        "apps": [{"logo": "sky.jpg", "nome": "SKY Light"}],
+        "features": [
+            "Wi-Fi em 1 ambiente",
+            "SKY+ Light grátis",
+            "Suporte Sábado e Domingo",
+        ],
+    },
+    "lite-familia": {
+        "nome": "1 Roteador", "speed": "800", "preco": "109,00", "preco_cheio": "119,00",
+        "apps": [{"logo": "sky.jpg", "nome": "SKY Light"}],
+        "features": [
+            "Wi-Fi em 1 ambiente",
+            "SKY+ Light grátis",
+            "Velocidade pra família",
+        ],
+    },
+    "lite-home-office": {
+        "nome": "1 Roteador", "speed": "1000", "preco": "119,90", "preco_cheio": "129,90",
+        "apps": [
+            {"logo": "sky.jpg", "nome": "SKY Light"},
+            {"logo": "deezer.webp", "nome": "Deezer"},
+        ],
+        "apps_sep": "ou",
+        "features": [
+            "Wi-Fi em 1 ambiente",
+            "Escolha entre SKY+ Light ou Deezer",
+            "1 Giga para trabalho remoto",
+        ],
+    },
+    "ultra-familia": {
+        "nome": "2 Roteadores", "speed": "800", "preco": "139,90", "preco_cheio": "159,90",
+        "apps": [{"logo": "globoplay.png", "nome": "Globoplay"}],
+        "features": [
+            "Wi-Fi em toda a casa (Mesh)",
+            "Globoplay incluso",
+            "Cobertura sem ponto cego",
+        ],
+    },
+    "ultra-home-office": {
+        "nome": "2 Roteadores", "speed": "1000", "preco": "218,60", "preco_cheio": "228,60",
+        "apps": [
+            {"logo": "sky.jpg", "nome": "SKY Light"},
+            {"logo": "disney-plus.png", "nome": "Disney+"},
+        ],
+        "apps_sep": "+",
+        "features": [
+            "Wi-Fi em toda a casa (Mesh)",
+            "SKY+ Light + Disney+ inclusos",
+            "Suporte prioritário",
+        ],
+    },
 }
 
 # ─── HEADER + FOOTER COMUNS ──────────────────────────────────────────
@@ -330,11 +378,43 @@ def page_internet(p, depth=1):
     plan_cards = ""
     for plan_id in p["plans"]:
         plan = PLANS_MAP[plan_id]
+
+        # Faixa de apps
+        apps_html = ""
+        sep = plan.get("apps_sep")
+        for i, app in enumerate(plan["apps"]):
+            if i > 0 and sep:
+                apps_html += f'<span class="sub-plan-app-sep">{sep}</span>'
+            apps_html += f'''
+            <div class="sub-plan-app">
+              <img src="../imgs/{app["logo"]}" alt="{app["nome"]}" class="sub-plan-app-logo">
+              <span class="sub-plan-app-name">{app["nome"]}</span>
+            </div>'''
+
+        # Features
+        features_html = "".join(
+            f'<li><i class="ph-fill ph-check-circle"></i> {f}</li>'
+            for f in plan["features"]
+        )
+
         plan_cards += f'''
         <a href="../#planos" class="sub-plan-card">
-          <span class="sub-plan-speed">{plan["speed"]}<small> Mega</small></span>
-          <span class="sub-plan-name">{plan["nome"]}</span>
-          <span class="sub-plan-price">R$ {plan["preco"]} <em>/mês</em></span>
+          <div class="sub-plan-head">
+            <span class="sub-plan-speed">{plan["speed"]}<small> Mega</small></span>
+            <span class="sub-plan-name">{plan["nome"]}</span>
+          </div>
+          <div class="sub-plan-price-wrap">
+            <span class="sub-plan-price-original">de <s>R$ {plan["preco_cheio"]}</s> por</span>
+            <span class="sub-plan-price">R$ {plan["preco"]} <em>/mês</em></span>
+            <span class="sub-plan-discount"><i class="ph-fill ph-tag"></i> R$ 10+ OFF pagando em dia</span>
+          </div>
+          <div class="sub-plan-apps">
+            <span class="sub-plan-apps-label">INCLUSO</span>
+            <div class="sub-plan-apps-list">{apps_html}
+            </div>
+          </div>
+          <ul class="sub-plan-features">{features_html}
+          </ul>
           <span class="sub-plan-cta">Ver detalhes <i class="ph ph-arrow-right"></i></span>
         </a>'''
 
