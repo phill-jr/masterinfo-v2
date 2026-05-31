@@ -2872,6 +2872,11 @@ img.dropdown-logo.dropdown-logo-real {
   font-size: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   flex-shrink: 0;
+  object-fit: cover;
+  border: 2px solid #fff;
+}
+img.sp-card-avatar {
+  display: block;
 }
 
 .sp-card-author strong {
