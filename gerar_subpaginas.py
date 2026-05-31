@@ -114,11 +114,11 @@ APLICATIVOS = [
 ]
 
 PLANS_MAP = {
-    "lite-casa":          {"nome": "Lite Casa",         "speed": "600",  "preco": "99,90"},
-    "lite-familia":       {"nome": "Lite Família",      "speed": "800",  "preco": "109,00"},
-    "lite-home-office":   {"nome": "Lite Home Office",  "speed": "1000", "preco": "119,90"},
-    "ultra-familia":      {"nome": "Ultra Família",     "speed": "800",  "preco": "139,90"},
-    "ultra-home-office":  {"nome": "Ultra Home Office", "speed": "1000", "preco": "218,60"},
+    "lite-casa":          {"nome": "1 Roteador",   "speed": "600",  "preco": "99,90"},
+    "lite-familia":       {"nome": "1 Roteador",   "speed": "800",  "preco": "109,00"},
+    "lite-home-office":   {"nome": "1 Roteador",   "speed": "1000", "preco": "119,90"},
+    "ultra-familia":      {"nome": "2 Roteadores", "speed": "800",  "preco": "139,90"},
+    "ultra-home-office":  {"nome": "2 Roteadores", "speed": "1000", "preco": "218,60"},
 }
 
 # ─── HEADER + FOOTER COMUNS ──────────────────────────────────────────
