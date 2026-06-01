@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pré-venda Copa 2026 | MasterInfo Internet</title>
+  <meta name="description" content="Plano da Copa por R$ 59,90 nos 3 primeiros meses. Pré-venda exclusiva MasterInfo. Garanta sua vaga e assista à abertura já conectado.">
+
+  <meta property="og:title" content="Plano da Copa por R$ 59,90 — Pré-venda MasterInfo">
+  <meta property="og:description" content="Oferta exclusiva pra quem garantir agora. A Copa abre 11/06 e a MasterInfo instala em 3 dias. A conta se monta sozinha.">
+  <meta property="og:image" content="https://phill-jr.github.io/masterinfo-v2/imgs/hero/banner-copa.png">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+  <style>
+    :root {
+      --orange: #ff7a05;
+      --yellow: #fcc305;
+      --red: #e63946;
+      --dark: #0f0f14;
+      --fire: linear-gradient(135deg, #ff7a05, #fcc305);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--dark);
+      color: #fff;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    .wrap { max-width: 560px; margin: 0 auto; padding: 0 20px; }
+
+    /* Fundo com brasa */
+    .page {
+      position: relative;
+      min-height: 100vh;
+      isolation: isolate;
+      padding: 32px 0 60px;
+    }
+    .page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,122,5,0.35) 0%, transparent 55%),
+        radial-gradient(circle at 80% 90%, rgba(230,57,70,0.25) 0%, transparent 50%),
+        linear-gradient(180deg, #1a0d05 0%, #0f0f14 100%);
+      z-index: -1;
+    }
+
+    /* Logo */
+    .topo {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+    .topo img { height: 38px; width: auto; }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(255,122,5,0.15);
+      border: 1px solid rgba(255,122,5,0.5);
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #ff9a3c;
+      text-transform: uppercase;
+    }
+    .badge i { font-size: 0.9rem; }
+
+    .center { text-align: center; }
+
+    h1 {
+      font-size: clamp(1.9rem, 7vw, 2.7rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin: 18px 0 14px;
+    }
+    h1 .grad {
+      background: var(--fire);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .lead {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 28px;
+    }
+
+    /* Card preço */
+    .preco-card {
+      background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,122,5,0.35);
+      border-radius: 22px;
+      padding: 28px 24px;
+      text-align: center;
+      margin-bottom: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+    .preco-card .speed {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--yellow);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .preco-main {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+      margin: 8px 0 2px;
+    }
+    .preco-cur { font-size: 1.4rem; font-weight: 700; color: #fff; }
+    .preco-num {
+      font-size: clamp(3.4rem, 16vw, 4.6rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      background: var(--fire);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1;
+    }
+    .preco-cents { font-size: 1.4rem; font-weight: 800; color: #fff; align-self: flex-start; margin-top: 8px; }
+    .preco-cond {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      font-weight: 600;
+    }
+    .preco-cond strong { color: var(--yellow); }
+    .preco-apps {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .preco-apps b { color: #fff; }
+
+    /* Timeline da conta */
+    .conta {
+      margin-bottom: 30px;
+    }
+    .conta-title {
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 18px;
+    }
+    .conta-steps {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 6px;
+    }
+    .conta-step {
+      text-align: center;
+      padding: 14px 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+    }
+    .conta-step i {
+      font-size: 1.5rem;
+      color: var(--orange);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .conta-step strong { display: block; font-size: 0.95rem; font-weight: 800; }
+    .conta-step span { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
+    .conta-arrow { color: var(--orange); font-size: 1.1rem; }
+
+    /* Formulário */
+    .form-card {
+      background: #fff;
+      color: #1a1a1a;
+      border-radius: 22px;
+      padding: 28px 24px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .form-card h2 {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .form-card .sub {
+      font-size: 0.92rem;
+      color: #666;
+      margin-bottom: 22px;
+    }
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #444;
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-family: inherit;
+      border: 2px solid #e5e1d8;
+      border-radius: 12px;
+      background: #faf8f4;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: var(--orange);
+      background: #fff;
+    }
+    .field input::placeholder { color: #aaa; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 17px;
+      font-size: 1.08rem;
+      font-weight: 800;
+      font-family: inherit;
+      color: #fff;
+      background: var(--fire);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 12px 28px rgba(255,122,5,0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+      margin-top: 6px;
+    }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(255,122,5,0.5); }
+    .submit-btn:active { transform: translateY(0); }
+
+    .form-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-size: 0.78rem;
+      color: #888;
+    }
+    .form-trust i { color: #25d366; font-size: 1rem; }
+
+    .fine {
+      text-align: center;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: 20px;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Prova social rodapé */
+    .proof {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      margin: 30px 0 0;
+      flex-wrap: wrap;
+    }
+    .proof-item {
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .proof-item strong {
+      display: block;
+      font-size: 1.1rem;
+      color: #fff;
+      font-weight: 800;
+    }
+    .proof-item i { color: var(--yellow); }
+
+    @media (max-width: 420px) {
+      .conta-steps { grid-template-columns: 1fr; gap: 8px; }
+      .conta-arrow { transform: rotate(90deg); justify-self: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="wrap">
+
+      <!-- Logo -->
+      <div class="topo">
+        <img src="../imgs/logo-masterinfo.png" alt="MasterInfo Internet">
+      </div>
+
+      <!-- Gancho -->
+      <div class="center">
+        <span class="badge"><i class="ph-fill ph-soccer-ball"></i> Pré-venda exclusiva · Copa 2026</span>
+        <h1>Vai assistir à Copa <span class="grad">já conectado</span> na fibra de verdade.</h1>
+        <p class="lead">Oferta liberada só pra quem garantir agora, antes de abrir pro público.</p>
+      </div>
+
+      <!-- Card de preço -->
+      <div class="preco-card">
+        <span class="speed">Plano da Copa · 1000 Mega</span>
+        <div class="preco-main">
+          <span class="preco-cur">R$</span>
+          <span class="preco-num">59</span>
+          <span class="preco-cents">,90</span>
+        </div>
+        <p class="preco-cond">nos <strong>3 primeiros meses</strong></p>
+        <div class="preco-apps">
+          <b>SKY+ Light incluso</b> · 100% Fibra Óptica · Suporte Sábado e Domingo
+        </div>
+      </div>
+
+      <!-- A conta que se monta sozinha -->
+      <div class="conta">
+        <p class="conta-title">A conta se monta sozinha:</p>
+        <div class="conta-steps">
+          <div class="conta-step">
+            <i class="ph-fill ph-calendar-star"></i>
+            <strong>11/06</strong>
+            <span>a Copa abre</span>
+          </div>
+          <span class="conta-arrow"><i class="ph-bold ph-arrow-right"></i></span>
+          <div class="conta-step">
+            <i class="ph-fill ph-wrench"></i>
+            <strong>3 dias</strong>
+            <span>pra instalar</span>
+          </div>
+          <span class="conta-arrow"><i class="ph-bold ph-arrow-right"></i></span>
+          <div class="conta-step">
+            <i class="ph-fill ph-television-simple"></i>
+            <strong>Pronto</strong>
+            <span>você conectado</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulário -->
+      <form class="form-card" id="leadForm">
+        <h2>Garanta sua vaga</h2>
+        <p class="sub">Preencha e fale com a gente no WhatsApp pra fechar.</p>
+
+        <div class="field">
+          <label for="nome">Seu nome</label>
+          <input type="text" id="nome" name="nome" placeholder="Nome completo" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="bairro">Seu bairro</label>
+          <input type="text" id="bairro" name="bairro" placeholder="Ex: Comasa, Boa Vista, Aventureiro..." required>
+        </div>
+        <div class="field">
+          <label for="telefone">Seu WhatsApp</label>
+          <input type="tel" id="telefone" name="telefone" placeholder="(47) 9____-____" required inputmode="numeric" autocomplete="tel">
+        </div>
+
+        <button type="submit" class="submit-btn">
+          Quero garantir minha vaga <i class="ph-bold ph-arrow-right"></i>
+        </button>
+
+        <div class="form-trust">
+          <i class="ph-fill ph-whatsapp-logo"></i> Você vai falar direto com nosso time
+        </div>
+      </form>
+
+      <!-- Prova social -->
+      <div class="proof">
+        <div class="proof-item">
+          <strong><i class="ph-fill ph-star"></i> 4,9</strong>
+          2.382 avaliações
+        </div>
+        <div class="proof-item">
+          <strong>100%</strong>
+          Fibra Óptica
+        </div>
+        <div class="proof-item">
+          <strong>100%</strong>
+          Joinville
+        </div>
+      </div>
+
+      <p class="fine">
+        Sujeito a análise de crédito. Valor promocional válido nos 3 primeiros meses, voltando ao valor de tabela após esse período. Vagas limitadas à capacidade de instalação antes da abertura da Copa.
+      </p>
+
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    var form = document.getElementById('leadForm');
+    var tel = document.getElementById('telefone');
+
+    // Máscara simples de telefone (47) 9XXXX-XXXX
+    tel.addEventListener('input', function() {
+      var v = tel.value.replace(/\D/g, '').slice(0, 11);
+      var out = '';
+      if (v.length > 0) out = '(' + v.slice(0, 2);
+      if (v.length >= 2) out += ') ' + v.slice(2, 7);
+      if (v.length >= 7) out += '-' + v.slice(7, 11);
+      tel.value = out;
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nome = document.getElementById('nome').value.trim();
+      var bairro = document.getElementById('bairro').value.trim();
+      var telefone = tel.value.trim();
+      if (!nome || !bairro || !telefone) return;
+
+      var msg =
+        'Olá! Quero garantir o *Plano da Copa* (R$ 59,90 nos 3 primeiros meses).%0A%0A' +
+        '*Nome:* ' + encodeURIComponent(nome) + '%0A' +
+        '*Bairro:* ' + encodeURIComponent(bairro) + '%0A' +
+        '*WhatsApp:* ' + encodeURIComponent(telefone);
+
+      window.location.href = 'https://wa.me/5547989212991?text=' + msg;
+    });
+  })();
+  </script>
+</body>
+</html>
