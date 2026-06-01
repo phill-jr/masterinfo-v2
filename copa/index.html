@@ -442,26 +442,43 @@
       var telefone = tel.value.trim();
       if (!nome || !bairro || !telefone) return;
 
-      // Se o banco está configurado, grava o lead antes de abrir o WhatsApp
+      // Se o banco está configurado, grava o lead ANTES de abrir o WhatsApp
       if (SHEETS_ENDPOINT) {
         btn.disabled = true;
         btn.innerHTML = 'Enviando... <i class="ph-bold ph-spinner"></i>';
-        var payload = JSON.stringify({
+        var dados = {
           nome: nome,
           bairro: bairro,
           telefone: telefone,
           plano: 'Plano da Copa R$ 59,90 (3 primeiros meses)',
           origem: 'pre-venda-copa'
-        });
-        // no-cors: grava no Sheets sem travar por CORS. Abre o WhatsApp em seguida.
-        fetch(SHEETS_ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: payload
-        }).catch(function(){}).then(function() {
+        };
+        var payload = JSON.stringify(dados);
+        var enviado = false;
+
+        // sendBeacon garante a gravação mesmo quando a página navega pro WhatsApp
+        try {
+          var blob = new Blob([payload], { type: 'text/plain;charset=utf-8' });
+          enviado = !!(navigator.sendBeacon && navigator.sendBeacon(SHEETS_ENDPOINT, blob));
+        } catch (err) {}
+
+        // fallback: fetch com keepalive (não é cancelado ao navegar)
+        if (!enviado) {
+          try {
+            fetch(SHEETS_ENDPOINT, {
+              method: 'POST',
+              mode: 'no-cors',
+              keepalive: true,
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+              body: payload
+            }).catch(function(){});
+          } catch (err) {}
+        }
+
+        // pequeno respiro pra garantir o envio antes de sair pro WhatsApp
+        setTimeout(function() {
           irParaWhatsApp(nome, bairro, telefone);
-        });
+        }, 700);
       } else {
         irParaWhatsApp(nome, bairro, telefone);
       }
