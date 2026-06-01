@@ -33,35 +33,6 @@
   color: var(--orange);
 }
 
-/* ═══ INTERCALADO (tema claro): card de Resumo ESCURO sobre fundo claro ═══ */
-/* Redefine as variaveis localmente no card -> todo o conteudo herda tons dark,
-   sem reescrever cada regra. Laranja/verde (--orange/--success) ficam intactos. */
-[data-theme="claro"] .ck-summary-card {
-  --gray-900: #1c1c24;
-  --gray-850: #24242e;
-  --gray-800: #30303d;
-  --gray-700: #3a3a47;
-  --white: #ffffff;
-  --gray-500: #9a9aa8;
-  --gray-400: #b4b4c0;
-  --gray-300: #d2d2dc;
-  background: linear-gradient(165deg, #20202a 0%, #16161c 100%);
-  border: 1px solid #30303d;
-  color: #f2f2f5;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
-}
-/* Step bar escura pra reforcar o ritmo claro/escuro */
-[data-theme="claro"] .checkout-steps {
-  background: #1c1c24;
-  border-bottom-color: #30303d;
-}
-[data-theme="claro"] .checkout-steps .ck-step-label { color: #c8c8d4; }
-[data-theme="claro"] .checkout-steps .ck-step:not(.active):not(.completed) .ck-step-num {
-  background: #30303d;
-  color: #b4b4c0;
-  border-color: #3a3a47;
-}
-
 /* ─── Desconto "pagando em dia" ─── */
 .ck-summary-desconto {
   display: flex;

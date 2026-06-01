@@ -107,6 +107,15 @@ body {
   border-bottom-color: rgba(0,0,0,0.06);
 }
 
+/* Header no estado "scrolled" (ao rolar a pagina): no tema dark fica
+   quase preto (rgba(10,10,11,.95)). No claro precisa ficar BRANCO,
+   senao o logo escuro e o menu somem sobre o fundo preto. */
+.header.scrolled {
+  background: rgba(255,255,255,0.95);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
 .logo-master {
   color: #1a1a2e;
 }
@@ -573,4 +582,208 @@ body {
   color: var(--orange);
   background: rgba(255,122,5,0.08);
   box-shadow: 0 0 12px rgba(255,122,5,0.15);
+}
+
+/* ========================================
+   HOME v2 — overrides do tema claro
+   (usado pela index-light.html)
+   ======================================== */
+
+/* Hero slideshow: o conteudo sao IMAGENS (banner-copa.png / banner-aplicativos.png),
+   que devem ser trocadas por versoes CLARAS (ajuste de imagem feito pelo time).
+   Aqui clareamos os fundos placeholder (.hero-bg-*) pra fallback claro e pra
+   nao vazar dark nas bordas enquanto a imagem carrega. */
+.hero-bg-home,
+.hero-bg-essencial,
+.hero-bg-casa,
+.hero-bg-familia,
+.hero-bg-ufamilia,
+.hero-bg-uhome {
+  background-image: linear-gradient(135deg, #fff3e8 0%, #ffffff 65%);
+}
+
+/* Glow de fundo (body::before) mais suave no claro */
+body::before {
+  opacity: 0.5;
+}
+
+/* Cobertura: fundo da secao com tom laranja mais presente (creme/pessego),
+   destacando o card do mapa (branco) sobre ele. Mantem textos legiveis. */
+.coverage {
+  background:
+    radial-gradient(ellipse at 12% 12%, rgba(255,122,5,0.16) 0%, transparent 55%),
+    radial-gradient(ellipse at 88% 85%, rgba(255,122,5,0.12) 0%, transparent 55%),
+    linear-gradient(135deg, #fff1e2 0%, #ffe7d2 100%);
+}
+
+/* ═══════════════════════════════════════════
+   ACCENT FOGO (--gradient-brand) — fio condutor da marca
+   Usado como ACCENT (texto branco por cima), nunca como fundo de texto escuro.
+   ═══════════════════════════════════════════ */
+
+/* Etiquetas de secao: viram selos com fogo + texto branco */
+.section-tag {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(255,122,5,0.25);
+}
+.section-tag i { color: #ffffff; }
+
+/* Tags de bairro: hover e ativa com fogo */
+.neighborhood-tag:hover,
+.neighborhood-tag.tag-active {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(255,122,5,0.3);
+}
+
+/* Botoes secundarios (plano): hover com fogo */
+.btn-plan:hover {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+/* Divisores/detalhes decorativos com o fogo */
+.plans::before,
+.why::before,
+.why::after,
+.testimonials::before {
+  background: var(--gradient-brand);
+  opacity: 0.6;
+}
+
+/* CTA banner ("Ainda em duvida?") e um card ESCURO mantido de proposito.
+   Os textos de leitura herdavam cor escura do tema claro -> ilegiveis sobre o preto.
+   Clareia paragrafo + label, preservando o numero em gradiente fogo e os avatares. */
+.cta-banner-content p {
+  color: rgba(255,255,255,0.82);
+}
+.cta-banner-content p strong {
+  color: #ffffff;
+}
+.cta-banner-stat span {
+  color: rgba(255,255,255,0.55);
+}
+
+/* Footer (mantido dark): chips de "FORMAS DE PAGAMENTO" tinham texto escuro
+   herdado do tema claro -> ilegivel sobre o footer preto. Clareia o texto,
+   preservando os icones em laranja. */
+.footer .payment-icon {
+  color: rgba(255,255,255,0.78);
+}
+.footer .payment-icon i {
+  color: var(--orange);
+}
+.footer .footer-payment-label {
+  color: #9a9aa8;
+}
+
+/* ═══════════════════════════════════════════
+   PROVA SOCIAL — redesign claro estilo Google (autoridade)
+   Cards brancos com sombra + textos escuros. Redefine as variaveis de
+   texto/cards no escopo da secao (resolve a maioria de uma vez).
+   ═══════════════════════════════════════════ */
+.social-proof {
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a4a5a;
+  --text-muted: #8a8a96;
+  --gradient-card: linear-gradient(160deg, #ffffff 0%, #fbfbfc 100%);
+  --border-default: rgba(0,0,0,0.08);
+  --border-subtle: rgba(0,0,0,0.07);
+}
+
+/* Cards de depoimento: brancos com sombra suave (estilo Google Reviews) */
+.social-proof .sp-card {
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+.social-proof .sp-card:hover,
+.social-proof .sp-card-tilt:hover {
+  border-color: rgba(255,122,5,0.4);
+  box-shadow: 0 12px 32px rgba(255,122,5,0.12);
+}
+.social-proof .sp-card-highlight {
+  background: linear-gradient(160deg, rgba(255,122,5,0.07) 0%, #ffffff 60%);
+  border-color: rgba(255,122,5,0.3);
+  box-shadow: 0 4px 20px rgba(255,122,5,0.1);
+}
+
+/* Badge "VIA GOOGLE" dentro do card */
+.social-proof .sp-card-google {
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.08);
+}
+
+/* Card de estatisticas (4.9 / 2.382 / 97% / 6+): claro com leve tom quente */
+.social-proof .sp-stats {
+  background: linear-gradient(135deg, #fff6ee 0%, #ffffff 100%);
+  border: 1px solid rgba(255,122,5,0.14);
+  border-radius: var(--radius-lg);
+  padding: 38px 24px;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.06);
+}
+.social-proof .sp-stat-label {
+  color: #6a6a7a;
+}
+
+/* Badge topo "Avaliacoes verificadas no Google" */
+.social-proof .sp-google-badge {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.social-proof .sp-google-badge strong { color: #1a1a2e; }
+
+/* Botao "Ver avaliacoes no Google" */
+.social-proof .sp-cta-google {
+  background: #ffffff;
+  color: #1a1a2e;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.social-proof .sp-cta-google:hover {
+  box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+}
+
+/* ── Prova social: fundo laranja FORTE (gradiente fogo) ──
+   Cards brancos saltam sobre o fogo; textos diretos em branco. */
+.social-proof {
+  background: linear-gradient(135deg, #e63946 0%, #ff7a05 55%, #fcc305 100%);
+}
+.social-proof .sp-title { color: #ffffff; }
+.social-proof .sp-title .title-fire {
+  background: none;
+  -webkit-text-fill-color: #fff2b0;
+  color: #fff2b0;
+}
+.social-proof .sp-subtitle { color: rgba(255,255,255,0.92); }
+.social-proof .sp-subtitle strong { color: #ffffff; }
+/* badge topo com leve borda pra destacar sobre o laranja */
+.social-proof .sp-google-badge { box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+/* card de stats branco puro pra saltar sobre o fogo */
+.social-proof .sp-stats {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.06);
+}
+
+/* Prova social: a secao virou clara (fundo via variaveis), mas o titulo e
+   alguns destaques continuavam BRANCOS (feitos pro dark) -> invisiveis.
+   O .title-fire mantem o gradiente fogo (text-fill transparente), entao fica laranja. */
+.social-proof .sp-title {
+  color: #1a1a2e;
+}
+.social-proof .sp-subtitle strong,
+.social-proof .sp-title strong {
+  color: #1a1a2e;
+}
+
+/* Promo bar (oferta do mes): texto BRANCO sobre o gradiente fogo da melhor
+   contraste que o texto escuro herdado do body. */
+.promo-bar,
+.promo-bar a,
+.promo-bar strong,
+.promo-bar .promo-bar-text {
+  color: #ffffff;
 }
