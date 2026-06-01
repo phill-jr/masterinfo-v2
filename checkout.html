@@ -16,19 +16,41 @@
   <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
 
-  <link rel="stylesheet" href="styles-light.css?v=2">
-  <link rel="stylesheet" href="modal-light.css?v=2">
-  <link rel="stylesheet" href="checkout.css?v=2">
+  <!-- Tema BLACK (base dark) -->
+  <link id="cssDark"      rel="stylesheet" href="styles.css?v=3">
+  <link id="cssModalDark" rel="stylesheet" href="modal.css?v=3">
+  <!-- Tema CLARO/ATUAL (override claro; cada um faz @import da versao dark) -->
+  <link id="cssLight"      rel="stylesheet" href="styles-light.css?v=3">
+  <link id="cssModalLight" rel="stylesheet" href="modal-light.css?v=3">
+  <!-- Estilos do checkout (seguem as variaveis do tema ativo) -->
+  <link rel="stylesheet" href="checkout.css?v=3">
+  <!-- Priming do tema: aplica cache do localStorage antes do render (evita FOUC) -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('mi_checkout_tema') || 'claro';
+      document.documentElement.setAttribute('data-theme', t);
+      var dark = t === 'black';
+      var d  = document.getElementById('cssDark');
+      var dm = document.getElementById('cssModalDark');
+      var l  = document.getElementById('cssLight');
+      var lm = document.getElementById('cssModalLight');
+      if (d)  d.disabled  = !dark;
+      if (dm) dm.disabled = !dark;
+      if (l)  l.disabled  = dark;
+      if (lm) lm.disabled = dark;
+    })();
+  </script>
 </head>
 <body>
 
   <!-- ========== HEADER SIMPLIFICADO ========== -->
   <header class="checkout-header">
     <div class="container checkout-header-inner">
-      <a href="index-light.html" class="logo">
-        <img src="logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img">
+      <a href="index.html" class="logo">
+        <img src="logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img logo-light">
+        <img src="imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img logo-dark">
       </a>
-      <a href="index-light.html" class="checkout-back-link">
+      <a href="index.html#planos" class="checkout-back-link">
         <i class="ph ph-arrow-left"></i> Voltar aos planos
       </a>
     </div>
@@ -284,7 +306,7 @@
             <a href="#" id="ckWhatsappLink" class="ck-btn-whatsapp" target="_blank">
               <i class="ph-fill ph-whatsapp-logo"></i> Falar com atendente
             </a>
-            <a href="index-light.html" class="ck-btn-back-home">
+            <a href="index.html" class="ck-btn-back-home">
               <i class="ph ph-arrow-left"></i> Voltar ao site
             </a>
           </div>
@@ -312,6 +334,12 @@
           <div class="ck-summary-total">
             <span>Total mensal</span>
             <strong id="ckSummaryTotal">R$ 0,00</strong>
+          </div>
+
+          <!-- Pagando em dia (desconto) -->
+          <div id="ckSummaryDesconto" class="ck-summary-desconto" style="display:none;">
+            <i class="ph-fill ph-check-circle"></i>
+            <span id="ckSummaryDescontoTxt"></span>
           </div>
 
           <!-- Taxa instalacao (se houver) -->

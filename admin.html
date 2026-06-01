@@ -440,7 +440,7 @@
     <div class="admin-logo"><img src="logo-masterinfo.png" alt="MasterInfo" style="height:30px;"> Admin</div>
     <div class="admin-actions">
       <span class="admin-status" id="saveStatus">Nenhuma alteracao</span>
-      <a href="index-light.html" class="btn btn-secondary" style="text-decoration:none;">
+      <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">
         <i class="ph ph-arrow-left"></i> Ver site
       </a>
       <a href="auth/logout.php" class="btn btn-danger" style="text-decoration:none;">
@@ -545,6 +545,13 @@
             <p id="checkoutModeDesc">Simples: Nome + WhatsApp → envia pro WhatsApp</p>
           </div>
           <div class="toggle-switch" id="toggleCheckoutMode" onclick="toggleCheckout()" role="switch" aria-checked="false" aria-label="Modo do checkout" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCheckout();}"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <h4>Tema do checkout</h4>
+            <p id="checkoutThemeDesc">Claro (atual): fundo branco</p>
+          </div>
+          <div class="toggle-switch" id="toggleCheckoutTheme" onclick="toggleCheckoutTheme()" role="switch" aria-checked="false" aria-label="Tema do checkout" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCheckoutTheme();}"></div>
         </div>
       </div>
     </div>
@@ -899,6 +906,16 @@
     desc.textContent = isSimples
       ? 'Simples: Nome + WhatsApp → envia direto pro WhatsApp'
       : 'Completo: Plano → Extras → Cadastro → Revisao (4 etapas)';
+
+    // Tema do checkout (claro | black)
+    var themeToggle = document.getElementById('toggleCheckoutTheme');
+    var themeDesc = document.getElementById('checkoutThemeDesc');
+    var isBlack = config.checkout.tema === 'black';
+    themeToggle.className = 'toggle-switch' + (isBlack ? ' on' : '');
+    themeToggle.setAttribute('aria-checked', isBlack ? 'true' : 'false');
+    themeDesc.textContent = isBlack
+      ? 'Black (escuro): fundo preto, laranja preservado'
+      : 'Claro (atual): fundo branco';
   }
 
   window.updateEmpresa = function(key, val) {
@@ -909,6 +926,13 @@
 
   window.toggleCheckout = function() {
     config.checkout.modo = config.checkout.modo === 'simples' ? 'completo' : 'simples';
+    renderEmpresa();
+    markDirty();
+  };
+
+  window.toggleCheckoutTheme = function() {
+    if (!config.checkout) config.checkout = {};
+    config.checkout.tema = config.checkout.tema === 'black' ? 'claro' : 'black';
     renderEmpresa();
     markDirty();
   };

@@ -183,6 +183,8 @@
   function trackPageView() {
     var page = location.pathname.replace(/\/$/, '') || '/';
     var pageName = {
+      '/index.html': 'Home',
+      '/index': 'Home',
       '/index-light.html': 'Home',
       '/index-light': 'Home',
       '/checkout.html': 'Checkout',
