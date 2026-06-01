@@ -405,8 +405,16 @@
 
   <script>
   (function() {
+    // ───────────────────────────────────────────────────────────
+    // BANCO DE DADOS (Google Sheets)
+    // Cole aqui a URL do Apps Script publicado (ver copa/COMO-ATIVAR-BANCO.md).
+    // Enquanto estiver vazio, o lead vai só pro WhatsApp.
+    var SHEETS_ENDPOINT = '';
+    // ───────────────────────────────────────────────────────────
+
     var form = document.getElementById('leadForm');
     var tel = document.getElementById('telefone');
+    var btn = form.querySelector('.submit-btn');
 
     // Máscara simples de telefone (47) 9XXXX-XXXX
     tel.addEventListener('input', function() {
@@ -418,6 +426,15 @@
       tel.value = out;
     });
 
+    function irParaWhatsApp(nome, bairro, telefone) {
+      var msg =
+        'Olá! Quero garantir o *Plano da Copa* (R$ 59,90 nos 3 primeiros meses).%0A%0A' +
+        '*Nome:* ' + encodeURIComponent(nome) + '%0A' +
+        '*Bairro:* ' + encodeURIComponent(bairro) + '%0A' +
+        '*WhatsApp:* ' + encodeURIComponent(telefone);
+      window.location.href = 'https://wa.me/5547989212991?text=' + msg;
+    }
+
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       var nome = document.getElementById('nome').value.trim();
@@ -425,13 +442,29 @@
       var telefone = tel.value.trim();
       if (!nome || !bairro || !telefone) return;
 
-      var msg =
-        'Olá! Quero garantir o *Plano da Copa* (R$ 59,90 nos 3 primeiros meses).%0A%0A' +
-        '*Nome:* ' + encodeURIComponent(nome) + '%0A' +
-        '*Bairro:* ' + encodeURIComponent(bairro) + '%0A' +
-        '*WhatsApp:* ' + encodeURIComponent(telefone);
-
-      window.location.href = 'https://wa.me/5547989212991?text=' + msg;
+      // Se o banco está configurado, grava o lead antes de abrir o WhatsApp
+      if (SHEETS_ENDPOINT) {
+        btn.disabled = true;
+        btn.innerHTML = 'Enviando... <i class="ph-bold ph-spinner"></i>';
+        var payload = JSON.stringify({
+          nome: nome,
+          bairro: bairro,
+          telefone: telefone,
+          plano: 'Plano da Copa R$ 59,90 (3 primeiros meses)',
+          origem: 'pre-venda-copa'
+        });
+        // no-cors: grava no Sheets sem travar por CORS. Abre o WhatsApp em seguida.
+        fetch(SHEETS_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: payload
+        }).catch(function(){}).then(function() {
+          irParaWhatsApp(nome, bairro, telefone);
+        });
+      } else {
+        irParaWhatsApp(nome, bairro, telefone);
+      }
     });
   })();
   </script>
