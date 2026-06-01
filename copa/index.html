@@ -453,32 +453,40 @@
           plano: 'Plano da Copa R$ 59,90 (3 primeiros meses)',
           origem: 'pre-venda-copa'
         };
-        var payload = JSON.stringify(dados);
-        var enviado = false;
 
-        // sendBeacon garante a gravação mesmo quando a página navega pro WhatsApp
-        try {
-          var blob = new Blob([payload], { type: 'text/plain;charset=utf-8' });
-          enviado = !!(navigator.sendBeacon && navigator.sendBeacon(SHEETS_ENDPOINT, blob));
-        } catch (err) {}
+        // Método à prova de falha: form POST -> iframe oculto.
+        // Funciona com Apps Script (segue o redirect, sem barreira de CORS).
+        var iframe = document.createElement('iframe');
+        iframe.name = 'leadsink';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
 
-        // fallback: fetch com keepalive (não é cancelado ao navegar)
-        if (!enviado) {
-          try {
-            fetch(SHEETS_ENDPOINT, {
-              method: 'POST',
-              mode: 'no-cors',
-              keepalive: true,
-              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-              body: payload
-            }).catch(function(){});
-          } catch (err) {}
-        }
+        var f = document.createElement('form');
+        f.action = SHEETS_ENDPOINT;
+        f.method = 'POST';
+        f.target = 'leadsink';
+        f.style.display = 'none';
+        Object.keys(dados).forEach(function(k) {
+          var i = document.createElement('input');
+          i.type = 'hidden';
+          i.name = k;
+          i.value = dados[k];
+          f.appendChild(i);
+        });
+        document.body.appendChild(f);
 
-        // pequeno respiro pra garantir o envio antes de sair pro WhatsApp
-        setTimeout(function() {
+        var done = false;
+        function seguir() {
+          if (done) return;
+          done = true;
           irParaWhatsApp(nome, bairro, telefone);
-        }, 700);
+        }
+        // quando o iframe terminar de receber a resposta, abre o WhatsApp
+        iframe.addEventListener('load', seguir);
+        // fallback caso o load não dispare
+        setTimeout(seguir, 2500);
+
+        f.submit();
       } else {
         irParaWhatsApp(nome, bairro, telefone);
       }

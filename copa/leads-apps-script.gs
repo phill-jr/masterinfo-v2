@@ -16,7 +16,11 @@ function doPost(e) {
       sheet.appendRow(['Data/Hora', 'Nome', 'Bairro', 'WhatsApp', 'Plano', 'Origem']);
     }
 
-    var data = JSON.parse(e.postData.contents);
+    // Aceita campos de formulário (e.parameter) OU JSON (e.postData)
+    var data = (e && e.parameter && e.parameter.nome) ? e.parameter : {};
+    if (!data.nome && e && e.postData && e.postData.contents) {
+      try { data = JSON.parse(e.postData.contents); } catch (x) {}
+    }
 
     sheet.appendRow([
       new Date(),
