@@ -40,6 +40,19 @@ function doPost(e) {
   }
 }
 
+/**
+ * Exporta todos os leads em JSON.
+ * Usado pelo script "baixar-leads.py" pra trazer os dados pra pasta local.
+ * Abra a URL terminada em /exec no navegador pra ver os dados.
+ */
+function doGet(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var values = sheet.getDataRange().getValues();
+  return ContentService
+    .createTextOutput(JSON.stringify({ result: 'ok', rows: values }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
 // Teste opcional: rode esta função uma vez pra checar se grava na planilha
 function testar() {
   var fake = { postData: { contents: JSON.stringify({
