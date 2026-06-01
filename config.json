@@ -1,308 +1,415 @@
 {
-  "empresa": {
-    "telefone": "(47) 3434-1734",
-    "whatsapp": "5547989212991",
-    "whatsappFormatado": "(47) 98921-2991",
-    "email": "masterinfo@masterinfointernet.com",
-    "endereco": "Rua Baltazar Buschler 628",
-    "bairroEndereco": "Comasa",
-    "cidade": "Joinville, SC",
-    "cep": "89228-000",
-    "cnpj": "XX.XXX.XXX/0001-XX",
-    "instagram": "https://www.instagram.com/masterinfointernet",
-    "facebook": "https://www.facebook.com/masterinfointernet"
-  },
-  "checkout": {
-    "modo": "simples",
-    "whatsapp": "5547989212991"
-  },
-  "hero": {
-    "badge": "100% Fibra Óptica em Joinville",
-    "titulo": "Internet que",
-    "tituloDestaque": "não te deixa",
-    "tituloFim": "na mão.",
-    "subtitulo": "Chega de cair no meio do jogo, travar na live ou esperar o filme carregar. <strong>Fibra óptica de verdade</strong> nos bairros Comasa, Boa Vista, Espinheiros e região.",
-    "confianca": [
-      "Instalação em até <strong>3 dias</strong>",
-      "<strong>Suporte local</strong>",
-      "<strong>+6 anos</strong> em Joinville"
-    ]
-  },
-  "stats": [
-    { "valor": 10000, "sufixo": "+", "decimal": false, "label": "Clientes conectados" },
-    { "valor": 99.8, "sufixo": "%", "decimal": true, "label": "Uptime da rede" },
-    { "valor": 6, "sufixo": "+", "decimal": false, "label": "Anos em Joinville" },
-    { "valor": 4.9, "prefixo": "★ ", "sufixo": "", "decimal": true, "label": "Nota no Google" }
-  ],
-  "diferenciais": [
-    {
-      "icone": "ph-fill ph-map-trifold",
-      "titulo": "Atendimento Local",
-      "descricao": "Nossa equipe mora aqui. O técnico que vai na sua casa conhece o bairro e fala com você pelo WhatsApp."
+    "empresa": {
+        "telefone": "(47) 3434-1734",
+        "whatsapp": "5547989212991",
+        "whatsappFormatado": "(47) 98921-2991",
+        "email": "masterinfo@masterinfointernet.com",
+        "endereco": "Rua Baltazar Buschler 628",
+        "bairroEndereco": "Comasa",
+        "cidade": "Joinville, SC",
+        "cep": "89228-000",
+        "cnpj": "XX.XXX.XXX\/0001-XX",
+        "instagram": "https:\/\/www.instagram.com\/masterinfointernet",
+        "facebook": "https:\/\/www.facebook.com\/masterinfointernet"
     },
-    {
-      "icone": "ph-fill ph-lightning",
-      "titulo": "Fibra Óptica Real",
-      "descricao": "Nada de rádio ou cabo compartilhado. Fibra óptica direto até sua casa — a mesma velocidade chova ou faça sol."
+    "checkout": {
+        "modo": "simples",
+        "whatsapp": "5547989212991",
+        "tema": "claro"
     },
-    {
-      "icone": "ph-fill ph-wrench",
-      "titulo": "Suporte Rápido",
-      "descricao": "Sem esperar 40 minutos num 0800. Manda um zap, a gente resolve. Simples assim."
+    "hero": {
+        "badge": "100% Fibra Óptica em Joinville",
+        "titulo": "Internet que",
+        "tituloDestaque": "não te deixa",
+        "tituloFim": "na mão.",
+        "subtitulo": "Chega de cair no meio do jogo, travar na live ou esperar o filme carregar. <strong>Fibra óptica de verdade<\/strong> nos bairros Comasa, Boa Vista, Espinheiros e região.",
+        "confianca": [
+            "Instalação em até <strong>3 dias<\/strong>",
+            "<strong>Suporte local<\/strong>",
+            "<strong>+6 anos<\/strong> em Joinville"
+        ]
     },
-    {
-      "icone": "ph-fill ph-shield-check",
-      "titulo": "Sem Surpresas",
-      "descricao": "Preço fixo, sem reajuste escondido. O que você contrata é o que você paga — sem pegadinha no boleto."
-    },
-    {
-      "icone": "ph-fill ph-game-controller",
-      "titulo": "Internet de Gamer",
-      "descricao": "Ping baixo e estável. Ideal para quem joga online, faz stream ou trabalha de casa sem travamento."
-    },
-    {
-      "icone": "ph-fill ph-clock-countdown",
-      "titulo": "Instalação em 3 dias",
-      "descricao": "Contratou hoje, tá navegando amanhã. Sem enrolação, sem \"aguarde de 7 a 15 dias úteis\"."
+    "stats": [
+        {
+            "valor": 10000,
+            "sufixo": "+",
+            "decimal": false,
+            "label": "Clientes conectados"
+        },
+        {
+            "valor": 99.8,
+            "sufixo": "%",
+            "decimal": true,
+            "label": "Uptime da rede"
+        },
+        {
+            "valor": 6,
+            "sufixo": "+",
+            "decimal": false,
+            "label": "Anos em Joinville"
+        },
+        {
+            "valor": 4.9,
+            "prefixo": "★ ",
+            "sufixo": "",
+            "decimal": true,
+            "label": "Nota no Google"
+        }
+    ],
+    "diferenciais": [
+        {
+            "icone": "ph-fill ph-map-trifold",
+            "titulo": "Atendimento Local",
+            "descricao": "Nossa equipe mora aqui. O técnico que vai na sua casa conhece o bairro e fala com você pelo WhatsApp."
+        },
+        {
+            "icone": "ph-fill ph-lightning",
+            "titulo": "Fibra Óptica Real",
+            "descricao": "Nada de rádio ou cabo compartilhado. Fibra óptica direto até sua casa — a mesma velocidade chova ou faça sol."
+        },
+        {
+            "icone": "ph-fill ph-wrench",
+            "titulo": "Suporte Rápido",
+            "descricao": "Sem esperar 40 minutos num 0800. Manda um zap, a gente resolve. Simples assim."
+        },
+        {
+            "icone": "ph-fill ph-shield-check",
+            "titulo": "Sem Surpresas",
+            "descricao": "Preço fixo, sem reajuste escondido. O que você contrata é o que você paga — sem pegadinha no boleto."
+        },
+        {
+            "icone": "ph-fill ph-game-controller",
+            "titulo": "Internet de Gamer",
+            "descricao": "Ping baixo e estável. Ideal para quem joga online, faz stream ou trabalha de casa sem travamento."
+        },
+        {
+            "icone": "ph-fill ph-clock-countdown",
+            "titulo": "Instalação em 3 dias",
+            "descricao": "Contratou hoje, tá navegando amanhã. Sem enrolação, sem \"aguarde de 7 a 15 dias úteis\"."
+        }
+    ],
+    "bairros": [
+        {
+            "nome": "Comasa",
+            "dataBairro": "Comasa",
+            "lat": -26.2798,
+            "lng": -48.8016
+        },
+        {
+            "nome": "Boa Vista",
+            "dataBairro": "Boa Vista",
+            "lat": -26.298,
+            "lng": -48.8224
+        },
+        {
+            "nome": "Espinheiros",
+            "dataBairro": "Espinheiros",
+            "lat": -26.2836,
+            "lng": -48.781
+        },
+        {
+            "nome": "Aventureiro",
+            "dataBairro": "Aventureiro",
+            "lat": -26.2435,
+            "lng": -48.8105
+        },
+        {
+            "nome": "Jardim Paraíso",
+            "dataBairro": "Jd. Paraiso",
+            "lat": -26.2124,
+            "lng": -48.8228
+        },
+        {
+            "nome": "Jardim Sofia",
+            "dataBairro": "Jd. Sofia",
+            "lat": -26.2385,
+            "lng": -48.841
+        },
+        {
+            "nome": "Cubatão",
+            "dataBairro": "Cubatao",
+            "lat": -26.2175,
+            "lng": -48.7992
+        },
+        {
+            "nome": "Itinga",
+            "dataBairro": "Itinga",
+            "lat": -26.3827,
+            "lng": -48.8257
+        },
+        {
+            "nome": "Nova Brasília",
+            "dataBairro": "Nova Brasilia",
+            "lat": -26.3418,
+            "lng": -48.871
+        },
+        {
+            "nome": "Rio Bonito",
+            "dataBairro": "Rio Bonito",
+            "lat": -26.1682,
+            "lng": -48.8999
+        },
+        {
+            "nome": "Estrada Timbé",
+            "dataBairro": "Estr. Timbe",
+            "lat": -26.2217,
+            "lng": -48.8234
+        },
+        {
+            "nome": "Paranaguamirim",
+            "dataBairro": "Paranaguamirim",
+            "lat": -26.3458,
+            "lng": -48.7705
+        },
+        {
+            "nome": "Iririú",
+            "dataBairro": "Iririu",
+            "lat": -26.265,
+            "lng": -48.8165
+        }
+    ],
+    "depoimentos": [
+        {
+            "nome": "Rodrigo M.",
+            "local": "Bairro Comasa",
+            "texto": "Troquei da Vivo pra MasterInfo e a diferença é absurda. Nunca mais caiu a internet no meio do home office.",
+            "estrelas": 5
+        },
+        {
+            "nome": "Ana Paula S.",
+            "local": "Bairro Boa Vista",
+            "texto": "O suporte é outro nível. Mandei mensagem no WhatsApp às 21h e o técnico respondeu na hora. Nunca vi isso.",
+            "estrelas": 5
+        },
+        {
+            "nome": "Carlos E.",
+            "local": "Bairro Aventureiro",
+            "texto": "Meu filho joga o dia inteiro e eu trabalho com vídeo. Com 600 mega não trava nada. Melhor custo-benefício.",
+            "estrelas": 5
+        }
+    ],
+    "faq": [
+        {
+            "pergunta": "Vocês são de Joinville?",
+            "resposta": "<strong>Sim.<\/strong> Nossa empresa nasceu aqui — são <strong>mais de 6 anos<\/strong> levando internet pra Joinville. Equipe local, técnicos da região."
+        },
+        {
+            "pergunta": "Quanto tempo demora a instalação?",
+            "resposta": "Na maioria dos casos, <strong>instalamos em até 3 dias<\/strong> após a contratação. Sem aquela história de \"7 a 15 dias úteis\"."
+        },
+        {
+            "pergunta": "Tem fidelidade?",
+            "resposta": "<strong>Sim, 12 meses.<\/strong> É o padrão pra garantir o investimento da instalação. Depois disso, você fica porque quer."
+        },
+        {
+            "pergunta": "A internet é boa pra gamer?",
+            "resposta": "Muito. <strong>Ping baixo e latência estável<\/strong> — fibra óptica direto até sua casa, sem cabo compartilhado. Ideal pra jogar online, streamar e fazer live sem travamento."
+        },
+        {
+            "pergunta": "O Wi-Fi pega em toda a casa?",
+            "resposta": "Sim. Trabalhamos com <strong>metodologia de Wi-Fi premium<\/strong> — temos planos que já vêm com <strong>2 roteadores<\/strong> pra cobrir cada canto da casa, sem ponto cego."
+        }
+    ],
+    "planos": [
+        {
+            "id": "lite-casa",
+            "linha": "LITE",
+            "nome": "Lite Casa",
+            "tagline": "Casal \/ casa pequena",
+            "velocidade": "600",
+            "unidade": "Mega",
+            "precoPontual": 99.9,
+            "precoCheio": 109.9,
+            "features": [
+                "Internet 600 Mega de fibra",
+                "SKY+ Light grátis (TV)",
+                "Wi-Fi + instalação 3 dias"
+            ],
+            "badge": null
+        },
+        {
+            "id": "lite-familia",
+            "linha": "LITE",
+            "nome": "Lite Família",
+            "tagline": "Família média \/ vários devices",
+            "velocidade": "800",
+            "unidade": "Mega",
+            "precoPontual": 109,
+            "precoCheio": 119,
+            "features": [
+                "Internet 800 Mega de fibra",
+                "SKY+ Light grátis (TV)",
+                "Wi-Fi + instalação 3 dias"
+            ],
+            "badge": "Pra família"
+        },
+        {
+            "id": "lite-home-office",
+            "linha": "LITE",
+            "nome": "Lite Home Office",
+            "tagline": "Trabalho remoto \/ reuniões",
+            "velocidade": "1",
+            "unidade": "Giga",
+            "precoPontual": 119.9,
+            "precoCheio": 129.9,
+            "features": [
+                "Internet 1 Giga de fibra",
+                "SKY+ Light ou Deezer (à escolha)",
+                "Estabilidade pra reuniões"
+            ],
+            "badge": "Mais procurado",
+            "heroi": true
+        },
+        {
+            "id": "ultra-familia",
+            "linha": "ULTRA",
+            "nome": "Ultra Família",
+            "tagline": "Família grande + streaming completo",
+            "velocidade": "800",
+            "unidade": "Mega",
+            "precoPontual": 139.9,
+            "precoCheio": 159.9,
+            "features": [
+                "Internet 800 Mega de fibra",
+                "GloboPlay incluso",
+                "Roteador Mesh (Wi-Fi em toda casa)"
+            ],
+            "badge": null
+        },
+        {
+            "id": "ultra-home-office",
+            "linha": "ULTRA",
+            "nome": "Ultra Home Office",
+            "tagline": "Profissional \/ empresa em casa",
+            "velocidade": "1",
+            "unidade": "Giga",
+            "precoPontual": 218.6,
+            "precoCheio": 228.6,
+            "features": [
+                "Internet 1 Giga de fibra",
+                "SKY+ Light + Disney+",
+                "Roteador Mesh premium"
+            ],
+            "badge": "Tudo incluso · Top",
+            "upsellTop": true
+        }
+    ],
+    "addons": [
+        {
+            "id": "ponto-fast",
+            "nome": "Ponto adicional Fast",
+            "descricao": "Leve fibra para outro cômodo.",
+            "icone": "ph-fill ph-plug",
+            "preco": 10,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "ponto-giga",
+            "nome": "Ponto adicional Giga",
+            "descricao": "Ponto extra com velocidade Giga.",
+            "icone": "ph-fill ph-plug",
+            "preco": 20,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "ponto-giga-mesh",
+            "nome": "Ponto adicional Giga Mesh",
+            "descricao": "Ponto extra com cobertura mesh.",
+            "icone": "ph-fill ph-wifi-high",
+            "preco": 30,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "deezer",
+            "nome": "Deezer",
+            "descricao": "Música sem anúncios em alta qualidade.",
+            "icone": "ph-fill ph-music-notes",
+            "preco": 19.9,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "globoplay-ads",
+            "nome": "Globoplay com anúncios",
+            "descricao": "Novelas, séries e esportes ao vivo.",
+            "icone": "ph-fill ph-monitor-play",
+            "preco": 24.9,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "globoplay-noads",
+            "nome": "Globoplay sem anúncios",
+            "descricao": "Novelas, séries e esportes sem comerciais.",
+            "icone": "ph-fill ph-monitor-play",
+            "preco": 35.9,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "disney-ads",
+            "nome": "Disney+ com anúncios",
+            "descricao": "Disney, Pixar, Marvel, Star Wars.",
+            "icone": "ph-fill ph-popcorn",
+            "preco": 24.9,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "disney-noads",
+            "nome": "Disney+ sem anúncios",
+            "descricao": "Disney completo, sem comerciais.",
+            "icone": "ph-fill ph-popcorn",
+            "preco": 35.9,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "hbo-max",
+            "nome": "HBO Max",
+            "descricao": "Filmes, séries originais e Warner.",
+            "icone": "ph-fill ph-film-strip",
+            "preco": 34.9,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "sky-amazon",
+            "nome": "SKY+ Light + Amazon",
+            "descricao": "TV ao vivo + Prime Video.",
+            "icone": "ph-fill ph-television-simple",
+            "preco": 39.9,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "sky-light",
+            "nome": "SKY+ Light",
+            "descricao": "Canais ao vivo no celular e TV.",
+            "icone": "ph-fill ph-television-simple",
+            "preco": 19.9,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "exitlag",
+            "nome": "Exitlag",
+            "descricao": "Otimizador de ping pra gamers.",
+            "icone": "ph-fill ph-game-controller",
+            "preco": 10.9,
+            "unidade": "\/mês"
+        },
+        {
+            "id": "kaspersky",
+            "nome": "Kaspersky 3 Licenças",
+            "descricao": "Antivírus premium pra 3 dispositivos.",
+            "icone": "ph-fill ph-shield-check",
+            "preco": 29.9,
+            "unidade": "\/mês"
+        }
+    ],
+    "tracking": {
+        "gtmId": "",
+        "ga4Id": "",
+        "googleAdsId": "",
+        "googleAdsConversions": {
+            "lead": "",
+            "purchase": "",
+            "whatsappClick": ""
+        },
+        "facebookPixelId": "",
+        "enableTracking": false
     }
-  ],
-  "bairros": [
-    { "nome": "Comasa", "dataBairro": "Comasa", "lat": -26.2798, "lng": -48.8016 },
-    { "nome": "Boa Vista", "dataBairro": "Boa Vista", "lat": -26.2980, "lng": -48.8224 },
-    { "nome": "Espinheiros", "dataBairro": "Espinheiros", "lat": -26.2836, "lng": -48.7810 },
-    { "nome": "Aventureiro", "dataBairro": "Aventureiro", "lat": -26.2435, "lng": -48.8105 },
-    { "nome": "Jardim Paraíso", "dataBairro": "Jd. Paraiso", "lat": -26.2124, "lng": -48.8228 },
-    { "nome": "Jardim Sofia", "dataBairro": "Jd. Sofia", "lat": -26.2385, "lng": -48.8410 },
-    { "nome": "Cubatão", "dataBairro": "Cubatao", "lat": -26.2175, "lng": -48.7992 },
-    { "nome": "Itinga", "dataBairro": "Itinga", "lat": -26.3827, "lng": -48.8257 },
-    { "nome": "Nova Brasília", "dataBairro": "Nova Brasilia", "lat": -26.3418, "lng": -48.8710 },
-    { "nome": "Rio Bonito", "dataBairro": "Rio Bonito", "lat": -26.1682, "lng": -48.8999 },
-    { "nome": "Estrada Timbé", "dataBairro": "Estr. Timbe", "lat": -26.2217, "lng": -48.8234 },
-    { "nome": "Paranaguamirim", "dataBairro": "Paranaguamirim", "lat": -26.3458, "lng": -48.7705 },
-    { "nome": "Iririú", "dataBairro": "Iririu", "lat": -26.2650, "lng": -48.8165 }
-  ],
-  "depoimentos": [
-    {
-      "nome": "Rodrigo M.",
-      "local": "Bairro Comasa",
-      "texto": "Troquei da Vivo pra MasterInfo e a diferença é absurda. Nunca mais caiu a internet no meio do home office.",
-      "estrelas": 5
-    },
-    {
-      "nome": "Ana Paula S.",
-      "local": "Bairro Boa Vista",
-      "texto": "O suporte é outro nível. Mandei mensagem no WhatsApp às 21h e o técnico respondeu na hora. Nunca vi isso.",
-      "estrelas": 5
-    },
-    {
-      "nome": "Carlos E.",
-      "local": "Bairro Aventureiro",
-      "texto": "Meu filho joga o dia inteiro e eu trabalho com vídeo. Com 600 mega não trava nada. Melhor custo-benefício.",
-      "estrelas": 5
-    }
-  ],
-  "faq": [
-    {
-      "pergunta": "Vocês são de Joinville?",
-      "resposta": "<strong>Sim.</strong> Nossa empresa nasceu aqui — são <strong>mais de 6 anos</strong> levando internet pra Joinville. Equipe local, técnicos da região."
-    },
-    {
-      "pergunta": "Quanto tempo demora a instalação?",
-      "resposta": "Na maioria dos casos, <strong>instalamos em até 3 dias</strong> após a contratação. Sem aquela história de \"7 a 15 dias úteis\"."
-    },
-    {
-      "pergunta": "Tem fidelidade?",
-      "resposta": "<strong>Sim, 12 meses.</strong> É o padrão pra garantir o investimento da instalação. Depois disso, você fica porque quer."
-    },
-    {
-      "pergunta": "A internet é boa pra gamer?",
-      "resposta": "Muito. <strong>Ping baixo e latência estável</strong> — fibra óptica direto até sua casa, sem cabo compartilhado. Ideal pra jogar online, streamar e fazer live sem travamento."
-    },
-    {
-      "pergunta": "O Wi-Fi pega em toda a casa?",
-      "resposta": "Sim. Trabalhamos com <strong>metodologia de Wi-Fi premium</strong> — temos planos que já vêm com <strong>2 roteadores</strong> pra cobrir cada canto da casa, sem ponto cego."
-    }
-  ],
-  "planos": [
-    {
-      "id": "lite-casa",
-      "linha": "LITE",
-      "nome": "Lite Casa",
-      "tagline": "Casal / casa pequena",
-      "velocidade": "600",
-      "unidade": "Mega",
-      "precoPontual": 99.90,
-      "precoCheio": 109.90,
-      "features": ["Internet 600 Mega de fibra", "SKY+ Light grátis (TV)", "Wi-Fi + instalação 3 dias"],
-      "badge": null
-    },
-    {
-      "id": "lite-familia",
-      "linha": "LITE",
-      "nome": "Lite Família",
-      "tagline": "Família média / vários devices",
-      "velocidade": "800",
-      "unidade": "Mega",
-      "precoPontual": 109.00,
-      "precoCheio": 119.00,
-      "features": ["Internet 800 Mega de fibra", "SKY+ Light grátis (TV)", "Wi-Fi + instalação 3 dias"],
-      "badge": "Pra família"
-    },
-    {
-      "id": "lite-home-office",
-      "linha": "LITE",
-      "nome": "Lite Home Office",
-      "tagline": "Trabalho remoto / reuniões",
-      "velocidade": "1",
-      "unidade": "Giga",
-      "precoPontual": 119.90,
-      "precoCheio": 129.90,
-      "features": ["Internet 1 Giga de fibra", "SKY+ Light ou Deezer (à escolha)", "Estabilidade pra reuniões"],
-      "badge": "Mais procurado",
-      "heroi": true
-    },
-    {
-      "id": "ultra-familia",
-      "linha": "ULTRA",
-      "nome": "Ultra Família",
-      "tagline": "Família grande + streaming completo",
-      "velocidade": "800",
-      "unidade": "Mega",
-      "precoPontual": 139.90,
-      "precoCheio": 159.90,
-      "features": ["Internet 800 Mega de fibra", "GloboPlay incluso", "Roteador Mesh (Wi-Fi em toda casa)"],
-      "badge": null
-    },
-    {
-      "id": "ultra-home-office",
-      "linha": "ULTRA",
-      "nome": "Ultra Home Office",
-      "tagline": "Profissional / empresa em casa",
-      "velocidade": "1",
-      "unidade": "Giga",
-      "precoPontual": 218.60,
-      "precoCheio": 228.60,
-      "features": ["Internet 1 Giga de fibra", "SKY+ Light + Disney+", "Roteador Mesh premium"],
-      "badge": "Tudo incluso · Top",
-      "upsellTop": true
-    }
-  ],
-  "addons": [
-    {
-      "id": "ponto-fast",
-      "nome": "Ponto adicional Fast",
-      "descricao": "Leve fibra para outro cômodo.",
-      "icone": "ph-fill ph-plug",
-      "preco": 10.00,
-      "unidade": "/mês"
-    },
-    {
-      "id": "ponto-giga",
-      "nome": "Ponto adicional Giga",
-      "descricao": "Ponto extra com velocidade Giga.",
-      "icone": "ph-fill ph-plug",
-      "preco": 20.00,
-      "unidade": "/mês"
-    },
-    {
-      "id": "ponto-giga-mesh",
-      "nome": "Ponto adicional Giga Mesh",
-      "descricao": "Ponto extra com cobertura mesh.",
-      "icone": "ph-fill ph-wifi-high",
-      "preco": 30.00,
-      "unidade": "/mês"
-    },
-    {
-      "id": "deezer",
-      "nome": "Deezer",
-      "descricao": "Música sem anúncios em alta qualidade.",
-      "icone": "ph-fill ph-music-notes",
-      "preco": 19.90,
-      "unidade": "/mês"
-    },
-    {
-      "id": "globoplay-ads",
-      "nome": "Globoplay com anúncios",
-      "descricao": "Novelas, séries e esportes ao vivo.",
-      "icone": "ph-fill ph-monitor-play",
-      "preco": 24.90,
-      "unidade": "/mês"
-    },
-    {
-      "id": "globoplay-noads",
-      "nome": "Globoplay sem anúncios",
-      "descricao": "Novelas, séries e esportes sem comerciais.",
-      "icone": "ph-fill ph-monitor-play",
-      "preco": 35.90,
-      "unidade": "/mês"
-    },
-    {
-      "id": "disney-ads",
-      "nome": "Disney+ com anúncios",
-      "descricao": "Disney, Pixar, Marvel, Star Wars.",
-      "icone": "ph-fill ph-popcorn",
-      "preco": 24.90,
-      "unidade": "/mês"
-    },
-    {
-      "id": "disney-noads",
-      "nome": "Disney+ sem anúncios",
-      "descricao": "Disney completo, sem comerciais.",
-      "icone": "ph-fill ph-popcorn",
-      "preco": 35.90,
-      "unidade": "/mês"
-    },
-    {
-      "id": "hbo-max",
-      "nome": "HBO Max",
-      "descricao": "Filmes, séries originais e Warner.",
-      "icone": "ph-fill ph-film-strip",
-      "preco": 34.90,
-      "unidade": "/mês"
-    },
-    {
-      "id": "sky-amazon",
-      "nome": "SKY+ Light + Amazon",
-      "descricao": "TV ao vivo + Prime Video.",
-      "icone": "ph-fill ph-television-simple",
-      "preco": 39.90,
-      "unidade": "/mês"
-    },
-    {
-      "id": "sky-light",
-      "nome": "SKY+ Light",
-      "descricao": "Canais ao vivo no celular e TV.",
-      "icone": "ph-fill ph-television-simple",
-      "preco": 19.90,
-      "unidade": "/mês"
-    },
-    {
-      "id": "exitlag",
-      "nome": "Exitlag",
-      "descricao": "Otimizador de ping pra gamers.",
-      "icone": "ph-fill ph-game-controller",
-      "preco": 10.90,
-      "unidade": "/mês"
-    },
-    {
-      "id": "kaspersky",
-      "nome": "Kaspersky 3 Licenças",
-      "descricao": "Antivírus premium pra 3 dispositivos.",
-      "icone": "ph-fill ph-shield-check",
-      "preco": 29.90,
-      "unidade": "/mês"
-    }
-  ],
-  "tracking": {
-    "gtmId": "",
-    "ga4Id": "",
-    "googleAdsId": "",
-    "googleAdsConversions": {
-      "lead": "",
-      "purchase": "",
-      "whatsappClick": ""
-    },
-    "facebookPixelId": "",
-    "enableTracking": false
-  }
 }

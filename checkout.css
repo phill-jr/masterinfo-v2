@@ -33,6 +33,99 @@
   color: var(--orange);
 }
 
+/* ═══ INTERCALADO (tema claro): card de Resumo ESCURO sobre fundo claro ═══ */
+/* Redefine as variaveis localmente no card -> todo o conteudo herda tons dark,
+   sem reescrever cada regra. Laranja/verde (--orange/--success) ficam intactos. */
+[data-theme="claro"] .ck-summary-card {
+  --gray-900: #1c1c24;
+  --gray-850: #24242e;
+  --gray-800: #30303d;
+  --gray-700: #3a3a47;
+  --white: #ffffff;
+  --gray-500: #9a9aa8;
+  --gray-400: #b4b4c0;
+  --gray-300: #d2d2dc;
+  background: linear-gradient(165deg, #20202a 0%, #16161c 100%);
+  border: 1px solid #30303d;
+  color: #f2f2f5;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+}
+/* Step bar escura pra reforcar o ritmo claro/escuro */
+[data-theme="claro"] .checkout-steps {
+  background: #1c1c24;
+  border-bottom-color: #30303d;
+}
+[data-theme="claro"] .checkout-steps .ck-step-label { color: #c8c8d4; }
+[data-theme="claro"] .checkout-steps .ck-step:not(.active):not(.completed) .ck-step-num {
+  background: #30303d;
+  color: #b4b4c0;
+  border-color: #3a3a47;
+}
+
+/* ─── Desconto "pagando em dia" ─── */
+.ck-summary-desconto {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--success);
+}
+.ck-summary-desconto i { font-size: 1rem; }
+
+.ck-plan-desconto {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--success);
+}
+.ck-plan-desconto strong { font-weight: 700; }
+.ck-plan-desconto i { font-size: 1rem; }
+
+/* ─── Logo: troca de versao por tema (claro = MASTER preto, black = MASTER branco) ─── */
+.checkout-header .logo-dark { display: none; }
+[data-theme="black"] .checkout-header .logo-light { display: none; }
+[data-theme="black"] .checkout-header .logo-dark { display: block; }
+
+/* ─── Tema BLACK "meio termo": grafite suave em vez de preto puro ─── */
+/* Reescala os tons de fundo pra um grafite mais leve, mantendo a hierarquia
+   (cada superficie um pouco mais clara que a anterior). So no checkout. */
+[data-theme="black"] {
+  --black: #17171d;
+  --bg-base: #17171d;
+  --gray-950: #1c1c24;
+  --gray-900: #22222c;
+  --gray-850: #282833;
+  --gray-800: #30303d;
+}
+[data-theme="black"] body { background: #17171d; }
+/* Glow quente do fundo: bem mais sutil pra tirar o "peso" */
+[data-theme="black"] body::before { opacity: 0.35; }
+
+/* ─── Overrides do tema BLACK: cores fixas do header que assumiam fundo claro ─── */
+[data-theme="black"] .checkout-header {
+  background: rgba(13, 13, 16, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Tema BLACK: legibilidade dos campos de formulario ─── */
+/* Placeholder gray-600 (#4a4a5a) fica ilegivel sobre input escuro; clareia. */
+[data-theme="black"] .ck-form-grid .mi-field input::placeholder,
+[data-theme="black"] .ck-cep-field input::placeholder {
+  color: var(--gray-400);
+}
+/* Inputs: superficie um pouco mais elevada + borda mais definida sobre o fundo escuro */
+[data-theme="black"] .ck-form-grid .mi-field input,
+[data-theme="black"] .ck-cep-field input {
+  background: var(--gray-850);
+  border-color: var(--gray-600);
+  color: #fafafa;
+}
+
 /* ─── Step Bar ─── */
 .checkout-steps {
   background: var(--gray-950);
@@ -854,7 +947,13 @@
 /* ─── Success ─── */
 .ck-success {
   text-align: center;
-  padding: 40px 0;
+  padding: 48px 32px;
+  max-width: 520px;
+  margin: 40px auto;
+  background: var(--gray-900);
+  border: 1px solid var(--gray-800);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .ck-success-icon {
@@ -906,10 +1005,11 @@
 }
 
 .ck-btn-back-home {
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   align-items: center;
   gap: 6px;
-  margin-top: 16px;
+  margin: 18px auto 0;
   font-size: 0.9rem;
   color: var(--gray-400);
   transition: color 0.2s;
@@ -917,6 +1017,21 @@
 
 .ck-btn-back-home:hover {
   color: var(--orange);
+}
+
+/* Desktop: centraliza verticalmente a tela de sucesso (no mobile fica no topo) */
+@media (min-width: 900px) {
+  .ck-step-content:has(> .ck-success),
+  #ckSuccess:has(> .ck-success) {
+    min-height: calc(100vh - 170px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ck-step-content:has(> .ck-success) .ck-success,
+  #ckSuccess:has(> .ck-success) .ck-success {
+    margin: 0;
+  }
 }
 
 /* ─── Sidebar ─── */

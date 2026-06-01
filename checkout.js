@@ -16,6 +16,27 @@
 
   var API_BASE = 'api/';
 
+  // ─── Aliases de ID de plano ───
+  // Os links do site (index.html) usam IDs por velocidade/linha (600, ultra-800...),
+  // mas o config.json usa IDs nominais (lite-casa, ultra-familia...). Este mapa
+  // traduz os IDs legados/do site para o ID canonico do config.
+  var PLAN_ALIASES = {
+    '600': 'lite-casa',
+    '800': 'lite-familia',
+    '1000': 'lite-home-office',
+    'ultra-800': 'ultra-familia',
+    'ultra-1000': 'ultra-home-office'
+  };
+
+  // ─── Tema do checkout (claro | black) ───
+  function applyCheckoutTheme(tema) {
+    var dark = tema === 'black';
+    document.documentElement.setAttribute('data-theme', tema);
+    var set = function (id, off) { var el = document.getElementById(id); if (el) el.disabled = off; };
+    set('cssDark', !dark);  set('cssModalDark', !dark);
+    set('cssLight', dark);  set('cssModalLight', dark);
+  }
+
   // ─── Load config from JSON ───
   function loadCheckoutConfig(callback) {
     fetch('config.json?v=' + Date.now())
@@ -25,6 +46,11 @@
         CHECKOUT_MODE = cfg.checkout && cfg.checkout.modo || 'simples';
         WHATSAPP_NUMBER = cfg.checkout && cfg.checkout.whatsapp || '5547989212991';
 
+        // Tema (claro | black) — definido no admin, global
+        var tema = (cfg.checkout && cfg.checkout.tema) || 'claro';
+        try { localStorage.setItem('mi_checkout_tema', tema); } catch (e) {}
+        applyCheckoutTheme(tema);
+
         // Plans: convert array to object
         PLANS = {};
         (cfg.planos || []).forEach(function(p) {
@@ -33,7 +59,10 @@
             name: p.nome,
             speed: p.velocidade,
             speedUnit: p.unidade,
-            price: p.preco,
+            // Preco CHEIO (sem desconto). Fallbacks defensivos p/ nunca ficar undefined.
+            price: (p.precoCheio != null ? p.precoCheio : (p.precoPontual != null ? p.precoPontual : p.preco)) || 0,
+            // Preco PONTUAL (com desconto pagando em dia). Fallback = cheio.
+            pricePontual: (p.precoPontual != null ? p.precoPontual : (p.precoCheio != null ? p.precoCheio : p.preco)) || 0,
             features: p.features || [],
             includesTV: p.incluiTV || false,
             badge: p.badge || null,
@@ -88,6 +117,11 @@
   function init() {
     var params = new URLSearchParams(window.location.search);
     var planoParam = params.get('plano');
+
+    // Traduz ID legado/do site (ex: ultra-800) para o ID canonico do config
+    if (planoParam && PLAN_ALIASES[planoParam]) {
+      planoParam = PLAN_ALIASES[planoParam];
+    }
 
     if (planoParam && PLANS[planoParam]) {
       selectPlan(planoParam);
@@ -236,7 +270,7 @@
           '<a href="' + whatsLink + '" class="ck-btn-whatsapp" target="_blank">' +
             '<i class="ph-fill ph-whatsapp-logo"></i> Abrir WhatsApp novamente' +
           '</a>' +
-          '<a href="index-light.html" class="ck-btn-back-home">' +
+          '<a href="index.html" class="ck-btn-back-home">' +
             '<i class="ph ph-arrow-left"></i> Voltar ao site' +
           '</a>' +
         '</div>';
@@ -275,6 +309,7 @@
             '<div class="ck-plan-name">' + p.name + '</div>' +
             '<div class="ck-plan-speed">' + p.speed + ' <small>' + p.speedUnit + '</small></div>' +
             '<div class="ck-plan-price">R$ ' + formatPrice(p.price) + ' <small>/mes</small></div>' +
+            ((p.price - p.pricePontual) > 0 ? '<div class="ck-plan-desconto"><i class="ph-fill ph-check-circle"></i> R$ ' + formatPrice(p.pricePontual) + ' pagando em dia <strong>(R$ ' + formatPrice(p.price - p.pricePontual) + ' OFF)</strong></div>' : '') +
             '<ul class="ck-plan-features">' +
               p.features.map(function (f) { return '<li><i class="ph-fill ph-check-circle"></i> ' + f + '</li>'; }).join('') +
             '</ul>' +
@@ -934,6 +969,18 @@
     // Total
     if (totalEl) totalEl.textContent = 'R$ ' + formatPrice(state.totalMensal);
 
+    // Desconto "pagando em dia"
+    var descEl = document.getElementById('ckSummaryDesconto');
+    var descTxtEl = document.getElementById('ckSummaryDescontoTxt');
+    if (descEl && descTxtEl) {
+      if (state.descontoPontual > 0) {
+        descTxtEl.textContent = 'R$ ' + formatPrice(state.totalPontual) + ' pagando em dia (R$ ' + formatPrice(state.descontoPontual) + ' OFF)';
+        descEl.style.display = '';
+      } else {
+        descEl.style.display = 'none';
+      }
+    }
+
     // Setup
     if (setupContainer) {
       if (state.totalInstalacao > 0) {
@@ -966,6 +1013,11 @@
 
     state.totalMensal = mensal;
     state.totalInstalacao = instalacao;
+
+    // Desconto "pagando em dia" (so do plano; addons nao tem desconto)
+    var descontoPlano = state.plan ? Math.max(0, state.plan.price - state.plan.pricePontual) : 0;
+    state.descontoPontual = descontoPlano;
+    state.totalPontual = Math.max(0, state.totalMensal - descontoPlano);
   }
 
   function getActiveAddons() {
