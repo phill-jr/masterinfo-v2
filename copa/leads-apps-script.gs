@@ -53,7 +53,7 @@ function doGet(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var values = sheet.getDataRange().getValues();
   return ContentService
-    .createTextOutput(JSON.stringify({ result: 'ok', rows: values }))
+    .createTextOutput(JSON.stringify({ result: 'ok', version: 'v2-form', rows: values }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
