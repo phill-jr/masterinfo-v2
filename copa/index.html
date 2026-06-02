@@ -454,6 +454,16 @@
           origem: 'pre-venda-copa'
         };
 
+        // Envia TAMBEM pro Bitrix24 (em paralelo ao Sheets — redundancia).
+        // Em host PHP cai direto no funil; no GitHub Pages falha em silencio.
+        try {
+          fetch('../api/form-submit.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ form: 'pre-venda-copa', data: dados })
+          }).catch(function() {});
+        } catch (e) {}
+
         // Método à prova de falha: form POST -> iframe oculto.
         // Funciona com Apps Script (segue o redirect, sem barreira de CORS).
         var iframe = document.createElement('iframe');

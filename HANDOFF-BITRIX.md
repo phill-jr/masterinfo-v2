@@ -1,15 +1,17 @@
-# 🚧 HANDOFF — Integração Bitrix24 (em construção)
+# ✅ HANDOFF — Integração Bitrix24 (COMPLETA)
 
 > Última atualização: 01/06/2026 · Quem deixou: Philipe + Claude
-> **Status: 1 de 3 fases concluídas (Backend pronto, falta UI do admin e migração do form)**
+> **Status: 3 de 3 fases concluídas — integração funcionando ponta a ponta.**
 
 ## 📋 Status atual
 
 | Fase | O que é | Status |
 |---|---|---|
-| **B1 — Backend PHP** | 6 endpoints de admin + 1 endpoint público que recebe forms e manda pro Bitrix | ✅ **Pronto** (commit `47dd2be`) |
-| **B2 — Painel Admin UI** | Aba nova no `admin.html` com testar conexão, apelidos UF_CRM, configurar form por form | ⏳ Não começou |
-| **B3 — Migrar form da Copa** | Trocar URL do Apps Script por `/api/form-submit.php` no `copa/index.html` | ⏳ Depende de B2 |
+| **B1 — Backend PHP** | 6 endpoints de admin + 1 endpoint público que recebe forms e manda pro Bitrix | ✅ **Pronto** + 🐛 corrigido bug de sintaxe no `form-submit.php` (`match` não pode retornar referência → trocado por `if/elseif`; antes dava 500 sempre) |
+| **B2 — Painel Admin UI** | Aba "Bitrix" no `admin.html`: testar conexão + configurar formulários (tipo, funil, etapa, mapeamento por dropdown dos campos do Bitrix, testar com dados fake) | ✅ **Pronto** |
+| **B3 — Migrar form da Copa** | `copa/index.html` envia pro `/api/form-submit.php` em paralelo ao Google Sheets (redundância) | ✅ **Pronto** |
+
+> **Nota de UI (B2):** o card de "apelidos UF_CRM" foi descartado — em vez de apelidar 248 campos, o mapeamento do formulário usa um **dropdown** que lista os campos de Contato + Negócio direto do Bitrix (nome amigável + código), agrupados. Mais simples e direto.
 
 ## ✅ O que JÁ tá pronto e funcionando (B1)
 
@@ -145,4 +147,6 @@ curl https://SITE/api/form-submit.php \
 
 ---
 
-**Próximo passo recomendado:** começar pela Fase B2, card por card. O backend (B1) já responde, então quem pegar pode focar 100% no frontend.
+**Status final:** integração completa e validada localmente (conexão, listagem de funis/etapas/campos, salvar mapeamento, criar deal de teste ponta a ponta). Próximo passo é só **ativar em produção** (host PHP): subir o repo, criar o `secrets/config.php` real e migrar o DNS/hospedagem do GitHub Pages (que não roda PHP) pra um servidor com PHP 8+.
+
+> ⚠️ Deals de teste criados durante a validação (apagar no Bitrix): `394256`, `394294`, `394296` + contato `79986`.

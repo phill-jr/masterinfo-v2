@@ -76,13 +76,12 @@ try {
         [$dest, $field] = explode('.', $target, 2) + [null, null];
         if (!$field) continue;
 
-        $bucket = match ($dest) {
-            'CONTACT' => &$contactFields,
-            'DEAL'    => &$dealFields,
-            'LEAD'    => &$leadFields,
-            default   => null,
-        };
-        if ($bucket === null) continue;
+        // (nao da pra retornar referencia de um match arm em PHP -> usa if/elseif)
+        unset($bucket);
+        if ($dest === 'CONTACT')   { $bucket = &$contactFields; }
+        elseif ($dest === 'DEAL')  { $bucket = &$dealFields; }
+        elseif ($dest === 'LEAD')  { $bucket = &$leadFields; }
+        else { continue; }
 
         // PHONE/EMAIL precisam vir como array de objetos
         if ($field === 'PHONE') {
