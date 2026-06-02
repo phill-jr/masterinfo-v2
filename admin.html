@@ -58,9 +58,9 @@
     .admin-status.error { color: var(--red); }
 
     .admin-body {
-      max-width: 900px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 32px 24px;
+      padding: 32px 40px;
     }
 
     /* Tabs */
@@ -1085,14 +1085,14 @@
       '<div class="bx-grid">' +
         '<div class="bx-fld" style="flex:2;"><label>Título / rótulo</label><input type="text" class="bxf-label" value="' + bxEsc(cfg.label || '') + '"></div>' +
         '<div class="bx-fld"><label>Tipo</label><div class="bx-radios">' +
-          '<label><input type="radio" name="bxent_' + bxEsc(slug) + '" value="deal"' + (ent === 'deal' ? ' checked' : '') + '> Negócio</label>' +
-          '<label><input type="radio" name="bxent_' + bxEsc(slug) + '" value="lead"' + (ent === 'lead' ? ' checked' : '') + '> Lead</label>' +
+          '<label><input type="radio" name="bxent_' + bxEsc(slug) + '" value="deal"' + (ent === 'deal' ? ' checked' : '') + ' onchange="bxOnEntityChange(this,\'' + bxEsc(slug) + '\')"> Negócio</label>' +
+          '<label><input type="radio" name="bxent_' + bxEsc(slug) + '" value="lead"' + (ent === 'lead' ? ' checked' : '') + ' onchange="bxOnEntityChange(this,\'' + bxEsc(slug) + '\')"> Lead</label>' +
         '</div></div>' +
       '</div>' +
       '<div class="bx-grid">' +
-        '<div class="bx-fld"><label>Funil</label><select class="bxf-cat" onchange="bxOnFunilChange(this,\'' + bxEsc(slug) + '\')">' + bxCatOptions(cfg.category_id || 0) + '</select></div>' +
+        '<div class="bx-fld bxf-deal-only"' + (ent === 'lead' ? ' style="display:none;"' : '') + '><label>Funil</label><select class="bxf-cat" onchange="bxOnFunilChange(this,\'' + bxEsc(slug) + '\')">' + bxCatOptions(cfg.category_id || 0) + '</select></div>' +
         '<div class="bx-fld"><label>Etapa inicial</label><select class="bxf-stage"><option>…</option></select></div>' +
-        '<div class="bx-fld" style="flex:2;"><label>Título do negócio (use {campo})</label><input type="text" class="bxf-title" value="' + bxEsc(cfg.deal_title_template || '') + '" placeholder="Ex: Lead — {nome} ({bairro})"></div>' +
+        '<div class="bx-fld bxf-deal-only" style="flex:2;' + (ent === 'lead' ? 'display:none;' : '') + '"><label>Título do negócio (use {campo})</label><input type="text" class="bxf-title" value="' + bxEsc(cfg.deal_title_template || '') + '" placeholder="Ex: Lead — {nome} ({bairro})"></div>' +
       '</div>' +
       '<div class="bx-maps-label">Mapeamento: campo do formulário → campo do Bitrix</div>' +
       '<div class="bxf-maps">' + mapRows + '</div>' +
@@ -1112,7 +1112,7 @@
     var slugs = Object.keys(forms);
     if (!slugs.length) { box.innerHTML = '<div class="bx-empty">Nenhum formulário configurado.</div>'; return; }
     box.innerHTML = slugs.map(function(slug) { return bxFormBlock(slug, forms[slug]); }).join('');
-    slugs.forEach(function(slug) { bxLoadStages(slug, forms[slug].category_id || 0, forms[slug].stage_id); });
+    slugs.forEach(function(slug) { var f = forms[slug]; bxLoadStages(slug, f.category_id || 0, f.stage_id, null, f.entity || 'deal'); });
   };
 
   window.bxAddMapRow = function(btn) {
@@ -1120,24 +1120,43 @@
   };
 
   window.bxOnFunilChange = function(sel, slug) {
-    bxLoadStages(slug, parseInt(sel.value, 10) || 0, null, sel.closest('.bx-form-block'));
+    bxLoadStages(slug, parseInt(sel.value, 10) || 0, null, sel.closest('.bx-form-block'), 'deal');
   };
 
-  function bxLoadStages(slug, catId, selected, block) {
+  // Ao alternar Negócio/Lead: esconde funil+título (só Deal) e recarrega as etapas
+  // do tipo certo (Lead usa status de lead; Deal usa etapas do funil).
+  window.bxOnEntityChange = function(radio, slug) {
+    var block = radio.closest('.bx-form-block');
+    var isLead = radio.value === 'lead';
+    block.querySelectorAll('.bxf-deal-only').forEach(function(el) { el.style.display = isLead ? 'none' : ''; });
+    if (isLead) {
+      bxLoadStages(slug, 0, null, block, 'lead');
+    } else {
+      var catId = parseInt(block.querySelector('.bxf-cat').value, 10) || 0;
+      bxLoadStages(slug, catId, null, block, 'deal');
+    }
+  };
+
+  function bxLoadStages(slug, catId, selected, block, entity) {
+    entity = entity || 'deal';
     block = block || document.querySelector('.bx-form-block[data-slug="' + slug + '"]');
     if (!block) return;
     var stageSel = block.querySelector('.bxf-stage');
     stageSel.innerHTML = '<option>carregando…</option>';
-    fetch('api/admin/bitrix-stages.php?entity=deal&category_id=' + catId, { credentials: 'same-origin' })
+    // token anti-race: so a resposta do ultimo pedido popula o select
+    var token = entity + ':' + catId + ':' + (Date.now()) + ':' + Math.random();
+    block.dataset.stageToken = token;
+    fetch('api/admin/bitrix-stages.php?entity=' + entity + '&category_id=' + catId, { credentials: 'same-origin' })
       .then(function(r) { return r.json(); })
       .then(function(d) {
+        if (block.dataset.stageToken !== token) return; // pedido obsoleto -> ignora
         if (d && d.ok) {
           stageSel.innerHTML = (d.stages || []).map(function(s) {
             return '<option value="' + bxEsc(s.status_id) + '"' + (s.status_id === selected ? ' selected' : '') + '>' + bxEsc(s.name) + '</option>';
           }).join('');
         } else { stageSel.innerHTML = '<option>erro</option>'; }
       })
-      .catch(function() { stageSel.innerHTML = '<option>erro</option>'; });
+      .catch(function() { if (block.dataset.stageToken === token) stageSel.innerHTML = '<option>erro</option>'; });
   }
 
   window.bxSaveForm = function(btn, slug) {
