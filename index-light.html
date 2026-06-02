@@ -3,6 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tema do site (black|light): redireciona entre index.html e index-light.html conforme config.tema -->
+  <script>
+    (function () {
+      var here = /index-light/.test(location.pathname) ? 'light' : 'black';
+      function go(theme) {
+        if (theme !== here) location.replace((theme === 'light' ? 'index-light.html' : 'index.html') + location.search + location.hash);
+      }
+      try { var c = localStorage.getItem('mi_site_tema'); if (c === 'light' || c === 'black') go(c); } catch (e) {}
+      fetch('config.json?v=' + Date.now()).then(function (r) { return r.json(); }).then(function (cfg) {
+        var t = (cfg && cfg.tema === 'light') ? 'light' : 'black';
+        try { localStorage.setItem('mi_site_tema', t); } catch (e) {}
+        go(t);
+      }).catch(function () {});
+    })();
+  </script>
+
   <title>MasterInfo Internet | Fibra Óptica 100% em Joinville</title>
   <meta name="description" content="Internet fibra óptica 100% em Joinville. Planos de 400Mega a 1Giga. Atendimento local, instalação rápida nos bairros Comasa, Boa Vista, Espinheiros e região.">
 
@@ -1401,6 +1418,7 @@
 
   <script src="script.js"></script>
   <script src="modal.js"></script>
+  <script src="site-loader.js"></script>
 
   <!-- Mapa de Cobertura Leaflet -->
   <script>

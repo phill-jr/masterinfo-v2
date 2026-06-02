@@ -1,13 +1,38 @@
 # MasterInfo Internet - robots.txt
+
+# ─── Buscadores tradicionais ───
 User-agent: *
 Allow: /
-
-# Bloquear admin e APIs
 Disallow: /admin.html
 Disallow: /admin-login.html
 Disallow: /api/
 Disallow: /auth/
 Disallow: /secrets/
+
+# ─── Crawlers de IA / GEO (Generative Engine Optimization) ───
+# Liberados para ler e citar a MasterInfo nas respostas das IAs
+# (ChatGPT, Claude, Perplexity, Google AI Overviews/Gemini, Apple Intelligence).
+# As áreas administrativas e de API seguem bloqueadas para todos.
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+Disallow: /admin.html
+Disallow: /admin-login.html
+Disallow: /api/
+Disallow: /auth/
+Disallow: /secrets/
+
+# Conteúdo resumido para LLMs (Generative Engine Optimization)
+# https://masterinfointernet.com/llms.txt
 
 # Sitemap
 Sitemap: https://masterinfointernet.com/sitemap.xml

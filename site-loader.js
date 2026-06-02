@@ -19,8 +19,12 @@
       run('seo', function () { loadSeo(cfg.seo, cfg.empresa, cfg.planos); });
       run('footer', function () { loadFooter(cfg.empresa); });
       run('faq', function () { loadFaq(cfg.faq); });
+      run('faqSchema', function () { loadFaqSchema(cfg.faq); });
       run('planos', function () { loadPlanos(cfg.planos); });
       run('bairros', function () { loadBairros(cfg.bairros); });
+      run('footerMenus', function () { loadFooterMenus(cfg.menus && cfg.menus.footer); });
+      run('secoesOrdem', function () { loadSecoesOrdem(cfg.secoesOrdem); });
+      run('menuHeader', function () { loadMenuHeader(cfg.menuHeader); });
     })
     .catch(function (e) {
       console.warn('[SiteLoader] config.json nao carregado, usando HTML estatico:', e);
@@ -47,7 +51,7 @@
     setMeta('meta[name="twitter:description"]', seo.twitterDescription);
 
     // Regenera o JSON-LD a partir de empresa + planos + seo (evita dados chumbados)
-    var ld = document.querySelector('script[type="application/ld+json"]');
+    var ld = document.getElementById('schema-org') || document.querySelector('script[type="application/ld+json"]');
     if (ld) {
       try {
         ld.textContent = JSON.stringify(buildSchema(seo, emp, planos || []), null, 2);
@@ -83,6 +87,15 @@
       'priceRange': seo.priceRange || '',
       'sameAs': [emp.instagram, emp.facebook].filter(Boolean)
     };
+
+    if (seo.ratingValue) {
+      schema.aggregateRating = {
+        '@type': 'AggregateRating',
+        'ratingValue': String(seo.ratingValue),
+        'bestRating': '5',
+        'ratingCount': String(seo.ratingCount || '')
+      };
+    }
 
     if (planos && planos.length) {
       schema.hasOfferCatalog = {
@@ -156,6 +169,23 @@
     });
   }
 
+  // ─── FAQ Schema (JSON-LD FAQPage sincronizado com o config, p/ SEO + GEO) ───
+  function loadFaqSchema(faqs) {
+    var faqLd = document.getElementById('schema-faq');
+    if (!faqLd || !faqs || !faqs.length) return;
+    faqLd.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': faqs.map(function (f) {
+        return {
+          '@type': 'Question',
+          'name': stripTags(f.pergunta),
+          'acceptedAnswer': { '@type': 'Answer', 'text': stripTags(f.resposta) }
+        };
+      })
+    }, null, 2);
+  }
+
   // ─── Planos: sincroniza os PRECOS dos cards da home a partir do config ───
   // (layout, apps inclusos e features sao bespoke do redesign — nao mexemos)
   function loadPlanos(planos) {
@@ -209,6 +239,161 @@
     }
   }
 
+  // ─── Menu do topo / header (reordena, oculta, edita e regenera os dropdowns) ───
+  function loadMenuHeader(mh) {
+    if (!mh || !mh.itens || !mh.itens.length) return;
+    var nav = document.getElementById('nav'); if (!nav) return;
+    var sales = nav.querySelector('.nav-list-sales');
+    var client = nav.querySelector('.nav-list-client');
+    if (!sales || !client) return;
+
+    function findByHref(h) { var a = nav.querySelector('.nav-list a.nav-link[href="' + h + '"]'); return a ? a.closest('.nav-item') : null; }
+    function findDrop(txt) {
+      var lis = nav.querySelectorAll('.nav-item.has-mega');
+      for (var i = 0; i < lis.length; i++) {
+        var t = lis[i].querySelector('.nav-trigger');
+        if (t && t.textContent.replace(/\s+/g, ' ').trim().indexOf(txt) === 0) return lis[i];
+      }
+      return null;
+    }
+    var FIND = {
+      internet: function () { return findDrop('Internet'); },
+      tv: function () { return findByHref('/tv-streaming'); },
+      cobertura: function () { return findByHref('#cobertura'); },
+      historia: function () { return findByHref('#nossa-historia'); },
+      contato: function () { return findByHref('#contato'); },
+      aplicativos: function () { return findDrop('Aplicativos'); },
+      ajuda: function () { return findDrop('Ajuda'); }
+    };
+
+    mh.itens.forEach(function (it) {
+      var find = FIND[it.key]; if (!find) return;
+      var li = find(); if (!li) return;
+      li.style.display = (it.on === false) ? 'none' : '';
+      if (it.tipo === 'link') {
+        var a = li.querySelector('a.nav-link');
+        if (a) {
+          if (it.label != null) a.textContent = it.label;
+          if (it.href) a.setAttribute('href', it.href);
+          if (it.target) a.setAttribute('target', it.target);
+        }
+      } else {
+        var trig = li.querySelector('.nav-trigger');
+        if (trig && it.label != null) trig.innerHTML = esc(it.label) + ' <i class="ph ph-caret-down nav-trigger-caret"></i>';
+        var dl = li.querySelector('.dropdown-list');
+        if (dl && it.children) {
+          dl.innerHTML = it.children.map(function (c) {
+            var logo = c.logo ? '<img class="dropdown-logo dropdown-logo-real" src="' + esc(c.logo) + '" alt="' + esc(c.label) + '" loading="lazy">' : '';
+            var tgt = c.target ? ' target="' + esc(c.target) + '"' : '';
+            return '<li><a href="' + esc(c.href) + '"' + tgt + ' class="dropdown-link">' + logo + esc(c.label) + '</a></li>';
+          }).join('');
+        }
+      }
+      var ul = (it.lado === 'dir') ? client : sales;
+      ul.appendChild(li);
+    });
+
+    if (mh.clientButton) {
+      var btn = nav.querySelector('.header-client-btn');
+      if (btn) {
+        if (mh.clientButton.href) btn.setAttribute('href', mh.clientButton.href);
+        var sp = btn.querySelector('span');
+        if (sp && mh.clientButton.label != null) sp.textContent = mh.clientButton.label;
+      }
+    }
+
+    rebindMega();
+  }
+
+  // Re-liga o mega-menu (hover desktop + click) apos o nav ser reorganizado.
+  // Guard _megaBound evita listeners duplicados.
+  var _megaDocBound = false;
+  function rebindMega() {
+    var navItems = document.querySelectorAll('#nav .nav-item.has-mega');
+    var backdrop = document.getElementById('megaBackdrop');
+    function closeAll() {
+      navItems.forEach(function (it) { it.classList.remove('is-open'); });
+      if (backdrop) backdrop.classList.remove('is-visible');
+    }
+    navItems.forEach(function (item) {
+      if (item._megaBound) return;
+      item._megaBound = true;
+      var trigger = item.querySelector('.nav-trigger');
+      var hoverTimer;
+      item.addEventListener('mouseenter', function () {
+        if (window.innerWidth < 1024) return;
+        clearTimeout(hoverTimer);
+        navItems.forEach(function (it) { if (it !== item) it.classList.remove('is-open'); });
+        item.classList.add('is-open');
+        if (backdrop) backdrop.classList.add('is-visible');
+      });
+      item.addEventListener('mouseleave', function () {
+        if (window.innerWidth < 1024) return;
+        hoverTimer = setTimeout(function () {
+          item.classList.remove('is-open');
+          if (backdrop) backdrop.classList.remove('is-visible');
+        }, 120);
+      });
+      if (trigger) {
+        trigger.addEventListener('click', function (e) {
+          e.preventDefault();
+          var wasOpen = item.classList.contains('is-open');
+          closeAll();
+          if (!wasOpen) {
+            item.classList.add('is-open');
+            if (backdrop && window.innerWidth >= 1024) backdrop.classList.add('is-visible');
+          }
+        });
+      }
+    });
+    if (!_megaDocBound) {
+      _megaDocBound = true;
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.nav-item.has-mega') && !e.target.closest('.mega-menu')) closeAll();
+      });
+    }
+  }
+
+  // ─── Ordem & visibilidade das secoes da home (move os blocos <section>) ───
+  function loadSecoesOrdem(arr) {
+    if (!arr || !arr.length) return;
+    var MAP = { hero: '.hero', planos1: '#planos', planos2: '.plans-light', historia: '#nossa-historia', cobertura: '#cobertura', depoimentos: '#depoimentos', cta: '.cta-banner', faq: '#faq' };
+    var nodes = [];
+    arr.forEach(function (it) {
+      var sel = MAP[it.key]; if (!sel) return;
+      var el = document.querySelector(sel);
+      if (el && el.tagName === 'SECTION') {
+        el.style.display = (it.on === false) ? 'none' : '';
+        nodes.push(el);
+      }
+    });
+    if (nodes.length < 2) return;
+    var parent = nodes[0].parentNode;
+    var lastDom = nodes[0];
+    nodes.forEach(function (n) {
+      if (lastDom.compareDocumentPosition(n) & Node.DOCUMENT_POSITION_FOLLOWING) lastDom = n;
+    });
+    var anchor = lastDom.nextSibling;
+    nodes.forEach(function (n) { parent.insertBefore(n, anchor); });
+  }
+
+  // ─── Menus do rodape (regenera as 3 colunas a partir do config) ───
+  function loadFooterMenus(cols) {
+    if (!cols || !cols.length) return;
+    var grid = document.querySelector('.footer .footer-grid');
+    if (!grid) return;
+    grid.querySelectorAll('.footer-col').forEach(function (c) { c.remove(); });
+    var html = cols.map(function (col) {
+      var links = (col.links || []).map(function (l) {
+        var icon = l.icone ? '<i class="' + esc(l.icone) + '"></i> ' : '';
+        var tgt = l.target ? ' target="' + esc(l.target) + '"' : '';
+        return '<a href="' + esc(l.href) + '"' + tgt + '>' + icon + esc(l.label) + '</a>';
+      }).join('');
+      return '<div class="footer-col"><h4>' + esc(col.titulo) + '</h4>' + links + '</div>';
+    }).join('');
+    grid.insertAdjacentHTML('beforeend', html);
+  }
+
   // ─── Helpers ───
   function setText(sel, val) {
     var el = document.querySelector(sel);
@@ -231,5 +416,11 @@
     var d = document.createElement('div');
     d.textContent = str;
     return d.innerHTML;
+  }
+  function stripTags(html) {
+    if (html == null) return '';
+    var d = document.createElement('div');
+    d.innerHTML = html;
+    return (d.textContent || d.innerText || '').replace(/\s+/g, ' ').trim();
   }
 })();

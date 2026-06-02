@@ -3,6 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tema do site (black|light): redireciona entre index.html e index-light.html conforme config.tema -->
+  <script>
+    (function () {
+      var here = /index-light/.test(location.pathname) ? 'light' : 'black';
+      function go(theme) {
+        if (theme !== here) location.replace((theme === 'light' ? 'index-light.html' : 'index.html') + location.search + location.hash);
+      }
+      try { var c = localStorage.getItem('mi_site_tema'); if (c === 'light' || c === 'black') go(c); } catch (e) {}
+      fetch('config.json?v=' + Date.now()).then(function (r) { return r.json(); }).then(function (cfg) {
+        var t = (cfg && cfg.tema === 'light') ? 'light' : 'black';
+        try { localStorage.setItem('mi_site_tema', t); } catch (e) {}
+        go(t);
+      }).catch(function () {});
+    })();
+  </script>
+
   <title>MasterInfo Internet | Fibra Óptica 100% em Joinville</title>
   <meta name="description" content="Internet fibra óptica 100% em Joinville. Planos de 400Mega a 1Giga. Atendimento local, instalação rápida nos bairros Comasa, Boa Vista, Espinheiros e região.">
 
@@ -35,8 +52,8 @@
   <meta name="twitter:title" content="MasterInfo Internet | Fibra Óptica em Joinville">
   <meta name="twitter:description" content="Internet fibra óptica de verdade. Planos a partir de R$99,90/mês em Joinville.">
 
-  <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
+  <!-- Schema.org JSON-LD (InternetServiceProvider + Offers + Rating) -->
+  <script type="application/ld+json" id="schema-org">
   {
     "@context": "https://schema.org",
     "@type": "InternetServiceProvider",
@@ -44,6 +61,7 @@
     "description": "Provedor de internet fibra óptica em Joinville, SC",
     "url": "https://masterinfointernet.com",
     "telephone": "+554734341734",
+    "email": "masterinfo@masterinfointernet.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Rua Baltazar Buschler, 628",
@@ -56,7 +74,78 @@
       "@type": "City",
       "name": "Joinville"
     },
-    "priceRange": "R$109 - R$179/mês"
+    "priceRange": "R$ 99,90 - R$ 228,60/mês",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "bestRating": "5",
+      "ratingCount": "2382"
+    },
+    "sameAs": [
+      "https://www.instagram.com/masterinfointernet",
+      "https://www.facebook.com/masterinfointernet"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Planos de Internet Fibra",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Lite Casa 600 Mega",
+          "description": "Internet fibra óptica 600 Mega com SKY+ Light incluso",
+          "price": "99.90",
+          "priceCurrency": "BRL",
+          "url": "https://masterinfointernet.com/checkout.html?plano=lite-casa"
+        },
+        {
+          "@type": "Offer",
+          "name": "Lite Família 800 Mega",
+          "description": "Internet fibra óptica 800 Mega com SKY+ Light incluso",
+          "price": "109.00",
+          "priceCurrency": "BRL",
+          "url": "https://masterinfointernet.com/checkout.html?plano=lite-familia"
+        },
+        {
+          "@type": "Offer",
+          "name": "Lite Home Office 1 Giga",
+          "description": "Internet fibra óptica 1 Giga, ideal para trabalho remoto",
+          "price": "119.90",
+          "priceCurrency": "BRL",
+          "url": "https://masterinfointernet.com/checkout.html?plano=lite-home-office"
+        },
+        {
+          "@type": "Offer",
+          "name": "Ultra Família 800 Mega",
+          "description": "Internet fibra óptica 800 Mega com GloboPlay e roteador Mesh",
+          "price": "139.90",
+          "priceCurrency": "BRL",
+          "url": "https://masterinfointernet.com/checkout.html?plano=ultra-familia"
+        },
+        {
+          "@type": "Offer",
+          "name": "Ultra Home Office 1 Giga",
+          "description": "Internet fibra óptica 1 Giga, tudo incluso com SKY+ Light, Disney+ e Mesh premium",
+          "price": "218.60",
+          "priceCurrency": "BRL",
+          "url": "https://masterinfointernet.com/checkout.html?plano=ultra-home-office"
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Schema.org FAQ (SEO "Perguntas frequentes" + GEO) -->
+  <script type="application/ld+json" id="schema-faq">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Vocês são de Joinville?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Nossa empresa nasceu aqui — são mais de 6 anos levando internet pra Joinville. Equipe local, técnicos da região."}},
+      {"@type": "Question", "name": "Quanto tempo demora a instalação?", "acceptedAnswer": {"@type": "Answer", "text": "Na maioria dos casos, instalamos em até 3 dias após a contratação. Sem aquela história de 7 a 15 dias úteis."}},
+      {"@type": "Question", "name": "Tem fidelidade?", "acceptedAnswer": {"@type": "Answer", "text": "Sim, 12 meses. É o padrão pra garantir o investimento da instalação. Depois disso, você fica porque quer."}},
+      {"@type": "Question", "name": "A internet é boa pra gamer?", "acceptedAnswer": {"@type": "Answer", "text": "Muito. Ping baixo e latência estável — fibra óptica direto até sua casa, sem cabo compartilhado. Ideal pra jogar online, streamar e fazer live sem travamento."}},
+      {"@type": "Question", "name": "O Wi-Fi pega em toda a casa?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Trabalhamos com metodologia de Wi-Fi premium — temos planos que já vêm com 2 roteadores pra cobrir cada canto da casa, sem ponto cego."}}
+    ]
   }
   </script>
 

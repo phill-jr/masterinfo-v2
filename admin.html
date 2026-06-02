@@ -455,17 +455,11 @@
       <button class="tab active" data-tab="empresa" onclick="switchTab('empresa')">
         <i class="ph ph-buildings"></i> Empresa
       </button>
-      <button class="tab" data-tab="hero" onclick="switchTab('hero')">
-        <i class="ph ph-megaphone"></i> Hero
-      </button>
-      <button class="tab" data-tab="conteudo" onclick="switchTab('conteudo')">
-        <i class="ph ph-article"></i> Conteudo
-      </button>
       <button class="tab" data-tab="cobertura" onclick="switchTab('cobertura')">
         <i class="ph ph-map-pin"></i> Cobertura
       </button>
       <button class="tab" data-tab="social" onclick="switchTab('social')">
-        <i class="ph ph-chat-circle-dots"></i> Social
+        <i class="ph ph-question"></i> FAQ
       </button>
       <button class="tab" data-tab="planos" onclick="switchTab('planos')">
         <i class="ph ph-lightning"></i> Planos
@@ -478,6 +472,9 @@
       </button>
       <button class="tab" data-tab="seo" onclick="switchTab('seo')">
         <i class="ph ph-magnifying-glass"></i> SEO
+      </button>
+      <button class="tab" data-tab="menus" onclick="switchTab('menus')">
+        <i class="ph ph-list-dashes"></i> Menus
       </button>
       <button class="tab" data-tab="bitrix" onclick="switchTab('bitrix')">
         <i class="ph ph-plugs-connected"></i> Bitrix
@@ -560,66 +557,16 @@
           <div class="toggle-switch" id="toggleCheckoutTheme" onclick="toggleCheckoutTheme()" role="switch" aria-checked="false" aria-label="Tema do checkout" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCheckoutTheme();}"></div>
         </div>
       </div>
-    </div>
-
-    <!-- TAB: Hero -->
-    <div class="tab-content" id="tab-hero">
       <div class="card">
-        <div class="card-title"><i class="ph-fill ph-megaphone"></i> Banner principal</div>
-        <div class="section-help">
-          <i class="ph ph-info"></i>
-          Preview: O titulo aparece em 3 linhas. A linha 2 fica em <strong style="color:var(--orange);">laranja destaque</strong>.
-        </div>
-        <div class="form-group" style="margin-bottom:14px;">
-          <label>Badge (etiqueta laranja no topo)</label>
-          <input type="text" id="cfgHeroBadge" oninput="updateHero('badge',this.value)" placeholder="100% Fibra Optica em Joinville">
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Titulo — linha 1</label>
-            <input type="text" id="cfgHeroTitulo" oninput="updateHero('titulo',this.value)" placeholder="Internet que">
+        <div class="card-title"><i class="ph-fill ph-paint-brush"></i> Tema do site</div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <h4>Aparencia da home (Black / Light)</h4>
+            <p id="siteTemaDesc">Black: home escura (index.html)</p>
           </div>
-          <div class="form-group">
-            <label>Titulo — linha 2 (destaque laranja)</label>
-            <input type="text" id="cfgHeroDestaque" oninput="updateHero('tituloDestaque',this.value)" placeholder="nao te deixa" style="border-color:var(--orange);background:rgba(255,122,5,0.04);">
-          </div>
-          <div class="form-group">
-            <label>Titulo — linha 3</label>
-            <input type="text" id="cfgHeroFim" oninput="updateHero('tituloFim',this.value)" placeholder="na mao.">
-          </div>
+          <div class="toggle-switch" id="toggleSiteTema" onclick="toggleSiteTema()" role="switch" aria-checked="false" aria-label="Tema do site" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSiteTema();}"></div>
         </div>
-        <div class="form-group" style="margin-bottom:14px;">
-          <label>Subtitulo (aceita HTML: &lt;strong&gt;texto&lt;/strong&gt;)</label>
-          <textarea id="cfgHeroSub" rows="3" oninput="updateHero('subtitulo',this.value)"></textarea>
-        </div>
-        <div class="form-group">
-          <label>Itens de confianca (aceita HTML)</label>
-          <div id="heroConfiancaContainer"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB: Conteudo (Stats + Diferenciais) -->
-    <div class="tab-content" id="tab-conteudo">
-      <div class="card">
-        <div class="card-title"><i class="ph-fill ph-chart-line-up"></i> Numeros / Estatisticas</div>
-        <div class="section-help">
-          <i class="ph ph-info"></i>
-          Os 4 contadores animados que aparecem no site. Use sufixo "+" ou "%" e prefixo para simbolos como estrela.
-        </div>
-        <div id="statsContainer"></div>
-      </div>
-      <div class="card">
-        <div class="card-title"><i class="ph-fill ph-star"></i> Diferenciais ("Por que MasterInfo")</div>
-        <div class="section-help">
-          <i class="ph ph-info"></i>
-          Cards da secao "Por que a MasterInfo?". Icones: use classes Phosphor como <code>ph-fill ph-lightning</code>.
-          <a href="https://phosphoricons.com" target="_blank" style="color:var(--orange);margin-left:4px;">Ver icones</a>
-        </div>
-        <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-          <button class="btn btn-primary" onclick="addDiferencial()"><i class="ph ph-plus"></i> Novo</button>
-        </div>
-        <div id="diferenciaisContainer"></div>
+        <div class="section-help"><i class="ph ph-info"></i> Black = index.html &middot; Light = index-light.html. Controla a home e sincroniza o checkout. (Subpaginas ainda nao tem versao clara.)</div>
       </div>
     </div>
 
@@ -638,13 +585,6 @@
 
     <!-- TAB: Social (Depoimentos + FAQ) -->
     <div class="tab-content" id="tab-social">
-      <div class="card">
-        <div class="card-title"><i class="ph-fill ph-quotes"></i> Depoimentos</div>
-        <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-          <button class="btn btn-primary" onclick="addDepoimento()"><i class="ph ph-plus"></i> Novo</button>
-        </div>
-        <div id="depoimentosContainer"></div>
-      </div>
       <div class="card">
         <div class="card-title"><i class="ph-fill ph-question"></i> FAQ — Perguntas frequentes</div>
         <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
@@ -794,6 +734,68 @@
       </div>
     </div>
 
+    <!-- TAB: Menus -->
+    <div class="tab-content" id="tab-menus">
+      <style>
+        #tab-menus .mnu-col { margin-bottom:16px; }
+        #tab-menus .mnu-col-head { display:flex; gap:8px; align-items:center; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(0,0,0,0.08); }
+        #tab-menus .mnu-titulo { flex:1; font-weight:700; font-size:0.95rem; }
+        #tab-menus .mnu-count { font-size:0.7rem; color:var(--text-muted); background:rgba(0,0,0,0.05); padding:3px 9px; border-radius:11px; white-space:nowrap; flex-shrink:0; }
+        #tab-menus .mnu-link { display:flex; gap:8px; align-items:center; margin-bottom:7px; padding:7px 8px; border-radius:9px; background:rgba(0,0,0,0.025); flex-wrap:wrap; }
+        #tab-menus .mnu-link input[type=text] { flex:1; min-width:120px; }
+        #tab-menus .mnu-link .mnu-lbl { flex:0.9; min-width:100px; }
+        #tab-menus .mnu-handle { cursor:grab; color:var(--text-muted); user-select:none; display:inline-flex; align-items:center; font-size:1.2rem; padding:4px 5px; border-radius:6px; flex-shrink:0; }
+        #tab-menus .mnu-handle:hover { background:rgba(255,122,5,0.12); color:var(--orange); }
+        #tab-menus .mnu-handle:active { cursor:grabbing; }
+        #tab-menus .mnu-arrows { display:inline-flex; flex-direction:column; flex-shrink:0; line-height:0.7; }
+        #tab-menus .mnu-arrow { cursor:pointer; background:none; border:none; color:var(--text-muted); padding:1px 3px; font-size:0.78rem; line-height:0.9; border-radius:3px; }
+        #tab-menus .mnu-arrow:hover:not([disabled]) { color:var(--orange); background:rgba(255,122,5,0.1); }
+        #tab-menus .mnu-arrow[disabled] { opacity:0.22; cursor:default; }
+        #tab-menus .mnu-chk { display:flex; align-items:center; gap:4px; font-size:0.75rem; color:var(--text-muted); white-space:nowrap; cursor:pointer; flex-shrink:0; }
+        #tab-menus .mnu-add-link { margin-top:10px; }
+        #tab-menus .mnu-empty { font-size:0.82rem; color:var(--text-muted); font-style:italic; padding:8px 4px; }
+        #tab-menus .mnu-dragging { opacity:0.4; }
+        #tab-menus .mnu-col.drag-over { outline:2px dashed var(--orange); outline-offset:3px; }
+        #tab-menus .mnu-link.drag-over { outline:2px dashed var(--orange); outline-offset:1px; background:rgba(255,122,5,0.07); }
+        #tab-menus .sec-row { display:flex; gap:10px; align-items:center; margin-bottom:7px; padding:9px 11px; border-radius:9px; background:rgba(0,0,0,0.025); border:1px solid rgba(0,0,0,0.06); }
+        #tab-menus .sec-row.sec-off { opacity:0.5; }
+        #tab-menus .sec-nome { flex:1; font-weight:600; font-size:0.9rem; }
+        #tab-menus .sec-toggle { flex-shrink:0; }
+        #tab-menus .sec-row.drag-over { outline:2px dashed var(--orange); outline-offset:1px; background:rgba(255,122,5,0.08); }
+        #tab-menus .hdr-item { border:1px solid rgba(0,0,0,0.08); border-radius:10px; padding:10px; margin-bottom:12px; }
+        #tab-menus .hdr-item-head { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+        #tab-menus .hdr-item-head.sec-off { opacity:0.55; }
+        #tab-menus .hdr-label { font-weight:600; flex:1; min-width:110px; }
+        #tab-menus .hdr-item-head input[type=text] { flex:1; min-width:110px; }
+        #tab-menus .hdr-tag { font-size:0.66rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--orange); background:rgba(255,122,5,0.1); padding:3px 8px; border-radius:10px; flex-shrink:0; }
+        #tab-menus .hdr-lado { flex-shrink:0; padding:6px 8px; border:1px solid rgba(0,0,0,0.12); border-radius:7px; font-size:0.82rem; background:#fff; }
+        #tab-menus .hdr-children { margin:10px 0 0 14px; padding-left:14px; border-left:2px solid rgba(255,122,5,0.25); }
+        #tab-menus .hdr-child { display:flex; gap:8px; align-items:center; margin-bottom:6px; flex-wrap:wrap; }
+        #tab-menus .hdr-child input[type=text] { flex:1; min-width:90px; }
+        #tab-menus .hdr-clientbtn { display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding:10px; background:rgba(0,0,0,0.025); border-radius:9px; }
+        #tab-menus .hdr-clientbtn input { flex:1; min-width:120px; }
+        #tab-menus .hdr-clientbtn strong { font-size:0.85rem; }
+      </style>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-rows"></i> Ordem &amp; visibilidade das seções</div>
+        <div class="section-help"><i class="ph ph-info"></i> Arraste (ou use as setas &#9650;&#9660;) para reordenar as seções da home. Desligue para ocultar uma seção sem apagá-la.</div>
+        <div id="secoesOrdemContainer"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-list-numbers"></i> Menu do topo (header)</div>
+        <div class="section-help"><i class="ph ph-info"></i> Reordene (setas &#9650;&#9660;), edite texto/link, troque de lado (esquerda/direita do divisor) e ligue/desligue cada item. Nos dropdowns, gerencie os sublinks. <strong>Obs:</strong> os dropdowns abrem visualmente no tema <strong>Black</strong>; no Light ainda falta o CSS do mega-menu.</div>
+        <div id="menuHeaderContainer"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-list-dashes"></i> Menu do rodapé</div>
+        <div class="section-help"><i class="ph ph-info"></i> Arraste pela alça (&#9776;) para reordenar colunas e links. Marque "nova aba" para links externos. As mudanças refletem no rodapé do site.</div>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+          <button class="btn btn-primary" onclick="addMenuCol()"><i class="ph ph-plus"></i> Nova coluna</button>
+        </div>
+        <div id="menusRodapeContainer"></div>
+      </div>
+    </div>
+
     <!-- TAB: Integração Bitrix24 -->
     <div class="tab-content" id="tab-bitrix">
       <style>
@@ -936,16 +938,15 @@
 
   function renderAll() {
     renderEmpresa();
-    renderHero();
-    renderStats();
-    renderDiferenciais();
     renderBairros();
-    renderDepoimentos();
     renderFaqAdmin();
     renderPlanos();
     renderAddons();
     renderTracking();
     renderSeo();
+    renderSecoesOrdem();
+    renderMenuHeader();
+    renderMenusRodape();
   }
 
   function markDirty() {
@@ -1307,6 +1308,18 @@
     themeDesc.textContent = isBlack
       ? 'Black (escuro): fundo preto, laranja preservado'
       : 'Claro (atual): fundo branco';
+
+    // Tema do site (black | light) — home: index.html vs index-light.html
+    var siteToggle = document.getElementById('toggleSiteTema');
+    var siteDesc = document.getElementById('siteTemaDesc');
+    if (siteToggle) {
+      var isLight = config.tema === 'light';
+      siteToggle.className = 'toggle-switch' + (isLight ? ' on' : '');
+      siteToggle.setAttribute('aria-checked', isLight ? 'true' : 'false');
+      if (siteDesc) siteDesc.textContent = isLight
+        ? 'Light: home clara (index-light.html)'
+        : 'Black: home escura (index.html)';
+    }
   }
 
   window.updateEmpresa = function(key, val) {
@@ -1324,6 +1337,15 @@
   window.toggleCheckoutTheme = function() {
     if (!config.checkout) config.checkout = {};
     config.checkout.tema = config.checkout.tema === 'black' ? 'claro' : 'black';
+    renderEmpresa();
+    markDirty();
+  };
+
+  window.toggleSiteTema = function() {
+    config.tema = config.tema === 'light' ? 'black' : 'light';
+    // sincroniza o tema do checkout (light -> claro, black -> black)
+    if (!config.checkout) config.checkout = {};
+    config.checkout.tema = config.tema === 'light' ? 'claro' : 'black';
     renderEmpresa();
     markDirty();
   };
@@ -1819,6 +1841,229 @@
     setVal('cfgSeoPriceRange', s.priceRange);
   }
   window.updateSeo = function(key, val) { if (!config.seo) config.seo = {}; config.seo[key] = val; markDirty(); };
+
+  // ─── Menus: rodapé (drag-drop + CRUD) ───
+  var _mnuDrag = null; // { type:'col'|'link', col, link }
+
+  function renderMenusRodape() {
+    if (!config.menus) config.menus = {};
+    if (!config.menus.footer) config.menus.footer = [];
+    var cont = document.getElementById('menusRodapeContainer');
+    if (!cont) return;
+    var f = config.menus.footer;
+    function arrows(canUp, canDown, onUp, onDown) {
+      return '<span class="mnu-arrows">' +
+        '<button class="mnu-arrow" ' + (canUp ? '' : 'disabled ') + 'onclick="' + onUp + '" title="Subir">&#9650;</button>' +
+        '<button class="mnu-arrow" ' + (canDown ? '' : 'disabled ') + 'onclick="' + onDown + '" title="Descer">&#9660;</button>' +
+        '</span>';
+    }
+    cont.innerHTML = f.map(function (col, ci) {
+      var arr = col.links || [];
+      var links = arr.length ? arr.map(function (l, li) {
+        return '<div class="mnu-link" data-col="' + ci + '" data-link="' + li + '" ondragover="mnuOver(event)" ondragleave="mnuLeave(event)" ondrop="mnuDrop(event,' + ci + ',' + li + ')">' +
+          '<span class="mnu-handle" draggable="true" ondragstart="mnuDragStart(event,\'link\',' + ci + ',' + li + ')" ondragend="mnuDragEnd(event)" title="Arrastar (ou use as setas)"><i class="ph ph-dots-six-vertical"></i></span>' +
+          arrows(li > 0, li < arr.length - 1, 'moveMnuLink(' + ci + ',' + li + ',-1)', 'moveMnuLink(' + ci + ',' + li + ',1)') +
+          '<input type="text" class="mnu-lbl" value="' + esc(l.label) + '" placeholder="Texto do link" oninput="updateMnuLink(' + ci + ',' + li + ',\'label\',this.value)">' +
+          '<input type="text" value="' + esc(l.href) + '" placeholder="#secao ou https://..." oninput="updateMnuLink(' + ci + ',' + li + ',\'href\',this.value)">' +
+          '<label class="mnu-chk"><input type="checkbox" ' + (l.target === '_blank' ? 'checked' : '') + ' onchange="updateMnuLink(' + ci + ',' + li + ',\'target\',this.checked?\'_blank\':\'\')"> nova aba</label>' +
+          '<button class="btn-icon danger" onclick="removeMnuLink(' + ci + ',' + li + ')" title="Remover link"><i class="ph ph-trash"></i></button>' +
+          '</div>';
+      }).join('') : '<div class="mnu-empty">Sem links nesta coluna. Clique em &ldquo;Novo link&rdquo;.</div>';
+      return '<div class="mnu-col item-card" data-col="' + ci + '" ondragover="mnuOver(event)" ondragleave="mnuLeave(event)" ondrop="mnuDrop(event,' + ci + ')">' +
+        '<div class="mnu-col-head">' +
+          '<span class="mnu-handle" draggable="true" ondragstart="mnuDragStart(event,\'col\',' + ci + ')" ondragend="mnuDragEnd(event)" title="Arrastar coluna (ou use as setas)"><i class="ph ph-dots-six-vertical"></i></span>' +
+          arrows(ci > 0, ci < f.length - 1, 'moveMnuCol(' + ci + ',-1)', 'moveMnuCol(' + ci + ',1)') +
+          '<input type="text" class="mnu-titulo" value="' + esc(col.titulo) + '" placeholder="Titulo da coluna" oninput="updateMnuCol(' + ci + ',\'titulo\',this.value)">' +
+          '<span class="mnu-count">' + arr.length + (arr.length === 1 ? ' link' : ' links') + '</span>' +
+          '<button class="btn-icon danger" onclick="removeMnuCol(' + ci + ')" title="Remover coluna"><i class="ph ph-trash"></i></button>' +
+        '</div>' +
+        '<div class="mnu-links">' + links + '</div>' +
+        '<button class="btn btn-secondary mnu-add-link" onclick="addMnuLink(' + ci + ')"><i class="ph ph-plus"></i> Novo link</button>' +
+        '</div>';
+    }).join('');
+  }
+
+  window.mnuDragStart = function (e, type, col, link) {
+    _mnuDrag = { type: type, col: col, link: (link == null ? null : link) };
+    e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', type); } catch (ex) {}
+    var row = e.currentTarget.closest(type === 'col' ? '.mnu-col' : '.mnu-link');
+    if (row) {
+      try { e.dataTransfer.setDragImage(row, 14, 14); } catch (ex) {}
+      setTimeout(function () { row.classList.add('mnu-dragging'); }, 0);
+    }
+  };
+  window.mnuDragEnd = function () {
+    _mnuDrag = null;
+    document.querySelectorAll('.mnu-dragging, .drag-over').forEach(function (el) {
+      el.classList.remove('mnu-dragging'); el.classList.remove('drag-over');
+    });
+  };
+  window.mnuOver = function (e) {
+    if (!_mnuDrag) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    var t = e.currentTarget;
+    if ((_mnuDrag.type === 'col' && t.classList.contains('mnu-col')) ||
+        (_mnuDrag.type === 'link' && t.classList.contains('mnu-link'))) {
+      t.classList.add('drag-over');
+    }
+  };
+  window.mnuLeave = function (e) { e.currentTarget.classList.remove('drag-over'); };
+  window.mnuDrop = function (e, col, link) {
+    if (!_mnuDrag) return;
+    e.preventDefault(); e.stopPropagation();
+    var d = _mnuDrag; _mnuDrag = null;
+    document.querySelectorAll('.drag-over').forEach(function (el) { el.classList.remove('drag-over'); });
+    var f = config.menus.footer;
+    if (d.type === 'col') {
+      if (d.col === col) return;
+      var movedCol = f.splice(d.col, 1)[0];
+      var targetCol = col > d.col ? col - 1 : col;
+      f.splice(targetCol, 0, movedCol);
+    } else if (d.type === 'link') {
+      var srcCol = f[d.col]; if (!srcCol || !srcCol.links) return;
+      var movedL = srcCol.links.splice(d.link, 1)[0];
+      var destCol = f[col]; if (!destCol) return;
+      if (!destCol.links) destCol.links = [];
+      var destIdx = (link == null) ? destCol.links.length
+        : (col === d.col && link > d.link ? link - 1 : link);
+      destCol.links.splice(destIdx, 0, movedL);
+    }
+    renderMenusRodape(); markDirty();
+  };
+
+  window.updateMnuCol = function (ci, key, val) { config.menus.footer[ci][key] = val; markDirty(); };
+  window.removeMnuCol = function (ci) { if (!confirm('Remover a coluna inteira?')) return; config.menus.footer.splice(ci, 1); renderMenusRodape(); markDirty(); };
+  window.addMenuCol = function () {
+    if (!config.menus) config.menus = {};
+    if (!config.menus.footer) config.menus.footer = [];
+    config.menus.footer.push({ titulo: 'Nova coluna', links: [] });
+    renderMenusRodape(); markDirty();
+  };
+  window.updateMnuLink = function (ci, li, key, val) { config.menus.footer[ci].links[li][key] = val; markDirty(); };
+  window.removeMnuLink = function (ci, li) { config.menus.footer[ci].links.splice(li, 1); renderMenusRodape(); markDirty(); };
+  window.addMnuLink = function (ci) {
+    if (!config.menus.footer[ci].links) config.menus.footer[ci].links = [];
+    config.menus.footer[ci].links.push({ label: 'Novo link', href: '#' });
+    renderMenusRodape(); markDirty();
+  };
+  window.moveMnuCol = function (ci, dir) {
+    var f = config.menus.footer, j = ci + dir;
+    if (j < 0 || j >= f.length) return;
+    var t = f[ci]; f[ci] = f[j]; f[j] = t;
+    renderMenusRodape(); markDirty();
+  };
+  window.moveMnuLink = function (ci, li, dir) {
+    var arr = config.menus.footer[ci].links, j = li + dir;
+    if (!arr || j < 0 || j >= arr.length) return;
+    var t = arr[li]; arr[li] = arr[j]; arr[j] = t;
+    renderMenusRodape(); markDirty();
+  };
+
+  // ─── Ordem & visibilidade das secoes da home ───
+  var SECOES_NOMES = { hero: 'Hero (banner)', planos1: 'Planos — Com 1 Roteador', planos2: 'Planos — Com 2 Roteadores', historia: 'Nossa Historia', cobertura: 'Cobertura', depoimentos: 'Depoimentos', cta: 'Chamada final (CTA)', faq: 'FAQ' };
+  var SECOES_DEFAULT = ['hero', 'planos1', 'planos2', 'historia', 'cobertura', 'depoimentos', 'cta', 'faq'];
+  var _secDrag = null;
+
+  function renderSecoesOrdem() {
+    if (!config.secoesOrdem || !config.secoesOrdem.length) {
+      config.secoesOrdem = SECOES_DEFAULT.map(function (k) { return { key: k, on: true }; });
+    }
+    var cont = document.getElementById('secoesOrdemContainer');
+    if (!cont) return;
+    var arr = config.secoesOrdem;
+    cont.innerHTML = arr.map(function (it, i) {
+      var nome = SECOES_NOMES[it.key] || it.key;
+      var on = it.on !== false;
+      return '<div class="sec-row' + (on ? '' : ' sec-off') + '" data-i="' + i + '" ondragover="secOver(event)" ondragleave="secLeave(event)" ondrop="secDrop(event,' + i + ')">' +
+        '<span class="mnu-handle" draggable="true" ondragstart="secDragStart(event,' + i + ')" ondragend="secDragEnd(event)" title="Arrastar"><i class="ph ph-dots-six-vertical"></i></span>' +
+        '<span class="mnu-arrows">' +
+          '<button class="mnu-arrow" ' + (i > 0 ? '' : 'disabled ') + 'onclick="moveSecao(' + i + ',-1)" title="Subir">&#9650;</button>' +
+          '<button class="mnu-arrow" ' + (i < arr.length - 1 ? '' : 'disabled ') + 'onclick="moveSecao(' + i + ',1)" title="Descer">&#9660;</button>' +
+        '</span>' +
+        '<span class="sec-nome">' + esc(nome) + '</span>' +
+        '<label class="mnu-chk sec-toggle"><input type="checkbox" ' + (on ? 'checked' : '') + ' onchange="toggleSecao(' + i + ',this.checked)"> ' + (on ? 'visível' : 'oculta') + '</label>' +
+        '</div>';
+    }).join('');
+  }
+  window.secDragStart = function (e, i) {
+    _secDrag = i; e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', 'sec'); } catch (ex) {}
+    var row = e.currentTarget.closest('.sec-row');
+    if (row) { try { e.dataTransfer.setDragImage(row, 14, 14); } catch (ex) {} setTimeout(function () { row.classList.add('mnu-dragging'); }, 0); }
+  };
+  window.secOver = function (e) { if (_secDrag == null) return; e.preventDefault(); e.currentTarget.classList.add('drag-over'); };
+  window.secLeave = function (e) { e.currentTarget.classList.remove('drag-over'); };
+  window.secDragEnd = function () { _secDrag = null; document.querySelectorAll('.sec-row.mnu-dragging, .sec-row.drag-over').forEach(function (el) { el.classList.remove('mnu-dragging'); el.classList.remove('drag-over'); }); };
+  window.secDrop = function (e, i) {
+    if (_secDrag == null) return; e.preventDefault(); e.stopPropagation();
+    var from = _secDrag; _secDrag = null;
+    document.querySelectorAll('.sec-row.drag-over').forEach(function (el) { el.classList.remove('drag-over'); });
+    if (from === i) { renderSecoesOrdem(); return; }
+    var arr = config.secoesOrdem;
+    var moved = arr.splice(from, 1)[0];
+    arr.splice(from < i ? i - 1 : i, 0, moved);
+    renderSecoesOrdem(); markDirty();
+  };
+  window.moveSecao = function (i, dir) {
+    var arr = config.secoesOrdem, j = i + dir;
+    if (j < 0 || j >= arr.length) return;
+    var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    renderSecoesOrdem(); markDirty();
+  };
+  window.toggleSecao = function (i, on) { config.secoesOrdem[i].on = on; renderSecoesOrdem(); markDirty(); };
+
+  // ─── Menu do topo / header ───
+  function renderMenuHeader() {
+    if (!config.menuHeader) config.menuHeader = { itens: [], clientButton: {} };
+    if (!config.menuHeader.itens) config.menuHeader.itens = [];
+    var cont = document.getElementById('menuHeaderContainer');
+    if (!cont) return;
+    var itens = config.menuHeader.itens;
+    function arr(cu, cd, u, d) {
+      return '<span class="mnu-arrows"><button class="mnu-arrow" ' + (cu ? '' : 'disabled ') + 'onclick="' + u + '" title="Subir">&#9650;</button><button class="mnu-arrow" ' + (cd ? '' : 'disabled ') + 'onclick="' + d + '" title="Descer">&#9660;</button></span>';
+    }
+    var html = itens.map(function (it, i) {
+      var on = it.on !== false;
+      var head = '<div class="hdr-item-head' + (on ? '' : ' sec-off') + '">' +
+        arr(i > 0, i < itens.length - 1, 'moveHdrItem(' + i + ',-1)', 'moveHdrItem(' + i + ',1)') +
+        '<input type="text" class="hdr-label" value="' + esc(it.label) + '" placeholder="Texto" oninput="updateHdrItem(' + i + ',\'label\',this.value)">' +
+        (it.tipo === 'link'
+          ? '<input type="text" value="' + esc(it.href) + '" placeholder="Link" oninput="updateHdrItem(' + i + ',\'href\',this.value)">'
+          : '<span class="hdr-tag">dropdown</span>') +
+        '<select class="hdr-lado" onchange="updateHdrItem(' + i + ',\'lado\',this.value)"><option value="esq"' + (it.lado !== 'dir' ? ' selected' : '') + '>Esquerda</option><option value="dir"' + (it.lado === 'dir' ? ' selected' : '') + '>Direita</option></select>' +
+        '<label class="mnu-chk"><input type="checkbox" ' + (on ? 'checked' : '') + ' onchange="toggleHdrItem(' + i + ',this.checked)"> visível</label>' +
+        '</div>';
+      var children = '';
+      if (it.tipo !== 'link') {
+        var ch = it.children || [];
+        var kids = ch.length ? ch.map(function (c, ci) {
+          return '<div class="hdr-child">' +
+            arr(ci > 0, ci < ch.length - 1, 'moveHdrChild(' + i + ',' + ci + ',-1)', 'moveHdrChild(' + i + ',' + ci + ',1)') +
+            '<input type="text" value="' + esc(c.label) + '" placeholder="Texto" oninput="updateHdrChild(' + i + ',' + ci + ',\'label\',this.value)">' +
+            '<input type="text" value="' + esc(c.href) + '" placeholder="Link" oninput="updateHdrChild(' + i + ',' + ci + ',\'href\',this.value)">' +
+            '<button class="btn-icon danger" onclick="removeHdrChild(' + i + ',' + ci + ')" title="Remover sublink"><i class="ph ph-trash"></i></button>' +
+            '</div>';
+        }).join('') : '<div class="mnu-empty">Sem sublinks.</div>';
+        children = '<div class="hdr-children">' + kids + '<button class="btn btn-secondary mnu-add-link" onclick="addHdrChild(' + i + ')"><i class="ph ph-plus"></i> Novo sublink</button></div>';
+      }
+      return '<div class="hdr-item">' + head + children + '</div>';
+    }).join('');
+    var cb = config.menuHeader.clientButton || {};
+    html += '<div class="hdr-clientbtn"><strong>Botão "Área do Cliente":</strong>' +
+      '<input type="text" value="' + esc(cb.label || '') + '" placeholder="Texto" oninput="updateHdrClient(\'label\',this.value)">' +
+      '<input type="text" value="' + esc(cb.href || '') + '" placeholder="Link" oninput="updateHdrClient(\'href\',this.value)"></div>';
+    cont.innerHTML = html;
+  }
+  window.updateHdrItem = function (i, k, v) { config.menuHeader.itens[i][k] = v; markDirty(); };
+  window.toggleHdrItem = function (i, on) { config.menuHeader.itens[i].on = on; renderMenuHeader(); markDirty(); };
+  window.moveHdrItem = function (i, dir) { var a = config.menuHeader.itens, j = i + dir; if (j < 0 || j >= a.length) return; var t = a[i]; a[i] = a[j]; a[j] = t; renderMenuHeader(); markDirty(); };
+  window.updateHdrChild = function (i, ci, k, v) { config.menuHeader.itens[i].children[ci][k] = v; markDirty(); };
+  window.addHdrChild = function (i) { var it = config.menuHeader.itens[i]; if (!it.children) it.children = []; it.children.push({ label: 'Novo', href: '#' }); renderMenuHeader(); markDirty(); };
+  window.removeHdrChild = function (i, ci) { config.menuHeader.itens[i].children.splice(ci, 1); renderMenuHeader(); markDirty(); };
+  window.moveHdrChild = function (i, ci, dir) { var a = config.menuHeader.itens[i].children, j = ci + dir; if (!a || j < 0 || j >= a.length) return; var t = a[ci]; a[ci] = a[j]; a[j] = t; renderMenuHeader(); markDirty(); };
+  window.updateHdrClient = function (k, v) { if (!config.menuHeader.clientButton) config.menuHeader.clientButton = {}; config.menuHeader.clientButton[k] = v; markDirty(); };
 
   // ─── Utils ───
   function esc(str) {

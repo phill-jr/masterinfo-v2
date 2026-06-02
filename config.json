@@ -17,6 +17,84 @@
         "whatsapp": "5547989212991",
         "tema": "claro"
     },
+    "tema": "light",
+    "secoesOrdem": [
+        { "key": "hero", "on": true },
+        { "key": "planos1", "on": true },
+        { "key": "planos2", "on": true },
+        { "key": "historia", "on": true },
+        { "key": "cobertura", "on": true },
+        { "key": "depoimentos", "on": true },
+        { "key": "cta", "on": true },
+        { "key": "faq", "on": true }
+    ],
+    "menuHeader": {
+        "itens": [
+            { "key": "internet", "lado": "esq", "label": "Internet", "tipo": "drop", "on": true, "children": [
+                { "label": "Família", "href": "/familia" },
+                { "label": "Home Office", "href": "/home-office" },
+                { "label": "Gamer", "href": "/gamer" },
+                { "label": "Com 2 Roteadores", "href": "/com-2-roteadores" },
+                { "label": "Com 1 Roteador", "href": "/com-1-roteador" }
+            ] },
+            { "key": "tv", "lado": "esq", "label": "TV e Streaming", "tipo": "link", "href": "/tv-streaming", "on": true },
+            { "key": "cobertura", "lado": "esq", "label": "Cobertura", "tipo": "link", "href": "#cobertura", "on": true },
+            { "key": "historia", "lado": "esq", "label": "Nossa História", "tipo": "link", "href": "#nossa-historia", "on": true },
+            { "key": "contato", "lado": "esq", "label": "Contato", "tipo": "link", "href": "#contato", "on": true },
+            { "key": "aplicativos", "lado": "dir", "label": "Aplicativos", "tipo": "drop", "on": true, "children": [
+                { "label": "SKY+ Light", "href": "/aplicativos/sky-light", "logo": "imgs/sky.jpg" },
+                { "label": "Deezer", "href": "/aplicativos/deezer", "logo": "imgs/deezer.webp" },
+                { "label": "Globoplay", "href": "/aplicativos/globoplay", "logo": "imgs/globoplay.png" },
+                { "label": "Disney+", "href": "/aplicativos/disney-plus", "logo": "imgs/disney-plus.png" },
+                { "label": "HBO Max", "href": "/aplicativos/hbo-max", "logo": "imgs/hbo-max.jpg" },
+                { "label": "Prime Video", "href": "/aplicativos/prime-video", "logo": "imgs/prime-video.png" },
+                { "label": "Exitlag", "href": "/aplicativos/exitlag", "logo": "imgs/exitlag.png" },
+                { "label": "Kaspersky", "href": "/aplicativos/kaspersky", "logo": "imgs/kaspersky.webp" }
+            ] },
+            { "key": "ajuda", "lado": "dir", "label": "Ajuda", "tipo": "drop", "on": true, "children": [
+                { "label": "Suporte WhatsApp", "href": "https://wa.me/5547989212991", "target": "_blank" },
+                { "label": "Speedtest", "href": "https://www.speedtest.net", "target": "_blank" },
+                { "label": "Configurar Wi-Fi", "href": "/ajuda/wifi" },
+                { "label": "Perguntas frequentes", "href": "#faq" },
+                { "label": "Reportar problema", "href": "/ajuda/reportar" },
+                { "label": "Boletos e faturas", "href": "/ajuda/boletos" }
+            ] }
+        ],
+        "clientButton": { "label": "Área do Cliente", "href": "https://sistema1.masterinfointernet.com/central_assinante_web/login" }
+    },
+    "menus": {
+        "footer": [
+            {
+                "titulo": "Planos",
+                "links": [
+                    { "label": "Lite Essencial", "href": "#lite-essencial" },
+                    { "label": "Lite Casa", "href": "#lite-casa" },
+                    { "label": "Lite Família", "href": "#lite-familia" },
+                    { "label": "Lite Home Office", "href": "#lite-home-office" },
+                    { "label": "Ultra Família", "href": "#ultra-familia" },
+                    { "label": "Ultra Home Office", "href": "#ultra-home-office" }
+                ]
+            },
+            {
+                "titulo": "Institucional",
+                "links": [
+                    { "label": "Tudo Incluso", "href": "#incluso" },
+                    { "label": "Cobertura", "href": "#cobertura" },
+                    { "label": "Depoimentos", "href": "#depoimentos" },
+                    { "label": "Nossa História", "href": "#sobre" },
+                    { "label": "Dúvidas", "href": "#faq" }
+                ]
+            },
+            {
+                "titulo": "Fale com a gente",
+                "links": [
+                    { "label": "WhatsApp", "href": "https:\/\/wa.me\/5547989212991", "target": "_blank", "icone": "ph-fill ph-whatsapp-logo" },
+                    { "label": "E-mail", "href": "mailto:masterinfo@masterinfointernet.com", "icone": "ph ph-envelope" },
+                    { "label": "Instagram", "href": "https:\/\/www.instagram.com\/masterinfointernet", "target": "_blank", "icone": "ph ph-instagram-logo" }
+                ]
+            }
+        ]
+    },
     "hero": {
         "badge": "100% Fibra Óptica em Joinville",
         "titulo": "Internet que",
@@ -423,6 +501,8 @@
         "twitterTitle": "MasterInfo Internet | Fibra Óptica em Joinville",
         "twitterDescription": "Internet fibra óptica de verdade. Planos a partir de R$99,90\/mês em Joinville.",
         "schemaDescription": "Provedor de internet fibra óptica em Joinville, SC",
-        "priceRange": "R$109 - R$179\/mês"
+        "priceRange": "R$ 99,90 - R$ 228,60\/mês",
+        "ratingValue": "4.9",
+        "ratingCount": "2382"
     }
 }
