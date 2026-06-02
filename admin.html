@@ -476,6 +476,9 @@
       <button class="tab" data-tab="tracking" onclick="switchTab('tracking')">
         <i class="ph ph-chart-bar"></i> Tracking
       </button>
+      <button class="tab" data-tab="seo" onclick="switchTab('seo')">
+        <i class="ph ph-magnifying-glass"></i> SEO
+      </button>
       <button class="tab" data-tab="bitrix" onclick="switchTab('bitrix')">
         <i class="ph ph-plugs-connected"></i> Bitrix
       </button>
@@ -741,6 +744,56 @@
       </div>
     </div>
 
+    <!-- TAB: SEO -->
+    <div class="tab-content" id="tab-seo">
+      <div class="section-help">
+        <i class="ph ph-info"></i>
+        Alimenta o &lt;title&gt;, as meta tags e o JSON-LD (Schema.org). Telefone, endereco e os <strong>precos dos planos</strong> no Schema sao puxados automaticamente das abas Empresa e Planos.
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-magnifying-glass"></i> Meta tags (Google)</div>
+        <div class="form-group">
+          <label>Title (titulo da aba / Google)</label>
+          <input type="text" id="cfgSeoTitle" oninput="updateSeo('title',this.value)">
+        </div>
+        <div class="form-group">
+          <label>Meta description</label>
+          <textarea id="cfgSeoDescription" rows="2" oninput="updateSeo('description',this.value)"></textarea>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-share-network"></i> Open Graph (WhatsApp / Facebook)</div>
+        <div class="form-row">
+          <div class="form-group"><label>OG title</label>
+            <input type="text" id="cfgSeoOgTitle" oninput="updateSeo('ogTitle',this.value)"></div>
+          <div class="form-group"><label>OG site name</label>
+            <input type="text" id="cfgSeoOgSiteName" oninput="updateSeo('ogSiteName',this.value)"></div>
+        </div>
+        <div class="form-group"><label>OG description</label>
+          <textarea id="cfgSeoOgDescription" rows="2" oninput="updateSeo('ogDescription',this.value)"></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label>OG url</label>
+            <input type="url" id="cfgSeoOgUrl" oninput="updateSeo('ogUrl',this.value)"></div>
+          <div class="form-group"><label>OG image (URL)</label>
+            <input type="url" id="cfgSeoOgImage" oninput="updateSeo('ogImage',this.value)"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-twitter-logo"></i> Twitter Card</div>
+        <div class="form-group"><label>Twitter title</label>
+          <input type="text" id="cfgSeoTwTitle" oninput="updateSeo('twitterTitle',this.value)"></div>
+        <div class="form-group"><label>Twitter description</label>
+          <textarea id="cfgSeoTwDescription" rows="2" oninput="updateSeo('twitterDescription',this.value)"></textarea></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-code"></i> Schema.org</div>
+        <div class="form-group"><label>Descricao (Schema)</label>
+          <textarea id="cfgSeoSchemaDesc" rows="2" oninput="updateSeo('schemaDescription',this.value)"></textarea></div>
+        <div class="form-group"><label>Faixa de preco (priceRange)</label>
+          <input type="text" id="cfgSeoPriceRange" oninput="updateSeo('priceRange',this.value)"></div>
+      </div>
+    </div>
+
     <!-- TAB: Integração Bitrix24 -->
     <div class="tab-content" id="tab-bitrix">
       <style>
@@ -892,6 +945,7 @@
     renderPlanos();
     renderAddons();
     renderTracking();
+    renderSeo();
   }
 
   function markDirty() {
@@ -1638,14 +1692,14 @@
           '</div>' +
           '<div class="form-group">' +
             '<label>Taxa instalacao (R$)</label>' +
-            '<input type="number" step="0.01" value="' + a.instalacao + '" oninput="updateAddon(' + i + ',\'instalacao\',parseFloat(this.value))">' +
+            '<input type="number" step="0.01" value="' + (a.instalacao || 0) + '" oninput="updateAddon(' + i + ',\'instalacao\',parseFloat(this.value))">' +
           '</div>' +
         '</div>' +
         '<div class="form-group">' +
           '<label>Ja incluso nos planos:</label>' +
           '<div class="included-plans">' +
             config.planos.map(function(p) {
-              var isIncl = a.incluidoEm.indexOf(p.id) !== -1;
+              var isIncl = (a.incluidoEm || []).indexOf(p.id) !== -1;
               return '<span class="plan-check' + (isIncl ? ' checked' : '') + '" onclick="toggleAddonPlan(' + i + ',\'' + p.id + '\')">' +
                 (isIncl ? '<i class="ph-fill ph-check-square"></i>' : '<i class="ph ph-square"></i>') +
                 ' ' + p.nome + '</span>';
@@ -1667,6 +1721,7 @@
   };
 
   window.toggleAddonPlan = function(i, planId) {
+    if (!config.addons[i].incluidoEm) config.addons[i].incluidoEm = [];
     var arr = config.addons[i].incluidoEm;
     var idx = arr.indexOf(planId);
     if (idx === -1) {
@@ -1746,6 +1801,24 @@
     renderTracking();
     markDirty();
   };
+
+  // ─── SEO ───
+  function renderSeo() {
+    if (!config.seo) config.seo = {};
+    var s = config.seo;
+    setVal('cfgSeoTitle', s.title);
+    setVal('cfgSeoDescription', s.description);
+    setVal('cfgSeoOgTitle', s.ogTitle);
+    setVal('cfgSeoOgSiteName', s.ogSiteName);
+    setVal('cfgSeoOgDescription', s.ogDescription);
+    setVal('cfgSeoOgUrl', s.ogUrl);
+    setVal('cfgSeoOgImage', s.ogImage);
+    setVal('cfgSeoTwTitle', s.twitterTitle);
+    setVal('cfgSeoTwDescription', s.twitterDescription);
+    setVal('cfgSeoSchemaDesc', s.schemaDescription);
+    setVal('cfgSeoPriceRange', s.priceRange);
+  }
+  window.updateSeo = function(key, val) { if (!config.seo) config.seo = {}; config.seo[key] = val; markDirty(); };
 
   // ─── Utils ───
   function esc(str) {

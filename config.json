@@ -411,5 +411,18 @@
         },
         "facebookPixelId": "",
         "enableTracking": false
+    },
+    "seo": {
+        "title": "MasterInfo Internet | Fibra Óptica 100% em Joinville",
+        "description": "Internet fibra óptica 100% em Joinville. Planos de 400Mega a 1Giga. Atendimento local, instalação rápida nos bairros Comasa, Boa Vista, Espinheiros e região.",
+        "ogTitle": "MasterInfo Internet | Fibra Óptica 100% em Joinville",
+        "ogDescription": "Internet fibra óptica de verdade em Joinville. Planos de 400 Mega a 1 Giga, instalação em até 3 dias.",
+        "ogUrl": "https:\/\/masterinfointernet.com",
+        "ogImage": "https:\/\/masterinfointernet.com\/og-image.jpg",
+        "ogSiteName": "MasterInfo Internet",
+        "twitterTitle": "MasterInfo Internet | Fibra Óptica em Joinville",
+        "twitterDescription": "Internet fibra óptica de verdade. Planos a partir de R$99,90\/mês em Joinville.",
+        "schemaDescription": "Provedor de internet fibra óptica em Joinville, SC",
+        "priceRange": "R$109 - R$179\/mês"
     }
 }

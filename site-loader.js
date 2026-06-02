@@ -1,7 +1,11 @@
 /**
- * MasterInfo - Site Loader
- * Carrega config.json e injeta conteudo dinamico no site.
- * Todas as secoes do site sao renderizadas a partir dos dados do admin.
+ * MasterInfo v2 - Site Loader
+ * Carrega config.json e injeta o conteudo dinamico na home (index.html).
+ *
+ * IMPORTANTE: atualiza os elementos EM-LUGAR (textContent / href / meta),
+ * sem regenerar grids inteiros, para NAO quebrar os scripts inline da pagina
+ * (carrossel do hero, copa popup, promo bar, mapa Leaflet, mega-menu).
+ * Cada secao e adicionada aqui conforme recebe ganchos (ids) no index.html.
  */
 (function () {
   'use strict';
@@ -9,329 +13,221 @@
   fetch('config.json?v=' + Date.now())
     .then(function (r) { return r.json(); })
     .then(function (cfg) {
-      // Expor config globalmente para outros scripts (checkout, modal)
+      // Expor config para outros scripts (checkout, modal, tracking)
       window._siteConfig = cfg;
 
-      loadEmpresa(cfg.empresa);
-      loadHero(cfg.hero);
-      loadPlanos(cfg.planos);
-      loadStats(cfg.stats);
-      loadDiferenciais(cfg.diferenciais);
-      loadBairros(cfg.bairros);
-      loadDepoimentos(cfg.depoimentos);
-      loadFaq(cfg.faq);
-      loadFooter(cfg.empresa);
+      run('seo', function () { loadSeo(cfg.seo, cfg.empresa, cfg.planos); });
+      run('footer', function () { loadFooter(cfg.empresa); });
+      run('faq', function () { loadFaq(cfg.faq); });
+      run('planos', function () { loadPlanos(cfg.planos); });
+      run('bairros', function () { loadBairros(cfg.bairros); });
     })
     .catch(function (e) {
       console.warn('[SiteLoader] config.json nao carregado, usando HTML estatico:', e);
     });
 
-  // ─── Empresa (topbar, whatsapp links, telefone) ───
-  function loadEmpresa(emp) {
-    if (!emp) return;
-
-    // Telefone no topbar
-    setText('#topbarPhone', emp.telefone);
-    setHref('#topbarPhoneLink', 'tel:' + emp.telefone.replace(/\D/g, ''));
-
-    // Cidade no topbar
-    if (emp.cidade) {
-      setHTML('#topbarCity', '<i class="ph ph-map-pin"></i> ' + emp.cidade);
-    }
-
-    // Todos os links WhatsApp
-    var waLinks = document.querySelectorAll('a[href*="wa.me"]');
-    waLinks.forEach(function (a) {
-      var baseUrl = 'https://wa.me/' + emp.whatsapp;
-      var text = a.href.split('?text=')[1] || '';
-      a.href = baseUrl + (text ? '?text=' + text : '');
-    });
-
-    // Telefone nos CTAs (pula o topbar que ja foi tratado acima)
-    var telLinks = document.querySelectorAll('a[href^="tel:"]:not(#topbarPhoneLink)');
-    telLinks.forEach(function (a) {
-      a.href = 'tel:' + emp.telefone.replace(/\D/g, '');
-      // Atualizar texto visivel se contem icone + texto
-      if (a.querySelector('i') && a.childNodes.length > 1) {
-        var iconHTML = a.querySelector('i').outerHTML;
-        a.innerHTML = iconHTML + ' ' + emp.telefone;
-      }
-    });
+  // Executa cada secao isolada — um erro numa secao nao derruba as outras
+  function run(nome, fn) {
+    try { fn(); } catch (e) { console.warn('[SiteLoader] falha na secao "' + nome + '":', e); }
   }
 
-  // ─── Hero ───
-  function loadHero(hero) {
-    if (!hero) return;
-    setHTML('#heroBadge', hero.badge);
-    setHTML('#heroTitulo', hero.titulo + '<br><span class="hero-highlight">' + hero.tituloDestaque + '</span><br>' + hero.tituloFim);
-    setHTML('#heroSubtitulo', hero.subtitulo);
+  // ─── SEO + Schema.org (metas por atributo + JSON-LD regenerado) ───
+  function loadSeo(seo, emp, planos) {
+    if (!seo) return;
+    emp = emp || {};
 
-    var trustContainer = document.getElementById('heroTrust');
-    if (trustContainer && hero.confianca) {
-      var icons = ['ph-fill ph-clock', 'ph-fill ph-handshake', 'ph-fill ph-star'];
-      var html = '';
-      hero.confianca.forEach(function (item, i) {
-        html += '<div class="hero-trust-item">' +
-          '<i class="' + (icons[i] || 'ph-fill ph-check') + '"></i>' +
-          '<span>' + item + '</span>' +
-          '</div>';
-      });
-      trustContainer.innerHTML = html;
+    if (seo.title) document.title = seo.title;
+    setMeta('meta[name="description"]', seo.description);
+    setMeta('meta[property="og:title"]', seo.ogTitle);
+    setMeta('meta[property="og:description"]', seo.ogDescription);
+    setMeta('meta[property="og:url"]', seo.ogUrl);
+    setMeta('meta[property="og:image"]', seo.ogImage);
+    setMeta('meta[property="og:site_name"]', seo.ogSiteName);
+    setMeta('meta[name="twitter:title"]', seo.twitterTitle);
+    setMeta('meta[name="twitter:description"]', seo.twitterDescription);
+
+    // Regenera o JSON-LD a partir de empresa + planos + seo (evita dados chumbados)
+    var ld = document.querySelector('script[type="application/ld+json"]');
+    if (ld) {
+      try {
+        ld.textContent = JSON.stringify(buildSchema(seo, emp, planos || []), null, 2);
+      } catch (e) {
+        console.warn('[SiteLoader] falha ao gerar JSON-LD:', e);
+      }
     }
   }
 
-  // ─── Planos (cards de planos) ───
-  function loadPlanos(planos) {
-    if (!planos || !planos.length) return;
-    var container = document.getElementById('plansGrid');
-    if (!container) return;
+  function buildSchema(seo, emp, planos) {
+    var url = seo.ogUrl || 'https://masterinfointernet.com';
+    var cidadeParts = (emp.cidade || '').split(',');
+    var locality = (cidadeParts[0] || '').trim();
+    var region = (cidadeParts[1] || '').trim();
 
-    var html = '';
-    planos.forEach(function (p, i) {
-      var isFeatured = !!p.badge;
-      var delay = i * 100;
+    var schema = {
+      '@context': 'https://schema.org',
+      '@type': 'InternetServiceProvider',
+      'name': seo.ogSiteName || 'MasterInfo Internet',
+      'description': seo.schemaDescription || seo.description || '',
+      'url': url,
+      'telephone': emp.telefone ? '+55' + emp.telefone.replace(/\D/g, '') : '',
+      'email': emp.email || '',
+      'address': {
+        '@type': 'PostalAddress',
+        'streetAddress': emp.endereco || '',
+        'addressLocality': locality,
+        'addressRegion': region,
+        'postalCode': emp.cep || '',
+        'addressCountry': 'BR'
+      },
+      'areaServed': { '@type': 'City', 'name': locality },
+      'priceRange': seo.priceRange || '',
+      'sameAs': [emp.instagram, emp.facebook].filter(Boolean)
+    };
 
-      html += '<div class="plan-card' + (isFeatured ? ' plan-featured' : '') + '" data-aos="fade-up"' +
-        (delay ? ' data-aos-delay="' + delay + '"' : '') + '>';
-
-      if (p.badge) {
-        html += '<div class="plan-badge">' + esc(p.badge) + '</div>';
-      }
-
-      html += '<div class="plan-header">' +
-        '<span class="plan-name">' + esc(p.nome) + '</span>' +
-        '<div class="plan-speed">' +
-          '<span class="plan-speed-num">' + esc(p.velocidade) + '</span>' +
-          '<span class="plan-speed-unit">' + esc(p.unidade) + '</span>' +
-        '</div>' +
-      '</div>' +
-      '<div class="plan-body">' +
-        '<div class="plan-price">' +
-          '<span class="plan-currency">R$</span>' +
-          '<span class="plan-value">' + Math.round(p.preco) + '</span>' +
-          '<span class="plan-period">/m\u00eas</span>' +
-        '</div>' +
-        '<ul class="plan-features">';
-
-      if (p.features) {
-        p.features.forEach(function (f) {
-          html += '<li><i class="ph-fill ph-check-circle"></i> ' + esc(f) + '</li>';
-        });
-      }
-
-      html += '</ul>' +
-        '<a href="checkout.html?plano=' + esc(p.id) + '" class="btn ' + (isFeatured ? 'btn-primary ' : '') + 'btn-plan">' +
-          'Contratar <i class="ph ph-arrow-right"></i>' +
-        '</a>' +
-      '</div></div>';
-    });
-
-    container.innerHTML = html;
-  }
-
-  // ─── Stats ───
-  function loadStats(stats) {
-    if (!stats) return;
-    var container = document.getElementById('statsGrid');
-    if (!container) return;
-
-    var html = '';
-    stats.forEach(function (s, i) {
-      if (i > 0) html += '<div class="stat-divider"></div>';
-      html += '<div class="stat-item">' +
-        '<div class="stat-number" data-target="' + s.valor + '"' +
-        (s.sufixo ? ' data-suffix="' + s.sufixo + '"' : '') +
-        (s.prefixo ? ' data-prefix="' + s.prefixo + '"' : '') +
-        (s.decimal ? ' data-decimal="true"' : '') +
-        '>0</div>' +
-        '<div class="stat-label">' + s.label + '</div>' +
-        '</div>';
-    });
-    container.innerHTML = html;
-
-    // Re-attach stats animation observer
-    initStatsAnimation();
-  }
-
-  function initStatsAnimation() {
-    var statNumbers = document.querySelectorAll('.stat-number[data-target]');
-    var animated = false;
-
-    function animateStats() {
-      if (animated) return;
-      animated = true;
-      statNumbers.forEach(function (el) {
-        var target = parseFloat(el.getAttribute('data-target'));
-        var suffix = el.getAttribute('data-suffix') || '';
-        var prefix = el.getAttribute('data-prefix') || '';
-        var isDecimal = el.getAttribute('data-decimal') === 'true';
-        var duration = 2000;
-        var start = performance.now();
-
-        function update(now) {
-          var elapsed = now - start;
-          var progress = Math.min(elapsed / duration, 1);
-          var ease = 1 - Math.pow(1 - progress, 3);
-          var value = ease * target;
-          if (isDecimal) {
-            el.textContent = prefix + value.toFixed(1) + suffix;
-          } else {
-            el.textContent = prefix + Math.round(value).toLocaleString('pt-BR') + suffix;
-          }
-          if (progress < 1) requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
-      });
+    if (planos && planos.length) {
+      schema.hasOfferCatalog = {
+        '@type': 'OfferCatalog',
+        'name': 'Planos de Internet Fibra',
+        'itemListElement': planos.map(function (p) {
+          var preco = (p.precoPontual != null ? p.precoPontual : p.preco);
+          return {
+            '@type': 'Offer',
+            'name': p.nome + ' ' + p.velocidade + ' ' + p.unidade,
+            'price': Number(preco || 0).toFixed(2),
+            'priceCurrency': 'BRL',
+            'url': url + '/checkout.html?plano=' + p.id
+          };
+        })
+      };
     }
-
-    var statsSection = document.querySelector('.stats');
-    if (statsSection) {
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) animateStats();
-        });
-      }, { threshold: 0.3 });
-      observer.observe(statsSection);
-    }
+    return schema;
   }
 
-  // ─── Diferenciais (Why section) ───
-  function loadDiferenciais(difs) {
-    if (!difs) return;
-    var container = document.getElementById('whyGrid');
-    if (!container) return;
-
-    var html = '';
-    difs.forEach(function (d) {
-      html += '<div class="why-card">' +
-        '<div class="why-icon"><i class="' + d.icone + '"></i></div>' +
-        '<h3>' + d.titulo + '</h3>' +
-        '<p>' + d.descricao + '</p>' +
-        '</div>';
-    });
-    container.innerHTML = html;
-  }
-
-  // ─── Bairros ───
-  function loadBairros(bairros) {
-    if (!bairros) return;
-
-    // Expose bairros for map script FIRST (before DOM update)
-    window._cfgBairros = bairros;
-
-    var container = document.getElementById('bairrosTags');
-    if (!container) return;
-
-    var html = '';
-    bairros.forEach(function (b) {
-      html += '<span class="neighborhood-tag" data-bairro="' + b.dataBairro + '">' + b.nome + '</span>';
-    });
-    html += '<span class="neighborhood-tag neighborhood-new">+ Novos bairros em breve</span>';
-    container.innerHTML = html;
-
-    // Re-attach tag click handlers
-    container.querySelectorAll('.neighborhood-tag[data-bairro]').forEach(function (tag) {
-      tag.addEventListener('click', function () {
-        var bairroName = tag.getAttribute('data-bairro');
-        var match = bairros.find(function (b) { return b.dataBairro === bairroName; });
-        if (match && window._covMap) {
-          window._covMap.flyTo([match.lat, match.lng], 15, { duration: 1 });
-          container.querySelectorAll('.neighborhood-tag').forEach(function (t) { t.classList.remove('tag-active'); });
-          tag.classList.add('tag-active');
-        }
-      });
-    });
-  }
-
-  // ─── Depoimentos ───
-  function loadDepoimentos(deps) {
-    if (!deps) return;
-    var container = document.getElementById('testimonialsGrid');
-    if (!container) return;
-
-    var html = '';
-    deps.forEach(function (d) {
-      var stars = '';
-      for (var i = 0; i < (d.estrelas || 5); i++) {
-        stars += '<i class="ph-fill ph-star"></i>';
-      }
-      var initial = d.nome.charAt(0).toUpperCase();
-      html += '<div class="testimonial-card">' +
-        '<div class="testimonial-stars">' + stars + '</div>' +
-        '<p>"' + d.texto + '"</p>' +
-        '<div class="testimonial-author">' +
-          '<div class="testimonial-avatar">' + initial + '</div>' +
-          '<div><strong>' + d.nome + '</strong><span>' + d.local + '</span></div>' +
-        '</div>' +
-        '</div>';
-    });
-    container.innerHTML = html;
-  }
-
-  // ─── FAQ ───
-  function loadFaq(faqs) {
-    if (!faqs) return;
-    var container = document.getElementById('faqList');
-    if (!container) return;
-
-    var html = '';
-    faqs.forEach(function (f) {
-      html += '<div class="faq-item">' +
-        '<button class="faq-question">' +
-          '<span>' + f.pergunta + '</span>' +
-          '<i class="ph ph-caret-down"></i>' +
-        '</button>' +
-        '<div class="faq-answer"><p>' + f.resposta + '</p></div>' +
-        '</div>';
-    });
-    container.innerHTML = html;
-
-    // Re-attach FAQ toggle
-    container.querySelectorAll('.faq-question').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var item = btn.parentElement;
-        var isOpen = item.classList.contains('active');
-        container.querySelectorAll('.faq-item').forEach(function (el) { el.classList.remove('active'); });
-        if (!isOpen) item.classList.add('active');
-      });
-    });
-  }
-
-  // ─── Footer ───
+  // ─── Rodape (descricao, redes sociais, e-mail, CNPJ, logo) ───
   function loadFooter(emp) {
     if (!emp) return;
-    setHTML('#footerEndereco', '<i class="ph ph-map-pin"></i> ' + emp.endereco + '<br>' + emp.bairroEndereco + ' \u2013 ' + emp.cidade + '<br>CEP: ' + emp.cep);
-    setHTML('#footerTelefone', '<i class="ph ph-phone"></i> ' + emp.telefone);
-    setHTML('#footerWhatsapp', '<i class="ph ph-whatsapp-logo"></i> ' + emp.whatsappFormatado);
-    setHTML('#footerEmail', '<i class="ph ph-envelope"></i> ' + emp.email);
-    setHTML('#footerCnpj', '\u00a9 2026 MasterInfo Internet. Todos os direitos reservados. CNPJ: ' + emp.cnpj);
-
-    // Social links
+    setText('#footerDesc', 'Internet fibra optica de verdade em ' + (emp.cidade || 'Joinville') + '. Mais de 6 anos conectando familias e empresas.');
     setHref('#footerInstagram', emp.instagram);
     setHref('#footerFacebook', emp.facebook);
+    if (emp.whatsapp) setHref('#footerWhatsapp', 'https://wa.me/' + emp.whatsapp);
+    if (emp.email) setHref('#footerEmail', 'mailto:' + emp.email);
+    if (emp.cnpj) setText('#footerCnpj', '© 2026 MasterInfo Internet. Todos os direitos reservados. CNPJ: ' + emp.cnpj);
+    if (emp.logo) {
+      document.querySelectorAll('.logo img').forEach(function (img) { img.src = emp.logo; });
+    }
+  }
 
-    // Footer brand text
-    setText('#footerDesc', 'Internet fibra optica 100% em ' + emp.cidade + '. Mais de 6 anos conectando familias e empresas da regiao.');
+  // ─── FAQ (atualiza em-lugar; se a contagem mudar, regenera + religa o accordion) ───
+  function loadFaq(faqs) {
+    if (!faqs || !faqs.length) return;
+    var list = document.querySelector('.faq .faq-list');
+    if (!list) return;
+    var items = list.querySelectorAll('.faq-item');
+
+    if (items.length === faqs.length) {
+      faqs.forEach(function (f, i) {
+        var q = items[i].querySelector('.faq-question span');
+        var a = items[i].querySelector('.faq-answer p');
+        if (q && f.pergunta != null) q.textContent = f.pergunta;
+        if (a && f.resposta != null) a.innerHTML = f.resposta;
+      });
+      return;
+    }
+
+    list.innerHTML = faqs.map(function (f) {
+      return '<div class="faq-item">' +
+        '<button class="faq-question"><span>' + esc(f.pergunta) + '</span><i class="ph ph-caret-down"></i></button>' +
+        '<div class="faq-answer"><p>' + (f.resposta || '') + '</p></div>' +
+        '</div>';
+    }).join('');
+    bindFaqAccordion(list);
+  }
+
+  function bindFaqAccordion(list) {
+    var items = list.querySelectorAll('.faq-item');
+    items.forEach(function (item) {
+      var btn = item.querySelector('.faq-question');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var active = item.classList.contains('active');
+        items.forEach(function (el) { el.classList.remove('active'); });
+        if (!active) item.classList.add('active');
+      });
+    });
+  }
+
+  // ─── Planos: sincroniza os PRECOS dos cards da home a partir do config ───
+  // (layout, apps inclusos e features sao bespoke do redesign — nao mexemos)
+  function loadPlanos(planos) {
+    if (!planos || !planos.length) return;
+    // alias do link de checkout -> id nominal do config (mesmo mapa do checkout.js)
+    var ALIAS = { '600': 'lite-casa', '800': 'lite-familia', '1000': 'lite-home-office', 'ultra-800': 'ultra-familia', 'ultra-1000': 'ultra-home-office' };
+    var byId = {};
+    planos.forEach(function (p) { byId[p.id] = p; });
+
+    document.querySelectorAll('.plans .plan-card').forEach(function (card) {
+      var link = card.querySelector('a.btn-plan[href*="checkout.html?plano="]');
+      if (!link) return;
+      var m = link.getAttribute('href').match(/plano=([^&]+)/);
+      if (!m) return;
+      var id = ALIAS[m[1]] || m[1];
+      var p = byId[id];
+      if (!p) return;
+
+      var pontual = (p.precoPontual != null ? p.precoPontual : p.preco);
+      if (pontual != null) {
+        var intPart = Math.floor(pontual);
+        var cents = Math.round((pontual - intPart) * 100);
+        var valEl = card.querySelector('.plan-value');
+        var centsEl = card.querySelector('.plan-cents');
+        if (valEl) valEl.textContent = String(intPart);
+        if (centsEl) centsEl.textContent = ',' + ('0' + cents).slice(-2);
+      }
+      if (p.precoCheio != null) {
+        var origEl = card.querySelector('.plan-price-original');
+        if (origEl) origEl.innerHTML = 'de <s>R$ ' + formatBRL(p.precoCheio) + '</s> por apenas';
+      }
+    });
+  }
+
+  function formatBRL(n) {
+    return Number(n).toFixed(2).replace('.', ',');
+  }
+
+  // ─── Bairros (atualiza os nomes das tags em-lugar; preserva handlers do mapa inline) ───
+  // Coords dos pins continuam no script do mapa (bespoke). So sincroniza nome/dataBairro
+  // quando a contagem bate, pra nao quebrar o clique tag->zoom do Leaflet.
+  function loadBairros(bairros) {
+    if (!bairros || !bairros.length) return;
+    window._cfgBairros = bairros; // exposto pro script do mapa (uso futuro)
+    var tags = document.querySelectorAll('#cobertura .neighborhood-tag[data-bairro]');
+    if (tags.length === bairros.length) {
+      bairros.forEach(function (b, i) {
+        if (b.nome != null) tags[i].textContent = b.nome;
+        if (b.dataBairro != null) tags[i].setAttribute('data-bairro', b.dataBairro);
+      });
+    }
   }
 
   // ─── Helpers ───
   function setText(sel, val) {
     var el = document.querySelector(sel);
-    if (el && val) el.textContent = val;
+    if (el && val != null && val !== '') el.textContent = val;
   }
-
   function setHTML(sel, val) {
     var el = document.querySelector(sel);
-    if (el && val) el.innerHTML = val;
+    if (el && val != null && val !== '') el.innerHTML = val;
   }
-
   function setHref(sel, val) {
     var el = document.querySelector(sel);
-    if (el && val) el.href = val;
+    if (el && val) el.setAttribute('href', val);
   }
-
+  function setMeta(sel, val, attr) {
+    var el = document.querySelector(sel);
+    if (el && val != null && val !== '') el.setAttribute(attr || 'content', val);
+  }
   function esc(str) {
-    if (!str) return '';
+    if (str == null) return '';
     var d = document.createElement('div');
     d.textContent = str;
     return d.innerHTML;
