@@ -200,7 +200,7 @@
 
       // Rastrear verificacao de cobertura com sucesso
       if (typeof window.miTrack === 'function') {
-        window.miTrack('cep_check', { cep: cepValue, viable: true });
+        window.miTrack('cep_check', { cep: (data.endereco && data.endereco.cep) || '', viable: true });
       }
 
       setTimeout(function () {
@@ -295,13 +295,21 @@
           showError('Erro de conexão. Tente novamente.');
         });
     } else {
-      // Protótipo: simula sucesso
+      // Grava o lead no CRM (best-effort) ANTES de seguir pro WhatsApp,
+      // pra não perder o lead se o cliente desistir do hand-off do WhatsApp.
+      miPostLead('pre-pedido-site', {
+        nome: name,
+        telefone: phoneDigits,
+        email: email,
+        observacao: 'Plano: ' + (plan || '—') + ' · CEP: ' + (leadData.cep || '—') +
+                    ' · Bairro: ' + (leadData.bairro || '—') + ' · Endereço: ' + (leadData.endereco || '—'),
+        origem: 'Pré-pedido site' + (plan ? ' — ' + plan : '')
+      });
       setTimeout(function () {
         setSubmitLoading(false);
         firePixel(plan);
         showSuccess(leadData);
-        console.log('[MasterInfo Lead]', leadData);
-      }, 1500);
+      }, 600);
     }
 
     return false;
@@ -331,7 +339,13 @@
       waitlist: true,
     };
 
-    // Simula envio (em prod, vai pro Bitrix24 como lead de espera)
+    // Grava o lead de espera no CRM (best-effort) antes de mostrar o sucesso.
+    miPostLead('lista-espera-site', {
+      nome: name,
+      telefone: phoneDigits,
+      observacao: 'SEM COBERTURA · CEP: ' + (data.cep || '—') + ' · Bairro: ' + (data.bairro || '—'),
+      origem: 'Lista de espera (site)'
+    });
     setTimeout(function () {
       setWaitLoading(false);
       console.log('[MasterInfo Waitlist]', data);
@@ -345,6 +359,19 @@
 
     return false;
   };
+
+  // ─── Grava lead no backend (Bitrix via form-submit.php). Best-effort: nunca trava o fluxo. ───
+  function miPostLead(form, data) {
+    if (IS_WP) return; // no WP o lead já vai pela ação AJAX dedicada (submitLead)
+    try {
+      fetch(API_BASE + 'form-submit.php', {
+        method: 'POST',
+        keepalive: true,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ form: form, data: data })
+      }).catch(function () {});
+    } catch (e) {}
+  }
 
   // ─── Sucesso → WhatsApp ───
   function showSuccess(leadData) {

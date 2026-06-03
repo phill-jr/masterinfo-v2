@@ -85,7 +85,9 @@ try {
 
         // PHONE/EMAIL precisam vir como array de objetos
         if ($field === 'PHONE') {
-            $bucket['PHONE'] = [['VALUE' => $value, 'VALUE_TYPE' => 'MOBILE']];
+            // Normaliza p/ +55 (E.164) — sem isso a deduplicação do Bitrix não casa
+            // com o número que o WhatsApp grava (ver _bitrix-helper.php).
+            $bucket['PHONE'] = [['VALUE' => bx_normalize_phone_br((string) $value), 'VALUE_TYPE' => 'MOBILE']];
         } elseif ($field === 'EMAIL') {
             $bucket['EMAIL'] = [['VALUE' => $value, 'VALUE_TYPE' => 'WORK']];
         } else {

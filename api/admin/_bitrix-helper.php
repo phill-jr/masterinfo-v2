@@ -61,6 +61,27 @@ function bx_request(string $method, array $data = []): array {
     return $body;
 }
 
+/**
+ * Normaliza um telefone brasileiro pro formato E.164 (+55DDDNUMERO).
+ * Necessário pra casar com o número que o conector de WhatsApp do Bitrix grava
+ * e a deduplicação por telefone funcionar — o Bitrix NÃO trata
+ * "+5547999990000" e "47999990000" como o mesmo número.
+ */
+function bx_normalize_phone_br(string $raw): string {
+    $d = preg_replace('/\D+/', '', $raw);
+    if ($d === '') return '';
+    // Já vem com DDI 55 (12 díg = 55+fixo, 13 díg = 55+móvel)
+    if ((strlen($d) === 12 || strlen($d) === 13) && strpos($d, '55') === 0) {
+        return '+' . $d;
+    }
+    // Número nacional: 10 díg (DDD+fixo) ou 11 díg (DDD+móvel)
+    if (strlen($d) === 10 || strlen($d) === 11) {
+        return '+55' . $d;
+    }
+    // Outros casos: best-effort, devolve com '+' (não inventa DDI)
+    return '+' . $d;
+}
+
 /** Caminho do JSON de mapeamento. */
 function bx_mapping_path(): string {
     return __DIR__ . '/../../secrets/bitrix-mapping.json';
