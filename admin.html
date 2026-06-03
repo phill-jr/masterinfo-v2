@@ -479,6 +479,9 @@
       <button class="tab" data-tab="bitrix" onclick="switchTab('bitrix')">
         <i class="ph ph-plugs-connected"></i> Bitrix
       </button>
+      <button class="tab" data-tab="marina" onclick="switchTab('marina')">
+        <i class="ph ph-headset"></i> Marina
+      </button>
     </div>
 
     <!-- TAB: Empresa -->
@@ -762,19 +765,25 @@
         #tab-menus .sec-nome { flex:1; font-weight:600; font-size:0.9rem; }
         #tab-menus .sec-toggle { flex-shrink:0; }
         #tab-menus .sec-row.drag-over { outline:2px dashed var(--orange); outline-offset:1px; background:rgba(255,122,5,0.08); }
-        #tab-menus .hdr-item { border:1px solid rgba(0,0,0,0.08); border-radius:10px; padding:10px; margin-bottom:12px; }
-        #tab-menus .hdr-item-head { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-        #tab-menus .hdr-item-head.sec-off { opacity:0.55; }
-        #tab-menus .hdr-label { font-weight:600; flex:1; min-width:110px; }
+        #tab-menus .hdr-item { margin-bottom:8px; }
+        #tab-menus .hdr-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 12px; flex-wrap:wrap; }
+        #tab-menus .hdr-hint { font-size:0.8rem; color:var(--text-muted); line-height:1.4; flex:1; min-width:180px; }
+        #tab-menus .hdr-collapse-all { display:inline-flex; align-items:center; gap:5px; font-size:0.8rem; color:var(--orange); background:none; border:none; cursor:pointer; padding:4px 6px; border-radius:6px; flex-shrink:0; }
+        #tab-menus .hdr-collapse-all:hover { background:rgba(255,122,5,0.1); }
+        #tab-menus .hdr-item-head { display:flex; gap:10px; align-items:center; padding:9px 11px; border-radius:9px; background:rgba(0,0,0,0.025); border:1px solid rgba(0,0,0,0.06); flex-wrap:wrap; }
+        #tab-menus .hdr-item-head.sec-off { opacity:0.5; }
+        #tab-menus .hdr-label { font-weight:600; flex:1.2; min-width:120px; }
         #tab-menus .hdr-item-head input[type=text] { flex:1; min-width:110px; }
         #tab-menus .hdr-tag { font-size:0.66rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--orange); background:rgba(255,122,5,0.1); padding:3px 8px; border-radius:10px; flex-shrink:0; }
-        #tab-menus .hdr-lado { flex-shrink:0; padding:6px 8px; border:1px solid rgba(0,0,0,0.12); border-radius:7px; font-size:0.82rem; background:#fff; }
-        #tab-menus .hdr-children { margin:10px 0 0 14px; padding-left:14px; border-left:2px solid rgba(255,122,5,0.25); }
-        #tab-menus .hdr-child { display:flex; gap:8px; align-items:center; margin-bottom:6px; flex-wrap:wrap; }
+        #tab-menus .hdr-toggle { display:inline-flex; align-items:center; gap:5px; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--orange); background:rgba(255,122,5,0.1); padding:4px 9px; border-radius:10px; border:none; cursor:pointer; flex-shrink:0; }
+        #tab-menus .hdr-toggle:hover { background:rgba(255,122,5,0.2); }
+        #tab-menus .hdr-children { margin:6px 0 14px 26px; padding-left:14px; border-left:2px solid rgba(255,122,5,0.25); }
+        #tab-menus .hdr-child { display:flex; gap:10px; align-items:center; margin-bottom:7px; padding:8px 10px; border-radius:9px; background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.05); flex-wrap:wrap; }
         #tab-menus .hdr-child input[type=text] { flex:1; min-width:90px; }
         #tab-menus .hdr-clientbtn { display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding:10px; background:rgba(0,0,0,0.025); border-radius:9px; }
         #tab-menus .hdr-clientbtn input { flex:1; min-width:120px; }
         #tab-menus .hdr-clientbtn strong { font-size:0.85rem; }
+        #tab-menus .hdr-item-head.drag-over, #tab-menus .hdr-child.drag-over { outline:2px dashed var(--orange); outline-offset:1px; background:rgba(255,122,5,0.08); }
       </style>
       <div class="card">
         <div class="card-title"><i class="ph-fill ph-rows"></i> Ordem &amp; visibilidade das seções</div>
@@ -865,6 +874,66 @@
         </div>
       </div>
     </div>
+
+    <!-- TAB: Marina (atendimento de boletos) -->
+    <div class="tab-content" id="tab-marina">
+      <style>
+        #tab-marina .mar-field { margin-bottom:16px; }
+        #tab-marina .mar-field label { display:block; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin-bottom:6px; }
+        #tab-marina .mar-field input { width:100%; padding:10px 12px; border:1px solid rgba(0,0,0,0.14); border-radius:8px; font-size:0.9rem; }
+        #tab-marina .mar-field input:focus { border-color:var(--orange); outline:none; }
+        #tab-marina .mar-toggle { display:flex; align-items:center; gap:14px; padding:14px 16px; border:1px solid rgba(0,0,0,0.1); border-radius:10px; background:rgba(0,0,0,0.02); margin-bottom:18px; }
+        #tab-marina .mar-switch { position:relative; width:50px; height:28px; flex-shrink:0; }
+        #tab-marina .mar-switch input { opacity:0; width:0; height:0; }
+        #tab-marina .mar-slider { position:absolute; inset:0; background:#c9c9d0; border-radius:28px; transition:0.2s; cursor:pointer; }
+        #tab-marina .mar-slider:before { content:''; position:absolute; width:22px; height:22px; left:3px; top:3px; background:#fff; border-radius:50%; transition:0.2s; }
+        #tab-marina .mar-switch input:checked + .mar-slider { background:var(--orange); }
+        #tab-marina .mar-switch input:checked + .mar-slider:before { transform:translateX(22px); }
+        #tab-marina .mar-token-status { font-size:0.82rem; margin-top:7px; display:flex; align-items:center; gap:5px; }
+        #tab-marina .mar-token-status.set { color:#16a34a; }
+        #tab-marina .mar-token-status.unset { color:#dc2626; }
+        #tab-marina .mar-save-status { font-size:0.9rem; }
+        #tab-marina .mar-save-status.ok { color:#16a34a; }
+        #tab-marina .mar-save-status.err { color:#dc2626; }
+      </style>
+
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-headset"></i> Atendimento Marina — Chat de boletos</div>
+        <div class="section-help">
+          <i class="ph ph-info"></i>
+          Liga o chat da Marina na página <strong>/ajuda/boletos</strong>. O token fica guardado <strong>só no servidor</strong> (nunca aparece no site). Quando desligado, o chat some da página.
+        </div>
+
+        <div class="mar-toggle">
+          <label class="mar-switch">
+            <input type="checkbox" id="marEnabled" onchange="marUpdateLabel()">
+            <span class="mar-slider"></span>
+          </label>
+          <div>
+            <strong id="marEnabledLabel">Chat desabilitado</strong>
+            <div style="font-size:0.8rem;color:var(--text-muted);">Mostra ou esconde o chat de boletos no site.</div>
+          </div>
+        </div>
+
+        <div class="mar-field">
+          <label>Endpoint da Marina (Sync)</label>
+          <input type="text" id="marEndpoint" placeholder="https://sync.masterinfointernet.com/api/marina/boletos">
+        </div>
+
+        <div class="mar-field">
+          <label>Token (site_boletos_token)</label>
+          <input type="password" id="marToken" placeholder="Cole o token aqui pra definir ou trocar" autocomplete="off">
+          <div class="mar-token-status unset" id="marTokenStatus"><i class="ph ph-warning-circle"></i> Nenhum token configurado.</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-top:8px;flex-wrap:wrap;">
+          <button type="button" class="btn btn-save" id="marSaveBtn" onclick="saveMarina()">
+            <i class="ph-fill ph-floppy-disk"></i> Salvar atendimento
+          </button>
+          <span class="mar-save-status" id="marSaveStatus"></span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Save bar -->
@@ -903,10 +972,12 @@
         if (!data || !data.ok) return;
         CSRF_TOKEN = data.csrf_token || '';
         loadConfig();
+        loadMarina();
       })
       .catch(function() {
         // Se auth/check.php nao existe (dev local), carrega direto
         loadConfig();
+        loadMarina();
       });
   }
 
@@ -935,6 +1006,61 @@
           });
       });
   }
+
+  // ─── Atendimento Marina (chat de boletos) ───
+  window.marUpdateLabel = function () {
+    var en = document.getElementById('marEnabled');
+    var lbl = document.getElementById('marEnabledLabel');
+    if (en && lbl) lbl.textContent = en.checked ? 'Chat habilitado' : 'Chat desabilitado';
+  };
+  function loadMarina() {
+    fetch('api/admin/marina.php', { credentials: 'same-origin' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.ok) return;
+        var en = document.getElementById('marEnabled');
+        var ep = document.getElementById('marEndpoint');
+        var ts = document.getElementById('marTokenStatus');
+        if (en) en.checked = !!d.enabled;
+        if (ep) ep.value = d.endpoint || '';
+        if (ts) {
+          if (d.has_token) { ts.className = 'mar-token-status set'; ts.innerHTML = '<i class="ph ph-check-circle"></i> Token configurado. Deixe em branco pra manter; preencha pra trocar.'; }
+          else { ts.className = 'mar-token-status unset'; ts.innerHTML = '<i class="ph ph-warning-circle"></i> Nenhum token configurado.'; }
+        }
+        marUpdateLabel();
+      })
+      .catch(function () {});
+  }
+  window.saveMarina = function () {
+    var btn = document.getElementById('marSaveBtn');
+    var st = document.getElementById('marSaveStatus');
+    var payload = {
+      enabled: document.getElementById('marEnabled').checked,
+      endpoint: document.getElementById('marEndpoint').value.trim(),
+      token: document.getElementById('marToken').value.trim()
+    };
+    if (btn) btn.disabled = true;
+    if (st) { st.className = 'mar-save-status'; st.textContent = 'Salvando…'; }
+    fetch('api/admin/marina.php', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF_TOKEN },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().then(function (j) { return { status: r.status, j: j }; }); })
+      .then(function (res) {
+        var j = res.j || {};
+        if (res.status === 200 && j.ok) {
+          if (st) { st.className = 'mar-save-status ok'; st.textContent = j.enabled ? '✓ Salvo — chat habilitado.' : '✓ Salvo — chat desabilitado.'; }
+          document.getElementById('marToken').value = '';
+          loadMarina();
+        } else {
+          if (st) { st.className = 'mar-save-status err'; st.textContent = j.error || 'Falha ao salvar.'; }
+        }
+      })
+      .catch(function () { if (st) { st.className = 'mar-save-status err'; st.textContent = 'Erro de conexão.'; } })
+      .finally(function () { if (btn) btn.disabled = false; });
+  };
 
   function renderAll() {
     renderEmpresa();
@@ -1596,8 +1722,12 @@
             '</select>' +
           '</div>' +
           '<div class="form-group">' +
-            '<label>Preco (R$/mes)</label>' +
-            '<input type="number" step="0.01" value="' + p.preco + '" oninput="updatePlano(' + i + ',\'preco\',parseFloat(this.value))">' +
+            '<label>Preco a vista (R$/mes)</label>' +
+            '<input type="number" step="0.01" value="' + (p.precoPontual != null ? p.precoPontual : '') + '" oninput="updatePlano(' + i + ',\'precoPontual\',parseFloat(this.value))">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Preco cheio (de R$)</label>' +
+            '<input type="number" step="0.01" value="' + (p.precoCheio != null ? p.precoCheio : '') + '" oninput="updatePlano(' + i + ',\'precoCheio\',parseFloat(this.value))">' +
           '</div>' +
         '</div>' +
         '<div class="form-row">' +
@@ -2024,32 +2154,42 @@
     function arr(cu, cd, u, d) {
       return '<span class="mnu-arrows"><button class="mnu-arrow" ' + (cu ? '' : 'disabled ') + 'onclick="' + u + '" title="Subir">&#9650;</button><button class="mnu-arrow" ' + (cd ? '' : 'disabled ') + 'onclick="' + d + '" title="Descer">&#9660;</button></span>';
     }
-    var html = itens.map(function (it, i) {
+    function renderItem(i, gi, gcount) {
+      var it = itens[i];
       var on = it.on !== false;
-      var head = '<div class="hdr-item-head' + (on ? '' : ' sec-off') + '">' +
-        arr(i > 0, i < itens.length - 1, 'moveHdrItem(' + i + ',-1)', 'moveHdrItem(' + i + ',1)') +
+      var ikey = it.key || ('i' + i);
+      var nFilhos = (it.children || []).length;
+      var head = '<div class="hdr-item-head' + (on ? '' : ' sec-off') + '" data-i="' + i + '" ondragover="hdrOver(event)" ondragleave="hdrLeave(event)" ondrop="hdrDrop(event,' + i + ')">' +
+        '<span class="mnu-handle" draggable="true" ondragstart="hdrDragStart(event,' + i + ')" ondragend="hdrDragEnd(event)" title="Arrastar"><i class="ph ph-dots-six-vertical"></i></span>' +
+        arr(gi > 0, gi < gcount - 1, 'moveHdrItem(' + i + ',-1)', 'moveHdrItem(' + i + ',1)') +
         '<input type="text" class="hdr-label" value="' + esc(it.label) + '" placeholder="Texto" oninput="updateHdrItem(' + i + ',\'label\',this.value)">' +
         (it.tipo === 'link'
           ? '<input type="text" value="' + esc(it.href) + '" placeholder="Link" oninput="updateHdrItem(' + i + ',\'href\',this.value)">'
-          : '<span class="hdr-tag">dropdown</span>') +
-        '<select class="hdr-lado" onchange="updateHdrItem(' + i + ',\'lado\',this.value)"><option value="esq"' + (it.lado !== 'dir' ? ' selected' : '') + '>Esquerda</option><option value="dir"' + (it.lado === 'dir' ? ' selected' : '') + '>Direita</option></select>' +
+          : '<button type="button" class="hdr-toggle" onclick="toggleHdrCollapse(\'' + ikey + '\')" title="Mostrar/ocultar sublinks"><i class="ph ' + (hdrIsCollapsed(ikey) ? 'ph-caret-right' : 'ph-caret-down') + '"></i> ' + nFilhos + ' sublinks</button>') +
         '<label class="mnu-chk"><input type="checkbox" ' + (on ? 'checked' : '') + ' onchange="toggleHdrItem(' + i + ',this.checked)"> visível</label>' +
         '</div>';
       var children = '';
       if (it.tipo !== 'link') {
         var ch = it.children || [];
         var kids = ch.length ? ch.map(function (c, ci) {
-          return '<div class="hdr-child">' +
+          return '<div class="hdr-child" data-i="' + i + '" data-ci="' + ci + '" ondragover="hdrChildOver(event)" ondragleave="hdrLeave(event)" ondrop="hdrChildDrop(event,' + i + ',' + ci + ')">' +
+            '<span class="mnu-handle" draggable="true" ondragstart="hdrChildDragStart(event,' + i + ',' + ci + ')" ondragend="hdrDragEnd(event)" title="Arrastar"><i class="ph ph-dots-six-vertical"></i></span>' +
             arr(ci > 0, ci < ch.length - 1, 'moveHdrChild(' + i + ',' + ci + ',-1)', 'moveHdrChild(' + i + ',' + ci + ',1)') +
             '<input type="text" value="' + esc(c.label) + '" placeholder="Texto" oninput="updateHdrChild(' + i + ',' + ci + ',\'label\',this.value)">' +
             '<input type="text" value="' + esc(c.href) + '" placeholder="Link" oninput="updateHdrChild(' + i + ',' + ci + ',\'href\',this.value)">' +
             '<button class="btn-icon danger" onclick="removeHdrChild(' + i + ',' + ci + ')" title="Remover sublink"><i class="ph ph-trash"></i></button>' +
             '</div>';
         }).join('') : '<div class="mnu-empty">Sem sublinks.</div>';
-        children = '<div class="hdr-children">' + kids + '<button class="btn btn-secondary mnu-add-link" onclick="addHdrChild(' + i + ')"><i class="ph ph-plus"></i> Novo sublink</button></div>';
+        children = '<div class="hdr-children"' + (hdrIsCollapsed(ikey) ? ' style="display:none"' : '') + '>' + kids + '<button class="btn btn-secondary mnu-add-link" onclick="addHdrChild(' + i + ')"><i class="ph ph-plus"></i> Novo sublink</button></div>';
       }
       return '<div class="hdr-item">' + head + children + '</div>';
-    }).join('');
+    }
+    var anyExp = itens.some(function (it, i) { return it.tipo !== 'link' && !hdrIsCollapsed(it.key || ('i' + i)); });
+    var temDrop = itens.some(function (it) { return it.tipo !== 'link'; });
+    var html = '<div class="hdr-toolbar"><span class="hdr-hint">Arraste para ordenar. Esta é a ordem que aparece no topo do site, da esquerda para a direita.</span>' +
+      (temDrop ? '<button type="button" class="hdr-collapse-all" onclick="toggleAllHdr()"><i class="ph ' + (anyExp ? 'ph-caret-up' : 'ph-caret-down') + '"></i> ' + (anyExp ? 'Recolher todos' : 'Expandir todos') + '</button>' : '') +
+      '</div>';
+    html += itens.length ? itens.map(function (it, i) { return renderItem(i, i, itens.length); }).join('') : '<div class="mnu-empty">Nenhum item no menu.</div>';
     var cb = config.menuHeader.clientButton || {};
     html += '<div class="hdr-clientbtn"><strong>Botão "Área do Cliente":</strong>' +
       '<input type="text" value="' + esc(cb.label || '') + '" placeholder="Texto" oninput="updateHdrClient(\'label\',this.value)">' +
@@ -2058,12 +2198,68 @@
   }
   window.updateHdrItem = function (i, k, v) { config.menuHeader.itens[i][k] = v; markDirty(); };
   window.toggleHdrItem = function (i, on) { config.menuHeader.itens[i].on = on; renderMenuHeader(); markDirty(); };
-  window.moveHdrItem = function (i, dir) { var a = config.menuHeader.itens, j = i + dir; if (j < 0 || j >= a.length) return; var t = a[i]; a[i] = a[j]; a[j] = t; renderMenuHeader(); markDirty(); };
+  // Estado de UI (recolhido/expandido) por key — NAO persiste no config; default = recolhido.
+  var _hdrCollapsed = {};
+  function hdrIsCollapsed(key) { return _hdrCollapsed[key] !== false; }
+  window.toggleHdrCollapse = function (key) { _hdrCollapsed[key] = !hdrIsCollapsed(key); renderMenuHeader(); };
+  window.toggleAllHdr = function () {
+    var its = (config.menuHeader && config.menuHeader.itens) || [];
+    var anyExp = its.some(function (it, i) { return it.tipo !== 'link' && !hdrIsCollapsed(it.key || ('i' + i)); });
+    its.forEach(function (it, i) { if (it.tipo !== 'link') _hdrCollapsed[it.key || ('i' + i)] = anyExp ? true : false; });
+    renderMenuHeader();
+  };
+  window.moveHdrItem = function (i, dir) {
+    var a = config.menuHeader.itens, j = i + dir;
+    if (j < 0 || j >= a.length) return;
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+    renderMenuHeader(); markDirty();
+  };
   window.updateHdrChild = function (i, ci, k, v) { config.menuHeader.itens[i].children[ci][k] = v; markDirty(); };
   window.addHdrChild = function (i) { var it = config.menuHeader.itens[i]; if (!it.children) it.children = []; it.children.push({ label: 'Novo', href: '#' }); renderMenuHeader(); markDirty(); };
   window.removeHdrChild = function (i, ci) { config.menuHeader.itens[i].children.splice(ci, 1); renderMenuHeader(); markDirty(); };
   window.moveHdrChild = function (i, ci, dir) { var a = config.menuHeader.itens[i].children, j = ci + dir; if (!a || j < 0 || j >= a.length) return; var t = a[ci]; a[ci] = a[j]; a[j] = t; renderMenuHeader(); markDirty(); };
   window.updateHdrClient = function (k, v) { if (!config.menuHeader.clientButton) config.menuHeader.clientButton = {}; config.menuHeader.clientButton[k] = v; markDirty(); };
+  var _hdrDrag = null; // { tipo:'item'|'child', i, ci }
+  window.hdrDragStart = function (e, i) {
+    _hdrDrag = { tipo: 'item', i: i };
+    e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', 'h'); } catch (ex) {}
+    var row = e.currentTarget.closest('.hdr-item-head');
+    if (row) { try { e.dataTransfer.setDragImage(row, 14, 14); } catch (ex) {} setTimeout(function () { row.classList.add('mnu-dragging'); }, 0); }
+  };
+  window.hdrChildDragStart = function (e, i, ci) {
+    _hdrDrag = { tipo: 'child', i: i, ci: ci };
+    e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', 'h'); } catch (ex) {}
+    var row = e.currentTarget.closest('.hdr-child');
+    if (row) { try { e.dataTransfer.setDragImage(row, 14, 14); } catch (ex) {} setTimeout(function () { row.classList.add('mnu-dragging'); }, 0); }
+  };
+  window.hdrOver = function (e) { if (_hdrDrag && _hdrDrag.tipo === 'item') { e.preventDefault(); e.currentTarget.classList.add('drag-over'); } };
+  window.hdrChildOver = function (e) { if (_hdrDrag && _hdrDrag.tipo === 'child') { e.preventDefault(); e.currentTarget.classList.add('drag-over'); } };
+  window.hdrLeave = function (e) { e.currentTarget.classList.remove('drag-over'); };
+  window.hdrDragEnd = function () { _hdrDrag = null; document.querySelectorAll('#menuHeaderContainer .mnu-dragging, #menuHeaderContainer .drag-over').forEach(function (el) { el.classList.remove('mnu-dragging'); el.classList.remove('drag-over'); }); };
+  window.hdrDrop = function (e, i) {
+    if (!_hdrDrag || _hdrDrag.tipo !== 'item') return;
+    e.preventDefault(); e.stopPropagation();
+    var from = _hdrDrag.i; _hdrDrag = null;
+    document.querySelectorAll('#menuHeaderContainer .drag-over').forEach(function (el) { el.classList.remove('drag-over'); });
+    if (from === i) { renderMenuHeader(); return; }
+    var a = config.menuHeader.itens;
+    var moved = a.splice(from, 1)[0];
+    a.splice(from < i ? i - 1 : i, 0, moved);
+    renderMenuHeader(); markDirty();
+  };
+  window.hdrChildDrop = function (e, i, ci) {
+    if (!_hdrDrag || _hdrDrag.tipo !== 'child') return;
+    e.preventDefault(); e.stopPropagation();
+    var d = _hdrDrag; _hdrDrag = null;
+    document.querySelectorAll('#menuHeaderContainer .drag-over').forEach(function (el) { el.classList.remove('drag-over'); });
+    if (d.i !== i || d.ci === ci) { renderMenuHeader(); return; }
+    var a = config.menuHeader.itens[i].children;
+    var moved = a.splice(d.ci, 1)[0];
+    a.splice(d.ci < ci ? ci - 1 : ci, 0, moved);
+    renderMenuHeader(); markDirty();
+  };
 
   // ─── Utils ───
   function esc(str) {
