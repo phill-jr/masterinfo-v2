@@ -41,7 +41,12 @@
 
   function curPageName() {
     var page = location.pathname.replace(/\/$/, '') || '/';
-    return ({ '/index.html': 'Home', '/index': 'Home', '/index-light.html': 'Home', '/index-light': 'Home', '/checkout.html': 'Checkout', '/checkout': 'Checkout', '/': 'Home' }[page]) || page;
+    return ({
+      '/index.html': 'Home', '/index': 'Home', '/index-light.html': 'Home', '/index-light': 'Home',
+      '/checkout.html': 'Checkout', '/checkout': 'Checkout', '/admin.html': 'Admin', '/': 'Home',
+      '/familia': 'Família', '/home-office': 'Home Office', '/gamer': 'Gamer', '/tv-streaming': 'TV e Streaming',
+      '/com-1-roteador': 'Com 1 Roteador', '/com-2-roteadores': 'Com 2 Roteadores', '/contato': 'Contato', '/copa': 'Copa'
+    }[page]) || page;
   }
 
   function recordSource() {
@@ -113,7 +118,7 @@
   }
 
   // ─── Bootstrap: carrega config e inicializa tudo ───
-  fetch('config.json?v=' + Date.now())
+  fetch('/config.json?v=' + Date.now())
     .then(function (r) { return r.json(); })
     .then(function (data) {
       cfg = data.tracking || {};
@@ -229,6 +234,9 @@
       else if (eventName === 'whatsapp_click') jrnPush('cta', 'WhatsApp (' + (params.context || '') + ')');
       else if (eventName === 'page_view') jrnPush('pg', params.page_name || curPageName());
       else if (eventName === 'scroll_depth') jrnPush('scroll', params.percent);
+      else if (eventName === 'modal_open') jrnPush('cta', 'Abriu modal' + (params.plan ? ' — ' + params.plan : ''));
+      else if (eventName === 'begin_checkout') jrnPush('cta', 'Iniciou checkout' + (params.plan ? ' — ' + params.plan : ''));
+      else if (eventName === 'waitlist_signup') jrnPush('cep', (params.cep || '') + ' (sem cobertura)');
     } catch (e) {}
 
     if (!cfg || !cfg.enableTracking) return;
@@ -293,16 +301,7 @@
 
   function trackPageView() {
     var page = location.pathname.replace(/\/$/, '') || '/';
-    var pageName = {
-      '/index.html': 'Home',
-      '/index': 'Home',
-      '/index-light.html': 'Home',
-      '/index-light': 'Home',
-      '/checkout.html': 'Checkout',
-      '/checkout': 'Checkout',
-      '/admin.html': 'Admin',
-      '/': 'Home'
-    }[page] || page;
+    var pageName = curPageName();
 
     window.miTrack('page_view', {
       page_title: document.title,
@@ -320,11 +319,11 @@
 
       var context = 'unknown';
       if (link.closest('.hero')) context = 'hero';
-      else if (link.closest('.final-cta')) context = 'cta_final';
+      else if (link.closest('.final-cta, .cta-banner')) context = 'cta_final';
       else if (link.closest('.footer')) context = 'footer';
-      else if (link.closest('.whatsapp-float')) context = 'float_button';
+      else if (link.closest('.whatsapp-float, .boleto-float')) context = 'float_button';
       else if (link.closest('.mi-modal-card')) context = 'modal_success';
-      else if (link.id === 'checkoutWhatsapp' || link.closest('.checkout')) context = 'checkout_success';
+      else if (link.id === 'ckWhatsappLink' || link.id === 'checkoutWhatsapp' || link.closest('.checkout, .checkout-main, .checkout-content, .checkout-layout')) context = 'checkout_success';
 
       window.miTrack('whatsapp_click', { context: context, url: link.href });
     });
@@ -343,7 +342,7 @@
       var label = btn.textContent.trim().substring(0, 50);
       var section = 'unknown';
       if (btn.closest('.hero')) section = 'hero';
-      else if (btn.closest('.final-cta')) section = 'cta_final';
+      else if (btn.closest('.final-cta, .cta-banner')) section = 'cta_final';
       else if (btn.closest('.coverage')) section = 'cobertura';
       else if (btn.closest('header')) section = 'header';
 
@@ -365,8 +364,13 @@
       var planSpeed = card.querySelector('.plan-speed-num');
       var planUnit = card.querySelector('.plan-speed-unit');
 
+      // Sem .plan-name no markup: deriva da velocidade, ou do ?plano= do link.
+      var name = planName ? planName.textContent.trim() : '';
+      if (!name && planSpeed) name = (planSpeed.textContent.trim() + ' ' + (planUnit ? planUnit.textContent.trim() : '')).trim();
+      if (!name && btn.href) { var pm = btn.href.match(/plano=([^&]+)/); if (pm) name = decodeURIComponent(pm[1]); }
+
       window.miTrack('plan_click', {
-        plan: planName ? planName.textContent : '',
+        plan: name,
         speed: (planSpeed ? planSpeed.textContent : '') + ' ' + (planUnit ? planUnit.textContent : ''),
         value: planValue ? parseFloat(planValue.textContent) : 0,
         currency: 'BRL'

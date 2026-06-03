@@ -864,7 +864,7 @@
       }
 
       // Best-effort: registra no funil (Bitrix) se o backend existir.
-      var dados = { nome: nome, telefone: telefone, mensagem: mensagem, motivo: motivo, origem: 'contato-site' };
+      var dados = { nome: nome, telefone: telefone, mensagem: mensagem, motivo: motivo, origem: 'contato-site', jornada: (typeof window.miJourneyText === 'function' ? window.miJourneyText() : '') };
       try {
         fetch('../api/form-submit.php', {
           method: 'POST',
@@ -902,6 +902,7 @@
     <span class="boleto-pulse"></span>
   </a>
   <script src="../marina-widget.js?v=20260602-a" defer></script>
+  <script src="/tracking.js?v=20260603a" defer></script>
   <script src="/cookie-consent.js?v=20260603-cc"></script>
 </body>
 </html>

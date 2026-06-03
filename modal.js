@@ -44,6 +44,9 @@
       if (planInput) planInput.value = '';
     }
 
+    // Rastrear abertura do modal (jornada + funil)
+    if (typeof window.miTrack === 'function') window.miTrack('modal_open', { plan: planName || '' });
+
     // Show step 1, hide all others
     goToStep(1);
 
@@ -215,6 +218,7 @@
         var msg = document.getElementById('miNoCoverageMsg');
         if (msg) msg.textContent = data.mensagem;
         state.endereco = data.endereco;
+        if (typeof window.miTrack === 'function') window.miTrack('cep_check', { cep: (data.endereco && data.endereco.cep) || '', viable: false });
         goToStep('noCoverage');
       } else {
         showCepError(data.mensagem || 'Erro ao verificar cobertura.');
@@ -332,6 +336,10 @@
 
     hideWaitError();
     setWaitLoading(true);
+
+    if (typeof window.miTrack === 'function') {
+      window.miTrack('waitlist_signup', { cep: state.endereco ? state.endereco.cep : '' });
+    }
 
     var data = {
       name: name,

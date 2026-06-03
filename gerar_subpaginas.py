@@ -468,6 +468,7 @@ def footer(depth, boleto=True):
   }})();
   </script>
 {boleto_html}
+  <script src="/tracking.js?v=20260603a" defer></script>
   <script src="/cookie-consent.js?v=20260603-cc"></script>
 </body>
 </html>'''

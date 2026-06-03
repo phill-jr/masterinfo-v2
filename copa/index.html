@@ -451,7 +451,8 @@
           bairro: bairro,
           telefone: telefone,
           plano: 'Plano da Copa R$ 59,90 (3 primeiros meses)',
-          origem: 'pre-venda-copa'
+          origem: 'pre-venda-copa',
+          jornada: (typeof window.miJourneyText === 'function' ? window.miJourneyText() : '')
         };
 
         // Envia TAMBEM pro Bitrix24 (em paralelo ao Sheets — redundancia).
@@ -503,6 +504,7 @@
     });
   })();
   </script>
+  <script src="/tracking.js?v=20260603a" defer></script>
   <script src="/cookie-consent.js?v=20260603-cc"></script>
 </body>
 </html>
