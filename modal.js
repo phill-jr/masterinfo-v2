@@ -303,8 +303,8 @@
         telefone: phoneDigits,
         email: email,
         observacao: 'Plano: ' + (plan || '—') + ' · CEP: ' + (leadData.cep || '—') +
-                    ' · Bairro: ' + (leadData.bairro || '—') + ' · Endereço: ' + (leadData.endereco || '—') +
-                    (jornada ? '\n\n' + jornada : ''),
+                    ' · Bairro: ' + (leadData.bairro || '—') + ' · Endereço: ' + (leadData.endereco || '—'),
+        jornada: jornada,
         origem: 'Pré-pedido site' + (plan ? ' — ' + plan : '')
       });
       setTimeout(function () {
@@ -346,8 +346,8 @@
     miPostLead('lista-espera-site', {
       nome: name,
       telefone: phoneDigits,
-      observacao: 'SEM COBERTURA · CEP: ' + (data.cep || '—') + ' · Bairro: ' + (data.bairro || '—') +
-                  (jornada ? '\n\n' + jornada : ''),
+      observacao: 'SEM COBERTURA · CEP: ' + (data.cep || '—') + ' · Bairro: ' + (data.bairro || '—'),
+      jornada: jornada,
       origem: 'Lista de espera (site)'
     });
     setTimeout(function () {

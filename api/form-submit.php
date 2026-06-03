@@ -165,6 +165,27 @@ try {
         $entityId = $r['result'] ?? null;
     }
 
+    // ─── Jornada do cliente → comentário de timeline + store p/ propagar ao Negócio ───
+    $jornada = isset($data['jornada']) ? trim((string) $data['jornada']) : '';
+    if ($jornada !== '') {
+        // 1) comentário na timeline da entidade recém-criada (lead/deal)
+        if ($entityId && in_array($cfg['entity'], ['lead', 'deal'], true)) {
+            try {
+                bx_request('crm.timeline.comment.add.json', ['fields' => [
+                    'ENTITY_ID'   => (int) $entityId,
+                    'ENTITY_TYPE' => $cfg['entity'],
+                    'COMMENT'     => $jornada,
+                ]]);
+            } catch (\Throwable $e) { error_log('[form-submit] timeline: ' . get_class($e) . ' ' . $e->getMessage()); }
+        }
+        // 2) guarda por telefone (E.164) p/ a automação postar no Negócio quando ele nascer
+        $jphone = $contactFields['PHONE'][0]['VALUE'] ?? '';
+        if ($jphone !== '') {
+            try { require_once __DIR__ . '/_journey-store.php'; journey_save($jphone, $jornada); }
+            catch (\Throwable $e) { error_log('[form-submit] journey_save: ' . $e->getMessage()); }
+        }
+    }
+
     echo json_encode([
         'ok'         => true,
         'contact_id' => $contactId,
