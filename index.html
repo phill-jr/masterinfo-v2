@@ -342,9 +342,12 @@
       </button>
     </div>
 
-    <!-- Backdrop quando mega menu abre -->
-    <div class="mega-backdrop" id="megaBackdrop"></div>
   </header>
+
+  <!-- Backdrop do mega menu — FORA do <header> de proposito: o backdrop-filter do header
+       cria um containing block para position:fixed, prendendo o backdrop dentro do header
+       (escurecia os rotulos do menu no hover). Como filho do body, cobre a viewport toda. -->
+  <div class="mega-backdrop" id="megaBackdrop"></div>
 
   <!-- ========== HERO (slideshow só imagem) ========== -->
   <section class="hero" id="hero">
@@ -383,6 +386,7 @@
       <span class="plans-tab plans-tab-above">Com 1 Roteador</span>
       <div class="section-header section-header-tight">
         <h2 class="section-title">Escolha um Plano que <span class="title-fire">combina com você</span></h2>
+        <div class="plans-wifi6"><i class="ph-fill ph-wifi-high"></i> <span>Todos os planos já vêm com <strong>Wi-Fi 6</strong></span></div>
       </div>
 
       <!-- ── LITE — 3 cards ── -->
@@ -411,6 +415,7 @@
 
               <div class="plan-apps">
                 <span class="plan-apps-label">INCLUSO</span>
+                <img src="imgs/wifi6.svg" class="plan-wifi6" alt="Wi-Fi 6 incluso" width="132" height="34">
                 <div class="plan-apps-list">
                   <div class="plan-app"><img class="plan-app-logo" src="imgs/sky.jpg" alt="SKY+ Light" loading="lazy"><span class="plan-app-name">SKY Light</span></div>
                 </div>
@@ -449,6 +454,7 @@
 
               <div class="plan-apps">
                 <span class="plan-apps-label">INCLUSO</span>
+                <img src="imgs/wifi6.svg" class="plan-wifi6" alt="Wi-Fi 6 incluso" width="132" height="34">
                 <div class="plan-apps-list">
                   <div class="plan-app"><img class="plan-app-logo" src="imgs/sky.jpg" alt="SKY+ Light" loading="lazy"><span class="plan-app-name">SKY Light</span></div>
                 </div>
@@ -488,6 +494,7 @@
 
               <div class="plan-apps">
                 <span class="plan-apps-label">INCLUSO</span>
+                <img src="imgs/wifi6.svg" class="plan-wifi6" alt="Wi-Fi 6 incluso" width="132" height="34">
                 <div class="plan-apps-list">
                   <div class="plan-app"><img class="plan-app-logo" src="imgs/sky.jpg" alt="SKY+ Light" loading="lazy"><span class="plan-app-name">SKY Light</span></div>
                   <span class="plan-app-or">ou</span>
@@ -547,6 +554,7 @@
 
               <div class="plan-apps">
                 <span class="plan-apps-label">INCLUSO</span>
+                <img src="imgs/wifi6.svg" class="plan-wifi6" alt="Wi-Fi 6 incluso" width="132" height="34">
                 <div class="plan-apps-list">
                   <div class="plan-app"><img class="plan-app-logo" src="imgs/globoplay.png" alt="Globoplay" loading="lazy"><span class="plan-app-name">Globoplay</span></div>
                 </div>
@@ -586,6 +594,7 @@
 
               <div class="plan-apps">
                 <span class="plan-apps-label">INCLUSO</span>
+                <img src="imgs/wifi6.svg" class="plan-wifi6" alt="Wi-Fi 6 incluso" width="132" height="34">
                 <div class="plan-apps-list">
                   <div class="plan-app"><img class="plan-app-logo" src="imgs/sky.jpg" alt="SKY+ Light" loading="lazy"><span class="plan-app-name">SKY Light</span></div>
                   <span class="plan-app-plus">+</span>
@@ -1490,7 +1499,8 @@
 
   <script src="script.js"></script>
   <script src="modal.js"></script>
-  <script src="site-loader.js"></script>
+  <!-- site-loader com cache-busting: garante sempre a versao mais recente (evita menu antigo em cache) -->
+  <script>document.write('<script src="site-loader.js?v=' + Date.now() + '"><\/script>');</script>
 
   <!-- Mapa de Cobertura Leaflet -->
   <script>

@@ -129,6 +129,20 @@ body {
   background: rgba(0,0,0,0.04);
 }
 
+/* Botao "Area do Cliente": no tema dark e texto branco sobre fundo translucido.
+   No claro herdava isso => branco-sobre-branco (invisivel, so aparecia no :hover
+   quando vira laranja). Aqui damos contraste no estado de repouso. */
+.header-client-btn {
+  color: #1a1a2e;
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.15);
+}
+.header-client-btn span { color: inherit; }
+.header-client-btn:hover,
+.header-client-btn:hover span {
+  color: #ffffff;
+}
+
 .mobile-toggle span {
   background: #1a1a2e;
 }

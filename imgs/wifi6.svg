@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 34" width="132" height="34" role="img" aria-label="Wi-Fi 6 incluso">
+  <rect x="0.7" y="0.7" width="130.6" height="32.6" rx="16.3" fill="#fff3e8" stroke="#ffbe8a" stroke-width="1.2"/>
+  <g fill="none" stroke="#ff7a05" stroke-width="2.4" stroke-linecap="round">
+    <path d="M14.1 16.6 A14 14 0 0 1 33.9 16.6"/>
+    <path d="M16.9 19.4 A10 10 0 0 1 31.1 19.4"/>
+    <path d="M19.8 22.3 A6 6 0 0 1 28.2 22.3"/>
+  </g>
+  <circle cx="24" cy="26.5" r="2" fill="#ff7a05"/>
+  <text x="46" y="22.6" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1a1a2e">Wi-Fi 6</text>
+</svg>

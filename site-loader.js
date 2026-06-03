@@ -289,9 +289,12 @@
           }).join('');
         }
       }
-      var ul = (it.lado === 'dir') ? client : sales;
-      ul.appendChild(li);
+      sales.appendChild(li); // menu unico: tudo numa lista so, na ordem do config
     });
+    // esconde o divisor e a lista da direita (agora vazia) — menu vira uma linha unica
+    var divisor = nav.querySelector('.nav-divider');
+    if (divisor) divisor.style.display = 'none';
+    if (client) client.style.display = 'none';
 
     if (mh.clientButton) {
       var btn = nav.querySelector('.header-client-btn');

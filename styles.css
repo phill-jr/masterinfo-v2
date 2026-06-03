@@ -1732,6 +1732,37 @@ img.dropdown-logo.dropdown-logo-real {
   margin-bottom: 32px;
 }
 
+/* Selo "Wi-Fi 6 em todos os planos" — destaque abaixo do titulo dos planos.
+   Cor da marca (laranja) funciona em ambos os temas. */
+.plans-wifi6 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  max-width: 92vw;
+  margin: 16px auto 0;
+  padding: 9px 20px;
+  border-radius: var(--radius-full);
+  background: rgba(255,122,5,0.12);
+  border: 1px solid rgba(255,122,5,0.35);
+  color: var(--orange);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.plans-wifi6 i { font-size: 1.3rem; flex-shrink: 0; }
+.plans-wifi6 strong { font-weight: 800; }
+
+/* Badge Wi-Fi 6 dentro da caixa "INCLUSO" (.plan-apps e flex-column centralizado
+   com gap). order:2 deixa o badge por ultimo na caixa, logo abaixo dos apps. */
+.plan-wifi6 {
+  display: block;
+  height: 30px;
+  width: auto;
+  order: 2;
+  margin: 0;
+}
+
 /* Tab (em ambas as secoes - fundo branco agora) */
 .plans-dark .plans-tab,
 .plans-light .plans-tab {
