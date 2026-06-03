@@ -240,6 +240,8 @@
 
     hideCkError('ckSimpleError');
 
+    if (!state.plan) { showCkError('ckSimpleError', 'Selecione um plano antes de continuar.'); return; }
+
     var p = state.plan;
     var end = state.viabilidade.endereco;
 
@@ -938,6 +940,23 @@
       showCkError('ckCepError', 'Preencha nome e WhatsApp valido.');
       return false;
     }
+
+    // Grava o lead de espera no CRM (best-effort) — antes era só console.log (lead perdido).
+    var jornadaWait = (typeof window.miJourneyText === 'function') ? window.miJourneyText() : '';
+    try {
+      fetch(API_BASE + 'form-submit.php', {
+        method: 'POST', keepalive: true,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ form: 'lista-espera-site', data: {
+          nome: name,
+          telefone: phone,
+          observacao: 'SEM COBERTURA (checkout) · CEP: ' + (state.viabilidade.cep || '—'),
+          jornada: jornadaWait,
+          origem: 'Lista de espera (checkout)'
+        } })
+      }).catch(function () {});
+    } catch (e) {}
+    if (typeof window.miTrack === 'function') window.miTrack('waitlist_signup', { cep: state.viabilidade.cep || '' });
 
     var noCov = document.getElementById('ckNoCoverage');
     if (noCov) {
