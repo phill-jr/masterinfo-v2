@@ -192,8 +192,8 @@ try {
         'entity_id'  => $entityId,
         'entity'     => $cfg['entity'],
     ]);
-} catch (Exception $e) {
-    error_log('[form-submit] ' . $e->getMessage());
+} catch (\Throwable $e) {
+    error_log('[form-submit] ' . get_class($e) . ': ' . $e->getMessage());
     http_response_code(502);
     echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
 }

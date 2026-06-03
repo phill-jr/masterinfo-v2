@@ -132,6 +132,7 @@
     void pop.offsetWidth; // força reflow p/ a transicao rodar
     pop.classList.add('is-open');
     opened = true;
+    if (typeof window.miTrack === 'function') window.miTrack('marina_open', {});
     launcher.style.display = 'none';
     if (whatsapp) whatsapp.style.display = 'none';
     setTimeout(function () { (started ? elMsg : elCpfInput).focus(); }, 60);
@@ -309,6 +310,7 @@
     var digits = elCpfInput.value.replace(/\D/g, '');
     if (digits.length !== 11) { elCpfInput.classList.add('marina-cpf-err'); elCpfInput.focus(); return; }
     cpf = digits; started = true;
+    if (typeof window.miTrack === 'function') window.miTrack('marina_cpf', {}); // consulta de boleto (sem enviar o CPF)
     elReset.classList.add('is-visible');
     elCpfStep.hidden = true; elBody.hidden = false; elInputRow.hidden = false;
     addBubble('Perfeito! Já tô localizando suas faturas pelo seu CPF... 🔎', 'bot');
