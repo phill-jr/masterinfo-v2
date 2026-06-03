@@ -128,6 +128,52 @@ APLICATIVOS = [
      "incluso_em": "Add-on disponível em todos os planos"},
 ]
 
+AJUDA = [
+    {
+        "slug": "wifi",
+        "tag": "AJUDA · WI-FI",
+        "title": "Como configurar seu Wi-Fi",
+        "subtitle": "Trocar o nome da rede, mudar a senha e deixar o sinal forte em toda a casa — passo a passo, sem complicação.",
+        "gradient": "linear-gradient(135deg, #6b3d00 0%, #c19000 50%, #fcc305 100%)",
+        "steps": [
+            ("🔑", "Trocar a senha do Wi-Fi", "Acesse o painel do roteador (geralmente 192.168.0.1 ou 192.168.1.1) com o login do aparelho e altere o campo de senha da rede."),
+            ("📶", "Deixar o sinal mais forte", "Posicione o roteador num ponto central e alto, longe de paredes grossas, micro-ondas e espelhos. Casa grande pede o plano com 2 roteadores (mesh)."),
+            ("🔄", "Reiniciar quando travar", "Tire o roteador da tomada por 30 segundos e ligue de novo — resolve a maioria das lentidões momentâneas."),
+        ],
+        "cta_label": "Falar com o suporte no WhatsApp",
+        "cta_href": "https://wa.me/5547989212991?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20para%20configurar%20meu%20Wi-Fi.",
+    },
+    {
+        "slug": "reportar",
+        "tag": "AJUDA · SUPORTE",
+        "title": "Reportar um problema",
+        "subtitle": "Sem internet, conexão lenta ou caindo? Nossa equipe local resolve rápido. Conte o que está acontecendo.",
+        "gradient": "linear-gradient(135deg, #8b0a17 0%, #e63946 50%, #ff7a05 100%)",
+        "steps": [
+            ("🚫", "Sem conexão", "Confira se as luzes do roteador estão acesas e tente reiniciá-lo. Se continuar sem internet, fale com a gente."),
+            ("🐢", "Internet lenta", "Faça um teste de velocidade pelo Speedtest conectado por cabo, anote o resultado e mande pra gente avaliar."),
+            ("📡", "Quedas constantes", "Anote os horários em que cai — isso ajuda nossa equipe a identificar a causa mais rápido."),
+        ],
+        "cta_label": "Abrir chamado no WhatsApp",
+        "cta_href": "https://wa.me/5547989212991?text=Ol%C3%A1!%20Quero%20reportar%20um%20problema%20na%20minha%20internet.",
+    },
+    {
+        "slug": "boletos",
+        "tag": "AJUDA · FINANCEIRO",
+        "title": "Boletos e faturas",
+        "subtitle": "Segunda via, vencimento e formas de pagamento — tudo na Central do Assinante, quando você quiser.",
+        "gradient": "linear-gradient(135deg, #06402b 0%, #0a7d4f 50%, #18b368 100%)",
+        "steps": [
+            ("🧾", "Segunda via do boleto", "Acesse a Central do Assinante com seu login para baixar a 2ª via e copiar o código de barras na hora."),
+            ("📅", "Vencimento e histórico", "Consulte faturas anteriores, datas de vencimento e os pagamentos já realizados."),
+            ("💳", "Formas de pagamento", "Boleto, Pix e cartão. Pagando em dia você garante o desconto do seu plano."),
+        ],
+        "cta_label": "Acessar a Central do Assinante",
+        "cta_href": "https://sistema1.masterinfointernet.com/central_assinante_web/login",
+        "chat": True,
+    },
+]
+
 PLANS_MAP = {
     "lite-casa": {
         "nome": "1 Roteador", "speed": "600", "preco": "99,90", "preco_cheio": "109,90",
@@ -585,6 +631,256 @@ def page_app(a, depth=2):
 {footer(depth)}'''
 
 
+# Widget de chat de boletos (Marina). String comum (NÃO f-string) p/ não conflitar
+# com as chaves de CSS/JS. Inserida no page_ajuda quando o item tem "chat": True.
+# Fala só com /api/marina.php (proxy server-to-server que guarda o token).
+CHAT_BOLETOS_HTML = r'''
+  <!-- Chat de boletos (Marina) -->
+  <section class="sub-section sub-section-dark" id="chat-boletos">
+    <div class="container sub-section-narrow">
+      <div class="section-header section-header-tight">
+        <h2 class="section-title">Pegar minha 2ª via agora</h2>
+      </div>
+      <div class="mi-chat">
+        <div class="mi-chat-head">
+          <span class="mi-chat-avatar"><i class="ph-fill ph-headset"></i></span>
+          <div>
+            <strong>Marina</strong>
+            <span class="mi-chat-status"><span class="mi-chat-dot"></span> Atendimento online</span>
+          </div>
+        </div>
+        <div class="mi-chat-cpf" id="miChatCpf">
+          <label for="miCpf">Pra começar, informe seu CPF</label>
+          <div class="mi-chat-cpf-row">
+            <input type="tel" id="miCpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" autocomplete="off">
+            <button type="button" id="miCpfBtn">Continuar <i class="ph ph-arrow-right"></i></button>
+          </div>
+          <p class="mi-chat-note">Usamos seu CPF só pra localizar suas faturas. <a href="https://wa.me/5547989212991" target="_blank">Prefere o WhatsApp?</a></p>
+        </div>
+        <div class="mi-chat-body" id="miChatBody" hidden></div>
+        <div class="mi-chat-input" id="miChatInput" hidden>
+          <input type="text" id="miMsg" placeholder="Escreva sua mensagem..." autocomplete="off">
+          <button type="button" id="miSend" aria-label="Enviar"><i class="ph-fill ph-paper-plane-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    #chat-boletos .mi-chat{max-width:560px;margin:0 auto;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.10);border-radius:18px;overflow:hidden;}
+    #chat-boletos .mi-chat-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,122,5,0.12);border-bottom:1px solid rgba(255,255,255,0.08);}
+    #chat-boletos .mi-chat-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#ff7a05,#fcc305);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;flex-shrink:0;}
+    #chat-boletos .mi-chat-head strong{display:block;color:#fff;font-size:0.95rem;}
+    #chat-boletos .mi-chat-status{font-size:0.75rem;color:#9fe0b0;display:flex;align-items:center;gap:5px;}
+    #chat-boletos .mi-chat-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;box-shadow:0 0 0 3px rgba(34,197,94,0.2);}
+    #chat-boletos .mi-chat-cpf{padding:22px 18px;}
+    #chat-boletos .mi-chat-cpf label{display:block;font-size:0.9rem;color:#cfcfd6;margin-bottom:10px;}
+    #chat-boletos .mi-chat-cpf-row{display:flex;gap:8px;flex-wrap:wrap;}
+    #chat-boletos .mi-chat-cpf-row input{flex:1;min-width:160px;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.16);background:rgba(0,0,0,0.25);color:#fff;font-size:1rem;}
+    #chat-boletos .mi-cpf-err{border-color:#e63946 !important;}
+    #chat-boletos .mi-chat-cpf-row button,#chat-boletos .mi-chat-input button{border:none;cursor:pointer;}
+    #chat-boletos .mi-chat-cpf-row button{padding:12px 18px;border-radius:10px;background:linear-gradient(135deg,#ff7a05,#fcc305);color:#fff;font-weight:700;display:inline-flex;align-items:center;gap:6px;}
+    #chat-boletos .mi-chat-note{font-size:0.78rem;color:#8a8a93;margin-top:10px;}
+    #chat-boletos .mi-chat-note a{color:#fcc305;}
+    #chat-boletos .mi-chat-body{padding:16px;height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
+    #chat-boletos .mi-bubble{max-width:84%;padding:10px 14px;border-radius:14px;font-size:0.9rem;line-height:1.45;word-wrap:break-word;}
+    #chat-boletos .mi-bubble-bot{align-self:flex-start;background:rgba(255,255,255,0.08);color:#e8e8ef;border-bottom-left-radius:4px;}
+    #chat-boletos .mi-bubble-user{align-self:flex-end;background:linear-gradient(135deg,#ff7a05,#fcc305);color:#fff;border-bottom-right-radius:4px;}
+    #chat-boletos .mi-md-table{border-collapse:collapse;margin:8px 0;font-size:0.8rem;width:100%;}
+    #chat-boletos .mi-md-table th,#chat-boletos .mi-md-table td{border:1px solid rgba(255,255,255,0.18);padding:5px 9px;text-align:left;}
+    #chat-boletos .mi-md-table th{background:rgba(255,255,255,0.08);font-weight:700;}
+    #chat-boletos .mi-typing{display:flex;gap:4px;align-items:center;}
+    #chat-boletos .mi-typing span{width:7px;height:7px;border-radius:50%;background:#aaa;animation:miblink 1.2s infinite both;}
+    #chat-boletos .mi-typing span:nth-child(2){animation-delay:.2s;}
+    #chat-boletos .mi-typing span:nth-child(3){animation-delay:.4s;}
+    @keyframes miblink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+    #chat-boletos .mi-boleto{align-self:stretch;background:#fff;color:#1a1a2e;border-radius:14px;padding:14px;}
+    #chat-boletos .mi-boleto-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;}
+    #chat-boletos .mi-boleto-status{font-size:0.7rem;text-transform:uppercase;background:rgba(255,122,5,0.15);color:#c2410c;padding:3px 8px;border-radius:8px;font-weight:700;white-space:nowrap;}
+    #chat-boletos .mi-boleto-meta{display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;color:#555;margin-bottom:10px;gap:8px;}
+    #chat-boletos .mi-boleto-val{font-size:1.2rem;font-weight:800;color:#1a1a2e;}
+    #chat-boletos .mi-boleto-qr{display:block;width:150px;height:150px;margin:0 auto 12px;border-radius:8px;background:#fff;}
+    #chat-boletos .mi-boleto-actions{display:flex;flex-direction:column;gap:8px;}
+    #chat-boletos .mi-boleto-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,0.12);background:#f4f4f6;color:#1a1a2e;font-weight:600;font-size:0.85rem;text-decoration:none;cursor:pointer;}
+    #chat-boletos .mi-boleto-btn:hover{background:#fff3e8;border-color:#ffbe8a;}
+    #chat-boletos .mi-chat-input{display:flex;gap:8px;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.08);}
+    #chat-boletos .mi-chat-input input{flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.16);background:rgba(0,0,0,0.25);color:#fff;font-size:0.95rem;}
+    #chat-boletos .mi-chat-input button{width:46px;border-radius:10px;background:linear-gradient(135deg,#ff7a05,#fcc305);color:#fff;font-size:1.1rem;flex-shrink:0;}
+  </style>
+
+  <script>
+  (function(){
+    var PROXY_URL = '/api/marina.php';
+    var sid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('s' + Date.now() + Math.floor(Math.random()*1e6));
+    var cpf = '', busy = false;
+    var elCpfStep = document.getElementById('miChatCpf');
+    var elCpfInput = document.getElementById('miCpf');
+    var elCpfBtn = document.getElementById('miCpfBtn');
+    var elBody = document.getElementById('miChatBody');
+    var elInputRow = document.getElementById('miChatInput');
+    var elMsg = document.getElementById('miMsg');
+    var elSend = document.getElementById('miSend');
+    if (!elCpfStep) return;
+
+    // Atendimento ligado/desligado no painel admin: se desabilitado, esconde a seção.
+    fetch(PROXY_URL, { method: 'GET' })
+      .then(function(r){ return r.json(); })
+      .then(function(s){ if (s && s.enabled === false){ var sec = document.getElementById('chat-boletos'); if (sec) sec.style.display = 'none'; } })
+      .catch(function(){});
+
+    function maskCpf(v){
+      v = v.replace(/\D/g,'').slice(0,11);
+      if (v.length > 9) return v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+      if (v.length > 6) return v.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+      if (v.length > 3) return v.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+      return v;
+    }
+    elCpfInput.addEventListener('input', function(){ elCpfInput.classList.remove('mi-cpf-err'); elCpfInput.value = maskCpf(elCpfInput.value); });
+
+    function esc(s){ var d = document.createElement('div'); d.textContent = (s==null?'':String(s)); return d.innerHTML; }
+    // Markdown leve (a Marina responde com **negrito** e tabelas | | |). Escapa antes (XSS-safe).
+    function mdRender(raw){
+      var lines = String(raw==null?'':raw).split('\n'), html='', i=0;
+      function inl(s){ return esc(s).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>'); }
+      function cells(l){ return l.trim().replace(/^\||\|$/g,'').split('|').map(function(c){ return c.trim(); }); }
+      while (i < lines.length){
+        if (/^\s*\|.*\|\s*$/.test(lines[i]) && i+1 < lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i+1])){
+          var head = cells(lines[i]); i += 2; var rows = '';
+          while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])){ var r = cells(lines[i]); rows += '<tr>'+r.map(function(c){ return '<td>'+inl(c)+'</td>'; }).join('')+'</tr>'; i++; }
+          html += '<table class="mi-md-table"><thead><tr>'+head.map(function(h){ return '<th>'+inl(h)+'</th>'; }).join('')+'</tr></thead><tbody>'+rows+'</tbody></table>';
+        } else { html += inl(lines[i]) + '<br>'; i++; }
+      }
+      return html.replace(/(<br>\s*)+$/,'');
+    }
+    function scrollDown(){ elBody.scrollTop = elBody.scrollHeight; }
+    function addBubble(text, who){
+      var b = document.createElement('div');
+      b.className = 'mi-bubble mi-bubble-' + who;
+      b.innerHTML = mdRender(text);
+      elBody.appendChild(b); scrollDown(); return b;
+    }
+    function addTyping(){
+      var t = document.createElement('div');
+      t.className = 'mi-bubble mi-bubble-bot mi-typing';
+      t.innerHTML = '<span></span><span></span><span></span>';
+      elBody.appendChild(t); scrollDown(); return t;
+    }
+    function fmtDate(d){ var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d||''); return m ? (m[3]+'/'+m[2]+'/'+m[1]) : (d||''); }
+    function fmtMoney(v){
+      if (v==null || v==='') return '';
+      var n = Number(String(v).replace(',','.'));
+      return isNaN(n) ? esc(v) : ('R$ ' + n.toFixed(2).replace('.',','));
+    }
+    function copyBtn(label, text){
+      return text ? '<button type="button" class="mi-boleto-btn" data-copy="'+esc(text)+'">'+label+'</button>' : '';
+    }
+    function renderBoleto(b){
+      if (!b) return;
+      var card = document.createElement('div');
+      card.className = 'mi-boleto';
+      var linha = b.linha_digitavel || b.codigo_barras || '';
+      var html = '<div class="mi-boleto-top"><strong>'+esc(b.descricao||'Fatura')+'</strong>'+(b.status?'<span class="mi-boleto-status">'+esc(b.status)+'</span>':'')+'</div>';
+      html += '<div class="mi-boleto-meta">';
+      if (b.vencimento) html += '<span><i class="ph ph-calendar-blank"></i> Vence '+esc(fmtDate(b.vencimento))+'</span>';
+      if (b.valor!=null && b.valor!=='') html += '<span class="mi-boleto-val">'+fmtMoney(b.valor)+'</span>';
+      html += '</div>';
+      if (b.pix_qrcode_png_base64) html += '<img class="mi-boleto-qr" alt="QR Code PIX" src="data:image/png;base64,'+esc(b.pix_qrcode_png_base64)+'">';
+      html += '<div class="mi-boleto-actions">';
+      html += copyBtn('<i class="ph ph-barcode"></i> Copiar linha digitável', linha);
+      html += copyBtn('<i class="ph ph-qr-code"></i> Copiar código PIX', b.pix_copia_cola);
+      if (b.url_pdf) html += '<a class="mi-boleto-btn" href="'+esc(b.url_pdf)+'" target="_blank"><i class="ph ph-file-pdf"></i> Baixar PDF</a>';
+      html += '</div>';
+      card.innerHTML = html;
+      elBody.appendChild(card); scrollDown();
+    }
+    elBody.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-copy]');
+      if (!btn) return;
+      navigator.clipboard.writeText(btn.getAttribute('data-copy')).then(function(){
+        var old = btn.innerHTML; btn.innerHTML = '<i class="ph ph-check"></i> Copiado!';
+        setTimeout(function(){ btn.innerHTML = old; }, 1800);
+      }).catch(function(){});
+    });
+
+    function send(text){
+      if (busy) return;
+      busy = true; elSend.disabled = true;
+      addBubble(text, 'user');
+      var typing = addTyping();
+      fetch(PROXY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cpf: cpf, message: text, session_id: sid })
+      })
+      .then(function(r){ return r.json().catch(function(){ return { reply: 'Recebi uma resposta inesperada. Tenta de novo ou chama no WhatsApp.' }; }); })
+      .then(function(d){
+        typing.remove();
+        if (d && d.session_id) sid = d.session_id;
+        addBubble((d && d.reply) ? d.reply : 'Não recebi resposta. Tenta de novo ou chama no WhatsApp.', 'bot');
+        if (d && Array.isArray(d.boletos)) d.boletos.forEach(renderBoleto);
+      })
+      .catch(function(){
+        typing.remove();
+        addBubble('Falha de conexão. Tenta de novo ou fala com a gente no WhatsApp.', 'bot');
+      })
+      .finally(function(){ busy = false; elSend.disabled = false; elMsg.focus(); });
+    }
+
+    function start(){
+      var digits = elCpfInput.value.replace(/\D/g,'');
+      if (digits.length !== 11){ elCpfInput.classList.add('mi-cpf-err'); elCpfInput.focus(); return; }
+      cpf = digits;
+      elCpfStep.hidden = true; elBody.hidden = false; elInputRow.hidden = false;
+      addBubble('Oi! Sou a Marina 👋 Deixa eu buscar suas faturas pelo seu CPF...', 'bot');
+      send('quero meu boleto');
+    }
+    elCpfBtn.addEventListener('click', start);
+    elCpfInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') start(); });
+    elSend.addEventListener('click', function(){ var t = elMsg.value.trim(); if (t){ elMsg.value=''; send(t); } });
+    elMsg.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ var t = elMsg.value.trim(); if (t){ elMsg.value=''; send(t); } } });
+  })();
+  </script>'''
+
+
+def page_ajuda(a, depth=2):
+    steps_html = ""
+    for emoji, title, desc in a["steps"]:
+        steps_html += f'''
+        <div class="sub-highlight">
+          <div class="sub-highlight-emoji">{emoji}</div>
+          <h3>{title}</h3>
+          <p>{desc}</p>
+        </div>'''
+
+    chat_html = CHAT_BOLETOS_HTML if a.get("chat") else ""
+
+    return f'''{head(a["title"], depth)}
+{header(depth)}
+
+  <!-- HERO da subpágina (ajuda) -->
+  <section class="sub-hero" style="background: {a["gradient"]};">
+    <div class="container sub-hero-inner">
+      <span class="sub-hero-tag">{a["tag"]}</span>
+      <h1 class="sub-hero-title">{a["title"]}</h1>
+      <p class="sub-hero-subtitle">{a["subtitle"]}</p>
+      <a href="{a["cta_href"]}" target="_blank" class="sub-hero-cta">{a["cta_label"]} <i class="ph ph-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- Passo a passo -->
+  <section class="sub-section sub-section-light">
+    <div class="container">
+      <div class="section-header section-header-tight">
+        <h2 class="section-title">Passo a passo</h2>
+      </div>
+      <div class="sub-highlights">{steps_html}
+      </div>
+    </div>
+  </section>
+{chat_html}
+{footer(depth)}'''
+
+
 # ─── GERAR ARQUIVOS ───────────────────────────────────────────────────
 
 def write_file(path, content):
@@ -602,4 +898,8 @@ print("\nAplicativos (8 páginas)…")
 for a in APLICATIVOS:
     write_file(os.path.join(BASE_DIR, "aplicativos", a["slug"], "index.html"), page_app(a, depth=2))
 
-print("\n✓ 13 subpáginas geradas.")
+print("\nAjuda (3 páginas)…")
+for a in AJUDA:
+    write_file(os.path.join(BASE_DIR, "ajuda", a["slug"], "index.html"), page_ajuda(a, depth=2))
+
+print("\n✓ 16 subpáginas geradas.")

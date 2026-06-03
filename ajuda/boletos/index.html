@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boletos e faturas | MasterInfo Internet</title>
+  <meta name="description" content="MasterInfo Internet — fibra óptica 100% em Joinville.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="stylesheet" href="../../styles.css?v=20260531-e">
+  <link rel="stylesheet" href="../../modal.css?v=20260531-e">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="../../" class="logo">
+        <img src="../../imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img">
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav-list nav-list-sales">
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button">Internet <i class="ph ph-caret-down nav-trigger-caret"></i></button>
+            <div class="mega-menu mega-menu-simple">
+              <div class="mega-menu-inner">
+                <ul class="dropdown-list">
+                  <li><a href="../../familia/" class="dropdown-link">Família</a></li>
+                  <li><a href="../../home-office/" class="dropdown-link">Home Office</a></li>
+                  <li><a href="../../gamer/" class="dropdown-link">Gamer</a></li>
+                  <li><a href="../../com-2-roteadores/" class="dropdown-link">Com 2 Roteadores</a></li>
+                  <li><a href="../../com-1-roteador/" class="dropdown-link">Com 1 Roteador</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="../../tv-streaming/" class="nav-link">TV e Streaming</a></li>
+          <li class="nav-item"><a href="../../#cobertura" class="nav-link">Cobertura</a></li>
+          <li class="nav-item"><a href="../../#nossa-historia" class="nav-link">Nossa História</a></li>
+          <li class="nav-item"><a href="../../#contato" class="nav-link">Contato</a></li>
+        </ul>
+
+        <span class="nav-divider" aria-hidden="true"></span>
+
+        <ul class="nav-list nav-list-client">
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button">Aplicativos <i class="ph ph-caret-down nav-trigger-caret"></i></button>
+            <div class="mega-menu mega-menu-simple">
+              <div class="mega-menu-inner">
+                <ul class="dropdown-list">
+                  <li><a href="../../aplicativos/sky-light/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../../imgs/sky.jpg" alt="">SKY+ Light</a></li>
+                  <li><a href="../../aplicativos/deezer/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../../imgs/deezer.webp" alt="">Deezer</a></li>
+                  <li><a href="../../aplicativos/globoplay/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../../imgs/globoplay.png" alt="">Globoplay</a></li>
+                  <li><a href="../../aplicativos/disney-plus/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../../imgs/disney-plus.png" alt="">Disney+</a></li>
+                  <li><a href="../../aplicativos/hbo-max/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../../imgs/hbo-max.jpg" alt="">HBO Max</a></li>
+                  <li><a href="../../aplicativos/prime-video/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../../imgs/prime-video.png" alt="">Prime Video</a></li>
+                  <li><a href="../../aplicativos/exitlag/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../../imgs/exitlag.png" alt="">Exitlag</a></li>
+                  <li><a href="../../aplicativos/kaspersky/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../../imgs/kaspersky.webp" alt="">Kaspersky</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button">Ajuda <i class="ph ph-caret-down nav-trigger-caret"></i></button>
+            <div class="mega-menu mega-menu-simple">
+              <div class="mega-menu-inner">
+                <ul class="dropdown-list">
+                  <li><a href="https://wa.me/5547989212991" target="_blank" class="dropdown-link">Suporte WhatsApp</a></li>
+                  <li><a href="https://www.speedtest.net" target="_blank" class="dropdown-link">Speedtest</a></li>
+                  <li><a href="../../ajuda/wifi" class="dropdown-link">Configurar Wi-Fi</a></li>
+                  <li><a href="../../#faq" class="dropdown-link">Perguntas frequentes</a></li>
+                  <li><a href="../../ajuda/reportar" class="dropdown-link">Reportar problema</a></li>
+                  <li><a href="../../ajuda/boletos" class="dropdown-link">Boletos e faturas</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" class="header-client-btn">
+          <i class="ph-fill ph-user-circle"></i><span>Área do Cliente</span>
+        </a>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mega-backdrop" id="megaBackdrop"></div>
+  </header>
+
+  <!-- HERO da subpágina (ajuda) -->
+  <section class="sub-hero" style="background: linear-gradient(135deg, #06402b 0%, #0a7d4f 50%, #18b368 100%);">
+    <div class="container sub-hero-inner">
+      <span class="sub-hero-tag">AJUDA · FINANCEIRO</span>
+      <h1 class="sub-hero-title">Boletos e faturas</h1>
+      <p class="sub-hero-subtitle">Segunda via, vencimento e formas de pagamento — tudo na Central do Assinante, quando você quiser.</p>
+      <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" class="sub-hero-cta">Acessar a Central do Assinante <i class="ph ph-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- Passo a passo -->
+  <section class="sub-section sub-section-light">
+    <div class="container">
+      <div class="section-header section-header-tight">
+        <h2 class="section-title">Passo a passo</h2>
+      </div>
+      <div class="sub-highlights">
+        <div class="sub-highlight">
+          <div class="sub-highlight-emoji">🧾</div>
+          <h3>Segunda via do boleto</h3>
+          <p>Acesse a Central do Assinante com seu login para baixar a 2ª via e copiar o código de barras na hora.</p>
+        </div>
+        <div class="sub-highlight">
+          <div class="sub-highlight-emoji">📅</div>
+          <h3>Vencimento e histórico</h3>
+          <p>Consulte faturas anteriores, datas de vencimento e os pagamentos já realizados.</p>
+        </div>
+        <div class="sub-highlight">
+          <div class="sub-highlight-emoji">💳</div>
+          <h3>Formas de pagamento</h3>
+          <p>Boleto, Pix e cartão. Pagando em dia você garante o desconto do seu plano.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat de boletos (Marina) -->
+  <section class="sub-section sub-section-dark" id="chat-boletos">
+    <div class="container sub-section-narrow">
+      <div class="section-header section-header-tight">
+        <h2 class="section-title">Pegar minha 2ª via agora</h2>
+      </div>
+      <div class="mi-chat">
+        <div class="mi-chat-head">
+          <span class="mi-chat-avatar"><i class="ph-fill ph-headset"></i></span>
+          <div>
+            <strong>Marina</strong>
+            <span class="mi-chat-status"><span class="mi-chat-dot"></span> Atendimento online</span>
+          </div>
+        </div>
+        <div class="mi-chat-cpf" id="miChatCpf">
+          <label for="miCpf">Pra começar, informe seu CPF</label>
+          <div class="mi-chat-cpf-row">
+            <input type="tel" id="miCpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" autocomplete="off">
+            <button type="button" id="miCpfBtn">Continuar <i class="ph ph-arrow-right"></i></button>
+          </div>
+          <p class="mi-chat-note">Usamos seu CPF só pra localizar suas faturas. <a href="https://wa.me/5547989212991" target="_blank">Prefere o WhatsApp?</a></p>
+        </div>
+        <div class="mi-chat-body" id="miChatBody" hidden></div>
+        <div class="mi-chat-input" id="miChatInput" hidden>
+          <input type="text" id="miMsg" placeholder="Escreva sua mensagem..." autocomplete="off">
+          <button type="button" id="miSend" aria-label="Enviar"><i class="ph-fill ph-paper-plane-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    #chat-boletos .mi-chat{max-width:560px;margin:0 auto;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.10);border-radius:18px;overflow:hidden;}
+    #chat-boletos .mi-chat-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,122,5,0.12);border-bottom:1px solid rgba(255,255,255,0.08);}
+    #chat-boletos .mi-chat-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#ff7a05,#fcc305);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;flex-shrink:0;}
+    #chat-boletos .mi-chat-head strong{display:block;color:#fff;font-size:0.95rem;}
+    #chat-boletos .mi-chat-status{font-size:0.75rem;color:#9fe0b0;display:flex;align-items:center;gap:5px;}
+    #chat-boletos .mi-chat-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;box-shadow:0 0 0 3px rgba(34,197,94,0.2);}
+    #chat-boletos .mi-chat-cpf{padding:22px 18px;}
+    #chat-boletos .mi-chat-cpf label{display:block;font-size:0.9rem;color:#cfcfd6;margin-bottom:10px;}
+    #chat-boletos .mi-chat-cpf-row{display:flex;gap:8px;flex-wrap:wrap;}
+    #chat-boletos .mi-chat-cpf-row input{flex:1;min-width:160px;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.16);background:rgba(0,0,0,0.25);color:#fff;font-size:1rem;}
+    #chat-boletos .mi-cpf-err{border-color:#e63946 !important;}
+    #chat-boletos .mi-chat-cpf-row button,#chat-boletos .mi-chat-input button{border:none;cursor:pointer;}
+    #chat-boletos .mi-chat-cpf-row button{padding:12px 18px;border-radius:10px;background:linear-gradient(135deg,#ff7a05,#fcc305);color:#fff;font-weight:700;display:inline-flex;align-items:center;gap:6px;}
+    #chat-boletos .mi-chat-note{font-size:0.78rem;color:#8a8a93;margin-top:10px;}
+    #chat-boletos .mi-chat-note a{color:#fcc305;}
+    #chat-boletos .mi-chat-body{padding:16px;height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
+    #chat-boletos .mi-bubble{max-width:84%;padding:10px 14px;border-radius:14px;font-size:0.9rem;line-height:1.45;word-wrap:break-word;}
+    #chat-boletos .mi-bubble-bot{align-self:flex-start;background:rgba(255,255,255,0.08);color:#e8e8ef;border-bottom-left-radius:4px;}
+    #chat-boletos .mi-bubble-user{align-self:flex-end;background:linear-gradient(135deg,#ff7a05,#fcc305);color:#fff;border-bottom-right-radius:4px;}
+    #chat-boletos .mi-md-table{border-collapse:collapse;margin:8px 0;font-size:0.8rem;width:100%;}
+    #chat-boletos .mi-md-table th,#chat-boletos .mi-md-table td{border:1px solid rgba(255,255,255,0.18);padding:5px 9px;text-align:left;}
+    #chat-boletos .mi-md-table th{background:rgba(255,255,255,0.08);font-weight:700;}
+    #chat-boletos .mi-typing{display:flex;gap:4px;align-items:center;}
+    #chat-boletos .mi-typing span{width:7px;height:7px;border-radius:50%;background:#aaa;animation:miblink 1.2s infinite both;}
+    #chat-boletos .mi-typing span:nth-child(2){animation-delay:.2s;}
+    #chat-boletos .mi-typing span:nth-child(3){animation-delay:.4s;}
+    @keyframes miblink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+    #chat-boletos .mi-boleto{align-self:stretch;background:#fff;color:#1a1a2e;border-radius:14px;padding:14px;}
+    #chat-boletos .mi-boleto-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;}
+    #chat-boletos .mi-boleto-status{font-size:0.7rem;text-transform:uppercase;background:rgba(255,122,5,0.15);color:#c2410c;padding:3px 8px;border-radius:8px;font-weight:700;white-space:nowrap;}
+    #chat-boletos .mi-boleto-meta{display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;color:#555;margin-bottom:10px;gap:8px;}
+    #chat-boletos .mi-boleto-val{font-size:1.2rem;font-weight:800;color:#1a1a2e;}
+    #chat-boletos .mi-boleto-qr{display:block;width:150px;height:150px;margin:0 auto 12px;border-radius:8px;background:#fff;}
+    #chat-boletos .mi-boleto-actions{display:flex;flex-direction:column;gap:8px;}
+    #chat-boletos .mi-boleto-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,0.12);background:#f4f4f6;color:#1a1a2e;font-weight:600;font-size:0.85rem;text-decoration:none;cursor:pointer;}
+    #chat-boletos .mi-boleto-btn:hover{background:#fff3e8;border-color:#ffbe8a;}
+    #chat-boletos .mi-chat-input{display:flex;gap:8px;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.08);}
+    #chat-boletos .mi-chat-input input{flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.16);background:rgba(0,0,0,0.25);color:#fff;font-size:0.95rem;}
+    #chat-boletos .mi-chat-input button{width:46px;border-radius:10px;background:linear-gradient(135deg,#ff7a05,#fcc305);color:#fff;font-size:1.1rem;flex-shrink:0;}
+  </style>
+
+  <script>
+  (function(){
+    var PROXY_URL = '/api/marina.php';
+    var sid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('s' + Date.now() + Math.floor(Math.random()*1e6));
+    var cpf = '', busy = false;
+    var elCpfStep = document.getElementById('miChatCpf');
+    var elCpfInput = document.getElementById('miCpf');
+    var elCpfBtn = document.getElementById('miCpfBtn');
+    var elBody = document.getElementById('miChatBody');
+    var elInputRow = document.getElementById('miChatInput');
+    var elMsg = document.getElementById('miMsg');
+    var elSend = document.getElementById('miSend');
+    if (!elCpfStep) return;
+
+    // Atendimento ligado/desligado no painel admin: se desabilitado, esconde a seção.
+    fetch(PROXY_URL, { method: 'GET' })
+      .then(function(r){ return r.json(); })
+      .then(function(s){ if (s && s.enabled === false){ var sec = document.getElementById('chat-boletos'); if (sec) sec.style.display = 'none'; } })
+      .catch(function(){});
+
+    function maskCpf(v){
+      v = v.replace(/\D/g,'').slice(0,11);
+      if (v.length > 9) return v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+      if (v.length > 6) return v.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+      if (v.length > 3) return v.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+      return v;
+    }
+    elCpfInput.addEventListener('input', function(){ elCpfInput.classList.remove('mi-cpf-err'); elCpfInput.value = maskCpf(elCpfInput.value); });
+
+    function esc(s){ var d = document.createElement('div'); d.textContent = (s==null?'':String(s)); return d.innerHTML; }
+    // Markdown leve (a Marina responde com **negrito** e tabelas | | |). Escapa antes (XSS-safe).
+    function mdRender(raw){
+      var lines = String(raw==null?'':raw).split('\n'), html='', i=0;
+      function inl(s){ return esc(s).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>'); }
+      function cells(l){ return l.trim().replace(/^\||\|$/g,'').split('|').map(function(c){ return c.trim(); }); }
+      while (i < lines.length){
+        if (/^\s*\|.*\|\s*$/.test(lines[i]) && i+1 < lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i+1])){
+          var head = cells(lines[i]); i += 2; var rows = '';
+          while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])){ var r = cells(lines[i]); rows += '<tr>'+r.map(function(c){ return '<td>'+inl(c)+'</td>'; }).join('')+'</tr>'; i++; }
+          html += '<table class="mi-md-table"><thead><tr>'+head.map(function(h){ return '<th>'+inl(h)+'</th>'; }).join('')+'</tr></thead><tbody>'+rows+'</tbody></table>';
+        } else { html += inl(lines[i]) + '<br>'; i++; }
+      }
+      return html.replace(/(<br>\s*)+$/,'');
+    }
+    function scrollDown(){ elBody.scrollTop = elBody.scrollHeight; }
+    function addBubble(text, who){
+      var b = document.createElement('div');
+      b.className = 'mi-bubble mi-bubble-' + who;
+      b.innerHTML = mdRender(text);
+      elBody.appendChild(b); scrollDown(); return b;
+    }
+    function addTyping(){
+      var t = document.createElement('div');
+      t.className = 'mi-bubble mi-bubble-bot mi-typing';
+      t.innerHTML = '<span></span><span></span><span></span>';
+      elBody.appendChild(t); scrollDown(); return t;
+    }
+    function fmtDate(d){ var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d||''); return m ? (m[3]+'/'+m[2]+'/'+m[1]) : (d||''); }
+    function fmtMoney(v){
+      if (v==null || v==='') return '';
+      var n = Number(String(v).replace(',','.'));
+      return isNaN(n) ? esc(v) : ('R$ ' + n.toFixed(2).replace('.',','));
+    }
+    function copyBtn(label, text){
+      return text ? '<button type="button" class="mi-boleto-btn" data-copy="'+esc(text)+'">'+label+'</button>' : '';
+    }
+    function renderBoleto(b){
+      if (!b) return;
+      var card = document.createElement('div');
+      card.className = 'mi-boleto';
+      var linha = b.linha_digitavel || b.codigo_barras || '';
+      var html = '<div class="mi-boleto-top"><strong>'+esc(b.descricao||'Fatura')+'</strong>'+(b.status?'<span class="mi-boleto-status">'+esc(b.status)+'</span>':'')+'</div>';
+      html += '<div class="mi-boleto-meta">';
+      if (b.vencimento) html += '<span><i class="ph ph-calendar-blank"></i> Vence '+esc(fmtDate(b.vencimento))+'</span>';
+      if (b.valor!=null && b.valor!=='') html += '<span class="mi-boleto-val">'+fmtMoney(b.valor)+'</span>';
+      html += '</div>';
+      if (b.pix_qrcode_png_base64) html += '<img class="mi-boleto-qr" alt="QR Code PIX" src="data:image/png;base64,'+esc(b.pix_qrcode_png_base64)+'">';
+      html += '<div class="mi-boleto-actions">';
+      html += copyBtn('<i class="ph ph-barcode"></i> Copiar linha digitável', linha);
+      html += copyBtn('<i class="ph ph-qr-code"></i> Copiar código PIX', b.pix_copia_cola);
+      if (b.url_pdf) html += '<a class="mi-boleto-btn" href="'+esc(b.url_pdf)+'" target="_blank"><i class="ph ph-file-pdf"></i> Baixar PDF</a>';
+      html += '</div>';
+      card.innerHTML = html;
+      elBody.appendChild(card); scrollDown();
+    }
+    elBody.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-copy]');
+      if (!btn) return;
+      navigator.clipboard.writeText(btn.getAttribute('data-copy')).then(function(){
+        var old = btn.innerHTML; btn.innerHTML = '<i class="ph ph-check"></i> Copiado!';
+        setTimeout(function(){ btn.innerHTML = old; }, 1800);
+      }).catch(function(){});
+    });
+
+    function send(text){
+      if (busy) return;
+      busy = true; elSend.disabled = true;
+      addBubble(text, 'user');
+      var typing = addTyping();
+      fetch(PROXY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cpf: cpf, message: text, session_id: sid })
+      })
+      .then(function(r){ return r.json().catch(function(){ return { reply: 'Recebi uma resposta inesperada. Tenta de novo ou chama no WhatsApp.' }; }); })
+      .then(function(d){
+        typing.remove();
+        if (d && d.session_id) sid = d.session_id;
+        addBubble((d && d.reply) ? d.reply : 'Não recebi resposta. Tenta de novo ou chama no WhatsApp.', 'bot');
+        if (d && Array.isArray(d.boletos)) d.boletos.forEach(renderBoleto);
+      })
+      .catch(function(){
+        typing.remove();
+        addBubble('Falha de conexão. Tenta de novo ou fala com a gente no WhatsApp.', 'bot');
+      })
+      .finally(function(){ busy = false; elSend.disabled = false; elMsg.focus(); });
+    }
+
+    function start(){
+      var digits = elCpfInput.value.replace(/\D/g,'');
+      if (digits.length !== 11){ elCpfInput.classList.add('mi-cpf-err'); elCpfInput.focus(); return; }
+      cpf = digits;
+      elCpfStep.hidden = true; elBody.hidden = false; elInputRow.hidden = false;
+      addBubble('Oi! Sou a Marina 👋 Deixa eu buscar suas faturas pelo seu CPF...', 'bot');
+      send('quero meu boleto');
+    }
+    elCpfBtn.addEventListener('click', start);
+    elCpfInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') start(); });
+    elSend.addEventListener('click', function(){ var t = elMsg.value.trim(); if (t){ elMsg.value=''; send(t); } });
+    elMsg.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ var t = elMsg.value.trim(); if (t){ elMsg.value=''; send(t); } } });
+  })();
+  </script>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contato">
+    <div class="footer-trust">
+      <div class="container footer-trust-inner">
+        <div class="footer-trust-item"><i class="ph-fill ph-star"></i><div><strong>4,9 / 5</strong><span>2.382 avaliações no Google</span></div></div>
+        <div class="footer-trust-item"><i class="ph-fill ph-lightning"></i><div><strong>100% Fibra Óptica</strong><span>Sem rádio, sem cabo compartilhado</span></div></div>
+        <div class="footer-trust-item"><i class="ph-fill ph-map-pin"></i><div><strong>100% Joinville</strong><span>Atendimento local, equipe da região</span></div></div>
+        <div class="footer-trust-item"><i class="ph-fill ph-handshake"></i><div><strong>Sem fidelidade</strong><span>Cancela quando quiser, sem multa</span></div></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../../" class="logo"><img src="../../imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img"></a>
+          <p>Internet fibra óptica de verdade. Mais de 6 anos conectando famílias e empresas.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/masterinfointernet" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+            <a href="https://www.facebook.com/masterinfointernet" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://wa.me/5547989212991" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Internet</h4>
+          <a href="../../familia/">Família</a>
+          <a href="../../home-office/">Home Office</a>
+          <a href="../../gamer/">Gamer</a>
+          <a href="../../com-2-roteadores/">Com 2 Roteadores</a>
+          <a href="../../com-1-roteador/">Com 1 Roteador</a>
+        </div>
+        <div class="footer-col">
+          <h4>Institucional</h4>
+          <a href="../../#cobertura">Cobertura</a>
+          <a href="../../#depoimentos">Depoimentos</a>
+          <a href="../../#nossa-historia">Nossa História</a>
+          <a href="../../#faq">Dúvidas</a>
+        </div>
+        <div class="footer-col">
+          <h4>Fale com a gente</h4>
+          <a href="https://wa.me/5547989212991" target="_blank"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp</a>
+          <a href="mailto:masterinfo@masterinfointernet.com"><i class="ph ph-envelope"></i> E-mail</a>
+          <a href="https://www.instagram.com/masterinfointernet" target="_blank"><i class="ph ph-instagram-logo"></i> Instagram</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MasterInfo Internet. Todos os direitos reservados.</p>
+        <div class="footer-legal">
+          <a href="#">Termos de Uso</a><span>·</span>
+          <a href="#">Política de Privacidade</a><span>·</span>
+          <a href="#">LGPD</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5547989212991" class="whatsapp-float" target="_blank">
+    <span class="whatsapp-tooltip">
+      <span class="whatsapp-tooltip-online"><span class="whatsapp-online-dot"></span> Online agora</span>
+      <span class="whatsapp-tooltip-text">Fala com a gente!</span>
+    </span>
+    <i class="ph-fill ph-whatsapp-logo"></i>
+    <span class="whatsapp-pulse"></span>
+  </a>
+
+  <script>
+  (function() {
+    var navItems = document.querySelectorAll('.nav-item.has-mega');
+    navItems.forEach(function(item) {
+      var trigger = item.querySelector('.nav-trigger');
+      if (trigger) {
+        trigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          var wasOpen = item.classList.contains('is-open');
+          navItems.forEach(function(it) { it.classList.remove('is-open'); });
+          if (!wasOpen) item.classList.add('is-open');
+        });
+      }
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-item.has-mega') && !e.target.closest('.mega-menu')) {
+        navItems.forEach(function(it) { it.classList.remove('is-open'); });
+      }
+    });
+    var mt = document.getElementById('mobileToggle');
+    var nv = document.getElementById('nav');
+    if (mt && nv) mt.addEventListener('click', function() {
+      mt.classList.toggle('active'); nv.classList.toggle('open');
+    });
+
+    // Slideshow do hero (rotaciona slides com fade)
+    var slideshow = document.querySelector('.sub-hero-slideshow');
+    if (slideshow) {
+      var slides = slideshow.querySelectorAll('.sub-hero-slide');
+      var interval = parseInt(slideshow.getAttribute('data-interval'), 10) || 5000;
+      if (slides.length > 1) {
+        var current = 0;
+        setInterval(function() {
+          slides[current].classList.remove('is-active');
+          current = (current + 1) % slides.length;
+          slides[current].classList.add('is-active');
+        }, interval);
+      }
+    }
+  })();
+  </script>
+</body>
+</html>
