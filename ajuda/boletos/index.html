@@ -41,7 +41,7 @@
           <li class="nav-item"><a href="../../tv-streaming/" class="nav-link">TV e Streaming</a></li>
           <li class="nav-item"><a href="../../#cobertura" class="nav-link">Cobertura</a></li>
           <li class="nav-item"><a href="../../#nossa-historia" class="nav-link">Nossa História</a></li>
-          <li class="nav-item"><a href="../../#contato" class="nav-link">Contato</a></li>
+          <li class="nav-item"><a href="../../contato/" class="nav-link">Contato</a></li>
         </ul>
 
         <span class="nav-divider" aria-hidden="true"></span>
@@ -149,7 +149,8 @@
           </div>
         </div>
         <div class="mi-chat-cpf" id="miChatCpf">
-          <label for="miCpf">Pra começar, informe seu CPF</label>
+          <p class="mi-chat-intro">Oi! 👋 Sou a <strong>Marina</strong>. Precisa da <strong>2ª via do seu boleto</strong>? Eu pego aqui mesmo, na hora — código de barras, Pix ou PDF.</p>
+          <label for="miCpf">Pra começar, é só me passar seu CPF:</label>
           <div class="mi-chat-cpf-row">
             <input type="tel" id="miCpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" autocomplete="off">
             <button type="button" id="miCpfBtn">Continuar <i class="ph ph-arrow-right"></i></button>
@@ -173,6 +174,8 @@
     #chat-boletos .mi-chat-status{font-size:0.75rem;color:#9fe0b0;display:flex;align-items:center;gap:5px;}
     #chat-boletos .mi-chat-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;box-shadow:0 0 0 3px rgba(34,197,94,0.2);}
     #chat-boletos .mi-chat-cpf{padding:22px 18px;}
+    #chat-boletos .mi-chat-intro{margin:0 0 14px;padding:12px 14px;background:rgba(255,122,5,0.10);border:1px solid rgba(255,122,5,0.22);border-radius:14px;border-top-left-radius:4px;font-size:0.92rem;line-height:1.5;color:#e8e8ef;}
+    #chat-boletos .mi-chat-intro strong{color:#fcc305;}
     #chat-boletos .mi-chat-cpf label{display:block;font-size:0.9rem;color:#cfcfd6;margin-bottom:10px;}
     #chat-boletos .mi-chat-cpf-row{display:flex;gap:8px;flex-wrap:wrap;}
     #chat-boletos .mi-chat-cpf-row input{flex:1;min-width:160px;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.16);background:rgba(0,0,0,0.25);color:#fff;font-size:1rem;}
@@ -330,7 +333,7 @@
       if (digits.length !== 11){ elCpfInput.classList.add('mi-cpf-err'); elCpfInput.focus(); return; }
       cpf = digits;
       elCpfStep.hidden = true; elBody.hidden = false; elInputRow.hidden = false;
-      addBubble('Oi! Sou a Marina 👋 Deixa eu buscar suas faturas pelo seu CPF...', 'bot');
+      addBubble('Perfeito! Já tô localizando suas faturas pelo seu CPF... 🔎', 'bot');
       send('quero meu boleto');
     }
     elCpfBtn.addEventListener('click', start);
@@ -347,18 +350,18 @@
         <div class="footer-trust-item"><i class="ph-fill ph-star"></i><div><strong>4,9 / 5</strong><span>2.382 avaliações no Google</span></div></div>
         <div class="footer-trust-item"><i class="ph-fill ph-lightning"></i><div><strong>100% Fibra Óptica</strong><span>Sem rádio, sem cabo compartilhado</span></div></div>
         <div class="footer-trust-item"><i class="ph-fill ph-map-pin"></i><div><strong>100% Joinville</strong><span>Atendimento local, equipe da região</span></div></div>
-        <div class="footer-trust-item"><i class="ph-fill ph-handshake"></i><div><strong>Sem fidelidade</strong><span>Cancela quando quiser, sem multa</span></div></div>
+        <div class="footer-trust-item"><i class="ph-fill ph-handshake"></i><div><strong>Suporte que resolve</strong><span>Fala com gente de verdade</span></div></div>
       </div>
     </div>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="../../" class="logo"><img src="../../imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img"></a>
-          <p>Internet fibra óptica de verdade. Mais de 6 anos conectando famílias e empresas.</p>
+          <p>Internet fibra óptica de verdade. Mais de 6 anos conectando famílias e empresas em Joinville.</p>
           <div class="footer-social">
-            <a href="https://www.instagram.com/masterinfointernet" target="_blank"><i class="ph ph-instagram-logo"></i></a>
-            <a href="https://www.facebook.com/masterinfointernet" target="_blank"><i class="ph ph-facebook-logo"></i></a>
-            <a href="https://wa.me/5547989212991" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+            <a href="https://www.instagram.com/masterinfo.internet" target="_blank" rel="noopener" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+            <a href="https://www.facebook.com/masterinfointernet" target="_blank" rel="noopener" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://wa.me/554734341734" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
           </div>
         </div>
         <div class="footer-col">
@@ -378,13 +381,23 @@
         </div>
         <div class="footer-col">
           <h4>Fale com a gente</h4>
-          <a href="https://wa.me/5547989212991" target="_blank"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp</a>
+          <a href="https://wa.me/554734341734" target="_blank" rel="noopener"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp (47) 3434-1734</a>
+          <a href="https://wa.me/5547989212991" target="_blank" rel="noopener"><i class="ph-fill ph-whatsapp-logo"></i> Comercial (47) 98921-2991</a>
           <a href="mailto:masterinfo@masterinfointernet.com"><i class="ph ph-envelope"></i> E-mail</a>
-          <a href="https://www.instagram.com/masterinfointernet" target="_blank"><i class="ph ph-instagram-logo"></i> Instagram</a>
+          <a href="../../contato/"><i class="ph ph-map-pin"></i> Página de contato</a>
+        </div>
+      </div>
+      <div class="footer-payment">
+        <span class="footer-payment-label">Formas de pagamento</span>
+        <div class="footer-payment-icons">
+          <span class="payment-icon"><i class="ph-fill ph-currency-circle-dollar"></i> PIX</span>
+          <span class="payment-icon"><i class="ph-fill ph-barcode"></i> Boleto</span>
+          <span class="payment-icon"><i class="ph-fill ph-credit-card"></i> Cartão</span>
+          <span class="payment-icon"><i class="ph-fill ph-bank"></i> Débito automático</span>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 MasterInfo Internet. Todos os direitos reservados.</p>
+        <p id="footerCnpj">&copy; 2026 MasterInfo Internet. Todos os direitos reservados. CNPJ: 08.990.505/0001-52</p>
         <div class="footer-legal">
           <a href="#">Termos de Uso</a><span>·</span>
           <a href="#">Política de Privacidade</a><span>·</span>
