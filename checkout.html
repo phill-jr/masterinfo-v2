@@ -23,7 +23,7 @@
   <link id="cssLight"      rel="stylesheet" href="styles-light.css?v=3">
   <link id="cssModalLight" rel="stylesheet" href="modal-light.css?v=3">
   <!-- Estilos do checkout (seguem as variaveis do tema ativo) -->
-  <link rel="stylesheet" href="checkout.css?v=3">
+  <link rel="stylesheet" href="checkout.css?v=4">
   <!-- Priming do tema: aplica cache do localStorage antes do render (evita FOUC) -->
   <script>
     (function () {
@@ -373,7 +373,8 @@
     </div>
   </div>
 
-  <script src="checkout.js"></script>
+  <!-- cache-busting: garante sempre a versao mais recente do checkout.js (evita JS antigo em cache) -->
+  <script>document.write('<script src="checkout.js?v=' + Date.now() + '"><\/script>');</script>
 
   <!-- Tracking: GTM, GA4, Google Ads, Facebook Pixel (IDs no config.json) -->
   <script src="tracking.js" defer></script>

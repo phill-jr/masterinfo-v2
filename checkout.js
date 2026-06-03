@@ -64,6 +64,7 @@
             // Preco PONTUAL (com desconto pagando em dia). Fallback = cheio.
             pricePontual: (p.precoPontual != null ? p.precoPontual : (p.precoCheio != null ? p.precoCheio : p.preco)) || 0,
             features: p.features || [],
+            tagline: p.tagline || '',
             includesTV: p.incluiTV || false,
             badge: p.badge || null,
           };
@@ -361,8 +362,11 @@
         '<div class="ck-plan-card' + (isSelected ? ' selected' : '') + '" onclick="pickPlan(\'' + id + '\')">' +
           (p.badge ? '<span class="ck-plan-badge">' + p.badge + '</span>' : '') +
           '<div class="ck-plan-name">' + p.name + '</div>' +
+          (p.tagline ? '<div class="ck-plan-tagline">' + p.tagline + '</div>' : '') +
           '<div class="ck-plan-speed">' + p.speed + ' <small>' + p.speedUnit + '</small></div>' +
           '<div class="ck-plan-price">R$ ' + formatPrice(p.price) + ' <small>/mes</small></div>' +
+          ((p.price - p.pricePontual) > 0 ? '<div class="ck-plan-desconto"><i class="ph-fill ph-check-circle"></i> R$ ' + formatPrice(p.pricePontual) + ' pagando em dia <strong>(R$ ' + formatPrice(p.price - p.pricePontual) + ' OFF)</strong></div>' : '') +
+          (p.features && p.features.length ? '<ul class="ck-plan-features">' + p.features.map(function (f) { return '<li><i class="ph-fill ph-check-circle"></i> ' + f + '</li>'; }).join('') + '</ul>' : '') +
         '</div>';
     });
 
