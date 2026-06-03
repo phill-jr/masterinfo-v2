@@ -8,8 +8,8 @@
         "bairroEndereco": "Comasa",
         "cidade": "Joinville, SC",
         "cep": "89228-000",
-        "cnpj": "08.990.505.0001-52",
-        "instagram": "https:\/\/www.instagram.com\/masterinfointernet",
+        "cnpj": "08.990.505/0001-52",
+        "instagram": "https:\/\/www.instagram.com\/masterinfo.internet",
         "facebook": "https:\/\/www.facebook.com\/masterinfointernet"
     },
     "checkout": {
@@ -161,7 +161,7 @@
                 "lado": "esq",
                 "label": "Contato",
                 "tipo": "link",
-                "href": "#contato",
+                "href": "/contato",
                 "on": true
             },
             {
@@ -208,41 +208,33 @@
     "menus": {
         "footer": [
             {
-                "titulo": "Planos",
+                "titulo": "Internet",
                 "links": [
                     {
-                        "label": "Lite Essencial",
-                        "href": "#lite-essencial"
+                        "label": "Família",
+                        "href": "\/familia"
                     },
                     {
-                        "label": "Lite Casa",
-                        "href": "#lite-casa"
+                        "label": "Home Office",
+                        "href": "\/home-office"
                     },
                     {
-                        "label": "Lite Família",
-                        "href": "#lite-familia"
+                        "label": "Gamer",
+                        "href": "\/gamer"
                     },
                     {
-                        "label": "Lite Home Office",
-                        "href": "#lite-home-office"
+                        "label": "Com 2 Roteadores",
+                        "href": "\/com-2-roteadores"
                     },
                     {
-                        "label": "Ultra Família",
-                        "href": "#ultra-familia"
-                    },
-                    {
-                        "label": "Ultra Home Office",
-                        "href": "#ultra-home-office"
+                        "label": "Com 1 Roteador",
+                        "href": "\/com-1-roteador"
                     }
                 ]
             },
             {
                 "titulo": "Institucional",
                 "links": [
-                    {
-                        "label": "Tudo Incluso",
-                        "href": "#incluso"
-                    },
                     {
                         "label": "Cobertura",
                         "href": "#cobertura"
@@ -253,7 +245,7 @@
                     },
                     {
                         "label": "Nossa História",
-                        "href": "#sobre"
+                        "href": "#nossa-historia"
                     },
                     {
                         "label": "Dúvidas",
@@ -265,7 +257,13 @@
                 "titulo": "Fale com a gente",
                 "links": [
                     {
-                        "label": "WhatsApp",
+                        "label": "WhatsApp (47) 3434-1734",
+                        "href": "https:\/\/wa.me\/554734341734",
+                        "target": "_blank",
+                        "icone": "ph-fill ph-whatsapp-logo"
+                    },
+                    {
+                        "label": "Comercial (47) 98921-2991",
                         "href": "https:\/\/wa.me\/5547989212991",
                         "target": "_blank",
                         "icone": "ph-fill ph-whatsapp-logo"
@@ -276,10 +274,9 @@
                         "icone": "ph ph-envelope"
                     },
                     {
-                        "label": "Instagram",
-                        "href": "https:\/\/www.instagram.com\/masterinfointernet",
-                        "target": "_blank",
-                        "icone": "ph ph-instagram-logo"
+                        "label": "Página de contato",
+                        "href": "\/contato",
+                        "icone": "ph ph-map-pin"
                     }
                 ]
             }

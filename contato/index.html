@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato | Fale com a MasterInfo Internet — Joinville</title>
+  <meta name="description" content="Fale com a MasterInfo Internet: WhatsApp principal (47) 3434-1734, comercial e vendas (47) 98921-2991, e-mail e atendimento presencial no Comasa, Joinville. Atendimento 100% local, sem 0800 e sem robô.">
+  <link rel="canonical" href="https://masterinfointernet.com/contato/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fala com a gente — MasterInfo Internet">
+  <meta property="og:description" content="WhatsApp, telefone, e-mail ou pessoalmente. Atendimento local de Joinville, sem 0800 e sem robô.">
+  <meta property="og:url" content="https://masterinfointernet.com/contato/">
+  <meta property="og:site_name" content="MasterInfo Internet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../styles.css?v=20260602-ct">
+  <link rel="stylesheet" href="../modal.css?v=20260602-ct">
+
+  <!-- Schema.org — ContactPage + dados da empresa (bom p/ SEO e mecanismos de IA) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contato — MasterInfo Internet",
+    "url": "https://masterinfointernet.com/contato/",
+    "mainEntity": {
+      "@type": "InternetServiceProvider",
+      "name": "MasterInfo Internet",
+      "telephone": "+55-47-3434-1734",
+      "email": "masterinfo@masterinfointernet.com",
+      "url": "https://masterinfointernet.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua Baltazar Buschler, 628",
+        "addressLocality": "Joinville",
+        "addressRegion": "SC",
+        "postalCode": "89228-000",
+        "addressCountry": "BR"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "Vendas",
+          "telephone": "+55-47-98921-2991",
+          "areaServed": "Joinville-SC",
+          "availableLanguage": "Portuguese"
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "Suporte técnico",
+          "telephone": "+55-47-3434-1734",
+          "areaServed": "Joinville-SC",
+          "availableLanguage": "Portuguese"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/masterinfo.internet",
+        "https://www.facebook.com/masterinfointernet"
+      ]
+    }
+  }
+  </script>
+
+  <!-- ====== Estilos da página de contato (escopados .ct-) ====== -->
+  <style>
+    .ct-page { background: #fff; color: #1a1a1a; }
+    /* O design system (styles.css) pinta um body::before ESCURO fixo (tema escuro).
+       Esta página é tema claro — substitui por branco com um glow de marca bem sutil,
+       senão as seções sem fundo próprio (ex: #canais) mostram o escuro e o texto some. */
+    body.ct-page::before {
+      background:
+        radial-gradient(ellipse at 15% -5%, rgba(255,176,32,0.07) 0%, transparent 42%),
+        radial-gradient(ellipse at 100% 100%, rgba(230,57,70,0.05) 0%, transparent 45%),
+        #ffffff;
+    }
+    /* Reforço: seção de canais branca sólida (cards brancos saltam com borda + sombra). */
+    #canais { background: #fff; }
+
+    /* ---------- HERO ---------- */
+    .ct-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 150px 0 90px;
+      color: #fff;
+      isolation: isolate;
+      background: var(--gradient-fire, linear-gradient(120deg, #c1121f 0%, #e63946 25%, #ff7a05 60%, #fcc305 100%));
+    }
+    .ct-hero::before {
+      content: '';
+      position: absolute; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(255,255,255,0.28) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 100%, rgba(193,18,31,0.55) 0%, transparent 55%);
+      mix-blend-mode: overlay;
+    }
+    .ct-hero::after {
+      content: '';
+      position: absolute; inset: 0; z-index: -1;
+      background-image: radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1px);
+      background-size: 22px 22px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.5), transparent 70%);
+      -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.5), transparent 70%);
+    }
+    .ct-hero-inner { max-width: 820px; position: relative; z-index: 2; }
+    .ct-hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 8px 16px; border-radius: 999px;
+      background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.35);
+      color: #fff; margin-bottom: 22px;
+    }
+    .ct-hero-tag .ct-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #4ade80;
+      box-shadow: 0 0 0 0 rgba(74,222,128,0.7); animation: ctPulse 2s infinite;
+    }
+    @keyframes ctPulse {
+      0% { box-shadow: 0 0 0 0 rgba(74,222,128,0.6); }
+      70% { box-shadow: 0 0 0 10px rgba(74,222,128,0); }
+      100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+    }
+    .ct-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.4rem);
+      font-weight: 900; line-height: 1.03; letter-spacing: -0.04em;
+      margin-bottom: 20px; text-shadow: 0 6px 30px rgba(0,0,0,0.25);
+    }
+    .ct-hero h1 .ct-stroke {
+      -webkit-text-stroke: 2px rgba(255,255,255,0.92);
+      color: transparent; text-shadow: none;
+    }
+    .ct-hero-sub {
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      line-height: 1.55; color: rgba(255,255,255,0.94);
+      max-width: 640px; margin-bottom: 34px; font-weight: 400;
+    }
+    .ct-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 30px; }
+    .ct-hero-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 28px; border-radius: 999px; font-weight: 800; font-size: 1.05rem;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .ct-hero-btn-wa { background: #25d366; color: #06351c; box-shadow: 0 16px 38px rgba(0,0,0,0.28); }
+    .ct-hero-btn-wa:hover { transform: translateY(-3px); box-shadow: 0 22px 46px rgba(0,0,0,0.34); }
+    .ct-hero-btn-ghost { background: rgba(0,0,0,0.18); color: #fff; border: 1.5px solid rgba(255,255,255,0.5); }
+    .ct-hero-btn-ghost:hover { transform: translateY(-3px); background: rgba(255,255,255,0.16); }
+    .ct-hero-meta { display: flex; flex-wrap: wrap; gap: 22px; color: rgba(255,255,255,0.92); font-weight: 600; font-size: 0.95rem; }
+    .ct-hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .ct-hero-meta i { font-size: 1.15rem; }
+
+    /* ---------- SECTION SHELL ---------- */
+    .ct-section { padding: 84px 0; }
+    .ct-section-head { text-align: center; max-width: 680px; margin: 0 auto 52px; }
+    .ct-eyebrow {
+      display: inline-block; font-family: var(--font-mono, monospace);
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--orange, #ff7a05); margin-bottom: 14px;
+    }
+    .ct-section-head h2 {
+      font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 900;
+      letter-spacing: -0.03em; line-height: 1.12; color: #14141a;
+    }
+    .ct-section-head h2 .ct-fire {
+      background: var(--gradient-brand, linear-gradient(135deg,#e63946,#ff7a05,#fcc305));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .ct-section-head p { margin-top: 14px; font-size: 1.1rem; color: #5a5a66; line-height: 1.55; }
+
+    /* ---------- CANAIS (grid) ---------- */
+    .ct-channels {
+      display: grid; gap: 18px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .ct-channel {
+      position: relative; display: flex; align-items: center; gap: 18px;
+      padding: 26px; border-radius: 22px; overflow: hidden;
+      background: #fff; border: 1.5px solid #ececf2;
+      box-shadow: 0 6px 20px rgba(20,20,30,0.05);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .ct-channel::after {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--gradient-sunset, linear-gradient(180deg,#fcc305,#ff7a05,#e63946));
+      transform: scaleY(0); transform-origin: top; transition: transform .25s ease;
+    }
+    .ct-channel:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 48px rgba(20,20,30,0.14);
+      border-color: transparent;
+    }
+    .ct-channel:hover::after { transform: scaleY(1); }
+    .ct-channel-ico {
+      flex-shrink: 0; width: 60px; height: 60px; border-radius: 16px;
+      display: grid; place-items: center; font-size: 1.8rem; color: #fff;
+      background: var(--gradient-brand, linear-gradient(135deg,#e63946,#ff7a05));
+      box-shadow: 0 8px 20px rgba(255,122,5,0.3);
+    }
+    .ct-channel-body { min-width: 0; display: flex; flex-direction: column; }
+    .ct-channel-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9a9aa6; }
+    .ct-channel-value { font-size: 1.32rem; font-weight: 800; color: #16161c; letter-spacing: -0.01em; line-height: 1.2; }
+    .ct-channel-sub { font-size: 0.9rem; color: #6a6a76; margin-top: 2px; }
+    .ct-channel-arrow { margin-left: auto; flex-shrink: 0; font-size: 1.4rem; color: #c4c4d0; transition: transform .22s ease, color .22s ease; }
+    .ct-channel:hover .ct-channel-arrow { transform: translateX(4px); color: var(--orange, #ff7a05); }
+
+    /* Card destaque WhatsApp ocupa a largura toda */
+    .ct-channel-wa { background: linear-gradient(120deg, #0b1f17 0%, #0e3a25 100%); border-color: transparent; }
+    .ct-channel-wa-com { background: linear-gradient(120deg, #0a1c22 0%, #0e3340 100%); }
+    .ct-channel-wa .ct-channel-label { color: rgba(255,255,255,0.6); }
+    .ct-channel-wa .ct-channel-value { color: #fff; }
+    .ct-channel-wa .ct-channel-sub { color: rgba(255,255,255,0.75); }
+    .ct-channel-wa .ct-channel-ico { background: #25d366; box-shadow: 0 8px 24px rgba(37,211,102,0.5); color: #06351c; }
+    .ct-channel-wa .ct-channel-arrow { color: rgba(255,255,255,0.55); }
+    .ct-channel-wa:hover .ct-channel-arrow { color: #25d366; }
+    .ct-channel-wa::after { background: #25d366; }
+    .ct-channel-wa .ct-wa-badge {
+      align-self: flex-start;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.68rem; font-weight: 700; color: #4ade80;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.35);
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 8px;
+    }
+    .ct-channel-wa .ct-wa-badge .ct-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: ctPulse 2s infinite; }
+
+    /* ---------- FORM + SIDEBAR ---------- */
+    .ct-form-wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 28px; align-items: start; }
+    .ct-card {
+      background: #fff; border: 1.5px solid #ececf2; border-radius: 26px;
+      padding: 38px; box-shadow: 0 18px 50px rgba(20,20,30,0.08);
+    }
+    .ct-card h3 { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.02em; color: #16161c; }
+    .ct-card .ct-card-sub { color: #6a6a76; margin: 6px 0 24px; font-size: 1rem; }
+
+    /* chips de motivo */
+    .ct-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .ct-chip {
+      cursor: pointer; user-select: none;
+      padding: 10px 16px; border-radius: 999px; font-size: 0.92rem; font-weight: 700;
+      background: #f4f4f7; color: #4a4a57; border: 1.5px solid transparent;
+      transition: all .18s ease;
+    }
+    .ct-chip:hover { background: #ececf2; }
+    .ct-chip.is-active {
+      background: linear-gradient(135deg, rgba(255,122,5,0.12), rgba(230,57,70,0.1));
+      color: var(--orange-dark, #e06800); border-color: rgba(255,122,5,0.45);
+    }
+
+    .ct-field { margin-bottom: 18px; }
+    .ct-field label { display: block; font-size: 0.84rem; font-weight: 700; color: #44444f; margin-bottom: 7px; }
+    .ct-field input, .ct-field textarea {
+      width: 100%; padding: 15px 16px; font-size: 1rem; font-family: inherit; color: #16161c;
+      border: 2px solid #e6e6ee; border-radius: 14px; background: #fafafb;
+      transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .ct-field textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
+    .ct-field input:focus, .ct-field textarea:focus {
+      outline: none; border-color: var(--orange, #ff7a05); background: #fff;
+      box-shadow: 0 0 0 4px rgba(255,122,5,0.12);
+    }
+    .ct-field input::placeholder, .ct-field textarea::placeholder { color: #aeaeba; }
+    .ct-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    .ct-submit {
+      width: 100%; padding: 17px; font-size: 1.08rem; font-weight: 800; font-family: inherit;
+      color: #fff; background: var(--gradient-brand, linear-gradient(135deg,#e63946,#ff7a05,#fcc305));
+      border: none; border-radius: 999px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 14px 32px rgba(255,122,5,0.36); transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .ct-submit:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(255,122,5,0.46); }
+    .ct-submit:active { transform: translateY(0); }
+    .ct-submit:disabled { opacity: 0.7; cursor: wait; }
+    .ct-form-foot { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; font-size: 0.84rem; color: #8a8a96; }
+    .ct-form-foot i { color: #25d366; font-size: 1.05rem; }
+
+    /* sidebar do form */
+    .ct-aside-card {
+      background: linear-gradient(160deg, #16161c 0%, #20202a 100%); color: #fff;
+      border-radius: 26px; padding: 34px; box-shadow: 0 18px 50px rgba(20,20,30,0.2);
+    }
+    .ct-aside-card h4 { font-size: 1.15rem; font-weight: 800; margin-bottom: 18px; }
+    .ct-nolist { list-style: none; display: grid; gap: 14px; }
+    .ct-nolist li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.98rem; color: rgba(255,255,255,0.82); line-height: 1.4; }
+    .ct-nolist li i { color: #ff6b6b; font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+    .ct-aside-rating {
+      margin-top: 26px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .ct-aside-rating .ct-stars { color: #fcc305; font-size: 1.1rem; letter-spacing: 2px; }
+    .ct-aside-rating strong { display: block; font-size: 1.5rem; font-weight: 900; line-height: 1; }
+    .ct-aside-rating span { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+
+    /* ---------- LOCALIZAÇÃO ---------- */
+    .ct-local { background: #f7f7fb; }
+    .ct-local-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch; }
+    .ct-map {
+      border-radius: 26px; overflow: hidden; min-height: 420px;
+      border: 1.5px solid #e6e6ee; box-shadow: 0 18px 50px rgba(20,20,30,0.08); background: #e9e9ef;
+    }
+    .ct-map iframe { width: 100%; height: 100%; min-height: 420px; border: 0; display: block; }
+    .ct-info { display: grid; gap: 18px; align-content: start; }
+    .ct-info-card { background: #fff; border: 1.5px solid #ececf2; border-radius: 22px; padding: 26px; box-shadow: 0 6px 20px rgba(20,20,30,0.05); }
+    .ct-info-card .ct-ic-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .ct-info-card .ct-ic-head i {
+      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 1.4rem; color: #fff;
+      background: var(--gradient-brand, linear-gradient(135deg,#e63946,#ff7a05)); flex-shrink: 0;
+    }
+    .ct-info-card .ct-ic-head h4 { font-size: 1.15rem; font-weight: 800; color: #16161c; }
+    .ct-info-card p { color: #4a4a57; line-height: 1.6; font-size: 1rem; }
+    .ct-info-card .ct-cnpj { font-family: var(--font-mono, monospace); font-size: 0.85rem; color: #8a8a96; margin-top: 8px; }
+    .ct-howto {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 16px;
+      padding: 12px 20px; border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+      color: #fff; background: #16161c; transition: transform .15s ease, background .15s ease;
+    }
+    .ct-howto:hover { transform: translateY(-2px); background: var(--orange, #ff7a05); }
+    .ct-hours { display: grid; gap: 10px; }
+    .ct-hours-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px dashed #e6e6ee; font-size: 0.98rem; }
+    .ct-hours-row:last-child { border-bottom: 0; }
+    .ct-hours-row .ct-h-label { color: #4a4a57; font-weight: 600; display: inline-flex; align-items: center; gap: 9px; }
+    .ct-hours-row .ct-h-label i { color: var(--orange, #ff7a05); }
+    .ct-hours-row .ct-h-time { font-weight: 800; color: #16161c; }
+    .ct-hours-row .ct-h-time.ct-open { color: #16a34a; }
+
+    /* ---------- SPLIT CTA ---------- */
+    .ct-split { padding: 0; }
+    .ct-split-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .ct-split-col { padding: 80px 48px; text-align: center; color: #fff; position: relative; overflow: hidden; }
+    .ct-split-col h3 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .ct-split-col p { font-size: 1.05rem; opacity: 0.92; margin-bottom: 26px; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .ct-split-new { background: var(--gradient-fire, linear-gradient(120deg,#c1121f,#e63946,#ff7a05,#fcc305)); }
+    .ct-split-client { background: linear-gradient(160deg, #14141a 0%, #20202a 100%); }
+    .ct-split-btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 999px;
+      font-weight: 800; font-size: 1.05rem; background: #fff; color: #16161c;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .ct-split-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(0,0,0,0.25); }
+    .ct-split-client .ct-split-btn { background: #25d366; color: #06351c; }
+    .ct-split-ico { font-size: 2.4rem; margin-bottom: 16px; display: block; }
+
+    /* ---------- reveal ---------- */
+    .ct-reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .ct-reveal.is-in { opacity: 1; transform: none; }
+
+    /* ---------- responsivo ---------- */
+    @media (max-width: 900px) {
+      .ct-form-wrap, .ct-local-grid, .ct-split-grid { grid-template-columns: 1fr; }
+      .ct-channels { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .ct-hero { padding: 120px 0 70px; }
+      .ct-card, .ct-aside-card { padding: 26px; }
+      .ct-channel { padding: 20px; gap: 14px; }
+      .ct-channel-ico { width: 52px; height: 52px; font-size: 1.5rem; }
+      .ct-channel-value { font-size: 1.12rem; }
+      .ct-split-col { padding: 56px 28px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ct-reveal { transition: none; opacity: 1; transform: none; }
+      .ct-hero-tag .ct-dot, .ct-wa-badge .ct-dot { animation: none; }
+    }
+  </style>
+</head>
+<body class="ct-page">
+
+  <!-- HEADER (idêntico às subpáginas) -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="../" class="logo">
+        <img src="../imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img">
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav-list nav-list-sales">
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button">Internet <i class="ph ph-caret-down nav-trigger-caret"></i></button>
+            <div class="mega-menu mega-menu-simple">
+              <div class="mega-menu-inner">
+                <ul class="dropdown-list">
+                  <li><a href="../familia/" class="dropdown-link">Família</a></li>
+                  <li><a href="../home-office/" class="dropdown-link">Home Office</a></li>
+                  <li><a href="../gamer/" class="dropdown-link">Gamer</a></li>
+                  <li><a href="../com-2-roteadores/" class="dropdown-link">Com 2 Roteadores</a></li>
+                  <li><a href="../com-1-roteador/" class="dropdown-link">Com 1 Roteador</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="../tv-streaming/" class="nav-link">TV e Streaming</a></li>
+          <li class="nav-item"><a href="../#cobertura" class="nav-link">Cobertura</a></li>
+          <li class="nav-item"><a href="../#nossa-historia" class="nav-link">Nossa História</a></li>
+          <li class="nav-item"><a href="../contato/" class="nav-link" aria-current="page">Contato</a></li>
+        </ul>
+
+        <span class="nav-divider" aria-hidden="true"></span>
+
+        <ul class="nav-list nav-list-client">
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button">Aplicativos <i class="ph ph-caret-down nav-trigger-caret"></i></button>
+            <div class="mega-menu mega-menu-simple">
+              <div class="mega-menu-inner">
+                <ul class="dropdown-list">
+                  <li><a href="../aplicativos/sky-light/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../imgs/sky.jpg" alt="">SKY+ Light</a></li>
+                  <li><a href="../aplicativos/deezer/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../imgs/deezer.webp" alt="">Deezer</a></li>
+                  <li><a href="../aplicativos/globoplay/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../imgs/globoplay.png" alt="">Globoplay</a></li>
+                  <li><a href="../aplicativos/disney-plus/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../imgs/disney-plus.png" alt="">Disney+</a></li>
+                  <li><a href="../aplicativos/hbo-max/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../imgs/hbo-max.jpg" alt="">HBO Max</a></li>
+                  <li><a href="../aplicativos/prime-video/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../imgs/prime-video.png" alt="">Prime Video</a></li>
+                  <li><a href="../aplicativos/exitlag/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../imgs/exitlag.png" alt="">Exitlag</a></li>
+                  <li><a href="../aplicativos/kaspersky/" class="dropdown-link">
+                    <img class="dropdown-logo dropdown-logo-real" src="../imgs/kaspersky.webp" alt="">Kaspersky</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item has-mega">
+            <button class="nav-trigger" type="button">Ajuda <i class="ph ph-caret-down nav-trigger-caret"></i></button>
+            <div class="mega-menu mega-menu-simple">
+              <div class="mega-menu-inner">
+                <ul class="dropdown-list">
+                  <li><a href="https://wa.me/554734341734" target="_blank" rel="noopener" class="dropdown-link">Suporte WhatsApp</a></li>
+                  <li><a href="https://www.speedtest.net" target="_blank" rel="noopener" class="dropdown-link">Speedtest</a></li>
+                  <li><a href="../ajuda/wifi" class="dropdown-link">Configurar Wi-Fi</a></li>
+                  <li><a href="../#faq" class="dropdown-link">Perguntas frequentes</a></li>
+                  <li><a href="../ajuda/reportar" class="dropdown-link">Reportar problema</a></li>
+                  <li><a href="../ajuda/boletos" class="dropdown-link">Boletos e faturas</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" rel="noopener" class="header-client-btn">
+          <i class="ph-fill ph-user-circle"></i><span>Área do Cliente</span>
+        </a>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mega-backdrop" id="megaBackdrop"></div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="ct-hero">
+    <div class="container ct-hero-inner">
+      <span class="ct-hero-tag"><span class="ct-dot"></span> Atendimento 100% local · Joinville</span>
+      <h1>Bora resolver?<br><span class="ct-stroke">Fala</span> com a gente.</h1>
+      <p class="ct-hero-sub">
+        Sem 0800, sem robô e sem aquele "aguarde 40 minutos". Aqui você fala com gente de Joinville
+        que conhece a sua rua e resolve na hora — pelo WhatsApp, telefone, e-mail ou pessoalmente.
+      </p>
+      <div class="ct-hero-actions">
+        <a href="https://wa.me/554734341734?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20falar%20com%20a%20MasterInfo." target="_blank" rel="noopener" class="ct-hero-btn ct-hero-btn-wa">
+          <i class="ph-fill ph-whatsapp-logo"></i> Chamar no WhatsApp
+        </a>
+        <a href="#canais" class="ct-hero-btn ct-hero-btn-ghost">
+          Ver todos os canais <i class="ph ph-arrow-down"></i>
+        </a>
+      </div>
+      <div class="ct-hero-meta">
+        <span><i class="ph-fill ph-lightning"></i> Resposta em minutos</span>
+        <span><i class="ph-fill ph-calendar-check"></i> Suporte 7 dias por semana</span>
+        <span><i class="ph-fill ph-map-pin"></i> Time daqui, não call center</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CANAIS ========== -->
+  <section class="ct-section" id="canais">
+    <div class="container">
+      <div class="ct-section-head ct-reveal">
+        <span class="ct-eyebrow">Escolhe seu canal</span>
+        <h2>Do jeito que <span class="ct-fire">for melhor pra você</span></h2>
+        <p>Cada canal cai direto com o nosso time. Sem transferência, sem fila, sem música de espera.</p>
+      </div>
+
+      <div class="ct-channels ct-reveal">
+        <!-- WhatsApp principal -->
+        <a class="ct-channel ct-channel-wa" href="https://wa.me/554734341734?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20MasterInfo." target="_blank" rel="noopener" aria-label="Falar no WhatsApp principal">
+          <span class="ct-channel-ico"><i class="ph-fill ph-whatsapp-logo"></i></span>
+          <span class="ct-channel-body">
+            <span class="ct-wa-badge"><span class="ct-dot"></span> Online agora</span>
+            <span class="ct-channel-label">WhatsApp · atendimento</span>
+            <span class="ct-channel-value">(47) 3434-1734</span>
+            <span class="ct-channel-sub">Nosso número principal. Manda um "oi".</span>
+          </span>
+          <i class="ph ph-arrow-up-right ct-channel-arrow"></i>
+        </a>
+
+        <!-- WhatsApp comercial -->
+        <a class="ct-channel ct-channel-wa ct-channel-wa-com" href="https://wa.me/5547989212991?text=Ol%C3%A1!%20Quero%20contratar%20um%20plano%20da%20MasterInfo." target="_blank" rel="noopener" aria-label="Falar com o comercial no WhatsApp">
+          <span class="ct-channel-ico"><i class="ph-fill ph-storefront"></i></span>
+          <span class="ct-channel-body">
+            <span class="ct-channel-label">WhatsApp · comercial e vendas</span>
+            <span class="ct-channel-value">(47) 98921-2991</span>
+            <span class="ct-channel-sub">Quer contratar? Fala direto com o time de vendas.</span>
+          </span>
+          <i class="ph ph-arrow-up-right ct-channel-arrow"></i>
+        </a>
+
+        <!-- Telefone -->
+        <a class="ct-channel" href="tel:+554734341734" aria-label="Ligar para a MasterInfo">
+          <span class="ct-channel-ico"><i class="ph-fill ph-phone-call"></i></span>
+          <span class="ct-channel-body">
+            <span class="ct-channel-label">Telefone</span>
+            <span class="ct-channel-value">(47) 3434-1734</span>
+            <span class="ct-channel-sub">Prefere ligar? A gente atende.</span>
+          </span>
+          <i class="ph ph-arrow-up-right ct-channel-arrow"></i>
+        </a>
+
+        <!-- E-mail -->
+        <a class="ct-channel" href="mailto:masterinfo@masterinfointernet.com" aria-label="Enviar e-mail">
+          <span class="ct-channel-ico"><i class="ph-fill ph-envelope-simple"></i></span>
+          <span class="ct-channel-body">
+            <span class="ct-channel-label">E-mail</span>
+            <span class="ct-channel-value">Mandar e-mail</span>
+            <span class="ct-channel-sub">masterinfo@masterinfointernet.com</span>
+          </span>
+          <i class="ph ph-arrow-up-right ct-channel-arrow"></i>
+        </a>
+
+        <!-- Área do cliente -->
+        <a class="ct-channel" href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" rel="noopener" aria-label="Acessar área do cliente">
+          <span class="ct-channel-ico"><i class="ph-fill ph-user-circle"></i></span>
+          <span class="ct-channel-body">
+            <span class="ct-channel-label">Já é cliente</span>
+            <span class="ct-channel-value">Área do Cliente</span>
+            <span class="ct-channel-sub">2ª via de boleto, consumo e mais.</span>
+          </span>
+          <i class="ph ph-arrow-up-right ct-channel-arrow"></i>
+        </a>
+
+        <!-- Instagram -->
+        <a class="ct-channel" href="https://www.instagram.com/masterinfo.internet" target="_blank" rel="noopener" aria-label="Chamar no Instagram">
+          <span class="ct-channel-ico"><i class="ph-fill ph-instagram-logo"></i></span>
+          <span class="ct-channel-body">
+            <span class="ct-channel-label">Redes sociais</span>
+            <span class="ct-channel-value">@masterinfo.internet</span>
+            <span class="ct-channel-sub">Chama no direct ou só dá aquela espiada.</span>
+          </span>
+          <i class="ph ph-arrow-up-right ct-channel-arrow"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FORM + SIDEBAR ========== -->
+  <section class="ct-section" style="background:#f7f7fb;">
+    <div class="container">
+      <div class="ct-section-head ct-reveal">
+        <span class="ct-eyebrow">Prefere que a gente te chame?</span>
+        <h2>Conta rapidinho <span class="ct-fire">o que você precisa</span></h2>
+        <p>Preenche aí embaixo — a gente abre o WhatsApp já com a sua mensagem pronta. Leva 20 segundos.</p>
+      </div>
+
+      <div class="ct-form-wrap ct-reveal">
+        <!-- Formulário -->
+        <form class="ct-card" id="ctForm" novalidate>
+          <h3>Me conta o que rolou</h3>
+          <p class="ct-card-sub">Escolhe o assunto pra gente já te direcionar pra pessoa certa.</p>
+
+          <div class="ct-chips" id="ctChips" role="group" aria-label="Assunto">
+            <span class="ct-chip is-active" data-motivo="Quero contratar um plano">Quero contratar</span>
+            <span class="ct-chip" data-motivo="Preciso de suporte técnico">Suporte técnico</span>
+            <span class="ct-chip" data-motivo="Assunto financeiro / 2ª via">Financeiro / boleto</span>
+            <span class="ct-chip" data-motivo="Outro assunto">Outro assunto</span>
+          </div>
+
+          <div class="ct-field">
+            <label for="ctNome">Seu nome</label>
+            <input type="text" id="ctNome" name="nome" placeholder="Como podemos te chamar?" required autocomplete="name">
+          </div>
+          <div class="ct-field">
+            <label for="ctTel">Seu WhatsApp</label>
+            <input type="tel" id="ctTel" name="telefone" placeholder="(47) 9____-____" required inputmode="numeric" autocomplete="tel">
+          </div>
+          <div class="ct-field">
+            <label for="ctMsg">Sua mensagem</label>
+            <textarea id="ctMsg" name="mensagem" placeholder="Quero contratar internet pra minha casa no bairro..."></textarea>
+          </div>
+
+          <!-- honeypot anti-bot -->
+          <div class="ct-hp" aria-hidden="true">
+            <label>Não preencha este campo<input type="text" name="_hp" tabindex="-1" autocomplete="off"></label>
+          </div>
+
+          <button type="submit" class="ct-submit" id="ctSubmit">
+            Enviar pelo WhatsApp <i class="ph-fill ph-whatsapp-logo"></i>
+          </button>
+          <div class="ct-form-foot">
+            <i class="ph-fill ph-shield-check"></i> Você fala direto com nosso time — sem call center.
+          </div>
+        </form>
+
+        <!-- Sidebar: o que você NÃO vai encontrar -->
+        <aside class="ct-aside-card">
+          <h4>O que você <u>não</u> vai encontrar aqui</h4>
+          <ul class="ct-nolist">
+            <li><i class="ph-fill ph-x-circle"></i> Fila de 0800 e música de espera infinita</li>
+            <li><i class="ph-fill ph-x-circle"></i> Robô que pede pra "digitar 1" e não entende nada</li>
+            <li><i class="ph-fill ph-x-circle"></i> "Aguarde de 7 a 15 dias úteis"</li>
+            <li><i class="ph-fill ph-x-circle"></i> Reajuste escondido no boleto</li>
+            <li><i class="ph-fill ph-x-circle"></i> Atendente que não sabe onde fica o Comasa</li>
+          </ul>
+          <div class="ct-aside-rating">
+            <div>
+              <strong>4,9</strong>
+              <span class="ct-stars">★★★★★</span>
+            </div>
+            <span>2.382 avaliações reais<br>de gente de Joinville no Google</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== LOCALIZAÇÃO ========== -->
+  <section class="ct-section ct-local">
+    <div class="container">
+      <div class="ct-section-head ct-reveal">
+        <span class="ct-eyebrow">Passa pra tomar um café</span>
+        <h2>A gente é <span class="ct-fire">aqui do lado</span></h2>
+        <p>Empresa de Joinville, com endereço de verdade no Comasa. Pode aparecer.</p>
+      </div>
+
+      <div class="ct-local-grid ct-reveal">
+        <div class="ct-map">
+          <iframe
+            src="https://www.google.com/maps?q=Rua%20Baltazar%20Buschler%2C%20628%2C%20Comasa%2C%20Joinville%20-%20SC&output=embed"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Mapa — MasterInfo Internet, Rua Baltazar Buschler 628, Comasa, Joinville"></iframe>
+        </div>
+
+        <div class="ct-info">
+          <div class="ct-info-card">
+            <div class="ct-ic-head">
+              <i class="ph-fill ph-map-pin"></i>
+              <h4>Nosso endereço</h4>
+            </div>
+            <p>
+              Rua Baltazar Buschler, 628<br>
+              Comasa · Joinville — SC<br>
+              CEP 89228-000
+            </p>
+            <p class="ct-cnpj">CNPJ 08.990.505/0001-52</p>
+            <a class="ct-howto" href="https://www.google.com/maps/dir/?api=1&destination=Rua%20Baltazar%20Buschler%2C%20628%2C%20Comasa%2C%20Joinville%20-%20SC" target="_blank" rel="noopener">
+              <i class="ph-fill ph-navigation-arrow"></i> Como chegar
+            </a>
+          </div>
+
+          <div class="ct-info-card">
+            <div class="ct-ic-head">
+              <i class="ph-fill ph-clock"></i>
+              <h4>Horário de atendimento</h4>
+            </div>
+            <div class="ct-hours">
+              <div class="ct-hours-row">
+                <span class="ct-h-label"><i class="ph-fill ph-storefront"></i> Comercial · Seg a Sex</span>
+                <span class="ct-h-time">08h — 18h</span>
+              </div>
+              <div class="ct-hours-row">
+                <span class="ct-h-label"><i class="ph-fill ph-storefront"></i> Comercial · Sábado</span>
+                <span class="ct-h-time">08h — 12h</span>
+              </div>
+              <div class="ct-hours-row">
+                <span class="ct-h-label"><i class="ph-fill ph-headset"></i> Suporte técnico</span>
+                <span class="ct-h-time ct-open">Todos os dias</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SPLIT CTA ========== -->
+  <section class="ct-split">
+    <div class="ct-split-grid">
+      <div class="ct-split-col ct-split-new">
+        <i class="ph-fill ph-rocket-launch ct-split-ico"></i>
+        <h3>Ainda não é cliente?</h3>
+        <p>Veja os planos de fibra de verdade pro seu bairro e instale em até 3 dias.</p>
+        <a href="../#planos" class="ct-split-btn">Ver planos e preços <i class="ph ph-arrow-right"></i></a>
+      </div>
+      <div class="ct-split-col ct-split-client">
+        <i class="ph-fill ph-lifebuoy ct-split-ico"></i>
+        <h3>Já é cliente e precisa de ajuda?</h3>
+        <p>Suporte técnico direto no WhatsApp, sem fila. A gente resolve rapidinho.</p>
+        <a href="https://wa.me/554734341734?text=Ol%C3%A1!%20Sou%20cliente%20e%20preciso%20de%20suporte." target="_blank" rel="noopener" class="ct-split-btn"><i class="ph-fill ph-whatsapp-logo"></i> Chamar o suporte</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (idêntico às subpáginas) -->
+  <footer class="footer" id="contato">
+    <div class="footer-trust">
+      <div class="container footer-trust-inner">
+        <div class="footer-trust-item"><i class="ph-fill ph-star"></i><div><strong>4,9 / 5</strong><span>2.382 avaliações no Google</span></div></div>
+        <div class="footer-trust-item"><i class="ph-fill ph-lightning"></i><div><strong>100% Fibra Óptica</strong><span>Sem rádio, sem cabo compartilhado</span></div></div>
+        <div class="footer-trust-item"><i class="ph-fill ph-map-pin"></i><div><strong>100% Joinville</strong><span>Atendimento local, equipe da região</span></div></div>
+        <div class="footer-trust-item"><i class="ph-fill ph-handshake"></i><div><strong>Suporte que resolve</strong><span>Fala com gente de verdade</span></div></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../" class="logo"><img src="../imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img"></a>
+          <p>Internet fibra óptica de verdade. Mais de 6 anos conectando famílias e empresas em Joinville.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/masterinfo.internet" target="_blank" rel="noopener" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+            <a href="https://www.facebook.com/masterinfointernet" target="_blank" rel="noopener" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://wa.me/554734341734" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Internet</h4>
+          <a href="../familia/">Família</a>
+          <a href="../home-office/">Home Office</a>
+          <a href="../gamer/">Gamer</a>
+          <a href="../com-2-roteadores/">Com 2 Roteadores</a>
+          <a href="../com-1-roteador/">Com 1 Roteador</a>
+        </div>
+        <div class="footer-col">
+          <h4>Institucional</h4>
+          <a href="../#cobertura">Cobertura</a>
+          <a href="../#depoimentos">Depoimentos</a>
+          <a href="../#nossa-historia">Nossa História</a>
+          <a href="../#faq">Dúvidas</a>
+        </div>
+        <div class="footer-col">
+          <h4>Fale com a gente</h4>
+          <a href="https://wa.me/554734341734" target="_blank" rel="noopener"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp (47) 3434-1734</a>
+          <a href="https://wa.me/5547989212991" target="_blank" rel="noopener"><i class="ph-fill ph-whatsapp-logo"></i> Comercial (47) 98921-2991</a>
+          <a href="mailto:masterinfo@masterinfointernet.com"><i class="ph ph-envelope"></i> E-mail</a>
+          <a href="../contato/"><i class="ph ph-map-pin"></i> Página de contato</a>
+        </div>
+      </div>
+      <div class="footer-payment">
+        <span class="footer-payment-label">Formas de pagamento</span>
+        <div class="footer-payment-icons">
+          <span class="payment-icon"><i class="ph-fill ph-currency-circle-dollar"></i> PIX</span>
+          <span class="payment-icon"><i class="ph-fill ph-barcode"></i> Boleto</span>
+          <span class="payment-icon"><i class="ph-fill ph-credit-card"></i> Cartão</span>
+          <span class="payment-icon"><i class="ph-fill ph-bank"></i> Débito automático</span>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p id="footerCnpj">&copy; 2026 MasterInfo Internet. Todos os direitos reservados. CNPJ: 08.990.505/0001-52</p>
+        <div class="footer-legal">
+          <a href="#">Termos de Uso</a><span>·</span>
+          <a href="#">Política de Privacidade</a><span>·</span>
+          <a href="#">LGPD</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/554734341734" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <span class="whatsapp-tooltip">
+      <span class="whatsapp-tooltip-online"><span class="whatsapp-online-dot"></span> Online agora</span>
+      <span class="whatsapp-tooltip-text">Fala com a gente!</span>
+    </span>
+    <i class="ph-fill ph-whatsapp-logo"></i>
+    <span class="whatsapp-pulse"></span>
+  </a>
+
+  <script>
+  (function() {
+    // ── Mega-menu + mobile (mesmo comportamento das subpáginas) ──
+    var navItems = document.querySelectorAll('.nav-item.has-mega');
+    navItems.forEach(function(item) {
+      var trigger = item.querySelector('.nav-trigger');
+      if (trigger) {
+        trigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          var wasOpen = item.classList.contains('is-open');
+          navItems.forEach(function(it) { it.classList.remove('is-open'); });
+          if (!wasOpen) item.classList.add('is-open');
+        });
+      }
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-item.has-mega') && !e.target.closest('.mega-menu')) {
+        navItems.forEach(function(it) { it.classList.remove('is-open'); });
+      }
+    });
+    var mt = document.getElementById('mobileToggle');
+    var nv = document.getElementById('nav');
+    if (mt && nv) mt.addEventListener('click', function() {
+      mt.classList.toggle('active'); nv.classList.toggle('open');
+    });
+
+    // ── Reveal on scroll ──
+    var reveals = document.querySelectorAll('.ct-reveal');
+    if ('IntersectionObserver' in window && reveals.length) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(en) {
+          if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach(function(el) { io.observe(el); });
+    } else {
+      reveals.forEach(function(el) { el.classList.add('is-in'); });
+    }
+
+    // ── Chips de motivo ──
+    var motivo = 'Quero contratar um plano';
+    var chips = document.querySelectorAll('.ct-chip');
+    var msgEl = document.getElementById('ctMsg');
+    var placeholders = {
+      'Quero contratar um plano': 'Quero contratar internet pra minha casa no bairro...',
+      'Preciso de suporte técnico': 'Minha internet está... / Descreva o que está acontecendo.',
+      'Assunto financeiro / 2ª via': 'Preciso da 2ª via do boleto / tirar uma dúvida sobre pagamento...',
+      'Outro assunto': 'Conta pra gente como podemos ajudar...'
+    };
+    chips.forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        chips.forEach(function(c) { c.classList.remove('is-active'); });
+        chip.classList.add('is-active');
+        motivo = chip.getAttribute('data-motivo');
+        if (msgEl && placeholders[motivo]) msgEl.setAttribute('placeholder', placeholders[motivo]);
+      });
+    });
+
+    // ── Máscara de telefone (47) 9XXXX-XXXX ──
+    var tel = document.getElementById('ctTel');
+    tel.addEventListener('input', function() {
+      var v = tel.value.replace(/\D/g, '').slice(0, 11);
+      var out = '';
+      if (v.length > 0) out = '(' + v.slice(0, 2);
+      if (v.length >= 2) out += ') ' + v.slice(2, 7);
+      if (v.length >= 7) out += '-' + v.slice(7, 11);
+      tel.value = out;
+    });
+
+    // ── Submit: monta a mensagem e abre o WhatsApp (caminho garantido).
+    //    Em paralelo tenta gravar no Bitrix (best-effort; no host sem PHP
+    //    simplesmente falha sem travar a experiência). ──
+    var form = document.getElementById('ctForm');
+    var btn = document.getElementById('ctSubmit');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nome = document.getElementById('ctNome').value.trim();
+      var telefone = tel.value.trim();
+      var mensagem = (msgEl ? msgEl.value.trim() : '');
+      var hp = form.querySelector('[name="_hp"]');
+      if (hp && hp.value) return; // bot
+      if (!nome || !telefone) {
+        if (!nome) document.getElementById('ctNome').focus();
+        else tel.focus();
+        return;
+      }
+
+      // Best-effort: registra no funil (Bitrix) se o backend existir.
+      var dados = { nome: nome, telefone: telefone, mensagem: mensagem, motivo: motivo, origem: 'contato-site' };
+      try {
+        fetch('../api/form-submit.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ form: 'contato-site', data: dados })
+        }).catch(function(err) { console.debug('[contato] funil offline:', err && err.message); });
+      } catch (err) { console.debug('[contato] funil indisponível', err); }
+
+      // Caminho garantido: WhatsApp com a mensagem pronta.
+      var texto =
+        'Olá! Vim pela página de contato do site.%0A%0A' +
+        '*Assunto:* ' + encodeURIComponent(motivo) + '%0A' +
+        '*Nome:* ' + encodeURIComponent(nome) + '%0A' +
+        '*WhatsApp:* ' + encodeURIComponent(telefone) +
+        (mensagem ? '%0A*Mensagem:* ' + encodeURIComponent(mensagem) : '');
+      btn.disabled = true;
+      btn.innerHTML = 'Abrindo o WhatsApp... <i class="ph-bold ph-spinner"></i>';
+      // "Quero contratar" cai no comercial; os demais assuntos no WhatsApp principal.
+      var zap = (motivo === 'Quero contratar um plano') ? '5547989212991' : '554734341734';
+      window.location.href = 'https://wa.me/' + zap + '?text=' + texto;
+      setTimeout(function() {
+        btn.disabled = false;
+        btn.innerHTML = 'Enviar pelo WhatsApp <i class="ph-fill ph-whatsapp-logo"></i>';
+      }, 2500);
+    });
+  })();
+  </script>
+  <!-- ========== BOLETO / 2ª VIA FLOAT ========== -->
+  <a href="/ajuda/boletos" class="boleto-float" aria-label="Boletos e 2ª via de fatura">
+    <span class="boleto-tooltip">
+      <span class="boleto-tooltip-text">2ª via de boleto</span>
+      <span class="boleto-tooltip-sub">Chat na hora com a Marina</span>
+    </span>
+    <i class="ph-fill ph-barcode"></i>
+    <span class="boleto-pulse"></span>
+  </a>
+  <script src="../marina-widget.js?v=20260602-a" defer></script>
+</body>
+</html>
