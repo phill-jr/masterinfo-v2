@@ -103,22 +103,9 @@ try {
     // ─── Cria contato (com deduplicação) ───
     $contactId = null;
     if (!empty($cfg['dedupe_by'])) {
-        if (in_array('phone', $cfg['dedupe_by']) && !empty($contactFields['PHONE'][0]['VALUE'])) {
-            $r = bx_request('crm.duplicate.findbycomm.json', [
-                'type'        => 'PHONE',
-                'values'      => [$contactFields['PHONE'][0]['VALUE']],
-                'entity_type' => 'CONTACT',
-            ]);
-            if (!empty($r['result']['CONTACT'])) $contactId = (int) $r['result']['CONTACT'][0];
-        }
-        if (!$contactId && in_array('email', $cfg['dedupe_by']) && !empty($contactFields['EMAIL'][0]['VALUE'])) {
-            $r = bx_request('crm.duplicate.findbycomm.json', [
-                'type'        => 'EMAIL',
-                'values'      => [$contactFields['EMAIL'][0]['VALUE']],
-                'entity_type' => 'CONTACT',
-            ]);
-            if (!empty($r['result']['CONTACT'])) $contactId = (int) $r['result']['CONTACT'][0];
-        }
+        $dphone = in_array('phone', $cfg['dedupe_by'], true) ? ($contactFields['PHONE'][0]['VALUE'] ?? '') : '';
+        $demail = in_array('email', $cfg['dedupe_by'], true) ? ($contactFields['EMAIL'][0]['VALUE'] ?? '') : '';
+        $contactId = bx_find_contact((string) $dphone, (string) $demail);
     }
 
     if (!$contactId && !empty($contactFields)) {
@@ -166,23 +153,18 @@ try {
     }
 
     // ─── Jornada do cliente → comentário de timeline + store p/ propagar ao Negócio ───
-    $jornada = isset($data['jornada']) ? trim((string) $data['jornada']) : '';
+    // Sanitiza (strip_tags) e limita: o texto vem com UTM/referrer controlados pelo visitante.
+    $jornada = mb_substr(strip_tags(isset($data['jornada']) ? trim((string) $data['jornada']) : ''), 0, 2000);
     if ($jornada !== '') {
         // 1) comentário na timeline da entidade recém-criada (lead/deal)
         if ($entityId && in_array($cfg['entity'], ['lead', 'deal'], true)) {
-            try {
-                bx_request('crm.timeline.comment.add.json', ['fields' => [
-                    'ENTITY_ID'   => (int) $entityId,
-                    'ENTITY_TYPE' => $cfg['entity'],
-                    'COMMENT'     => $jornada,
-                ]]);
-            } catch (\Throwable $e) { error_log('[form-submit] timeline: ' . get_class($e) . ' ' . $e->getMessage()); }
+            bx_timeline_comment((int) $entityId, (string) $cfg['entity'], $jornada);
         }
         // 2) guarda por telefone (E.164) p/ a automação postar no Negócio quando ele nascer
         $jphone = $contactFields['PHONE'][0]['VALUE'] ?? '';
         if ($jphone !== '') {
             try { require_once __DIR__ . '/_journey-store.php'; journey_save($jphone, $jornada); }
-            catch (\Throwable $e) { error_log('[form-submit] journey_save: ' . $e->getMessage()); }
+            catch (\Throwable $e) { error_log('[form-submit] journey_save: ' . get_class($e) . ': ' . $e->getMessage()); }
         }
     }
 

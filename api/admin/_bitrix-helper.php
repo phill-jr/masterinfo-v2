@@ -82,6 +82,79 @@ function bx_normalize_phone_br(string $raw): string {
     return '+' . $d;
 }
 
+/**
+ * Procura um contato existente por telefone e/ou email (deduplicação).
+ * @return int|null  ID do contato, ou null se não achar.
+ */
+function bx_find_contact(string $phone = '', string $email = ''): ?int {
+    foreach ([['PHONE', $phone], ['EMAIL', $email]] as $pair) {
+        [$type, $val] = $pair;
+        if ($val === '') continue;
+        try {
+            $r = bx_request('crm.duplicate.findbycomm.json', [
+                'type' => $type, 'values' => [$val], 'entity_type' => 'CONTACT',
+            ]);
+            if (!empty($r['result']['CONTACT'][0])) return (int) $r['result']['CONTACT'][0];
+        } catch (\Throwable $e) {
+            error_log('[bx_find_contact] ' . get_class($e) . ': ' . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
+        }
+    }
+    return null;
+}
+
+/**
+ * Cria um contato (faz split do nome em NAME + LAST_NAME). Telefone/email viram multifield.
+ * @return int|null  ID do contato criado, ou null.
+ */
+function bx_create_contact(string $nome, string $phone = '', string $email = '', string $endereco = '', string $sourceId = 'WEB'): ?int {
+    $parts = preg_split('/\s+/', trim($nome), 2);
+    $fields = [
+        'NAME'      => $parts[0] ?? $nome,
+        'LAST_NAME' => $parts[1] ?? '',
+        'SOURCE_ID' => $sourceId,
+        'OPENED'    => 'Y',
+    ];
+    if ($phone !== '')    $fields['PHONE']   = [['VALUE' => $phone, 'VALUE_TYPE' => 'MOBILE']];
+    if ($email !== '')    $fields['EMAIL']   = [['VALUE' => $email, 'VALUE_TYPE' => 'WORK']];
+    if ($endereco !== '') $fields['ADDRESS'] = $endereco;
+    $r = bx_request('crm.contact.add.json', ['fields' => $fields]);
+    return isset($r['result']) ? (int) $r['result'] : null;
+}
+
+/**
+ * Cria um negócio (deal) vinculado a um contato.
+ * @return int|null  ID do negócio criado, ou null.
+ */
+function bx_create_deal(string $title, ?int $contactId, $opportunity = 0, string $comments = '', $categoryId = 0, string $stageId = 'NEW', string $sourceId = 'WEB'): ?int {
+    $fields = [
+        'TITLE'       => $title,
+        'CATEGORY_ID' => $categoryId,
+        'STAGE_ID'    => $stageId,
+        'SOURCE_ID'   => $sourceId,
+        'CURRENCY_ID' => 'BRL',
+        'OPENED'      => 'Y',
+    ];
+    if ($contactId)                                     $fields['CONTACT_ID']  = $contactId;
+    if ($opportunity !== null && $opportunity !== '')   $fields['OPPORTUNITY'] = $opportunity;
+    if ($comments !== '')                               $fields['COMMENTS']    = $comments;
+    $r = bx_request('crm.deal.add.json', ['fields' => $fields, 'params' => ['REGISTER_SONET_EVENT' => 'Y']]);
+    return isset($r['result']) ? (int) $r['result'] : null;
+}
+
+/** Posta um comentário de timeline numa entidade ('lead'|'deal'|...). Best-effort (loga, não lança). */
+function bx_timeline_comment(int $entityId, string $entityType, string $comment): bool {
+    if ($entityId <= 0 || $comment === '') return false;
+    try {
+        bx_request('crm.timeline.comment.add.json', ['fields' => [
+            'ENTITY_ID' => $entityId, 'ENTITY_TYPE' => $entityType, 'COMMENT' => $comment,
+        ]]);
+        return true;
+    } catch (\Throwable $e) {
+        error_log('[bx_timeline_comment] ' . get_class($e) . ': ' . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
+        return false;
+    }
+}
+
 /** Caminho do JSON de mapeamento. */
 function bx_mapping_path(): string {
     return __DIR__ . '/../../secrets/bitrix-mapping.json';
