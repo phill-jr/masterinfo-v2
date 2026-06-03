@@ -243,6 +243,23 @@
     var p = state.plan;
     var end = state.viabilidade.endereco;
 
+    // Grava lead no CRM (best-effort) antes do WhatsApp — não perde o lead se a pessoa não enviar.
+    var jornadaSimple = (typeof window.miJourneyText === 'function') ? window.miJourneyText() : '';
+    try {
+      fetch(API_BASE + 'form-submit.php', {
+        method: 'POST', keepalive: true,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ form: 'checkout-site', data: {
+          nome: nome,
+          telefone: phoneDigits,
+          observacao: 'Checkout (modo simples) · Plano: ' + (p ? (p.name + ' ' + p.speed + ' ' + p.speedUnit) : '—') + (end ? ' · CEP: ' + state.viabilidade.cep : ''),
+          jornada: jornadaSimple,
+          origem: 'Checkout simples (site)'
+        } })
+      }).catch(function () {});
+    } catch (e) {}
+    if (typeof window.miTrack === 'function') window.miTrack('generate_lead', { plan: p ? (p.name + ' ' + p.speed + ' ' + p.speedUnit) : '', value: p ? p.price : 0 });
+
     var msg = 'Ola! Gostaria de contratar a internet MasterInfo.\n\n';
     msg += '*Plano:* ' + p.name + ' ' + p.speed + ' ' + p.speedUnit + ' — R$ ' + formatPrice(p.price) + '/mes\n';
     msg += '*Nome:* ' + nome + '\n';
@@ -854,16 +871,17 @@
       cto_nome: state.viabilidade.cto ? state.viabilidade.cto.nome : '',
     };
 
-    // Prototype: simulate success
-    setTimeout(function () {
+    // Envia o pedido pro Bitrix (api/checkout.php cria Contato + Negócio) e segue
+    // pro sucesso de qualquer jeito (best-effort). Anexa a jornada do cliente.
+    orderData.jornada = (typeof window.miJourneyText === 'function') ? window.miJourneyText() : '';
+    var fallbackNum = 'MI-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 99999)).padStart(5, '0');
+
+    function finalizeCheckout(orderNum) {
       setSubmitLoading(false);
 
-      // Generate order number
-      var orderNum = 'MI-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 99999)).padStart(5, '0');
       var orderEl = document.getElementById('ckOrderNumber');
       if (orderEl) orderEl.textContent = orderNum;
 
-      // WhatsApp link
       var msg = 'Ola! Acabei de finalizar minha contratacao no site.\n';
       msg += 'Pedido: ' + orderNum + '\n';
       msg += 'Plano: ' + p.name + ' ' + p.speed + ' ' + p.speedUnit + '\n';
@@ -875,35 +893,38 @@
       var linkEl = document.getElementById('ckWhatsappLink');
       if (linkEl) linkEl.href = whatsLink;
 
-      // Fire tracking: GA4 + Google Ads + Facebook Pixel (via hub)
       if (typeof window.miTrack === 'function') {
         window.miTrack('purchase', {
           plan: p.name + ' ' + p.speed + ' ' + p.speedUnit,
           value: state.totalMensal,
           currency: 'BRL',
-          orderId: orderNumber
+          orderId: orderNum
         });
-      }
-      // Fallback direto Facebook Pixel
-      else if (typeof fbq === 'function') {
+      } else if (typeof fbq === 'function') {
         fbq('track', 'Purchase', {
           content_name: p.name + ' ' + p.speed + ' ' + p.speedUnit,
           content_category: 'Internet Fibra',
           value: state.totalMensal,
-          currency: 'BRL',
+          currency: 'BRL'
         });
       }
 
-      console.log('[MasterInfo Checkout]', orderData);
-
       goToStep('success');
 
-      // Hide sidebar on success
       var sidebar = document.getElementById('ckSidebar');
       if (sidebar) sidebar.style.display = 'none';
       var mobileSummary = document.getElementById('ckMobileSummary');
       if (mobileSummary) mobileSummary.style.display = 'none';
-    }, 1800);
+    }
+
+    fetch(API_BASE + 'checkout.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (resp) { finalizeCheckout((resp && resp.pedido) ? resp.pedido : fallbackNum); })
+      .catch(function () { finalizeCheckout(fallbackNum); });
   };
 
   // ─── Waitlist ───

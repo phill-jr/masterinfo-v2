@@ -31,6 +31,13 @@ checkRateLimit('checkout', 10, 3600);
 
 require_once __DIR__ . '/../secrets/config.php';
 
+// Helpers compartilhados: normalização de telefone (+55 E.164) e store da jornada.
+if (!defined('MASTERINFO_INTERNAL')) define('MASTERINFO_INTERNAL', true);
+require_once __DIR__ . '/admin/_bitrix-helper.php';
+require_once __DIR__ . '/_journey-store.php';
+if (!defined('BITRIX_CATEGORY')) define('BITRIX_CATEGORY', 0);     // funil Comercial (default)
+if (!defined('BITRIX_STAGE')) define('BITRIX_STAGE', 'NEW');       // etapa inicial (default)
+
 // ─── Receber dados ───
 $input = json_decode(file_get_contents('php://input'), true);
 
@@ -68,6 +75,7 @@ $pedido = 'MI-' . date('Y') . '-' . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_L
 // ─── Montar dados formatados ───
 $nome = trim($input['nome']);
 $phone = preg_replace('/\D/', '', $input['whatsapp']);
+$phoneE164 = bx_normalize_phone_br($phone); // +55 (E.164) p/ casar a dedup com o número do WhatsApp
 $email = trim($input['email']);
 
 // Endereço completo
@@ -129,12 +137,12 @@ $deal_id = null;
 
 if (!empty(BITRIX_WEBHOOK)) {
     try {
-        // 1. Buscar contato existente
-        $contact_id = findBitrixContact($phone, $email);
+        // 1. Buscar contato existente (telefone normalizado p/ casar com o WhatsApp)
+        $contact_id = findBitrixContact($phoneE164, $email);
 
         // 2. Criar contato se não existir
         if (!$contact_id) {
-            $contact_id = createBitrixContact($nome, $phone, $email, $endereco);
+            $contact_id = createBitrixContact($nome, $phoneE164, $email, $endereco);
         }
 
         // 3. Criar deal
@@ -142,7 +150,20 @@ if (!empty(BITRIX_WEBHOOK)) {
             $deal_title = "Checkout Site - {$input['plano_nome']} - $nome";
             $deal_id = createBitrixDeal($deal_title, $contact_id, $input['total_mensal'] ?? 0, $comments);
         }
-    } catch (Exception $e) {
+
+        // 4. Jornada do cliente → comentário de timeline no Negócio + store por telefone
+        $jornada = trim((string) ($input['jornada'] ?? ''));
+        if ($jornada !== '') {
+            if ($deal_id) {
+                try {
+                    bitrixRequest('crm.timeline.comment.add.json', ['fields' => [
+                        'ENTITY_ID' => (int) $deal_id, 'ENTITY_TYPE' => 'deal', 'COMMENT' => $jornada,
+                    ]]);
+                } catch (\Throwable $e) { error_log('[MasterInfo Checkout] timeline: ' . $e->getMessage()); }
+            }
+            try { journey_save($phoneE164, $jornada); } catch (\Throwable $e) {}
+        }
+    } catch (\Throwable $e) {
         error_log('[MasterInfo Checkout] Bitrix24 error: ' . $e->getMessage());
         // Não falha o checkout por erro do CRM
     }
