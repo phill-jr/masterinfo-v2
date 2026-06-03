@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 require_once __DIR__ . '/../secrets/config.php';
+require_once __DIR__ . '/_ixc-store.php';
 
 // Rate limiting: 20 consultas/hora por IP
 checkRateLimit('viabilidade', 20, 3600);
@@ -45,6 +46,15 @@ if (strlen($cep) !== 8) {
 $viaCep = consultarViaCep($cep);
 if (!$viaCep) {
     responder(false, 'CEP não encontrado. Verifique e tente novamente.');
+}
+
+// ─── Integração IXC desligada/não configurada → não trava o lead ───
+$ixc = ixc_settings();
+if (!$ixc['enabled']) {
+    responder(true, 'Endereço localizado! É só confirmar seus dados que a gente verifica a cobertura pra você.', 200, [
+        'endereco'        => $viaCep,
+        'sem_verificacao' => true,
+    ]);
 }
 
 // ─── Step 2: Obter coordenadas via Nominatim ───
@@ -146,38 +156,13 @@ function obterCoordenadas($viaCep) {
     ];
 }
 
-function ixcRequest($endpoint, $params = []) {
-    $url = IXC_URL . '/' . $endpoint;
-
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_USERPWD => IXC_TOKEN,
-        CURLOPT_HTTPHEADER => [
-            'Content-Type: application/json',
-            'ixcsoft: listar',
-        ],
-        CURLOPT_CUSTOMREQUEST => 'GET',
-        CURLOPT_POSTFIELDS => json_encode($params),
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_SSL_VERIFYHOST => false,
-        CURLOPT_TIMEOUT => 10,
-    ]);
-
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    if ($httpCode !== 200 || !$response) return null;
-
-    return json_decode($response, true);
-}
-
 function buscarCtoProxima($lat, $lon) {
+    $ixc = ixc_settings();
+
     // Buscar CTOs ativas com coordenadas preenchidas
     // O IXC não suporta busca por raio, então buscamos todas da cidade
     // e calculamos distância no PHP
-    $data = ixcRequest('rad_caixa_ftth', [
+    $data = ixc_request('rad_caixa_ftth', [
         'qtype' => 'rad_caixa_ftth.status',
         'query' => 'A',
         'oper' => '=',
@@ -186,13 +171,13 @@ function buscarCtoProxima($lat, $lon) {
         'sortname' => 'rad_caixa_ftth.id',
         'sortorder' => 'desc',
         'grid_param' => json_encode([
-            ['TB' => 'rad_caixa_ftth.id_cidade', 'OP' => '=', 'P' => '4446'], // Joinville
+            ['TB' => 'rad_caixa_ftth.id_cidade', 'OP' => '=', 'P' => (string) $ixc['id_cidade']],
         ]),
     ]);
 
     if (!$data || empty($data['registros'])) return null;
 
-    $raioMax = VIABILIDADE_RAIO_METROS;
+    $raioMax = $ixc['raio_metros'];
     $melhorCto = null;
     $menorDistancia = PHP_FLOAT_MAX;
 
@@ -217,7 +202,7 @@ function buscarCtoProxima($lat, $lon) {
 function buscarCtoPorBairro($bairro) {
     if (empty($bairro)) return null;
 
-    $data = ixcRequest('rad_caixa_ftth', [
+    $data = ixc_request('rad_caixa_ftth', [
         'qtype' => 'rad_caixa_ftth.bairro',
         'query' => $bairro,
         'oper' => 'L',
@@ -240,7 +225,7 @@ function buscarCtoPorBairro($bairro) {
 }
 
 function contarPortasOcupadas($ctoId) {
-    $data = ixcRequest('radpop_radio_cliente_fibra', [
+    $data = ixc_request('radpop_radio_cliente_fibra', [
         'qtype' => 'radpop_radio_cliente_fibra.id_caixa_ftth',
         'query' => (string)$ctoId,
         'oper' => '=',
