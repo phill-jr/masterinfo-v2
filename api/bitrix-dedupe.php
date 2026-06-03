@@ -19,6 +19,7 @@ define('MASTERINFO_INTERNAL', true);
 require_once __DIR__ . '/../security-headers.php';
 require_once __DIR__ . '/rate-limit.php';
 require_once __DIR__ . '/admin/_bitrix-helper.php'; // bx_request + bx_normalize_phone_br + secrets/config.php
+require_once __DIR__ . '/_webhook-auth.php';
 
 sendSecurityHeaders();
 header('Content-Type: application/json; charset=utf-8');
@@ -30,36 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// ─── Auth por segredo compartilhado (comparação em tempo constante) ───
-$secret = (string) ($_GET['secret'] ?? $_POST['secret'] ?? '');
-if (!defined('BITRIX_DEDUPE_SECRET') || BITRIX_DEDUPE_SECRET === '' || !hash_equals(BITRIX_DEDUPE_SECRET, $secret)) {
-    http_response_code(403);
-    echo json_encode(['ok' => false, 'error' => 'Segredo inválido']);
-    exit;
-}
-
-// Rate limit: 120 chamadas/min por IP (o robô do Bitrix pode disparar em rajada)
-checkRateLimit('bitrix-dedupe', 120, 60);
-
+// Auth (segredo via body/header/query) + rate-limit + ID do lead — compartilhado.
+$leadId = webhook_auth_and_parse('bitrix-dedupe', 'lead_id');
 $dryrun = !empty($_GET['dryrun']);
-
-// ─── Descobrir o ID do lead recém-criado ───
-$body = json_decode(file_get_contents('php://input'), true);
-$leadId = 0;
-if (is_array($body)) {
-    $leadId = (int) ($body['lead_id'] ?? $body['ID'] ?? ($body['data']['FIELDS']['ID'] ?? 0));
-}
-if (!$leadId && isset($_POST['data']['FIELDS']['ID'])) {
-    $leadId = (int) $_POST['data']['FIELDS']['ID'];
-}
-if (!$leadId && isset($_GET['lead_id'])) {
-    $leadId = (int) $_GET['lead_id'];
-}
-if ($leadId <= 0) {
-    http_response_code(400);
-    echo json_encode(['ok' => false, 'error' => 'lead_id ausente no payload']);
-    exit;
-}
 
 try {
     // ─── Telefone do lead novo → normalizado ───
