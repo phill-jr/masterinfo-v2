@@ -19,19 +19,101 @@
 
   var cfg = null;
 
+  // ═══════════════════════════════════════════════
+  //  JORNADA DO CLIENTE (1st-party → comentário do lead no Bitrix)
+  //  Origem/UTM e páginas são captadas SEMPRE (mesmo com pixels off);
+  //  a trilha de cliques (plano/CTA) usa os eventos do miTrack.
+  // ═══════════════════════════════════════════════
+  var JRN_KEY = 'mi_jrn', SRC_KEY = 'mi_src', VIS_KEY = 'mi_visits';
+
+  function jrnGet() { try { return JSON.parse(sessionStorage.getItem(JRN_KEY)) || []; } catch (e) { return []; } }
+  function jrnPush(code, label) {
+    try {
+      var a = jrnGet();
+      label = (label == null ? '' : String(label)).substring(0, 60);
+      var last = a[a.length - 1];
+      if (last && last.e === code && last.d === label) return; // colapsa repetição
+      a.push({ t: Date.now(), e: code, d: label });
+      if (a.length > 40) a = a.slice(-40);
+      sessionStorage.setItem(JRN_KEY, JSON.stringify(a));
+    } catch (e) {}
+  }
+
+  function curPageName() {
+    var page = location.pathname.replace(/\/$/, '') || '/';
+    return ({ '/index.html': 'Home', '/index': 'Home', '/index-light.html': 'Home', '/index-light': 'Home', '/checkout.html': 'Checkout', '/checkout': 'Checkout', '/': 'Home' }[page]) || page;
+  }
+
+  function recordSource() {
+    try {
+      var visits = parseInt(localStorage.getItem(VIS_KEY) || '0', 10) || 0;
+      if (sessionStorage.getItem(SRC_KEY)) return;          // 1x por sessão
+      visits += 1; try { localStorage.setItem(VIS_KEY, String(visits)); } catch (e) {}
+      var q = new URLSearchParams(location.search);
+      var ref = document.referrer || '';
+      var sameHost = ref && ref.indexOf(location.host) !== -1;
+      sessionStorage.setItem(SRC_KEY, JSON.stringify({
+        utm_source: q.get('utm_source') || '', utm_medium: q.get('utm_medium') || '',
+        utm_campaign: q.get('utm_campaign') || '', utm_content: q.get('utm_content') || '',
+        utm_term: q.get('utm_term') || '', gclid: q.get('gclid') || '', fbclid: q.get('fbclid') || '',
+        referrer: sameHost ? '' : ref, landing: location.pathname, firstSeen: Date.now(), visits: visits
+      }));
+    } catch (e) {}
+  }
+
+  // Monta o resumo legível pro comentário do lead. '' se não houver nada.
+  window.miJourneyText = function () {
+    try {
+      var src = {}; try { src = JSON.parse(sessionStorage.getItem(SRC_KEY)) || {}; } catch (e) {}
+      var jrn = jrnGet(), L = [];
+      var uniq = function (arr) { return arr.filter(function (v, i) { return v && arr.indexOf(v) === i; }); };
+      var of = function (code) { return jrn.filter(function (x) { return x.e === code; }).map(function (x) { return x.d; }); };
+
+      var origem = [];
+      if (src.utm_source) origem.push(src.utm_source + (src.utm_medium ? '/' + src.utm_medium : ''));
+      if (src.utm_campaign) origem.push('camp: ' + src.utm_campaign);
+      if (src.gclid) origem.push('Google Ads (gclid)');
+      if (src.fbclid) origem.push('Facebook (fbclid)');
+      if (!origem.length && src.referrer) origem.push('ref: ' + src.referrer);
+      if (!origem.length) origem.push('direto/orgânico');
+      L.push('Origem: ' + origem.join(' · '));
+      if (src.landing) L.push('Entrada: ' + src.landing + (src.utm_content ? ' (' + src.utm_content + ')' : ''));
+
+      var planos = uniq(of('plan')); if (planos.length) L.push('Planos vistos: ' + planos.join(', '));
+      var cep = of('cep').pop(); if (cep) L.push('CEP: ' + cep);
+      var pgs = of('pg').filter(function (v, i, a) { return !i || a[i - 1] !== v; }); if (pgs.length) L.push('Páginas: ' + pgs.join(' → '));
+      var cliques = uniq(of('cta')); if (cliques.length) L.push('Cliques: ' + cliques.slice(0, 6).join(', '));
+
+      var eng = [];
+      if (src.firstSeen) { var s = Math.round((Date.now() - src.firstSeen) / 1000); eng.push('tempo ' + (s >= 60 ? Math.floor(s / 60) + 'min' + (s % 60) + 's' : s + 's')); }
+      var scrolls = of('scroll').map(function (d) { return parseInt(d, 10) || 0; }); if (scrolls.length) eng.push('scroll ' + Math.max.apply(null, scrolls) + '%');
+      if (src.visits) eng.push(src.visits + 'ª visita');
+      if (eng.length) L.push('Engajamento: ' + eng.join(' · '));
+
+      return L.length ? ('— Jornada no site —\n' + L.join('\n')) : '';
+    } catch (e) { return ''; }
+  };
+
+  // Captura origem + página de entrada SEMPRE (independe do enableTracking)
+  recordSource();
+  jrnPush('pg', curPageName());
+
   // ─── Bootstrap: carrega config e inicializa tudo ───
   fetch('config.json?v=' + Date.now())
     .then(function (r) { return r.json(); })
     .then(function (data) {
       cfg = data.tracking || {};
-      if (!cfg.enableTracking) {
-        console.info('[Tracking] Tracking desabilitado no config.json');
-        return;
+      // Pixels (GTM/GA4/Ads/FB) só com enableTracking ligado + IDs configurados.
+      if (cfg.enableTracking) {
+        initGTM(cfg.gtmId);
+        initGA4(cfg.ga4Id);
+        initGoogleAds(cfg.googleAdsId);
+        initFacebookPixel(cfg.facebookPixelId);
+      } else {
+        console.info('[Tracking] Pixels desabilitados; jornada 1st-party (p/ lead no Bitrix) continua ativa.');
       }
-      initGTM(cfg.gtmId);
-      initGA4(cfg.ga4Id);
-      initGoogleAds(cfg.googleAdsId);
-      initFacebookPixel(cfg.facebookPixelId);
+      // Handlers SEMPRE: alimentam a jornada do lead. Dentro do miTrack, os pixels
+      // só disparam se enableTracking (gate interno) — a trilha é gravada antes do gate.
       trackPageView();
       trackWhatsAppClicks();
       trackCTAClicks();
@@ -120,6 +202,17 @@
 
   window.miTrack = function (eventName, params) {
     params = params || {};
+
+    // ── Jornada (antes do gate: registra mesmo com pixels desligados) ──
+    try {
+      if (eventName === 'plan_click') { if (params.plan) jrnPush('plan', params.plan + (params.value ? ' (R$ ' + Number(params.value).toFixed(2).replace('.', ',') + ')' : '')); }
+      else if (eventName === 'cta_click') jrnPush('cta', params.label || '');
+      else if (eventName === 'cep_check') jrnPush('cep', (params.cep || '') + (params.viable ? ' (com cobertura)' : ''));
+      else if (eventName === 'whatsapp_click') jrnPush('cta', 'WhatsApp (' + (params.context || '') + ')');
+      else if (eventName === 'page_view') jrnPush('pg', params.page_name || curPageName());
+      else if (eventName === 'scroll_depth') jrnPush('scroll', params.percent);
+    } catch (e) {}
+
     if (!cfg || !cfg.enableTracking) return;
 
     // ── dataLayer (GTM) ──

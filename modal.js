@@ -297,12 +297,14 @@
     } else {
       // Grava o lead no CRM (best-effort) ANTES de seguir pro WhatsApp,
       // pra não perder o lead se o cliente desistir do hand-off do WhatsApp.
+      var jornada = (typeof window.miJourneyText === 'function') ? window.miJourneyText() : '';
       miPostLead('pre-pedido-site', {
         nome: name,
         telefone: phoneDigits,
         email: email,
         observacao: 'Plano: ' + (plan || '—') + ' · CEP: ' + (leadData.cep || '—') +
-                    ' · Bairro: ' + (leadData.bairro || '—') + ' · Endereço: ' + (leadData.endereco || '—'),
+                    ' · Bairro: ' + (leadData.bairro || '—') + ' · Endereço: ' + (leadData.endereco || '—') +
+                    (jornada ? '\n\n' + jornada : ''),
         origem: 'Pré-pedido site' + (plan ? ' — ' + plan : '')
       });
       setTimeout(function () {
@@ -340,10 +342,12 @@
     };
 
     // Grava o lead de espera no CRM (best-effort) antes de mostrar o sucesso.
+    var jornada = (typeof window.miJourneyText === 'function') ? window.miJourneyText() : '';
     miPostLead('lista-espera-site', {
       nome: name,
       telefone: phoneDigits,
-      observacao: 'SEM COBERTURA · CEP: ' + (data.cep || '—') + ' · Bairro: ' + (data.bairro || '—'),
+      observacao: 'SEM COBERTURA · CEP: ' + (data.cep || '—') + ' · Bairro: ' + (data.bairro || '—') +
+                  (jornada ? '\n\n' + jornada : ''),
       origem: 'Lista de espera (site)'
     });
     setTimeout(function () {
