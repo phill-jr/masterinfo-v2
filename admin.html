@@ -575,6 +575,79 @@
 
     <!-- TAB: Cobertura -->
     <div class="tab-content" id="tab-cobertura">
+      <style>
+        #tab-cobertura .ixc-field { margin-bottom:16px; }
+        #tab-cobertura .ixc-field label { display:block; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin-bottom:6px; }
+        #tab-cobertura .ixc-field input { width:100%; padding:10px 12px; border:1px solid rgba(0,0,0,0.14); border-radius:8px; font-size:0.9rem; }
+        #tab-cobertura .ixc-field input:focus { border-color:var(--orange); outline:none; }
+        #tab-cobertura .ixc-row { display:flex; gap:14px; flex-wrap:wrap; }
+        #tab-cobertura .ixc-row .ixc-field { flex:1; min-width:150px; }
+        #tab-cobertura .ixc-toggle { display:flex; align-items:center; gap:14px; padding:14px 16px; border:1px solid rgba(0,0,0,0.1); border-radius:10px; background:rgba(0,0,0,0.02); margin-bottom:18px; }
+        #tab-cobertura .ixc-switch { position:relative; width:50px; height:28px; flex-shrink:0; }
+        #tab-cobertura .ixc-switch input { opacity:0; width:0; height:0; }
+        #tab-cobertura .ixc-slider { position:absolute; inset:0; background:#c9c9d0; border-radius:28px; transition:0.2s; cursor:pointer; }
+        #tab-cobertura .ixc-slider:before { content:''; position:absolute; width:22px; height:22px; left:3px; top:3px; background:#fff; border-radius:50%; transition:0.2s; }
+        #tab-cobertura .ixc-switch input:checked + .ixc-slider { background:var(--orange); }
+        #tab-cobertura .ixc-switch input:checked + .ixc-slider:before { transform:translateX(22px); }
+        #tab-cobertura .ixc-token-status { font-size:0.82rem; margin-top:7px; display:flex; align-items:center; gap:5px; }
+        #tab-cobertura .ixc-token-status.set { color:#16a34a; }
+        #tab-cobertura .ixc-token-status.unset { color:#dc2626; }
+        #tab-cobertura .ixc-save-status { font-size:0.9rem; }
+        #tab-cobertura .ixc-save-status.ok { color:#16a34a; }
+        #tab-cobertura .ixc-save-status.err { color:#dc2626; }
+      </style>
+
+      <div class="card" style="margin-bottom:22px;">
+        <div class="card-title"><i class="ph-fill ph-plugs-connected"></i> Integração IXC — Verificação automática de cobertura</div>
+        <div class="section-help">
+          <i class="ph ph-info"></i>
+          Ligada, o modal "Verificar cobertura" consulta o IXC pelo CEP (caixa FTTH mais próxima + portas livres). O token fica <strong>só no servidor</strong> (nunca aparece no site). Desligada, todo CEP válido vira lead pro WhatsApp e a equipe confirma a cobertura na mão.
+        </div>
+
+        <div class="ixc-toggle">
+          <label class="ixc-switch">
+            <input type="checkbox" id="ixcEnabled" onchange="ixcUpdateLabel()">
+            <span class="ixc-slider"></span>
+          </label>
+          <div>
+            <strong id="ixcEnabledLabel">Verificação desligada</strong>
+            <div style="font-size:0.8rem;color:var(--text-muted);">Liga a consulta automática no IXC pelo CEP.</div>
+          </div>
+        </div>
+
+        <div class="ixc-field">
+          <label>URL do webservice IXC</label>
+          <input type="text" id="ixcUrl" placeholder="https://seu-ixc.com.br/webservice/v1" autocomplete="off">
+        </div>
+
+        <div class="ixc-field">
+          <label>Token IXC (formato id:token)</label>
+          <input type="password" id="ixcToken" placeholder="Cole o token aqui pra definir ou trocar" autocomplete="off">
+          <div class="ixc-token-status unset" id="ixcTokenStatus"><i class="ph ph-warning-circle"></i> Nenhum token configurado.</div>
+        </div>
+
+        <div class="ixc-row">
+          <div class="ixc-field">
+            <label>Raio de busca (metros)</label>
+            <input type="number" id="ixcRaio" min="50" max="5000" step="10" placeholder="300">
+          </div>
+          <div class="ixc-field">
+            <label>ID da cidade no IXC</label>
+            <input type="text" id="ixcCidade" placeholder="4446" autocomplete="off">
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-top:8px;flex-wrap:wrap;">
+          <button type="button" class="btn btn-save" id="ixcSaveBtn" onclick="saveIxc()">
+            <i class="ph-fill ph-floppy-disk"></i> Salvar integração
+          </button>
+          <button type="button" class="btn btn-secondary" id="ixcTestBtn" onclick="testIxc()">
+            <i class="ph ph-plugs"></i> Testar conexão
+          </button>
+          <span class="ixc-save-status" id="ixcSaveStatus"></span>
+        </div>
+      </div>
+
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
         <h3 style="font-size:1.1rem;font-weight:700;">Bairros atendidos <span id="bairrosCount" style="font-size:0.8rem;font-weight:500;color:var(--text-muted);background:var(--surface-2);padding:2px 10px;border-radius:12px;margin-left:8px;">0 bairros</span></h3>
         <button class="btn btn-primary" onclick="addBairro()"><i class="ph ph-plus"></i> Novo bairro</button>
@@ -973,11 +1046,13 @@
         CSRF_TOKEN = data.csrf_token || '';
         loadConfig();
         loadMarina();
+        loadIxc();
       })
       .catch(function() {
         // Se auth/check.php nao existe (dev local), carrega direto
         loadConfig();
         loadMarina();
+        loadIxc();
       });
   }
 
@@ -1059,6 +1134,96 @@
         }
       })
       .catch(function () { if (st) { st.className = 'mar-save-status err'; st.textContent = 'Erro de conexão.'; } })
+      .finally(function () { if (btn) btn.disabled = false; });
+  };
+
+  // ─── Integração IXC (verificação de cobertura) ───
+  window.ixcUpdateLabel = function () {
+    var en = document.getElementById('ixcEnabled');
+    var lbl = document.getElementById('ixcEnabledLabel');
+    if (en && lbl) lbl.textContent = en.checked ? 'Verificação ligada' : 'Verificação desligada';
+  };
+  function loadIxc() {
+    fetch('api/admin/ixc.php', { credentials: 'same-origin' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.ok) return;
+        var en = document.getElementById('ixcEnabled');
+        var url = document.getElementById('ixcUrl');
+        var raio = document.getElementById('ixcRaio');
+        var cid = document.getElementById('ixcCidade');
+        var ts = document.getElementById('ixcTokenStatus');
+        if (en) en.checked = !!d.enabled;
+        if (url) url.value = d.url || '';
+        if (raio) raio.value = d.raio_metros || 300;
+        if (cid) cid.value = d.id_cidade || '';
+        if (ts) {
+          if (d.has_token) { ts.className = 'ixc-token-status set'; ts.innerHTML = '<i class="ph ph-check-circle"></i> Token configurado. Deixe em branco pra manter; preencha pra trocar.'; }
+          else { ts.className = 'ixc-token-status unset'; ts.innerHTML = '<i class="ph ph-warning-circle"></i> Nenhum token configurado.'; }
+        }
+        ixcUpdateLabel();
+      })
+      .catch(function () {});
+  }
+  window.saveIxc = function () {
+    var btn = document.getElementById('ixcSaveBtn');
+    var st = document.getElementById('ixcSaveStatus');
+    var payload = {
+      enabled: document.getElementById('ixcEnabled').checked,
+      url: document.getElementById('ixcUrl').value.trim(),
+      token: document.getElementById('ixcToken').value.trim(),
+      raio_metros: parseInt(document.getElementById('ixcRaio').value, 10) || 300,
+      id_cidade: document.getElementById('ixcCidade').value.trim()
+    };
+    if (btn) btn.disabled = true;
+    if (st) { st.className = 'ixc-save-status'; st.textContent = 'Salvando…'; }
+    fetch('api/admin/ixc.php', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF_TOKEN },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().then(function (j) { return { status: r.status, j: j }; }); })
+      .then(function (res) {
+        var j = res.j || {};
+        if (res.status === 200 && j.ok) {
+          if (st) { st.className = 'ixc-save-status ok'; st.textContent = j.enabled ? '✓ Salvo — verificação ligada.' : '✓ Salvo — verificação desligada.'; }
+          document.getElementById('ixcToken').value = '';
+          loadIxc();
+        } else {
+          if (st) { st.className = 'ixc-save-status err'; st.textContent = j.error || 'Falha ao salvar.'; }
+        }
+      })
+      .catch(function () { if (st) { st.className = 'ixc-save-status err'; st.textContent = 'Erro de conexão.'; } })
+      .finally(function () { if (btn) btn.disabled = false; });
+  };
+  window.testIxc = function () {
+    var btn = document.getElementById('ixcTestBtn');
+    var st = document.getElementById('ixcSaveStatus');
+    var payload = {
+      action: 'test',
+      url: document.getElementById('ixcUrl').value.trim(),
+      token: document.getElementById('ixcToken').value.trim(),
+      id_cidade: document.getElementById('ixcCidade').value.trim()
+    };
+    if (btn) btn.disabled = true;
+    if (st) { st.className = 'ixc-save-status'; st.textContent = 'Testando conexão…'; }
+    fetch('api/admin/ixc.php', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF_TOKEN },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().then(function (j) { return { status: r.status, j: j }; }); })
+      .then(function (res) {
+        var j = res.j || {};
+        if (j.ok) {
+          if (st) { st.className = 'ixc-save-status ok'; st.textContent = '✓ ' + (j.message || 'Conexão OK!') + (j.total_caixas != null ? ' (' + j.total_caixas + ' caixas FTTH)' : ''); }
+        } else {
+          if (st) { st.className = 'ixc-save-status err'; st.textContent = j.error || 'Falha no teste.'; }
+        }
+      })
+      .catch(function () { if (st) { st.className = 'ixc-save-status err'; st.textContent = 'Erro de conexão.'; } })
       .finally(function () { if (btn) btn.disabled = false; });
   };
 
