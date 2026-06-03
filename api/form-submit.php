@@ -160,6 +160,7 @@ try {
         $leadFields['STATUS_ID']   = $cfg['stage_id'];
         $leadFields['SOURCE_ID']   = $cfg['source_id'] ?? 'WEB';
         $leadFields['OPENED']      = 'Y';
+        if ($contactId) $leadFields['CONTACT_ID'] = $contactId; // vincula o lead ao contato criado/encontrado
         $r = bx_request('crm.lead.add.json', ['fields' => $leadFields]);
         $entityId = $r['result'] ?? null;
     }
