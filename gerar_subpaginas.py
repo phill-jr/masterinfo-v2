@@ -409,9 +409,9 @@ def footer(depth, boleto=True):
       <div class="footer-bottom">
         <p id="footerCnpj">&copy; 2026 MasterInfo Internet. Todos os direitos reservados. CNPJ: 08.990.505/0001-52</p>
         <div class="footer-legal">
-          <a href="#">Termos de Uso</a><span>·</span>
-          <a href="#">Política de Privacidade</a><span>·</span>
-          <a href="#">LGPD</a>
+          <a href="/termos/">Termos de Uso</a><span>·</span>
+          <a href="/privacidade/">Política de Privacidade</a><span>·</span>
+          <a href="/lgpd/">LGPD</a>
         </div>
       </div>
     </div>
@@ -468,6 +468,7 @@ def footer(depth, boleto=True):
   }})();
   </script>
 {boleto_html}
+  <script src="/cookie-consent.js?v=20260603-cc"></script>
 </body>
 </html>'''
 

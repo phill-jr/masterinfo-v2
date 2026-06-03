@@ -98,22 +98,40 @@
   recordSource();
   jrnPush('pg', curPageName());
 
+  // Inicializa SÓ as tags permitidas pelo consentimento (LGPD/ANPD).
+  //   Análise  -> GTM + GA4
+  //   Marketing-> Google Ads + Facebook Pixel
+  // Idempotente: cada tag entra uma única vez. Reexecuta quando o consentimento muda.
+  var _inited = { gtm: false, ga4: false, ads: false, fb: false };
+  function initAllowed() {
+    if (!cfg || !cfg.enableTracking) return;
+    var c = window.miConsent || { analytics: false, marketing: false };
+    if ((c.analytics || c.marketing) && !_inited.gtm) { _inited.gtm = true; initGTM(cfg.gtmId); }
+    if (c.analytics && !_inited.ga4) { _inited.ga4 = true; initGA4(cfg.ga4Id); }
+    if (c.marketing && !_inited.ads) { _inited.ads = true; initGoogleAds(cfg.googleAdsId); }
+    if (c.marketing && !_inited.fb) { _inited.fb = true; initFacebookPixel(cfg.facebookPixelId); }
+  }
+
   // ─── Bootstrap: carrega config e inicializa tudo ───
   fetch('config.json?v=' + Date.now())
     .then(function (r) { return r.json(); })
     .then(function (data) {
       cfg = data.tracking || {};
-      // Pixels (GTM/GA4/Ads/FB) só com enableTracking ligado + IDs configurados.
+      // Pixels (GTM/GA4/Ads/FB) só com enableTracking ligado + IDs configurados
+      // E somente após o consentimento de cookies (cookie-consent.js).
       if (cfg.enableTracking) {
-        initGTM(cfg.gtmId);
-        initGA4(cfg.ga4Id);
-        initGoogleAds(cfg.googleAdsId);
-        initFacebookPixel(cfg.facebookPixelId);
+        if (typeof window.miOnConsent === 'function') {
+          window.miOnConsent(initAllowed);              // dispara agora se já decidido; e a cada mudança
+        } else {
+          // cookie-consent.js ausente: sem consentimento explícito, NÃO dispara pixels.
+          console.info('[Tracking] cookie-consent.js ausente; pixels aguardam consentimento.');
+          window.addEventListener('mi:consent', initAllowed);
+        }
       } else {
         console.info('[Tracking] Pixels desabilitados; jornada 1st-party (p/ lead no Bitrix) continua ativa.');
       }
       // Handlers SEMPRE: alimentam a jornada do lead. Dentro do miTrack, os pixels
-      // só disparam se enableTracking (gate interno) — a trilha é gravada antes do gate.
+      // só disparam se a tag correspondente foi inicializada (gate de consentimento).
       trackPageView();
       trackWhatsAppClicks();
       trackCTAClicks();
