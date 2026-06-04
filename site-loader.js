@@ -389,7 +389,7 @@
     var html = cols.map(function (col) {
       var links = (col.links || []).map(function (l) {
         var icon = l.icone ? '<i class="' + esc(l.icone) + '"></i> ' : '';
-        var tgt = l.target ? ' target="' + esc(l.target) + '"' : '';
+        var tgt = l.target ? ' target="' + esc(l.target) + '" rel="noopener"' : '';
         return '<a href="' + esc(l.href) + '"' + tgt + '>' + icon + esc(l.label) + '</a>';
       }).join('');
       return '<div class="footer-col"><h4>' + esc(col.titulo) + '</h4>' + links + '</div>';

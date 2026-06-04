@@ -1,9 +1,28 @@
 # -*- coding: utf-8 -*-
-"""Gera 12 subpaginas (Internet + Aplicativos) com layout consistente."""
+"""Gera as 16 subpaginas (Internet + Aplicativos + Ajuda) com layout consistente.
+
+O rodape (colunas de menu) e montado a partir de config.json -> menus.footer,
+a MESMA fonte que o site-loader.js usa na home. Assim, editar o "Menu do rodape"
+no admin e rerodar este script propaga a mudanca pra TODAS as paginas do site
+(home via runtime + subpaginas/estaticas via este gerador)."""
 
 import os
+import re
+import sys
+import json
+
+# Console do Windows e cp1252 por padrao e quebra em '✓'/acentos. Forca UTF-8.
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Rodape: fonte unica de verdade = config.json -> menus.footer (a mesma da home).
+with open(os.path.join(BASE_DIR, "config.json"), encoding="utf-8") as _cfg_f:
+    CONFIG = json.load(_cfg_f)
+FOOTER_MENUS = CONFIG.get("menus", {}).get("footer", [])
 
 # ─── DADOS DAS PÁGINAS ────────────────────────────────────────────────
 
@@ -253,90 +272,107 @@ def head(title, depth):
 <body>'''
 
 
-def header(depth):
+def build_header(depth):
+    """Monta o <header> a partir de config.menuHeader — o MESMO resultado que o
+    site-loader.loadMenuHeader produz na home: UMA lista (.nav-list-sales) na
+    ordem do config, itens com on=False OMITIDOS (ex.: TV e Streaming), dropdowns
+    (com logos/filhos) e botao do cliente do config. hrefs traduzidos por
+    profundidade. Sem o divisor / a lista da direita (menu vira uma linha unica)."""
     base = "../" * depth
+    mh = CONFIG.get("menuHeader") or {}
+    lis = []
+    for it in (mh.get("itens") or []):
+        if it.get("on") is False:            # respeita o liga/desliga do admin
+            continue
+        if it.get("tipo") == "drop":
+            kids = []
+            for c in (it.get("children") or []):
+                tgt = f' target="{c["target"]}"' if c.get("target") else ''
+                logo = (f'<img class="dropdown-logo dropdown-logo-real" src="{footer_href(c["logo"], base)}" alt="{c.get("label", "")}" loading="lazy">'
+                        if c.get("logo") else '')
+                kids.append(f'                  <li><a href="{footer_href(c.get("href", "#"), base)}"{tgt} class="dropdown-link">{logo}{c.get("label", "")}</a></li>')
+            lis.append("\n".join([
+                '          <li class="nav-item has-mega">',
+                f'            <button class="nav-trigger" type="button">{it.get("label", "")} <i class="ph ph-caret-down nav-trigger-caret"></i></button>',
+                '            <div class="mega-menu mega-menu-simple">',
+                '              <div class="mega-menu-inner">',
+                '                <ul class="dropdown-list">',
+                *kids,
+                '                </ul>',
+                '              </div>',
+                '            </div>',
+                '          </li>',
+            ]))
+        else:                                 # tipo "link"
+            tgt = f' target="{it["target"]}"' if it.get("target") else ''
+            lis.append(f'          <li class="nav-item"><a href="{footer_href(it.get("href", "#"), base)}"{tgt} class="nav-link">{it.get("label", "")}</a></li>')
+
+    cb = mh.get("clientButton") or {}
+    return "\n".join([
+        '<header class="header" id="header">',
+        '    <div class="container header-inner">',
+        f'      <a href="{base}" class="logo">',
+        f'        <img src="{base}imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img">',
+        '      </a>',
+        '      <nav class="nav" id="nav">',
+        '        <ul class="nav-list nav-list-sales">',
+        *lis,
+        '        </ul>',
+        f'        <a href="{cb.get("href", "#")}" target="{cb.get("target", "_blank")}" class="header-client-btn">',
+        f'          <i class="ph-fill ph-user-circle"></i><span>{cb.get("label", "Área do Cliente")}</span>',
+        '        </a>',
+        '      </nav>',
+        '      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>',
+        '    </div>',
+        '    <div class="mega-backdrop" id="megaBackdrop"></div>',
+        '  </header>',
+    ])
+
+
+def header(depth):
+    # O <header> sai do config.menuHeader (build_header) — igual à home.
     return f'''
   <!-- HEADER -->
-  <header class="header" id="header">
-    <div class="container header-inner">
-      <a href="{base}" class="logo">
-        <img src="{base}imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img">
-      </a>
-      <nav class="nav" id="nav">
-        <ul class="nav-list nav-list-sales">
-          <li class="nav-item has-mega">
-            <button class="nav-trigger" type="button">Internet <i class="ph ph-caret-down nav-trigger-caret"></i></button>
-            <div class="mega-menu mega-menu-simple">
-              <div class="mega-menu-inner">
-                <ul class="dropdown-list">
-                  <li><a href="{base}familia/" class="dropdown-link">Família</a></li>
-                  <li><a href="{base}home-office/" class="dropdown-link">Home Office</a></li>
-                  <li><a href="{base}gamer/" class="dropdown-link">Gamer</a></li>
-                  <li><a href="{base}com-2-roteadores/" class="dropdown-link">Com 2 Roteadores</a></li>
-                  <li><a href="{base}com-1-roteador/" class="dropdown-link">Com 1 Roteador</a></li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item"><a href="{base}tv-streaming/" class="nav-link">TV e Streaming</a></li>
-          <li class="nav-item"><a href="{base}#cobertura" class="nav-link">Cobertura</a></li>
-          <li class="nav-item"><a href="{base}#nossa-historia" class="nav-link">Nossa História</a></li>
-          <li class="nav-item"><a href="{base}contato/" class="nav-link">Contato</a></li>
-        </ul>
+  {build_header(depth)}'''
 
-        <span class="nav-divider" aria-hidden="true"></span>
 
-        <ul class="nav-list nav-list-client">
-          <li class="nav-item has-mega">
-            <button class="nav-trigger" type="button">Aplicativos <i class="ph ph-caret-down nav-trigger-caret"></i></button>
-            <div class="mega-menu mega-menu-simple">
-              <div class="mega-menu-inner">
-                <ul class="dropdown-list">
-                  <li><a href="{base}aplicativos/sky-light/" class="dropdown-link">
-                    <img class="dropdown-logo dropdown-logo-real" src="{base}imgs/sky.jpg" alt="">SKY+ Light</a></li>
-                  <li><a href="{base}aplicativos/deezer/" class="dropdown-link">
-                    <img class="dropdown-logo dropdown-logo-real" src="{base}imgs/deezer.webp" alt="">Deezer</a></li>
-                  <li><a href="{base}aplicativos/globoplay/" class="dropdown-link">
-                    <img class="dropdown-logo dropdown-logo-real" src="{base}imgs/globoplay.png" alt="">Globoplay</a></li>
-                  <li><a href="{base}aplicativos/disney-plus/" class="dropdown-link">
-                    <img class="dropdown-logo dropdown-logo-real" src="{base}imgs/disney-plus.png" alt="">Disney+</a></li>
-                  <li><a href="{base}aplicativos/hbo-max/" class="dropdown-link">
-                    <img class="dropdown-logo dropdown-logo-real" src="{base}imgs/hbo-max.jpg" alt="">HBO Max</a></li>
-                  <li><a href="{base}aplicativos/prime-video/" class="dropdown-link">
-                    <img class="dropdown-logo dropdown-logo-real" src="{base}imgs/prime-video.png" alt="">Prime Video</a></li>
-                  <li><a href="{base}aplicativos/exitlag/" class="dropdown-link">
-                    <img class="dropdown-logo dropdown-logo-real" src="{base}imgs/exitlag.png" alt="">Exitlag</a></li>
-                  <li><a href="{base}aplicativos/kaspersky/" class="dropdown-link">
-                    <img class="dropdown-logo dropdown-logo-real" src="{base}imgs/kaspersky.webp" alt="">Kaspersky</a></li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item has-mega">
-            <button class="nav-trigger" type="button">Ajuda <i class="ph ph-caret-down nav-trigger-caret"></i></button>
-            <div class="mega-menu mega-menu-simple">
-              <div class="mega-menu-inner">
-                <ul class="dropdown-list">
-                  <li><a href="https://wa.me/5547989212991" target="_blank" class="dropdown-link">Suporte WhatsApp</a></li>
-                  <li><a href="https://www.speedtest.net" target="_blank" class="dropdown-link">Speedtest</a></li>
-                  <li><a href="{base}ajuda/wifi" class="dropdown-link">Configurar Wi-Fi</a></li>
-                  <li><a href="{base}#faq" class="dropdown-link">Perguntas frequentes</a></li>
-                  <li><a href="{base}ajuda/reportar" class="dropdown-link">Reportar problema</a></li>
-                  <li><a href="{base}ajuda/boletos" class="dropdown-link">Boletos e faturas</a></li>
-                </ul>
-              </div>
-            </div>
-          </li>
-        </ul>
+def footer_href(href, base):
+    """Traduz um href do config (relativo a home) pro contexto de uma subpagina.
 
-        <a href="https://sistema1.masterinfointernet.com/central_assinante_web/login" target="_blank" class="header-client-btn">
-          <i class="ph-fill ph-user-circle"></i><span>Área do Cliente</span>
-        </a>
-      </nav>
-      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
-    </div>
-    <div class="mega-backdrop" id="megaBackdrop"></div>
-  </header>'''
+    O config guarda os caminhos como na home: "/familia" (root-absolute) e
+    "#cobertura" (ancora de secao da home). Numa subpagina em profundidade
+    `depth`, base = "../"*depth. Links externos (http/mailto/tel) passam intactos.
+    """
+    if href.startswith(("http://", "https://", "mailto:", "tel:")):
+        return href
+    if href.startswith("#"):              # ancora de secao -> sobe pra home + ancora
+        return f"{base}{href}"
+    if href.startswith("/"):              # root-absolute -> relativo a esta pagina
+        path = href[1:]
+        last = path.split("/")[-1]
+        if path and "." not in last and "#" not in path and not path.endswith("/"):
+            path += "/"                   # diretorio -> barra final (evita redirect 301)
+        return f"{base}{path}"
+    return f"{base}{href}"                 # ja relativo
+
+
+def render_footer_cols(base):
+    """Monta as 3 colunas <div class="footer-col"> a partir de config.menus.footer.
+
+    Indentacao de 8 espacos pra casar com o template e as paginas estaticas.
+    Adiciona rel="noopener" em todo link target="_blank" (boa pratica)."""
+    blocks = []
+    for col in FOOTER_MENUS:
+        lines = ['        <div class="footer-col">',
+                 f'          <h4>{col.get("titulo", "")}</h4>']
+        for l in col.get("links", []):
+            icon = f'<i class="{l["icone"]}"></i> ' if l.get("icone") else ''
+            tgt = f' target="{l["target"]}" rel="noopener"' if l.get("target") else ''
+            href = footer_href(l.get("href", "#"), base)
+            lines.append(f'          <a href="{href}"{tgt}>{icon}{l.get("label", "")}</a>')
+        lines.append('        </div>')
+        blocks.append("\n".join(lines))
+    return "\n".join(blocks)
 
 
 def footer(depth, boleto=True):
@@ -374,28 +410,7 @@ def footer(depth, boleto=True):
             <a href="https://wa.me/554734341734" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
           </div>
         </div>
-        <div class="footer-col">
-          <h4>Internet</h4>
-          <a href="{base}familia/">Família</a>
-          <a href="{base}home-office/">Home Office</a>
-          <a href="{base}gamer/">Gamer</a>
-          <a href="{base}com-2-roteadores/">Com 2 Roteadores</a>
-          <a href="{base}com-1-roteador/">Com 1 Roteador</a>
-        </div>
-        <div class="footer-col">
-          <h4>Institucional</h4>
-          <a href="{base}#cobertura">Cobertura</a>
-          <a href="{base}#depoimentos">Depoimentos</a>
-          <a href="{base}#nossa-historia">Nossa História</a>
-          <a href="{base}#faq">Dúvidas</a>
-        </div>
-        <div class="footer-col">
-          <h4>Fale com a gente</h4>
-          <a href="https://wa.me/554734341734" target="_blank"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp (47) 3434-1734</a>
-          <a href="https://wa.me/5547989212991" target="_blank"><i class="ph-fill ph-whatsapp-logo"></i> Comercial (47) 98921-2991</a>
-          <a href="mailto:masterinfo@masterinfointernet.com"><i class="ph ph-envelope"></i> E-mail</a>
-          <a href="{base}contato/"><i class="ph ph-map-pin"></i> Página de contato</a>
-        </div>
+{render_footer_cols(base)}
       </div>
       <div class="footer-payment">
         <span class="footer-payment-label">Formas de pagamento</span>
@@ -907,6 +922,70 @@ def page_ajuda(a, depth=2):
 
 # ─── GERAR ARQUIVOS ───────────────────────────────────────────────────
 
+# TODAS as paginas (menos a home) que carregam header+rodape padrao, com sua
+# profundidade (base = "../"*depth). As 16 geradas saem das listas de dados; as 5
+# estaticas (nao geradas por template) entram explicitas. A home NAO entra: ela
+# monta header+rodape em runtime via site-loader.js (mesma fonte = o config).
+MENU_PAGES = (
+    [(f'{p["slug"]}/index.html', 1) for p in INTERNET]
+    + [(f'{s}/index.html', 1) for s in
+       ("contato", "tv-streaming", "termos", "privacidade", "lgpd")]
+    + [(f'aplicativos/{a["slug"]}/index.html', 2) for a in APLICATIVOS]
+    + [(f'ajuda/{a["slug"]}/index.html', 2) for a in AJUDA]
+)
+
+# Bloco <header>...</header> inteiro (nao aninha, entao non-greedy basta).
+_HEADER_RE = re.compile(r'<header class="header" id="header">.*?</header>', re.DOTALL)
+
+# Bloco das 3 colunas .footer-col, ate (sem incluir) o .footer-payment. Greedy +
+# lookahead: da 1a <div class="footer-col"> ate a ultima </div> antes do payment.
+_FOOTER_COLS_RE = re.compile(
+    r'[ \t]*<div class="footer-col">.*</div>\s*(?=</div>\s*<div class="footer-payment">)',
+    re.DOTALL,
+)
+
+
+def sync_menus():
+    """Sincroniza HEADER (bloco <header>) e RODAPE (colunas .footer-col) de TODAS
+    as paginas (menos a home) com config.menuHeader / config.menus.footer.
+
+    Cirurgico (mexe so nesses 2 blocos), idempotente e CRLF-safe: preserva corpo,
+    brand, chat e o resto de cada pagina. E o que se roda depois de editar os menus
+    no admin. A home nao entra: monta tudo em runtime via site-loader.js.
+
+    So grava o arquivo se header E rodape baterem 1x cada (senao pula e avisa, pra
+    nunca corromper uma pagina com estrutura inesperada)."""
+    changed = same = skipped = 0
+    for rel, depth in MENU_PAGES:
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            print(f"  ! pulado (nao existe): {rel}")
+            skipped += 1
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        nl = "\r\n" if "\r\n" in orig else "\n"
+        header_html = build_header(depth)
+        cols = render_footer_cols("../" * depth)
+        if nl != "\n":
+            header_html = header_html.replace("\n", nl)
+            cols = cols.replace("\n", nl)
+        html, nh = _HEADER_RE.subn(lambda m: header_html, orig)
+        html, nf = _FOOTER_COLS_RE.subn(lambda m: cols + nl + "      ", html)
+        if nh != 1 or nf != 1:
+            print(f"  ! pulado (header x{nh}, rodape x{nf}; esperava 1 de cada): {rel}")
+            skipped += 1
+            continue
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ menus sincronizados: {rel}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  Menus (header + rodapé): {changed} atualizada(s), {same} já em dia, {skipped} pulada(s).")
+
+
 def write_file(path, content):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -914,16 +993,34 @@ def write_file(path, content):
     print(f"  + {os.path.relpath(path, BASE_DIR)}")
 
 
-print("Internet (5 páginas)…")
-for p in INTERNET:
-    write_file(os.path.join(BASE_DIR, p["slug"], "index.html"), page_internet(p, depth=1))
+def gerar_bodies():
+    """Regenera o CORPO completo (hero/planos/destaques/chat) das 16 subpaginas
+    a partir dos dados deste arquivo.
 
-print("\nAplicativos (8 páginas)…")
-for a in APLICATIVOS:
-    write_file(os.path.join(BASE_DIR, "aplicativos", a["slug"], "index.html"), page_app(a, depth=2))
+    ATENCAO: os templates de corpo aqui estao DEFASADOS em relacao ao HTML
+    versionado (brand/social/chat foram editados direto no HTML e nao retro-
+    portados pro template). Use --full so quando for INTENCIONALMENTE regenerar
+    conteudo — senao ele reverte essas melhorias."""
+    print("Internet (5 páginas)…")
+    for p in INTERNET:
+        write_file(os.path.join(BASE_DIR, p["slug"], "index.html"), page_internet(p, depth=1))
+    print("\nAplicativos (8 páginas)…")
+    for a in APLICATIVOS:
+        write_file(os.path.join(BASE_DIR, "aplicativos", a["slug"], "index.html"), page_app(a, depth=2))
+    print("\nAjuda (3 páginas)…")
+    for a in AJUDA:
+        write_file(os.path.join(BASE_DIR, "ajuda", a["slug"], "index.html"), page_ajuda(a, depth=2))
 
-print("\nAjuda (3 páginas)…")
-for a in AJUDA:
-    write_file(os.path.join(BASE_DIR, "ajuda", a["slug"], "index.html"), page_ajuda(a, depth=2))
 
-print("\n✓ 16 subpáginas geradas.")
+if __name__ == "__main__":
+    modo = sys.argv[1] if len(sys.argv) > 1 else "--menus"
+    if modo in ("--full", "--tudo", "--bodies"):
+        print(">> Modo FULL: regenera corpos + sincroniza menus (header + rodapé).")
+        print("   (templates de corpo podem estar defasados — ver docstring de gerar_bodies)\n")
+        gerar_bodies()
+        print("\nSincronizando header + rodapé com o config.json…")
+        sync_menus()
+    else:  # --menus (padrão): SÓ header + rodapé, cirúrgico e seguro de rodar sempre
+        print(">> Sincronizando os menus (header + rodapé): config.json → todas as páginas…\n")
+        sync_menus()
+    print("\n✓ Concluído.")
