@@ -408,10 +408,23 @@
         return '<li><i class="ph-fill ph-check-circle"></i> ' + esc(f) + '</li>';
       }).join('');
     }
-    var cta = p.querySelector('.copa-popup-cta');
-    if (cta) {
+    var ctaOld = p.querySelector('.copa-popup-cta');
+    if (ctaOld) {
+      // Clona pra DROPAR listeners ja ligados no botao. O smooth-scroll de ancora
+      // se liga no CTA no load (o href nasce "#planos") e da preventDefault — isso
+      // prendia o clique e impedia de ir pro checkout. O clone vem sem esses listeners;
+      // e o onclick abaixo forca a navegacao (a prova de qualquer preventDefault).
+      var cta = ctaOld.cloneNode(false);
+      var label = cp.ctaLabel || (ctaOld.textContent || 'Quero esse plano').replace(/\s+/g, ' ').trim();
+      cta.innerHTML = esc(label) + ' <i class="ph ph-arrow-right"></i>';
       if (cp.ctaHref) cta.setAttribute('href', cp.ctaHref);
-      if (cp.ctaLabel) cta.innerHTML = esc(cp.ctaLabel) + ' <i class="ph ph-arrow-right"></i>';
+      cta.onclick = function (e) {
+        if (e && e.preventDefault) e.preventDefault();
+        try { if (typeof closeCopaPopup === 'function') closeCopaPopup(); } catch (err) {}
+        var dest = cta.href || cp.ctaHref; // cta.href = URL absoluta ja resolvida
+        if (dest) window.location.href = dest;
+      };
+      ctaOld.parentNode.replaceChild(cta, ctaOld);
     }
     setText('.copa-popup-fine', cp.fine);
 
