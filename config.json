@@ -712,6 +712,7 @@
             "100% Fibra Óptica"
         ],
         "ctaLabel": "Quero esse plano",
+        "ctaPlano": "lite-home-office",
         "ctaHref": "checkout.html?plano=1000",
         "fine": "Sujeito a análise de crédito · Valor com pagamento em pontualidade"
     }

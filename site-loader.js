@@ -26,6 +26,7 @@
       run('secoesOrdem', function () { loadSecoesOrdem(cfg.secoesOrdem); });
       run('menuHeader', function () { loadMenuHeader(cfg.menuHeader); });
       run('copaPopup', function () { loadCopaPopup(cfg.copaPopup); });
+      run('checkoutLinks', function () { wireCheckoutLinks(); });
     })
     .catch(function (e) {
       console.warn('[SiteLoader] config.json nao carregado, usando HTML estatico:', e);
@@ -417,11 +418,15 @@
       var cta = ctaOld.cloneNode(false);
       var label = cp.ctaLabel || (ctaOld.textContent || 'Quero esse plano').replace(/\s+/g, ' ').trim();
       cta.innerHTML = esc(label) + ' <i class="ph ph-arrow-right"></i>';
-      if (cp.ctaHref) cta.setAttribute('href', cp.ctaHref);
+      // Destino: o PLANO (dropdown do admin = cp.ctaPlano) tem prioridade; ctaHref
+      // legado é fallback. Resolvido aqui → tira o data-plano pra não duplicar com
+      // o wireCheckoutLinks.
+      var dest = cp.ctaPlano ? ('checkout.html?plano=' + encodeURIComponent(cp.ctaPlano)) : (cp.ctaHref || '');
+      cta.removeAttribute('data-plano');
+      if (dest) cta.setAttribute('href', dest);
       cta.onclick = function (e) {
         if (e && e.preventDefault) e.preventDefault();
         try { if (typeof closeCopaPopup === 'function') closeCopaPopup(); } catch (err) {}
-        var dest = cta.href || cp.ctaHref; // cta.href = URL absoluta ja resolvida
         if (dest) window.location.href = dest;
       };
       ctaOld.parentNode.replaceChild(cta, ctaOld);
@@ -433,6 +438,32 @@
       p.classList.add('is-open');
       document.body.classList.add('copa-locked');
     }, 700);
+  }
+
+  // ─── Links de checkout declarativos (CONVENÇÃO data-plano) ───
+  // REGRA ÚNICA: pra mandar QUALQUER elemento pro checkout com um plano, ponha
+  //   data-plano="lite-home-office"   (aceita ID nominal OU alias legado 600/800/
+  //   1000/ultra-800/ultra-1000 — o checkout.js traduz). IDs de plano (config.planos):
+  //   lite-casa | lite-familia | lite-home-office | ultra-familia | ultra-home-office.
+  // Liga href + clique FORÇADO (window.location.href) — imune ao smooth-scroll do
+  // script.js e funciona até em <button>/<div>. Idempotente (não duplica listener).
+  function wireCheckoutLinks(rootEl) {
+    var root = rootEl || document;
+    var els = root.querySelectorAll('[data-plano]');
+    for (var i = 0; i < els.length; i++) {
+      (function (el) {
+        var plano = (el.getAttribute('data-plano') || '').trim();
+        if (!plano) return;
+        var url = 'checkout.html?plano=' + encodeURIComponent(plano);
+        if (el.tagName === 'A') el.setAttribute('href', url);
+        if (el._ckWired) return;
+        el._ckWired = true;
+        el.addEventListener('click', function (e) {
+          if (e && e.preventDefault) e.preventDefault();
+          window.location.href = url;
+        });
+      })(els[i]);
+    }
   }
 
   // ─── Helpers ───

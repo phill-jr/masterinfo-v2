@@ -119,7 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------- Smooth scroll for anchor links ----------
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
-      const target = document.querySelector(anchor.getAttribute('href'));
+      // Relê o href NO CLIQUE: se deixou de ser âncora "#…" da mesma página
+      // (ex.: re-apontado pro checkout em runtime), NÃO intercepta — deixa navegar.
+      const h = anchor.getAttribute('href');
+      if (!h || h.charAt(0) !== '#' || h === '#') return;
+      let target = null;
+      try { target = document.querySelector(h); } catch (err) { return; }
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });

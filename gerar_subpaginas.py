@@ -550,7 +550,7 @@ def page_internet(p, depth=1):
         )
 
         plan_cards += f'''
-        <a href="../#planos" class="sub-plan-card">
+        <a href="../checkout.html?plano={plan_id}" class="sub-plan-card">
           <div class="sub-plan-head">
             <span class="sub-plan-speed">{plan["speed"]}<small> Mega</small></span>
             <span class="sub-plan-name">{plan["nome"]}</span>
@@ -601,7 +601,7 @@ def page_internet(p, depth=1):
       <span class="sub-hero-tag">{p["tag"]}</span>
       <h1 class="sub-hero-title">{p["title"]}</h1>
       <p class="sub-hero-subtitle">{p["subtitle"]}</p>
-      <a href="../#planos" class="sub-hero-cta">{p["cta"]} <i class="ph ph-arrow-right"></i></a>
+      <a href="../checkout.html?plano={p["plans"][0]}" class="sub-hero-cta">{p["cta"]} <i class="ph ph-arrow-right"></i></a>
     </div>
   </section>
 
@@ -993,6 +993,39 @@ def write_file(path, content):
     print(f"  + {os.path.relpath(path, BASE_DIR)}")
 
 
+def sync_subpage_ctas():
+    """Aponta os CTAs das paginas Internet (hero + cada card de plano) DIRETO pro
+    checkout com o plano (hero = plano principal; cada card = o seu plano, na ordem
+    de p["plans"]). CIRURGICO: troca SO os hrefs dos CTAs, nao toca corpo/footer —
+    por isso NAO reverte o DRIFT dos templates de corpo. Idempotente."""
+    changed = 0
+    for p in INTERNET:
+        path = os.path.join(BASE_DIR, p["slug"], "index.html")
+        if not os.path.exists(path):
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            html = f.read()
+        orig = html
+        plans = p.get("plans") or []
+        primary = plans[0] if plans else None
+        if primary:
+            html = html.replace(
+                '<a href="../#planos" class="sub-hero-cta">',
+                '<a href="../checkout.html?plano=' + primary + '" class="sub-hero-cta">')
+        counter = {"i": 0}
+        def repl_card(m):
+            i = counter["i"]; counter["i"] += 1
+            plano = plans[i] if i < len(plans) else (primary or "")
+            return '<a href="../checkout.html?plano=' + plano + '" class="sub-plan-card">'
+        html = re.sub(r'<a href="\.\./#planos" class="sub-plan-card">', repl_card, html)
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ CTAs -> checkout: {p['slug']} (hero={primary}, cards={plans})")
+            changed += 1
+    print(f"  CTAs das subpaginas Internet: {changed} atualizada(s).")
+
+
 def gerar_bodies():
     """Regenera o CORPO completo (hero/planos/destaques/chat) das 16 subpaginas
     a partir dos dados deste arquivo.
@@ -1023,4 +1056,6 @@ if __name__ == "__main__":
     else:  # --menus (padrão): SÓ header + rodapé, cirúrgico e seguro de rodar sempre
         print(">> Sincronizando os menus (header + rodapé): config.json → todas as páginas…\n")
         sync_menus()
+    print("\nCTAs das subpáginas Internet → checkout…")
+    sync_subpage_ctas()
     print("\n✓ Concluído.")

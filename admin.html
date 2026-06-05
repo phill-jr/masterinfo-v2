@@ -869,8 +869,8 @@
         <div class="form-row">
           <div class="form-group"><label>Texto do botao</label>
             <input type="text" id="cfgCopaCtaLabel" oninput="updateCopa('ctaLabel',this.value)"></div>
-          <div class="form-group"><label>Link do botao</label>
-            <input type="text" id="cfgCopaCtaHref" oninput="updateCopa('ctaHref',this.value)" placeholder="checkout.html?plano=1000"></div>
+          <div class="form-group"><label>Plano de destino do botão (vai pro checkout)</label>
+            <select id="cfgCopaCtaPlano" onchange="updateCopa('ctaPlano',this.value)"></select></div>
         </div>
         <div class="form-group"><label>Texto fino (rodape do popup)</label>
           <input type="text" id="cfgCopaFine" oninput="updateCopa('fine',this.value)"></div>
@@ -2237,7 +2237,16 @@
     setVal('cfgCopaPrecoCent', c.precoCentavos);
     setVal('cfgCopaDesconto', c.descontoTag);
     setVal('cfgCopaCtaLabel', c.ctaLabel);
-    setVal('cfgCopaCtaHref', c.ctaHref);
+    var _copaSel = document.getElementById('cfgCopaCtaPlano');
+    if (_copaSel) {
+      var _ALIAS = { '600':'lite-casa','800':'lite-familia','1000':'lite-home-office','ultra-800':'ultra-familia','ultra-1000':'ultra-home-office' };
+      _copaSel.innerHTML = (config.planos || []).map(function (p) {
+        return '<option value="' + p.id + '">' + (p.nome || p.id) + ' — ' + (p.velocidade || '') + ' ' + (p.unidade || '') + '</option>';
+      }).join('');
+      var _v = c.ctaPlano;
+      if (!_v && c.ctaHref) { var _m = /[?&]plano=([^&]+)/.exec(c.ctaHref); if (_m) { _v = decodeURIComponent(_m[1]); _v = _ALIAS[_v] || _v; } }
+      _copaSel.value = _v || 'lite-home-office';
+    }
     setVal('cfgCopaFine', c.fine);
     setVal('cfgCopaApps', (c.apps || []).map(function (a) { return (a.nome || '') + (a.logo ? ' | ' + a.logo : ''); }).join('\n'));
     setVal('cfgCopaFeatures', (c.features || []).join('\n'));
