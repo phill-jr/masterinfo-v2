@@ -482,6 +482,9 @@
       <button class="tab" data-tab="marina" onclick="switchTab('marina')">
         <i class="ph ph-headset"></i> Marina
       </button>
+      <button class="tab" data-tab="popup" onclick="switchTab('popup')">
+        <i class="ph ph-megaphone-simple"></i> Popup
+      </button>
     </div>
 
     <!-- TAB: Empresa -->
@@ -807,6 +810,70 @@
           <textarea id="cfgSeoSchemaDesc" rows="2" oninput="updateSeo('schemaDescription',this.value)"></textarea></div>
         <div class="form-group"><label>Faixa de preco (priceRange)</label>
           <input type="text" id="cfgSeoPriceRange" oninput="updateSeo('priceRange',this.value)"></div>
+      </div>
+    </div>
+
+    <!-- TAB: Popup (Copa) -->
+    <div class="tab-content" id="tab-popup">
+      <div class="section-help">
+        <i class="ph ph-info"></i>
+        Popup promocional que abre sozinho na home (1x por sessao do navegador). Tudo aqui reflete na home ao salvar. As subpaginas nao tem popup.
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-megaphone-simple"></i> Popup da Copa</div>
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+            <input type="checkbox" id="cfgCopaOn" onchange="toggleCopa(this.checked)" style="width:auto;">
+            <strong>Mostrar o popup no site</strong>
+          </label>
+        </div>
+        <div class="form-group"><label>Selo (faixa de cima)</label>
+          <input type="text" id="cfgCopaSelo" oninput="updateCopa('selo',this.value)"></div>
+        <div class="form-group"><label>Titulo (linha 1)</label>
+          <input type="text" id="cfgCopaTitulo" oninput="updateCopa('titulo',this.value)"></div>
+        <div class="form-group"><label>Destaque (linha 2, laranja)</label>
+          <input type="text" id="cfgCopaDestaque" oninput="updateCopa('destaque',this.value)"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Velocidade</label>
+            <input type="text" id="cfgCopaVel" oninput="updateCopa('velocidade',this.value)"></div>
+          <div class="form-group"><label>Unidade</label>
+            <input type="text" id="cfgCopaUnidade" oninput="updateCopa('unidade',this.value)"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-tag"></i> Preco</div>
+        <div class="form-row">
+          <div class="form-group"><label>De (riscado)</label>
+            <input type="text" id="cfgCopaPrecoDe" oninput="updateCopa('precoDe',this.value)" placeholder="129,90"></div>
+          <div class="form-group"><label>Por (inteiro)</label>
+            <input type="text" id="cfgCopaPrecoPor" oninput="updateCopa('precoPor',this.value)" placeholder="119"></div>
+          <div class="form-group"><label>Centavos</label>
+            <input type="text" id="cfgCopaPrecoCent" oninput="updateCopa('precoCentavos',this.value)" placeholder=",90"></div>
+        </div>
+        <div class="form-group"><label>Tag de desconto</label>
+          <input type="text" id="cfgCopaDesconto" oninput="updateCopa('descontoTag',this.value)"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-list-checks"></i> Apps inclusos e itens</div>
+        <div class="form-group">
+          <label>Apps inclusos &mdash; 1 por linha, formato <code>Nome | imgs/logo.png</code></label>
+          <textarea id="cfgCopaApps" rows="3" oninput="updateCopaApps(this.value)" placeholder="SKY Light | imgs/sky.jpg"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Itens / features &mdash; 1 por linha</label>
+          <textarea id="cfgCopaFeatures" rows="4" oninput="updateCopaFeatures(this.value)"></textarea>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-cursor-click"></i> Botao (CTA) e rodape</div>
+        <div class="form-row">
+          <div class="form-group"><label>Texto do botao</label>
+            <input type="text" id="cfgCopaCtaLabel" oninput="updateCopa('ctaLabel',this.value)"></div>
+          <div class="form-group"><label>Link do botao</label>
+            <input type="text" id="cfgCopaCtaHref" oninput="updateCopa('ctaHref',this.value)" placeholder="checkout.html?plano=1000"></div>
+        </div>
+        <div class="form-group"><label>Texto fino (rodape do popup)</label>
+          <input type="text" id="cfgCopaFine" oninput="updateCopa('fine',this.value)"></div>
       </div>
     </div>
 
@@ -1238,6 +1305,7 @@
     renderSecoesOrdem();
     renderMenuHeader();
     renderMenusRodape();
+    renderCopaPopup();
   }
 
   function markDirty() {
@@ -1267,10 +1335,27 @@
       },
       body: JSON.stringify(config)
     })
-    .then(function(r) { return r.json(); })
+    .then(function(r) {
+      if (r.status === 401) {
+        el.textContent = 'Sessao expirada — redirecionando pro login...';
+        el.className = 'admin-status error';
+        setTimeout(function() { window.location.href = 'admin-login.html'; }, 900);
+        return null;
+      }
+      return r.json();
+    })
     .then(function(data) {
+      if (!data) return; // 401 ja tratado (redirecionando pro login)
       if (data.ok) {
-        el.textContent = 'Salvo com sucesso!';
+        var msg = 'Salvo com sucesso!';
+        if (data.publish) {
+          if (data.publish.ran) {
+            msg += data.publish.ok ? ' Subpaginas republicadas.' : ' (aviso: nao republicou as subpaginas)';
+          } else if (data.publish.reason) {
+            msg += ' (subpaginas nao republicadas: ' + data.publish.reason + ')';
+          }
+        }
+        el.textContent = msg;
         el.className = 'admin-status saved';
         dirty = false;
         setTimeout(function() {
@@ -1278,7 +1363,7 @@
             el.textContent = 'Tudo salvo';
             el.className = 'admin-status saved';
           }
-        }, 2000);
+        }, 2500);
       } else {
         el.textContent = 'Erro: ' + (data.error || 'desconhecido');
         el.className = 'admin-status error';
@@ -2136,6 +2221,42 @@
     setVal('cfgSeoPriceRange', s.priceRange);
   }
   window.updateSeo = function(key, val) { if (!config.seo) config.seo = {}; config.seo[key] = val; markDirty(); };
+
+  // ─── Popup (Copa) ───
+  function renderCopaPopup() {
+    if (!config.copaPopup) config.copaPopup = {};
+    var c = config.copaPopup;
+    var on = document.getElementById('cfgCopaOn'); if (on) on.checked = c.on !== false;
+    setVal('cfgCopaSelo', c.selo);
+    setVal('cfgCopaTitulo', c.titulo);
+    setVal('cfgCopaDestaque', c.destaque);
+    setVal('cfgCopaVel', c.velocidade);
+    setVal('cfgCopaUnidade', c.unidade);
+    setVal('cfgCopaPrecoDe', c.precoDe);
+    setVal('cfgCopaPrecoPor', c.precoPor);
+    setVal('cfgCopaPrecoCent', c.precoCentavos);
+    setVal('cfgCopaDesconto', c.descontoTag);
+    setVal('cfgCopaCtaLabel', c.ctaLabel);
+    setVal('cfgCopaCtaHref', c.ctaHref);
+    setVal('cfgCopaFine', c.fine);
+    setVal('cfgCopaApps', (c.apps || []).map(function (a) { return (a.nome || '') + (a.logo ? ' | ' + a.logo : ''); }).join('\n'));
+    setVal('cfgCopaFeatures', (c.features || []).join('\n'));
+  }
+  window.updateCopa = function (key, val) { if (!config.copaPopup) config.copaPopup = {}; config.copaPopup[key] = val; markDirty(); };
+  window.toggleCopa = function (on) { if (!config.copaPopup) config.copaPopup = {}; config.copaPopup.on = !!on; markDirty(); };
+  window.updateCopaApps = function (val) {
+    if (!config.copaPopup) config.copaPopup = {};
+    config.copaPopup.apps = String(val).split('\n').map(function (line) {
+      var parts = line.split('|'); var nome = (parts[0] || '').trim();
+      return nome ? { nome: nome, logo: (parts[1] || '').trim() } : null;
+    }).filter(Boolean);
+    markDirty();
+  };
+  window.updateCopaFeatures = function (val) {
+    if (!config.copaPopup) config.copaPopup = {};
+    config.copaPopup.features = String(val).split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    markDirty();
+  };
 
   // ─── Menus: rodapé (drag-drop + CRUD) ───
   var _mnuDrag = null; // { type:'col'|'link', col, link }

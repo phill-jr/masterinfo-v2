@@ -229,7 +229,7 @@
           <span class="promo-bar-sep">·</span>
           <span class="promo-bar-cta-text">SKY ou Deezer grátis</span>
         </span>
-        <a href="#planos" class="promo-bar-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
+        <a href="checkout.html?plano=1000" class="promo-bar-btn">Quero esse plano <i class="ph ph-arrow-right"></i></a>
       </div>
       <button class="promo-bar-close" id="promoBarClose" aria-label="Fechar">
         <i class="ph ph-x"></i>
@@ -1933,20 +1933,12 @@
     }
     try { sessionStorage.setItem('copa-popup-closed', '1'); } catch (e) {}
   }
-  (function() {
-    try {
-      if (sessionStorage.getItem('copa-popup-closed')) return;
-    } catch (e) {}
-    setTimeout(function() {
-      var p = document.getElementById('copaPopup');
-      if (!p) return;
-      p.classList.add('is-open');
-      document.body.classList.add('copa-locked');
-    }, 700);
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeCopaPopup();
-    });
-  })();
+  // A ABERTURA do popup agora e controlada pelo site-loader.js (loadCopaPopup):
+  // respeita config.copaPopup.on e popula o conteudo do config.json. Aqui fica so
+  // o closeCopaPopup global (usado pelos onclick) e o fechar via Esc.
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeCopaPopup();
+  });
   </script>
 
   <!-- HERO SLIDESHOW — script isolado pra rodar mesmo se algo antes falhar -->

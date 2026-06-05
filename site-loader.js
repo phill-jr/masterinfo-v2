@@ -25,6 +25,7 @@
       run('footerMenus', function () { loadFooterMenus(cfg.menus && cfg.menus.footer); });
       run('secoesOrdem', function () { loadSecoesOrdem(cfg.secoesOrdem); });
       run('menuHeader', function () { loadMenuHeader(cfg.menuHeader); });
+      run('copaPopup', function () { loadCopaPopup(cfg.copaPopup); });
     })
     .catch(function (e) {
       console.warn('[SiteLoader] config.json nao carregado, usando HTML estatico:', e);
@@ -239,67 +240,44 @@
     }
   }
 
-  // ─── Menu do topo / header (reordena, oculta, edita e regenera os dropdowns) ───
+  // ─── Menu do topo / header (RECONSTROI o nav inteiro a partir do config) ───
+  // Antes editava em-lugar so 7 chaves chumbadas (nao refletia item novo, e tinha
+  // bug no 'contato'). Agora regenera tudo do config.menuHeader — qualquer mudanca
+  // no admin (item novo, reordenar, label, href, on/off, dropdown) reflete ao vivo.
+  // Mesma estrutura que o build_header do gerar_subpaginas.py (home e subpaginas batem).
   function loadMenuHeader(mh) {
     if (!mh || !mh.itens || !mh.itens.length) return;
     var nav = document.getElementById('nav'); if (!nav) return;
     var sales = nav.querySelector('.nav-list-sales');
-    var client = nav.querySelector('.nav-list-client');
-    if (!sales || !client) return;
+    if (!sales) return;
 
-    function findByHref(h) { var a = nav.querySelector('.nav-list a.nav-link[href="' + h + '"]'); return a ? a.closest('.nav-item') : null; }
-    function findDrop(txt) {
-      var lis = nav.querySelectorAll('.nav-item.has-mega');
-      for (var i = 0; i < lis.length; i++) {
-        var t = lis[i].querySelector('.nav-trigger');
-        if (t && t.textContent.replace(/\s+/g, ' ').trim().indexOf(txt) === 0) return lis[i];
+    sales.innerHTML = mh.itens.filter(function (it) { return it.on !== false; }).map(function (it) {
+      if (it.tipo === 'drop') {
+        var kids = (it.children || []).map(function (c) {
+          var logo = c.logo ? '<img class="dropdown-logo dropdown-logo-real" src="' + esc(c.logo) + '" alt="' + esc(c.label) + '" loading="lazy">' : '';
+          var tgt = c.target ? ' target="' + esc(c.target) + '" rel="noopener"' : '';
+          return '<li><a href="' + esc(c.href || '#') + '"' + tgt + ' class="dropdown-link">' + logo + esc(c.label) + '</a></li>';
+        }).join('');
+        return '<li class="nav-item has-mega">' +
+          '<button class="nav-trigger" type="button">' + esc(it.label) + ' <i class="ph ph-caret-down nav-trigger-caret"></i></button>' +
+          '<div class="mega-menu mega-menu-simple"><div class="mega-menu-inner"><ul class="dropdown-list">' + kids + '</ul></div></div>' +
+          '</li>';
       }
-      return null;
-    }
-    var FIND = {
-      internet: function () { return findDrop('Internet'); },
-      tv: function () { return findByHref('/tv-streaming'); },
-      cobertura: function () { return findByHref('#cobertura'); },
-      historia: function () { return findByHref('#nossa-historia'); },
-      contato: function () { return findByHref('#contato'); },
-      aplicativos: function () { return findDrop('Aplicativos'); },
-      ajuda: function () { return findDrop('Ajuda'); }
-    };
+      var tgt = it.target ? ' target="' + esc(it.target) + '" rel="noopener"' : '';
+      return '<li class="nav-item"><a href="' + esc(it.href || '#') + '"' + tgt + ' class="nav-link">' + esc(it.label) + '</a></li>';
+    }).join('');
 
-    mh.itens.forEach(function (it) {
-      var find = FIND[it.key]; if (!find) return;
-      var li = find(); if (!li) return;
-      li.style.display = (it.on === false) ? 'none' : '';
-      if (it.tipo === 'link') {
-        var a = li.querySelector('a.nav-link');
-        if (a) {
-          if (it.label != null) a.textContent = it.label;
-          if (it.href) a.setAttribute('href', it.href);
-          if (it.target) a.setAttribute('target', it.target);
-        }
-      } else {
-        var trig = li.querySelector('.nav-trigger');
-        if (trig && it.label != null) trig.innerHTML = esc(it.label) + ' <i class="ph ph-caret-down nav-trigger-caret"></i>';
-        var dl = li.querySelector('.dropdown-list');
-        if (dl && it.children) {
-          dl.innerHTML = it.children.map(function (c) {
-            var logo = c.logo ? '<img class="dropdown-logo dropdown-logo-real" src="' + esc(c.logo) + '" alt="' + esc(c.label) + '" loading="lazy">' : '';
-            var tgt = c.target ? ' target="' + esc(c.target) + '"' : '';
-            return '<li><a href="' + esc(c.href) + '"' + tgt + ' class="dropdown-link">' + logo + esc(c.label) + '</a></li>';
-          }).join('');
-        }
-      }
-      sales.appendChild(li); // menu unico: tudo numa lista so, na ordem do config
-    });
-    // esconde o divisor e a lista da direita (agora vazia) — menu vira uma linha unica
+    // Divisor + lista da direita eram do layout antigo (2 grupos) — vira uma linha unica.
     var divisor = nav.querySelector('.nav-divider');
     if (divisor) divisor.style.display = 'none';
-    if (client) client.style.display = 'none';
+    var client = nav.querySelector('.nav-list-client');
+    if (client) { client.innerHTML = ''; client.style.display = 'none'; }
 
     if (mh.clientButton) {
       var btn = nav.querySelector('.header-client-btn');
       if (btn) {
         if (mh.clientButton.href) btn.setAttribute('href', mh.clientButton.href);
+        if (mh.clientButton.target) btn.setAttribute('target', mh.clientButton.target);
         var sp = btn.querySelector('span');
         if (sp && mh.clientButton.label != null) sp.textContent = mh.clientButton.label;
       }
@@ -395,6 +373,53 @@
       return '<div class="footer-col"><h4>' + esc(col.titulo) + '</h4>' + links + '</div>';
     }).join('');
     grid.insertAdjacentHTML('beforeend', html);
+  }
+
+  // ─── Popup da Copa (conteudo do config + on/off + abre 1x por sessao) ───
+  function loadCopaPopup(cp) {
+    var p = document.getElementById('copaPopup');
+    if (!p) return;
+    if (!cp || cp.on === false) return; // desligado no admin -> nunca abre
+
+    setText('.copa-popup-flag span', cp.selo);
+    var title = p.querySelector('.copa-popup-title');
+    if (title && (cp.titulo || cp.destaque)) {
+      title.innerHTML = esc(cp.titulo || '') + '<br><span class="copa-popup-highlight">' + esc(cp.destaque || '') + '</span>';
+    }
+    setText('.copa-popup-speed-num', cp.velocidade);
+    setText('.copa-popup-speed-unit', cp.unidade);
+    var prefix = p.querySelector('.copa-popup-price-prefix');
+    if (prefix && cp.precoDe) prefix.innerHTML = 'de <s>R$ ' + esc(cp.precoDe) + '</s> por apenas';
+    setText('.copa-popup-amount', cp.precoPor);
+    var cents = p.querySelector('.copa-popup-side sup');
+    if (cents && cp.precoCentavos != null && cp.precoCentavos !== '') cents.textContent = cp.precoCentavos;
+    var disc = p.querySelector('.copa-popup-discount-tag');
+    if (disc && cp.descontoTag) disc.innerHTML = '<i class="ph-fill ph-tag"></i> ' + esc(cp.descontoTag);
+
+    if (cp.apps && cp.apps.length) {
+      var al = p.querySelector('.copa-popup-apps-list');
+      if (al) al.innerHTML = cp.apps.map(function (a) {
+        return '<div class="copa-popup-app"><img class="copa-popup-app-logo" src="' + esc(a.logo || '') + '" alt="' + esc(a.nome || '') + '"><span class="copa-popup-app-name">' + esc(a.nome || '') + '</span></div>';
+      }).join('');
+    }
+    if (cp.features && cp.features.length) {
+      var fl = p.querySelector('.copa-popup-features');
+      if (fl) fl.innerHTML = cp.features.map(function (f) {
+        return '<li><i class="ph-fill ph-check-circle"></i> ' + esc(f) + '</li>';
+      }).join('');
+    }
+    var cta = p.querySelector('.copa-popup-cta');
+    if (cta) {
+      if (cp.ctaHref) cta.setAttribute('href', cp.ctaHref);
+      if (cp.ctaLabel) cta.innerHTML = esc(cp.ctaLabel) + ' <i class="ph ph-arrow-right"></i>';
+    }
+    setText('.copa-popup-fine', cp.fine);
+
+    try { if (sessionStorage.getItem('copa-popup-closed')) return; } catch (e) {}
+    setTimeout(function () {
+      p.classList.add('is-open');
+      document.body.classList.add('copa-locked');
+    }, 700);
   }
 
   // ─── Helpers ───

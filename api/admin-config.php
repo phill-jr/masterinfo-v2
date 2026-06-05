@@ -81,5 +81,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    echo json_encode(['ok' => true, 'message' => 'Configuracao salva com sucesso']);
+    // ─── Republicar as subpaginas estaticas ───
+    // O gerador le o config recem-salvo e reescreve header+rodape das 21 paginas
+    // (modo --menus, cirurgico). Nao-fatal: se python/exec nao estiver disponivel,
+    // o save segue OK e o motivo volta em 'publish' pra mostrar no admin.
+    $publish = republishSubpages(__DIR__ . '/../gerar_subpaginas.py');
+
+    echo json_encode(['ok' => true, 'message' => 'Configuracao salva com sucesso', 'publish' => $publish]);
+}
+
+/**
+ * Propaga o menu pras subpaginas rodando `python gerar_subpaginas.py --menus`.
+ * O comando e 100% estatico (nome do python + caminho do script + flag fixa),
+ * sem nenhum dado do usuario — sem risco de injecao de shell.
+ */
+function republishSubpages($scriptPath)
+{
+    $script = realpath($scriptPath);
+    if (!$script || !is_file($script)) {
+        return ['ran' => false, 'reason' => 'gerador nao encontrado'];
+    }
+    if (!function_exists('exec')) {
+        return ['ran' => false, 'reason' => 'exec indisponivel'];
+    }
+    $disabled = array_map('trim', explode(',', (string) ini_get('disable_functions')));
+    if (in_array('exec', $disabled, true)) {
+        return ['ran' => false, 'reason' => 'exec desabilitado no PHP'];
+    }
+
+    $isWin = stripos(PHP_OS, 'WIN') === 0;
+    $cands = $isWin ? ['py', 'python', 'python3'] : ['python3', 'python'];
+    $py = null;
+    foreach ($cands as $c) {
+        $probe = ($isWin ? 'where ' : 'command -v ') . escapeshellarg($c);
+        $found = trim((string) @shell_exec($probe . ' 2>&1'));
+        if ($found !== '' && stripos($found, 'not found') === false && stripos($found, 'could not find') === false) {
+            $py = $c;
+            break;
+        }
+    }
+    if (!$py) {
+        return ['ran' => false, 'reason' => 'python nao encontrado no host'];
+    }
+
+    $cmd = escapeshellarg($py) . ' ' . escapeshellarg($script) . ' --menus 2>&1';
+    $out = [];
+    $rc = 1;
+    @exec($cmd, $out, $rc);
+
+    return [
+        'ran'  => true,
+        'ok'   => ($rc === 0),
+        'code' => $rc,
+        'tail' => implode(' | ', array_slice($out, -2)),
+    ];
 }

@@ -8,16 +8,16 @@
         "bairroEndereco": "Comasa",
         "cidade": "Joinville, SC",
         "cep": "89228-000",
-        "cnpj": "08.990.505/0001-52",
+        "cnpj": "08.990.505\/0001-52",
         "instagram": "https:\/\/www.instagram.com\/masterinfo.internet",
         "facebook": "https:\/\/www.facebook.com\/masterinfointernet"
     },
     "checkout": {
         "modo": "simples",
         "whatsapp": "5547989212991",
-        "tema": "claro"
+        "tema": "black"
     },
-    "tema": "light",
+    "tema": "black",
     "secoesOrdem": [
         {
             "key": "hero",
@@ -33,7 +33,7 @@
         },
         {
             "key": "historia",
-            "on": true
+            "on": false
         },
         {
             "key": "cobertura",
@@ -154,14 +154,14 @@
                 "label": "Nossa História",
                 "tipo": "link",
                 "href": "#nossa-historia",
-                "on": true
+                "on": false
             },
             {
                 "key": "contato",
                 "lado": "esq",
                 "label": "Contato",
                 "tipo": "link",
-                "href": "/contato",
+                "href": "\/contato",
                 "on": true
             },
             {
@@ -691,5 +691,28 @@
         "priceRange": "R$ 99,90 - R$ 228,60\/mês",
         "ratingValue": "4.9",
         "ratingCount": "2382"
+    },
+    "copaPopup": {
+        "on": true,
+        "selo": "PLANO COPA DO MUNDO 2026",
+        "titulo": "Vai vibrar com a Seleção?",
+        "destaque": "Vibra com 1000 Mega.",
+        "velocidade": "1000",
+        "unidade": "Mega",
+        "precoDe": "129,90",
+        "precoPor": "119",
+        "precoCentavos": ",90",
+        "descontoTag": "R$ 10 OFF pagando em dia",
+        "apps": [
+            { "logo": "imgs/sky.jpg", "nome": "SKY Light" }
+        ],
+        "features": [
+            "Suporte Sábado e Domingo",
+            "Instalação em 3 dias",
+            "100% Fibra Óptica"
+        ],
+        "ctaLabel": "Quero esse plano",
+        "ctaHref": "checkout.html?plano=1000",
+        "fine": "Sujeito a análise de crédito · Valor com pagamento em pontualidade"
     }
 }

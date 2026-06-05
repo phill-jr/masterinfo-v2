@@ -124,9 +124,15 @@ body {
   color: #5a5a6a;
 }
 
-.nav-link:hover {
-  color: #1a1a2e;
-  background: rgba(0,0,0,0.04);
+/* Hover do menu do topo: laranja (padrao da marca, igual ao botao Area do Cliente).
+   Cobre tambem .nav-trigger (dropdowns Internet/Aplicativos) e o trigger aberto —
+   que antes caiam na regra base do styles.css (var(--text-primary) = claro) e
+   sumiam no fundo branco. */
+.nav-link:hover,
+.nav-trigger:hover,
+.nav-item.is-open .nav-trigger {
+  color: var(--orange);
+  background: rgba(255,122,5,0.08);
 }
 
 /* Botao "Area do Cliente": no tema dark e texto branco sobre fundo translucido.
