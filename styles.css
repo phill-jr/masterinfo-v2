@@ -508,11 +508,17 @@ button {
 .mobile-toggle {
   display: none;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 5px;
-  padding: 8px;
+  /* Padding 8 dava ~40 — limite. 12 + min-size garante HIG real. */
+  padding: 12px;
+  min-width: 44px;
+  min-height: 44px;
   background: none;
   border: 0;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-toggle span {
@@ -1338,6 +1344,7 @@ img.dropdown-logo.dropdown-logo-real {
 }
 
 .hero-dot {
+  position: relative;
   width: 32px;
   height: 3px;
   background: rgba(255,255,255,0.3);
@@ -1346,6 +1353,12 @@ img.dropdown-logo.dropdown-logo-real {
   padding: 0;
   cursor: pointer;
   transition: background var(--transition-fast), width var(--transition-base);
+}
+/* Tap zone invisivel — visual fica 32x3, mas tap area Apple HIG 44+ */
+.hero-dot::before {
+  content: '';
+  position: absolute;
+  inset: -20px -6px;
 }
 
 .hero-dot:hover { background: rgba(255,255,255,0.55); }
@@ -3244,8 +3257,9 @@ img.sp-card-avatar {
 }
 
 .footer-social a {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+  -webkit-tap-highlight-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3276,10 +3290,14 @@ img.sp-card-avatar {
 }
 
 .footer-col a {
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: 0.9rem;
   color: var(--gray-500);
-  padding: 5px 0;
+  /* Padding 5px dava ~32px tall — abaixo HIG. 12px da 44+ sem prejudicar
+     visual em desktop. Mobile single-col se beneficia mais ainda. */
+  padding: 12px 0;
+  min-height: 44px;
   transition: color 0.2s;
 }
 
@@ -3366,8 +3384,21 @@ img.sp-card-avatar {
 .footer-legal {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 4px;
+  flex-wrap: wrap;
   font-size: 0.78rem;
+}
+/* Tap target HIG 44: links de legal (Termos | Privacidade | LGPD) com padding
+   real, sem pipe visual atrapalhando (gap ja separa) */
+.footer-legal a {
+  padding: 10px 8px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.footer-legal span {
+  /* pipe sumido — padding+gap ja separam visualmente sem ele virar tap-trap */
+  display: none;
 }
 
 .footer-legal a {
@@ -3804,8 +3835,11 @@ img.sp-card-avatar {
 .plans-toggle-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 10px 22px;
+  /* 10px dava ~38 — HIG quer 44. 12 garante. */
+  padding: 12px 22px;
+  min-height: 44px;
   font-size: 0.86rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -3813,6 +3847,7 @@ img.sp-card-avatar {
   transition: var(--transition-base);
   cursor: pointer;
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .plans-toggle-btn i {
@@ -4240,10 +4275,11 @@ body.copa-locked {
 
 .copa-popup-close {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
   width: 36px;
   height: 36px;
+  -webkit-tap-highlight-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4264,6 +4300,12 @@ body.copa-locked {
 
 .copa-popup-close:active {
   transform: scale(0.9);
+}
+/* Tap zone HIG: visual 36 mas hit area 48 */
+.copa-popup-close::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
 }
 
 .copa-popup-flag {

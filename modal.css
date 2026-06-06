@@ -54,8 +54,8 @@
 /* Close button */
 .mi-modal-close {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 12px;
+  right: 12px;
   width: 36px;
   height: 36px;
   border: none;
@@ -70,6 +70,13 @@
   transition: background 160ms cubic-bezier(0.23, 1, 0.32, 1),
               color 160ms cubic-bezier(0.23, 1, 0.32, 1);
   line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Tap zone HIG: visual 36 mas hit area 48 */
+.mi-modal-close::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
 }
 
 .mi-modal-close:hover {
