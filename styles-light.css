@@ -251,9 +251,19 @@ body {
   color: #ffffff;
 }
 
+/* Speed num — overridar o gradiente branco→gray do styles.css:7166
+   (com text-fill-color:transparent fica invisivel no fundo claro).
+   Aqui: gradiente dark→laranja mantem a vibe "fade pra cor de destaque"
+   da versao dark, mas contrasta no branco. */
 .plan-speed-num {
-  color: #1a1a2e;
+  background: linear-gradient(180deg, #1a1a2e 35%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
+/* Hover ja vem do styles.css:7179 (gradient-brand red→orange→yellow) e
+   funciona bem no branco — nao precisa override aqui. */
 
 .plan-speed-unit {
   color: #6a6a7a;
@@ -807,3 +817,6 @@ body::before {
 .promo-bar .promo-bar-text {
   color: #ffffff;
 }
+
+/* INDIQUE E GANHE: card é FOGO nos 2 temas (base no styles.css) — sem override
+   de tema claro aqui de propósito. Ver bloco .referral* em styles.css. */
