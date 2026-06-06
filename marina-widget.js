@@ -20,7 +20,9 @@
   // ───────────────────────── estilos ─────────────────────────
   var style = document.createElement('style');
   style.textContent = [
-    '.marina-pop{position:fixed;bottom:28px;right:28px;width:374px;max-width:calc(100vw - 32px);height:560px;max-height:calc(100vh - 56px);background:#fff;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,0.28),0 4px 16px rgba(0,0,0,0.12);display:flex;flex-direction:column;overflow:hidden;z-index:1000;opacity:0;transform:translateY(16px) scale(0.98);transition:opacity .22s ease,transform .22s ease;}',
+    /* dvh + vh fallback cobre iOS Safari address bar dinamica. transition troca
+       ease padrao por ease-out forte pra match com o resto do sistema. */
+    '.marina-pop{position:fixed;bottom:28px;right:28px;width:374px;max-width:calc(100vw - 32px);height:560px;max-height:calc(100vh - 56px);max-height:calc(100dvh - 56px);background:#fff;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,0.28),0 4px 16px rgba(0,0,0,0.12);display:flex;flex-direction:column;overflow:hidden;z-index:1000;opacity:0;transform:translateY(16px) scale(0.98);transition:opacity .22s cubic-bezier(0.23,1,0.32,1),transform .22s cubic-bezier(0.23,1,0.32,1);}',
     '.marina-pop.is-open{opacity:1;transform:translateY(0) scale(1);}',
     '.marina-pop[hidden]{display:none;}',
     '.marina-pop-head{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(135deg,#ff7a05,#ff5a1f);color:#fff;}',
@@ -42,7 +44,9 @@
     '@keyframes marinaCaret{50%{opacity:0;}}',
     '.marina-pop-cpf label{display:block;font-size:0.9rem;color:#3a3a44;margin-bottom:10px;font-weight:600;}',
     '.marina-pop-cpf-row{display:flex;gap:8px;flex-wrap:wrap;}',
-    '.marina-pop-cpf-row input{flex:1;min-width:150px;padding:12px 14px;border-radius:10px;border:1px solid #d9d9e0;background:#fff;color:#1a1a2e;font-size:1rem;font-family:inherit;}',
+    /* font-size:16px explicito mata zoom-on-focus do iOS Safari (<16 dispara zoom).
+       Visualmente quase identico ao 1rem mas zero zoom. */
+    '.marina-pop-cpf-row input{flex:1;min-width:150px;padding:12px 14px;border-radius:10px;border:1px solid #d9d9e0;background:#fff;color:#1a1a2e;font-size:16px;font-family:inherit;}',
     '.marina-cpf-err{border-color:#e63946 !important;}',
     '.marina-pop-cpf-row button,.marina-pop-input button{border:none;cursor:pointer;font-family:inherit;}',
     '.marina-pop-cpf-row button{padding:12px 16px;border-radius:10px;background:linear-gradient(135deg,#ff7a05,#ff5a1f);color:#fff;font-weight:700;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}',
@@ -69,10 +73,14 @@
     '.marina-boleto-actions{display:flex;flex-direction:column;gap:8px;}',
     '.marina-boleto-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,0.12);background:#f4f4f6;color:#1a1a2e;font-weight:600;font-size:0.85rem;text-decoration:none;cursor:pointer;}',
     '.marina-boleto-btn:hover{background:#fff3e8;border-color:#ffbe8a;}',
-    '.marina-pop-input{display:flex;gap:8px;padding:12px 14px;border-top:1px solid #ececf1;background:#fff;}',
-    '.marina-pop-input input{flex:1;padding:11px 14px;border-radius:10px;border:1px solid #d9d9e0;background:#fff;color:#1a1a2e;font-size:0.95rem;font-family:inherit;}',
+    /* safe-area-inset-bottom cobre home indicator iPhone 14+. */
+    '.marina-pop-input{display:flex;gap:8px;padding:12px 14px calc(12px + env(safe-area-inset-bottom)) 14px;border-top:1px solid #ececf1;background:#fff;}',
+    /* font-size:16px anti-zoom-on-focus iOS Safari */
+    '.marina-pop-input input{flex:1;padding:11px 14px;border-radius:10px;border:1px solid #d9d9e0;background:#fff;color:#1a1a2e;font-size:16px;font-family:inherit;}',
     '.marina-pop-input button{width:46px;border-radius:10px;background:linear-gradient(135deg,#ff7a05,#ff5a1f);color:#fff;font-size:1.1rem;flex-shrink:0;}',
-    '@media (max-width:480px){.marina-pop{bottom:0;right:0;left:0;width:100%;max-width:100%;height:100dvh;max-height:100dvh;border-radius:0;}}'
+    /* Mobile pequeno: vira fullscreen. vh fallback antes do dvh pra cobrir
+       iOS 15.0-15.3 e Android antigos que nao entendem dvh. */
+    '@media (max-width:480px){.marina-pop{bottom:0;right:0;left:0;width:100%;max-width:100%;height:100vh;height:100dvh;max-height:100vh;max-height:100dvh;border-radius:0;}}'
   ].join('');
   document.head.appendChild(style);
 

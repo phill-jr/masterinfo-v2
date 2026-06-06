@@ -80,7 +80,9 @@
     if (document.getElementById('mi-cc-style')) return;
     var css = '' +
     '.mi-cc-banner,.mi-cc-modal,.mi-cc-modal *{box-sizing:border-box;font-family:"Outfit",system-ui,-apple-system,Segoe UI,Roboto,sans-serif}' +
-    '.mi-cc-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:2147483600;max-width:940px;margin:0 auto;' +
+    /* bottom usa max() com safe-area pra cobrir home indicator iPhone 14+
+       sem ficar com gap exagerado em telefones sem notch */
+    '.mi-cc-banner{position:fixed;left:16px;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:2147483600;max-width:940px;margin:0 auto;' +
       'background:#fff;color:#1b1b22;border:1.5px solid #ececf2;border-radius:18px;box-shadow:0 20px 60px rgba(20,20,30,.28);' +
       'padding:20px 22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;' +
       'opacity:0;transform:translateY(20px);transition:opacity .35s ease,transform .35s ease}' +
@@ -97,13 +99,15 @@
     '.mi-cc-btn-primary{color:#fff;background:linear-gradient(135deg,#e63946,#ff7a05,#fcc305);box-shadow:0 12px 28px rgba(255,122,5,.34)}' +
     '.mi-cc-btn-ghost{background:#f4f4f7;color:#3a3a45}' +
     '.mi-cc-btn-ghost:hover{background:#ececf2}' +
-    '.mi-cc-btn-link{background:none;color:#5a5a66;padding:12px 10px;text-decoration:underline;font-weight:700}' +
+    /* padding 14/12 + min-height 44 garante Apple HIG no link de "personalizar" */
+    '.mi-cc-btn-link{background:none;color:#5a5a66;padding:14px 12px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;text-decoration:underline;font-weight:700}' +
     '.mi-cc-btn-link:hover{color:#16161c;transform:none}' +
     /* modal */
     '.mi-cc-modal{position:fixed;inset:0;z-index:2147483601;display:none;align-items:center;justify-content:center;padding:18px;' +
       'background:rgba(15,15,22,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}' +
     '.mi-cc-modal.mi-cc-open{display:flex}' +
-    '.mi-cc-card{background:#fff;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;border-radius:22px;' +
+    /* dvh fallback cobre iOS Safari address bar */
+    '.mi-cc-card{background:#fff;width:100%;max-width:560px;max-height:90vh;max-height:90dvh;overflow-y:auto;border-radius:22px;' +
       'box-shadow:0 30px 80px rgba(0,0,0,.4);padding:28px;transform:translateY(16px) scale(.98);opacity:0;transition:transform .3s ease,opacity .3s ease}' +
     '.mi-cc-modal.mi-cc-open .mi-cc-card{transform:none;opacity:1}' +
     '.mi-cc-card h2{font-size:1.4rem;font-weight:900;letter-spacing:-.02em;color:#14141a;margin:0 0 6px}' +
