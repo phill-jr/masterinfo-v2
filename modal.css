@@ -101,11 +101,12 @@
 
 .mi-modal-title {
   font-family: var(--font-main, 'Outfit', sans-serif);
-  font-size: 24px;
+  /* Fluid: 20px em SE -> 24px desktop. Mata quebra de titulo longo. */
+  font-size: clamp(20px, 5vw, 24px);
   font-weight: 800;
   color: var(--white, #fafafa);
   margin: 0 0 8px;
-  line-height: 1.2;
+  line-height: 1.18;
   letter-spacing: -0.02em;
   text-align: center;
 }

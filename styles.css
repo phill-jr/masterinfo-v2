@@ -240,7 +240,7 @@ button {
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: clamp(0.78rem, 2vw, 0.85rem);
   font-weight: 500;
   color: var(--orange);
   text-transform: uppercase;
@@ -1503,11 +1503,12 @@ img.dropdown-logo.dropdown-logo-real {
 
 .speed-number {
   font-family: var(--font-mono);
-  font-size: 4.5rem;
+  /* Fluid: 2.8rem em iPhone SE -> 4.5rem em desktop. Sem degrau ruim. */
+  font-size: clamp(2.8rem, 12vw, 4.5rem);
   font-weight: 700;
   color: var(--white);
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: clamp(-0.025em, -0.5vw, -0.04em);
 }
 
 .speed-unit {
@@ -1656,10 +1657,11 @@ img.dropdown-logo.dropdown-logo-real {
 }
 
 .hero-offer-amount {
-  font-size: 5rem;
+  /* Fluid: 2.6rem iPhone SE -> 5rem desktop. Mata o degrau do override @768 */
+  font-size: clamp(2.6rem, 11vw, 5rem);
   font-weight: 900;
   line-height: 0.9;
-  letter-spacing: -0.04em;
+  letter-spacing: clamp(-0.025em, -0.6vw, -0.04em);
   background: var(--gradient-brand);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -2025,11 +2027,13 @@ img.dropdown-logo.dropdown-logo-real {
 }
 
 .plan-speed-num {
-  font-size: 3.5rem;
+  /* Base fluida pra qualquer contexto que NAO bate na regra mais especifica
+     da linha 7258 (com gradient). Em subpaginas e copa o seletor cai aqui. */
+  font-size: clamp(2.4rem, 7vw, 3.5rem);
   font-weight: 900;
   color: var(--white);
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: clamp(-0.025em, -0.5vw, -0.04em);
 }
 
 .plan-speed-unit {
@@ -2127,11 +2131,12 @@ img.dropdown-logo.dropdown-logo-real {
 }
 
 .plan-value {
-  font-size: 3rem;
+  /* Fluid pra precos longos nao quebrarem em SE (3.5+ digitos: R$ 1.099) */
+  font-size: clamp(2.2rem, 8vw, 3rem);
   font-weight: 800;
   color: var(--white);
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: clamp(-0.02em, -0.5vw, -0.03em);
 }
 
 .plan-period {
@@ -6752,10 +6757,9 @@ body.copa-locked {
     display: none;
   }
 
-  .stat-number {
-    font-size: 2rem;
-  }
-
+  /* .stat-number — override fixo 2rem REMOVIDO. A regra base usa clamp(2.4, 4vw, 3.2rem)
+     que ja escala suavemente. 2rem fixo (era 32px) parecia pequeno demais em mobile
+     pra numero de social proof. */
   .coverage-inner {
     grid-template-columns: 1fr;
     gap: 48px;
