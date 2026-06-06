@@ -512,6 +512,13 @@ body {
   padding: 28px 0;
   border-bottom-color: rgba(0,0,0,0.06);
 }
+/* No dark, .footer-trust::before tinha um gradiente laranja sutil que separava
+   secoes escuras. No claro vira ruido (laranja-palido quase invisivel sobre
+   o branco) — o strip ja se isola naturalmente entre o creme da secao acima
+   e o preto solido do footer abaixo. */
+.footer-trust::before {
+  display: none;
+}
 .footer-trust-item strong {
   color: #1a1a2e;
 }
