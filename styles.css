@@ -3453,7 +3453,8 @@ img.sp-card-avatar {
 }
 
 .whatsapp-float:active,
-.boleto-float:active {
+.boleto-float:active,
+.indicar-float:active {
   transform: scale(0.94);
   transition-duration: 0.12s;
 }
@@ -3467,10 +3468,15 @@ img.sp-card-avatar {
     transform: scale(1.08) translateY(-3px);
     box-shadow: 0 12px 22px rgba(232,90,0,0.48), 0 22px 42px rgba(232,90,0,0.32), inset 0 2px 1px rgba(255,255,255,0.55);
   }
+  .indicar-float:hover {
+    transform: scale(1.08) translateY(-3px);
+    box-shadow: 0 12px 22px rgba(252,195,5,0.5), 0 22px 42px rgba(252,195,5,0.32), inset 0 2px 1px rgba(255,255,255,0.55);
+  }
 }
 
 .whatsapp-pulse,
-.boleto-pulse {
+.boleto-pulse,
+.indicar-pulse {
   position: absolute;
   inset: -2px;
   border-radius: 50%;
@@ -3478,6 +3484,7 @@ img.sp-card-avatar {
 }
 .whatsapp-pulse { border: 2.5px solid rgba(37,211,102,0.55); animation: fabPulse 2.8s cubic-bezier(0.23,1,0.32,1) infinite; }
 .boleto-pulse  { border: 2.5px solid rgba(255,122,5,0.5);  animation: fabPulse 2.8s cubic-bezier(0.23,1,0.32,1) 1.4s infinite; }
+.indicar-pulse { border: 2.5px solid rgba(252,195,5,0.6);  animation: fabPulse 2.8s cubic-bezier(0.23,1,0.32,1) 2.1s infinite; }
 
 @keyframes fabPulse {
   0% { transform: scale(1); opacity: 0.7; }
@@ -3487,6 +3494,7 @@ img.sp-card-avatar {
 @media (prefers-reduced-motion: reduce) {
   .whatsapp-pulse,
   .boleto-pulse,
+  .indicar-pulse,
   .whatsapp-badge,
   .sticky-cta-main::before { animation: none; }
 }
@@ -3610,8 +3618,83 @@ img.sp-card-avatar {
 }
 
 .whatsapp-float i,
-.boleto-float i {
+.boleto-float i,
+.indicar-float i {
   filter: drop-shadow(0 1.5px 1.5px rgba(0,0,0,0.2));
+}
+
+/* ========================================
+   INDICAR / INDIQUE E GANHE FLOAT
+   3o FAB, stack acima dos outros 2 (bottom 188 = 28+64+16+64+16).
+   Paleta dourada: comunica "recompensa/tesouro" (1 mes gratis).
+   ======================================== */
+.indicar-float {
+  position: fixed;
+  bottom: 188px;
+  right: 28px;
+  width: 64px;
+  height: 64px;
+  background: radial-gradient(circle at 33% 27%, #ffe478 0%, #fcc305 47%, #c89205 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #fff;
+  z-index: 999;
+  box-shadow: 0 6px 14px rgba(252,195,5,0.42), 0 16px 30px rgba(252,195,5,0.26), inset 0 2px 1px rgba(255,255,255,0.55), inset 0 -3px 8px rgba(120,80,0,0.24);
+  transition: transform 0.22s cubic-bezier(0.23,1,0.32,1), box-shadow 0.22s cubic-bezier(0.23,1,0.32,1);
+}
+
+/* Tooltip — espelha pattern do boleto-tooltip */
+.indicar-tooltip {
+  position: absolute;
+  right: 76px;
+  top: 50%;
+  background: #ffffff;
+  color: #1a1a2e;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: right center;
+  transition: opacity 180ms var(--ease-out),
+              transform 180ms var(--ease-out);
+  transform: translateY(-50%) translateX(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-end;
+  line-height: 1.2;
+}
+.indicar-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: #ffffff;
+  border-right: 0;
+}
+.indicar-tooltip-text {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0a0a0b;
+}
+.indicar-tooltip-sub {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #c89205;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .indicar-float:hover .indicar-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
 }
 
 .boleto-tooltip {
@@ -6865,7 +6948,8 @@ body.copa-locked {
 
   /* Mobile: troca whatsapp-float pelo sticky-cta */
   .whatsapp-float,
-  .boleto-float {
+  .boleto-float,
+  .indicar-float {
     display: none;
   }
 
