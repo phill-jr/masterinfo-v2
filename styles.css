@@ -4584,11 +4584,44 @@ body.copa-locked {
 }
 
 @media (max-width: 480px) {
+  /* O bloco antigo REVERTIA o tighten do desktop (padding 36, fonts 4/3.4rem)
+     e fazia o card overflowar em 360x640 com CTA abaixo da dobra.
+     Agora reduz AINDA MAIS pra caber confortavel em iPhone SE. */
   .copa-popup-card {
-    padding: 36px 22px 22px;
+    padding: 20px 18px 16px;
+    max-height: 92vh;
+    max-height: 92dvh;
   }
-  .copa-popup-speed-num { font-size: 4rem; }
-  .copa-popup-amount { font-size: 3.4rem; }
+  .copa-popup-flag {
+    font-size: 0.62rem;
+    padding: 4px 10px;
+    margin-bottom: 8px;
+  }
+  .copa-popup-title {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+  .copa-popup-speed-num {
+    font-size: 3rem;
+  }
+  .copa-popup-amount {
+    font-size: 2.6rem;
+  }
+  .copa-popup-features li {
+    font-size: 0.82rem;
+    padding: 2px 0;
+  }
+  .copa-popup-cta {
+    padding: 13px 18px;
+    font-size: 0.95rem;
+  }
+}
+
+/* prefers-reduced-motion no copa-popup — bola animada + shimmer + pop entry */
+@media (prefers-reduced-motion: reduce) {
+  .copa-popup-card { animation: none; }
+  .copa-popup-flag i { animation: none; }
+  .copa-popup-cta::before { animation: none; display: none; }
 }
 
 /* ========================================
@@ -6828,13 +6861,14 @@ body.copa-locked {
     display: flex;
   }
 
-  /* Espaço extra no final pra sticky CTA não cobrir conteúdo */
+  /* Espaco extra no final pra sticky CTA nao cobrir conteudo.
+     env(safe-area-inset-bottom) cobre home indicator do iPhone 14+. */
   body {
-    padding-bottom: 76px;
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
   }
 
   .footer {
-    padding-bottom: 84px;
+    padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
 
   .final-cta-inner {
