@@ -22,6 +22,14 @@
   --gray-100: #1a1a2e;
   --white: #1a1a2e;
 
+  /* Text tokens — invertidos pro tema claro.
+     Bug histórico: styles.css define --text-primary: #ffffff e o light theme
+     esquecia de redefinir → componentes como .footer-trust-item strong ficavam
+     branco-no-branco. Resolvido aqui no :root global. */
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a4a5a;
+  --text-muted: #6a6a7a;
+
   /* Shadows (lighter) */
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
   --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
@@ -496,6 +504,22 @@ body {
 .footer {
   background: #111118;
   border-top-color: rgba(255,255,255,0.06);
+}
+
+/* Trust strip — fica num bloco BRANCO no light theme (--black → #fff via :root).
+   Ajustes: tipografia visivel, sombra do icone mais suave, padding mais tight. */
+.footer-trust {
+  padding: 28px 0;
+  border-bottom-color: rgba(0,0,0,0.06);
+}
+.footer-trust-item strong {
+  color: #1a1a2e;
+}
+.footer-trust-item span {
+  color: #5a5a6a;
+}
+.footer-trust-item i {
+  box-shadow: 0 4px 12px rgba(255,122,5,0.22);
 }
 
 .footer .logo-master {
