@@ -4157,13 +4157,15 @@ body.copa-locked {
 .copa-popup-card {
   position: relative;
   width: 100%;
-  max-width: 460px;
+  max-width: 440px;
   max-height: 92vh;
   overflow-y: auto;
   background: linear-gradient(180deg, #0d0d10 0%, #1a1a22 100%);
   border: 1px solid rgba(255,122,5,0.4);
   border-radius: var(--radius-2xl);
-  padding: 44px 32px 28px;
+  /* Padding tightenado pra caber em laptops 720-768p sem scroll.
+     Antes: 44/32/28 — agora: 32/28/22 (economiza ~24px verticais). */
+  padding: 32px 28px 22px;
   text-align: center;
   box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 100px rgba(255,122,5,0.25);
   animation: copaPop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -4247,12 +4249,12 @@ body.copa-locked {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  padding: 8px 18px;
+  padding: 7px 16px;
   background: var(--gradient-brand);
   color: #fff;
   border-radius: var(--radius-full);
   box-shadow: 0 6px 20px rgba(255,122,5,0.45);
-  margin-bottom: 22px;
+  margin-bottom: 16px;
 }
 
 .copa-popup-flag i {
@@ -4266,12 +4268,12 @@ body.copa-locked {
 }
 
 .copa-popup-title {
-  font-size: clamp(1.4rem, 4.5vw, 1.8rem);
+  font-size: clamp(1.3rem, 4.2vw, 1.65rem);
   font-weight: 900;
   color: #fff;
-  line-height: 1.15;
+  line-height: 1.18;
   letter-spacing: -0.02em;
-  margin-bottom: 22px;
+  margin-bottom: 14px;
 }
 
 .copa-popup-highlight {
@@ -4285,11 +4287,11 @@ body.copa-locked {
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 
 .copa-popup-speed-num {
-  font-size: clamp(4.5rem, 14vw, 6rem);
+  font-size: clamp(3.8rem, 12vw, 5rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.05em;
@@ -4297,7 +4299,7 @@ body.copa-locked {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 8px 28px rgba(255,122,5,0.45));
+  filter: drop-shadow(0 6px 22px rgba(255,122,5,0.4));
 }
 
 .copa-popup-speed-unit {
@@ -4308,7 +4310,7 @@ body.copa-locked {
 }
 
 .copa-popup-price {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .copa-popup-price-prefix {
@@ -4358,7 +4360,7 @@ body.copa-locked {
 }
 
 .copa-popup-amount {
-  font-size: 4.2rem;
+  font-size: 3.6rem;
   font-weight: 900;
   line-height: 0.9;
   letter-spacing: -0.04em;
@@ -4392,9 +4394,9 @@ body.copa-locked {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 16px 14px;
-  margin-bottom: 18px;
+  gap: 8px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,122,5,0.25);
   border-radius: var(--radius-md);
@@ -4424,12 +4426,12 @@ body.copa-locked {
 }
 
 .copa-popup-app-logo {
-  width: 56px;
-  height: 56px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-md);
   object-fit: cover;
   background: #fff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.1);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1);
 }
 
 .copa-popup-app-name {
@@ -4443,7 +4445,7 @@ body.copa-locked {
 .copa-popup-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 24px;
+  margin: 0 0 16px;
   text-align: left;
 }
 
@@ -4451,14 +4453,14 @@ body.copa-locked {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 7px 0;
-  font-size: 0.95rem;
+  padding: 4px 0;
+  font-size: 0.9rem;
   color: rgba(255,255,255,0.85);
 }
 
 .copa-popup-features li i {
   color: var(--success);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   flex-shrink: 0;
 }
 
@@ -4468,15 +4470,15 @@ body.copa-locked {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  padding: 18px 24px;
+  padding: 15px 24px;
   background: var(--gradient-brand);
   color: #fff;
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   border-radius: var(--radius-full);
   box-shadow: 0 14px 32px rgba(255,122,5,0.5);
   transition: var(--transition-base);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   position: relative;
   overflow: hidden;
 }
