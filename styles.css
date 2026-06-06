@@ -6947,9 +6947,25 @@ body.copa-locked {
   }
 
   /* Mobile: troca whatsapp-float pelo sticky-cta */
+  /* Em mobile, whatsapp/boleto sumem (sticky-cta cuida do principal).
+     Indicar continua visivel mas menor + reposicionado acima do sticky-cta —
+     atalho dourado pra indicacao sem competir com o CTA principal. */
   .whatsapp-float,
-  .boleto-float,
+  .boleto-float {
+    display: none;
+  }
   .indicar-float {
+    width: 52px;
+    height: 52px;
+    font-size: 1.5rem;
+    right: 16px;
+    /* sticky-cta = ~76px tall + safe-area-inset-bottom + 12 gap */
+    bottom: calc(96px + env(safe-area-inset-bottom));
+    box-shadow: 0 4px 10px rgba(252,195,5,0.4), 0 10px 22px rgba(252,195,5,0.22), inset 0 2px 1px rgba(255,255,255,0.55), inset 0 -2px 6px rgba(120,80,0,0.22);
+  }
+  /* Tooltip esconde em mobile — sobrepoe sticky-cta, e touch nao tem hover.
+     Icone + posicao + cor dourada ja sinalizam o CTA. */
+  .indicar-tooltip {
     display: none;
   }
 
