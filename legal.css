@@ -89,6 +89,7 @@ body.lg-page::before {
   position: sticky; top: 96px;
   align-self: start;
   max-height: calc(100vh - 120px);
+  max-height: calc(100dvh - 120px);
   overflow-y: auto;
   padding: 22px 20px;
   border-radius: 18px;

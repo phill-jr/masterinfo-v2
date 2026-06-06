@@ -33,7 +33,10 @@
   padding: 32px 32px 28px;
   max-width: 440px;
   width: 100%;
+  /* dvh respeita address bar dinamica do iOS Safari (vh trava no maximo).
+     Cascata: vh primeiro como fallback, dvh sobrescreve onde suportado. */
   max-height: calc(100vh - 24px);
+  max-height: calc(100dvh - 24px);
   overflow-y: auto;
   position: relative;
   box-shadow:

@@ -112,6 +112,9 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  /* iOS Safari: body sozinho nao impede horizontal scroll em transforms.
+     Defender no html garante. */
+  overflow-x: hidden;
   /* Scrollbar global — fina e brand-tintada. Herdado por TODO scroll do
      site (body, modais, popups, dropdowns, carrosseis). Componentes
      individuais nao precisam mais sobrescrever. */
@@ -216,6 +219,14 @@ button {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+}
+
+/* Mobile pequeno (iPhone SE / Android estreito): 24px lateral perde 13% do
+   viewport em 360px. Reduz pra 16px e libera area utilizavel. */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
 }
 
 /* ---------- Typography ---------- */
@@ -4187,7 +4198,9 @@ body.copa-locked {
   position: relative;
   width: 100%;
   max-width: 440px;
+  /* dvh respeita address bar dinamica do iOS Safari (vh trava no max). */
   max-height: 95vh;
+  max-height: 95dvh;
   overflow-y: auto;
   background: linear-gradient(180deg, #0d0d10 0%, #1a1a22 100%);
   border: 1px solid rgba(255,122,5,0.4);
