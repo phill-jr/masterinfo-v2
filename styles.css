@@ -3297,6 +3297,9 @@ img.sp-card-avatar {
 .footer-col a {
   display: flex;
   align-items: center;
+  /* Gap entre icone e texto — onda 2 mudou pra flex pro tap target
+     mas zeroou o espaco natural do ' ' entre <i> e label. */
+  gap: 10px;
   font-size: 0.9rem;
   color: var(--gray-500);
   /* Padding 5px dava ~32px tall — abaixo HIG. 12px da 44+ sem prejudicar
@@ -3304,6 +3307,15 @@ img.sp-card-avatar {
   padding: 12px 0;
   min-height: 44px;
   transition: color 0.2s;
+}
+/* Icone do footer-col com tamanho consistente — antes dependia do font-size
+   padrao do ph e variava. Agora 1.05rem alinha melhor com texto 0.9rem. */
+.footer-col a i {
+  font-size: 1.05rem;
+  flex-shrink: 0;
+  color: var(--orange);
+  width: 18px;
+  text-align: center;
 }
 
 .footer-col a:hover {
