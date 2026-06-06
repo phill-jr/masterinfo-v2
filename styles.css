@@ -4158,14 +4158,14 @@ body.copa-locked {
   position: relative;
   width: 100%;
   max-width: 440px;
-  max-height: 92vh;
+  max-height: 95vh;
   overflow-y: auto;
   background: linear-gradient(180deg, #0d0d10 0%, #1a1a22 100%);
   border: 1px solid rgba(255,122,5,0.4);
   border-radius: var(--radius-2xl);
   /* Padding tightenado pra caber em laptops 720-768p sem scroll.
-     Antes: 44/32/28 — agora: 32/28/22 (economiza ~24px verticais). */
-  padding: 32px 28px 22px;
+     Antes: 44/32/28 — agora: 26/24/18 (economiza ~36px verticais). */
+  padding: 26px 24px 18px;
   text-align: center;
   box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 100px rgba(255,122,5,0.25);
   animation: copaPop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -4245,16 +4245,16 @@ body.copa-locked {
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  padding: 7px 16px;
+  padding: 6px 14px;
   background: var(--gradient-brand);
   color: #fff;
   border-radius: var(--radius-full);
   box-shadow: 0 6px 20px rgba(255,122,5,0.45);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .copa-popup-flag i {
@@ -4268,12 +4268,12 @@ body.copa-locked {
 }
 
 .copa-popup-title {
-  font-size: clamp(1.3rem, 4.2vw, 1.65rem);
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
   font-weight: 900;
   color: #fff;
   line-height: 1.18;
   letter-spacing: -0.02em;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .copa-popup-highlight {
@@ -4287,11 +4287,11 @@ body.copa-locked {
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .copa-popup-speed-num {
-  font-size: clamp(3.8rem, 12vw, 5rem);
+  font-size: clamp(3.4rem, 11vw, 4.5rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.05em;
@@ -4299,7 +4299,7 @@ body.copa-locked {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 6px 22px rgba(255,122,5,0.4));
+  filter: drop-shadow(0 5px 18px rgba(255,122,5,0.38));
 }
 
 .copa-popup-speed-unit {
@@ -4310,7 +4310,7 @@ body.copa-locked {
 }
 
 .copa-popup-price {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .copa-popup-price-prefix {
@@ -4360,7 +4360,7 @@ body.copa-locked {
 }
 
 .copa-popup-amount {
-  font-size: 3.6rem;
+  font-size: 3.2rem;
   font-weight: 900;
   line-height: 0.9;
   letter-spacing: -0.04em;
@@ -4394,9 +4394,9 @@ body.copa-locked {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 12px 14px;
-  margin-bottom: 14px;
+  gap: 6px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,122,5,0.25);
   border-radius: var(--radius-md);
@@ -4426,8 +4426,8 @@ body.copa-locked {
 }
 
 .copa-popup-app-logo {
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: var(--radius-md);
   object-fit: cover;
   background: #fff;
@@ -4445,7 +4445,7 @@ body.copa-locked {
 .copa-popup-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 16px;
+  margin: 0 0 12px;
   text-align: left;
 }
 
@@ -4453,14 +4453,14 @@ body.copa-locked {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 4px 0;
-  font-size: 0.9rem;
+  padding: 3px 0;
+  font-size: 0.88rem;
   color: rgba(255,255,255,0.85);
 }
 
 .copa-popup-features li i {
   color: var(--success);
-  font-size: 1.05rem;
+  font-size: 1rem;
   flex-shrink: 0;
 }
 
@@ -4470,15 +4470,15 @@ body.copa-locked {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  padding: 15px 24px;
+  padding: 13px 22px;
   background: var(--gradient-brand);
   color: #fff;
   font-weight: 800;
-  font-size: 1.02rem;
+  font-size: 1rem;
   border-radius: var(--radius-full);
   box-shadow: 0 14px 32px rgba(255,122,5,0.5);
   transition: var(--transition-base);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   position: relative;
   overflow: hidden;
 }
@@ -4504,7 +4504,8 @@ body.copa-locked {
 
 .copa-popup-fine {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
+  line-height: 1.3;
   color: rgba(255,255,255,0.45);
   font-style: italic;
 }
