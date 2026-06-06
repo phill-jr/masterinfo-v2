@@ -28,10 +28,12 @@
   background: var(--gray-900, #18181b);
   border: 1px solid var(--gray-700, #333338);
   border-radius: 20px;
-  padding: 40px;
-  max-width: 460px;
+  /* Padding tightenado: era 40 uniforme — generoso demais pra form de 3 campos.
+     Agora 32 com base/top um pouco menores. */
+  padding: 32px 32px 28px;
+  max-width: 440px;
   width: 100%;
-  max-height: calc(100vh - 32px);
+  max-height: calc(100vh - 24px);
   overflow-y: auto;
   position: relative;
   box-shadow:
@@ -39,22 +41,7 @@
     0 0 80px rgba(255, 122, 5, 0.06);
   transform: translateY(20px) scale(0.97);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  /* Scrollbar fina e brand-tintada (mesmo padrao do .copa-popup-card) */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,122,5,0.45) transparent;
-}
-.mi-modal-card::-webkit-scrollbar {
-  width: 6px;
-}
-.mi-modal-card::-webkit-scrollbar-track {
-  background: transparent;
-}
-.mi-modal-card::-webkit-scrollbar-thumb {
-  background: rgba(255,122,5,0.35);
-  border-radius: 999px;
-}
-.mi-modal-card::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,122,5,0.6);
+  /* Scrollbar herdada do html global (styles.css ~117) */
 }
 
 .mi-modal-overlay.mi-visible .mi-modal-card {
@@ -89,17 +76,17 @@
 
 /* Header */
 .mi-modal-icon {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(255, 122, 5, 0.1);
   border: 1px solid rgba(255, 122, 5, 0.15);
   border-radius: 12px;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: var(--orange, #ff7a05);
-  margin: 0 auto 20px;
+  margin: 0 auto 14px;
 }
 
 .mi-modal-title {
@@ -117,8 +104,8 @@
   font-family: var(--font-main, 'Outfit', sans-serif);
   font-size: 14px;
   color: var(--gray-400, #a1a1aa);
-  margin: 0 0 24px;
-  line-height: 1.6;
+  margin: 0 0 18px;
+  line-height: 1.55;
   text-align: center;
 }
 
@@ -135,7 +122,7 @@
   border: 1px solid rgba(255, 122, 5, 0.25);
   padding: 6px 14px;
   border-radius: 999px;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 .mi-plan-tag i {
@@ -148,7 +135,7 @@
 
 /* Form fields */
 .mi-field {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .mi-field label {
@@ -253,7 +240,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin: 20px 0 0;
+  margin: 14px 0 0;
   flex-wrap: nowrap;
 }
 

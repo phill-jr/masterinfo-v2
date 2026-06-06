@@ -112,6 +112,31 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  /* Scrollbar global — fina e brand-tintada. Herdado por TODO scroll do
+     site (body, modais, popups, dropdowns, carrosseis). Componentes
+     individuais nao precisam mais sobrescrever. */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,122,5,0.4) transparent;
+}
+
+/* Chromium/Safari/Edge — aplicado a todos os scrollables do site */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(255,122,5,0.3);
+  border-radius: 999px;
+  transition: background 200ms var(--ease-out);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,122,5,0.55);
+}
+*::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 body {
@@ -157,28 +182,32 @@ button {
 }
 
 /* ---------- Touch hover-stuck safety net ----------
-   Em telas táteis, :hover dispara no tap e fica "preso".
-   Aqui zeramos transforms/sombras de hover em pointer:coarse
-   pra evitar que CTAs/cards saltem e fiquem deslocados no tap.
-   Componentes que precisam de hover dedicado devem usar
-   @media (hover: hover) and (pointer: fine) { ... } */
+   Em telas táteis, :hover dispara no tap e fica "preso" ate o usuario
+   tocar fora. Aqui zeramos transforms de hover em pointer:coarse pra
+   evitar que CTAs/cards saltem e fiquem deslocados no tap.
+
+   Pattern selectors cobrem TODO componente que segue a convencao naming
+   do projeto: *-btn, *-card, *-cta, *-link, *-tag, *-float, *-tab.
+   Mais robusto que listar 30 classes individuais — qualquer componente
+   novo herda automatic. */
 @media (hover: none), (pointer: coarse) {
+  [class*="-btn"]:hover,
+  [class*="-card"]:hover,
+  [class*="-cta"]:hover,
+  [class*="-tab"]:hover,
+  [class*="-tag"]:hover,
+  [class*="-float"]:hover,
+  [class*="-dot"]:hover,
+  [class*="-link"]:hover,
   .btn:hover,
-  .btn-primary:hover,
-  .btn-outline:hover,
-  .btn-plan:hover,
-  .header-client-btn:hover,
   .plan-card:hover,
-  .neighborhood-tag:hover,
   .hero-dot:hover,
-  .copa-popup-close:hover,
-  .mi-modal-btn:hover,
-  .mi-modal-close:hover,
-  .whatsapp-float:hover,
-  .boleto-float:hover,
-  .sticky-cta-zap:hover,
-  .sticky-cta-main:hover {
-    transform: none;
+  .neighborhood-tag:hover,
+  .header-client-btn:hover,
+  .mi-cc-btn:hover,
+  .mega-promo-btn:hover,
+  .mega-app:hover {
+    transform: none !important;
   }
 }
 
@@ -647,12 +676,10 @@ img.dropdown-logo.dropdown-logo-real {
 .dd-fb-digi   { background: linear-gradient(135deg, #16a34a, #047857); font-size: 0.95rem; }
 .dd-fb-exit   { background: #000; color: #39ff14; font-size: 0.72rem; }
 
-/* Dropdown rola se passar da viewport */
+/* Dropdown rola se passar da viewport (scrollbar herda do html global) */
 .mega-menu-simple .mega-menu-inner {
   max-height: 70vh;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gray-700) transparent;
 }
 
 .mega-menu-simple .mega-menu-inner::-webkit-scrollbar {
@@ -3540,7 +3567,9 @@ img.sp-card-avatar {
   box-shadow: 0 12px 32px rgba(0,0,0,0.35);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s;
+  transform-origin: right center;
+  transition: opacity 180ms var(--ease-out),
+              transform 180ms var(--ease-out);
   transform: translateY(-50%) translateX(8px);
   display: flex;
   flex-direction: column;
@@ -4169,23 +4198,7 @@ body.copa-locked {
   text-align: center;
   box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 100px rgba(255,122,5,0.25);
   animation: copaPop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  /* Scrollbar fina e brand-tintada — substitui a barra chunky default do
-     Windows/Chrome. Firefox: scrollbar-* props. Chromium/Safari/Edge: ::-webkit-* */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,122,5,0.45) transparent;
-}
-.copa-popup-card::-webkit-scrollbar {
-  width: 6px;
-}
-.copa-popup-card::-webkit-scrollbar-track {
-  background: transparent;
-}
-.copa-popup-card::-webkit-scrollbar-thumb {
-  background: rgba(255,122,5,0.35);
-  border-radius: 999px;
-}
-.copa-popup-card::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,122,5,0.6);
+  /* Scrollbar herdada do html — ver styles.css linha ~117 (global brand-tinted) */
 }
 
 @keyframes copaPop {
@@ -5380,7 +5393,9 @@ body.copa-locked {
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 1.2s ease-in-out;
+  /* Slide crossfade — 1.2s era arrastado demais; 700ms ja da sense of
+     movimento sem virar friccao na rotacao automatica. */
+  transition: opacity 700ms var(--ease-in-out);
   z-index: 1;
 }
 
@@ -6137,7 +6152,7 @@ body.copa-locked {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
+  transition: transform 280ms var(--ease-out);
 }
 .story-milestone:hover .story-milestone-photo img {
   transform: scale(1.05);
