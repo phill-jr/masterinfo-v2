@@ -4,8 +4,9 @@
  * (api/bitrix-dedupe.php, api/bitrix-deal-journey.php).
  *
  * Valida o segredo, rate-limita e extrai o ID da entidade. Encerra a request em falha.
- * Segredo aceito por: corpo JSON `secret` (RECOMENDADO) > header `X-Webhook-Secret` >
- * `?secret=` (fallback — vaza em logs de acesso do nginx/Cloudflare; evite).
+ * Segredo aceito por: corpo JSON `secret` (RECOMENDADO) > header `X-Webhook-Secret`.
+ * (Fallback `?secret=` REMOVIDO em 06/06/2026 — vazava em access.log do nginx /
+ * Cloudflare. Bitrix tem que configurar webhook como POST JSON com `secret` no body.)
  */
 if (!defined('MASTERINFO_INTERNAL')) { http_response_code(403); exit('Forbidden'); }
 
@@ -16,7 +17,7 @@ function webhook_auth_and_parse(string $rateKey, string $idField): int {
     $secret = '';
     if (isset($body['secret']) && $body['secret'] !== '') $secret = (string) $body['secret'];
     elseif (!empty($_SERVER['HTTP_X_WEBHOOK_SECRET']))     $secret = (string) $_SERVER['HTTP_X_WEBHOOK_SECRET'];
-    elseif (isset($_GET['secret']))                        $secret = (string) $_GET['secret'];
+    // Fallback de query string removido — ver comentario acima.
 
     if (!defined('BITRIX_DEDUPE_SECRET') || BITRIX_DEDUPE_SECRET === '' || !hash_equals(BITRIX_DEDUPE_SECRET, $secret)) {
         http_response_code(403);

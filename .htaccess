@@ -3,13 +3,25 @@
 # ========================================
 
 # Bloquear acesso direto a arquivos sensiveis
-<FilesMatch "^(config\.php|credentials\.php)$">
+<FilesMatch "^(config\.php|credentials\.php|credentials\.example\.php)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
 # Bloquear backups e arquivos temporarios
-<FilesMatch "\.(bak|log|sql|sh|env)$">
+<FilesMatch "\.(bak|log|sql|sh|env|swp|orig)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bloquear markdowns de documentacao interna
+<FilesMatch "^(CLAUDE|MAPEAMENTO|HANDOFF-BITRIX|INTEGRACAO-MARINA-BOLETOS|COMO-EDITAR|SECURITY-AUDIT-CODE|SECURITY-AUDIT-INFRA)\.md$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bloquear scripts Python (gerar_subpaginas.py etc)
+<FilesMatch "\.py$">
     Order allow,deny
     Deny from all
 </FilesMatch>

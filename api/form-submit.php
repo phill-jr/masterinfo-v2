@@ -19,13 +19,20 @@
  *   { "ok": true, "deal_id": 123 } | { "ok": false, "error": "..." }
  */
 define('MASTERINFO_INTERNAL', true);
+// secrets/config.php define ALLOWED_ORIGIN — precisa carregar ANTES dos headers.
+require_once __DIR__ . '/../secrets/config.php';
 require_once __DIR__ . '/../security-headers.php';
 require_once __DIR__ . '/rate-limit.php';
 require_once __DIR__ . '/admin/_bitrix-helper.php';
 
 sendSecurityHeaders();
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: ' . (defined('ALLOWED_ORIGIN') ? ALLOWED_ORIGIN : '*'));
+// CORS fail-closed (ver checkout.php)
+if (defined('ALLOWED_ORIGIN')) {
+    header('Access-Control-Allow-Origin: ' . ALLOWED_ORIGIN);
+} else {
+    header('Access-Control-Allow-Origin: null');
+}
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 

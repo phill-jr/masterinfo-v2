@@ -1,0 +1,134 @@
+# =====================================================================
+# MasterInfo v2 - Bloco nginx de seguranca (template para produo)
+# =====================================================================
+#
+# Como usar:
+#   1. Copie este arquivo para o servidor (ex.: /etc/nginx/snippets/masterinfo-security.conf).
+#   2. No server block do dominio, adicione:
+#         include /etc/nginx/snippets/masterinfo-security.conf;
+#   3. Reload: nginx -t && systemctl reload nginx
+#
+# Cobre:
+#   - Bloqueio de pastas/arquivos sensiveis (secrets/, auth interno, .git, dotfiles)
+#   - Bloqueio de markdowns de documentacao interna
+#   - Headers de seguranca (incluindo CSP que security-headers.php nao consegue
+#     setar em HTML estatico)
+#
+# IMPORTANTE: nginx NAO le .htaccess. Sem este snippet, o secrets/ fica exposto.
+# =====================================================================
+
+
+# ------------------------------------------------------------------
+# 1) Bloqueio de paths sensiveis (deny all + 404 para nao confirmar existencia)
+# ------------------------------------------------------------------
+
+# secrets/ - tokens Bitrix/IXC/Marina, SESSION_SECRET, journeys.json (PII), OTP logs
+location ^~ /secrets/ {
+    deny all;
+    return 404;
+}
+
+# auth/ - so check.php, login.php e logout.php sao endpoints publicos
+location ~ ^/auth/(?!check\.php$|login\.php$|logout\.php$) {
+    deny all;
+    return 404;
+}
+
+# Bloqueio do credentials.php especifico (defesa em profundidade)
+location = /auth/credentials.php {
+    deny all;
+    return 404;
+}
+
+# .git/ e arquivos .env
+location ~ /\.(git|env|htpasswd) {
+    deny all;
+    return 404;
+}
+
+# Backups e dumps
+location ~ \.(bak|sql|sh|log|swp|orig)$ {
+    deny all;
+    return 404;
+}
+
+# config.json.bak especificamente
+location = /config.json.bak {
+    deny all;
+    return 404;
+}
+
+# Pastas internas que nao devem ser servidas
+location ^~ /temporarios/ { deny all; return 404; }
+location ^~ /__pycache__/ { deny all; return 404; }
+location ^~ /.claude/    { deny all; return 404; }
+location ^~ /node_modules/ { deny all; return 404; }
+
+# Markdowns/documentos internos na raiz
+location ~ ^/(CLAUDE|MAPEAMENTO|HANDOFF-BITRIX|INTEGRACAO-MARINA-BOLETOS|COMO-EDITAR|SECURITY-AUDIT-CODE|SECURITY-AUDIT-INFRA)\.md$ {
+    deny all;
+    return 404;
+}
+
+# Scripts Python (gerar_subpaginas.py)
+location ~ \.py$ {
+    deny all;
+    return 404;
+}
+
+# Reports gerados localmente
+location ~ ^/SECURITY-AUDIT- {
+    deny all;
+    return 404;
+}
+
+
+# ------------------------------------------------------------------
+# 2) Headers de seguranca (HTTP) - cobertura para HTML estatico
+# ------------------------------------------------------------------
+# security-headers.php so roda em endpoints PHP. Para cobrir HTML
+# estatico (index.html, subpaginas, admin.html), os headers devem
+# vir do nginx.
+
+# HSTS - forca HTTPS por 2 anos, inclui subdominios, eligivel a preload list
+add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+
+# Anti-clickjacking + anti-MIME-sniff
+add_header X-Frame-Options "SAMEORIGIN" always;
+add_header X-Content-Type-Options "nosniff" always;
+
+# Referrer minimo cross-origin
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+# Permissoes do navegador (geo, camera, mic, etc) - tudo OFF por padrao
+add_header Permissions-Policy "geolocation=(self), camera=(), microphone=(), payment=(), usb=(), magnetometer=(), gyroscope=()" always;
+
+# CSP - Content Security Policy
+# OBS: 'unsafe-inline' esta em script-src/style-src porque ha onclick=/style= inline
+# no codigo atual. Plano: remover em fase posterior (migrar inline -> arquivos).
+add_header Content-Security-Policy "default-src 'self'; \
+script-src 'self' 'unsafe-inline' https://unpkg.com https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net; \
+style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; \
+img-src 'self' data: blob: https:; \
+font-src 'self' https://fonts.gstatic.com data:; \
+connect-src 'self' https://viacep.com.br https://nominatim.openstreetmap.org https://www.google-analytics.com https://www.googletagmanager.com https://*.facebook.com; \
+media-src 'self'; \
+object-src 'none'; \
+frame-ancestors 'self'; \
+base-uri 'self'; \
+form-action 'self'" always;
+
+
+# ------------------------------------------------------------------
+# 3) Mitigacoes complementares
+# ------------------------------------------------------------------
+
+# Esconder versao do nginx (server_tokens off; - colocar no http block)
+# server_tokens off;
+
+# Bloquear xmlrpc.php (mesmo que nao tenha WordPress aqui, fail-safe)
+location = /xmlrpc.php { deny all; return 404; }
+
+# Server-status / server-info expostos sao info-leak (Apache)
+location = /server-status { deny all; return 404; }
+location = /server-info   { deny all; return 404; }

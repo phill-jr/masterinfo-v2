@@ -8,6 +8,16 @@
 (function () {
   'use strict';
 
+  // ─── HTML escape helper (anti-XSS em campos de usuario via innerHTML) ───
+  // Use SEMPRE que insere dado vindo do usuario (state.cliente.*) ou de API
+  // externa (ViaCEP) em innerHTML. Para texto fixo do codigo, nao precisa.
+  function escH(s) {
+    if (s == null) return '';
+    var d = document.createElement('div');
+    d.textContent = String(s);
+    return d.innerHTML;
+  }
+
   // ─── Config (loaded from config.json, fallback hardcoded) ───
   var PLANS = {};
   var ADDONS = [];
@@ -619,8 +629,8 @@
             '<div class="ck-addon-icon"><i class="' + addon.icon + '"></i></div>' +
             '<div class="ck-addon-toggle"></div>' +
           '</div>' +
-          '<div class="ck-addon-name">' + addon.name + '</div>' +
-          '<div class="ck-addon-desc">' + addon.desc + '</div>' +
+          '<div class="ck-addon-name">' + escH(addon.name) + '</div>' +
+          '<div class="ck-addon-desc">' + escH(addon.desc) + '</div>' +
           (isIncluded
             ? '<div class="ck-addon-included-tag"><i class="ph-fill ph-check-circle"></i> Ja incluso no plano</div>'
             : '<div class="ck-addon-price">R$ ' + formatPrice(addon.price) + ' <small>' + addon.unit + '</small></div>' +
@@ -798,18 +808,18 @@
     }
     html += '</div>';
 
-    // Customer block
+    // Customer block — escapar todo campo do usuario antes do innerHTML (anti-XSS)
     html += '<div class="ck-review-block">' +
       '<h4><i class="ph-fill ph-user"></i> Dados pessoais</h4>' +
-      '<div class="ck-review-row"><span>Nome</span><span>' + c.nome + '</span></div>' +
-      '<div class="ck-review-row"><span>CPF</span><span>' + formatCPF(c.cpf) + '</span></div>' +
-      '<div class="ck-review-row"><span>Nascimento</span><span>' + c.nascimento + '</span></div>' +
-      (c.rg ? '<div class="ck-review-row"><span>RG</span><span>' + c.rg + '</span></div>' : '') +
-      '<div class="ck-review-row"><span>WhatsApp</span><span>' + formatPhone(c.whatsapp) + '</span></div>' +
-      '<div class="ck-review-row"><span>E-mail</span><span>' + c.email + '</span></div>' +
+      '<div class="ck-review-row"><span>Nome</span><span>' + escH(c.nome) + '</span></div>' +
+      '<div class="ck-review-row"><span>CPF</span><span>' + escH(formatCPF(c.cpf)) + '</span></div>' +
+      '<div class="ck-review-row"><span>Nascimento</span><span>' + escH(c.nascimento) + '</span></div>' +
+      (c.rg ? '<div class="ck-review-row"><span>RG</span><span>' + escH(c.rg) + '</span></div>' : '') +
+      '<div class="ck-review-row"><span>WhatsApp</span><span>' + escH(formatPhone(c.whatsapp)) + '</span></div>' +
+      '<div class="ck-review-row"><span>E-mail</span><span>' + escH(c.email) + '</span></div>' +
     '</div>';
 
-    // Address block
+    // Address block — endereco vem do ViaCEP (externo) + complemento/numero do usuario
     var endCompleto = (end ? end.logradouro : '') + ', ' + c.numero +
       (c.complemento ? ' - ' + c.complemento : '') +
       ' - ' + (end ? end.bairro : '') +
@@ -817,8 +827,8 @@
 
     html += '<div class="ck-review-block">' +
       '<h4><i class="ph-fill ph-house"></i> Endereco de instalacao</h4>' +
-      '<div class="ck-review-row"><span>Endereco</span><span>' + endCompleto + '</span></div>' +
-      (c.referencia ? '<div class="ck-review-row"><span>Referencia</span><span>' + c.referencia + '</span></div>' : '') +
+      '<div class="ck-review-row"><span>Endereco</span><span>' + escH(endCompleto) + '</span></div>' +
+      (c.referencia ? '<div class="ck-review-row"><span>Referencia</span><span>' + escH(c.referencia) + '</span></div>' : '') +
     '</div>';
 
     container.innerHTML = html;
@@ -983,13 +993,13 @@
     var setupTotalEl = document.getElementById('ckSetupTotal');
     var setupContainer = document.getElementById('ckSummarySetup');
 
-    // Plan
+    // Plan — campos vem do config.json (admin); escapar mesmo assim (defesa em prof.)
     if (planEl) {
       if (state.plan) {
         planEl.innerHTML =
           '<div class="ck-summary-plan-item">' +
-            '<div><div class="ck-summary-plan-name">' + state.plan.name + ' ' + state.plan.speed + ' ' + state.plan.speedUnit + '</div>' +
-            '<div class="ck-summary-plan-speed">' + state.plan.speed + ' ' + state.plan.speedUnit + '</div></div>' +
+            '<div><div class="ck-summary-plan-name">' + escH(state.plan.name) + ' ' + escH(state.plan.speed) + ' ' + escH(state.plan.speedUnit) + '</div>' +
+            '<div class="ck-summary-plan-speed">' + escH(state.plan.speed) + ' ' + escH(state.plan.speedUnit) + '</div></div>' +
             '<div class="ck-summary-plan-price">R$ ' + formatPrice(state.plan.price) + '</div>' +
           '</div>';
       } else {

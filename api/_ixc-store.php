@@ -87,8 +87,11 @@ function ixc_request(string $endpoint, array $params = [], ?array $override = nu
         CURLOPT_HTTPHEADER     => ['Content-Type: application/json', 'ixcsoft: listar'],
         CURLOPT_CUSTOMREQUEST  => 'GET',
         CURLOPT_POSTFIELDS     => json_encode($params),
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_SSL_VERIFYHOST => false,
+        // SSL verify ON — se IXC tiver cert self-signed, instalar CA no servidor
+        // em vez de desabilitar. (Antes: VERIFYPEER/VERIFYHOST = false → MITM podia
+        // ler/modificar token + dados de cliente.)
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_SSL_VERIFYHOST => 2,
         CURLOPT_TIMEOUT        => 10,
     ]);
 

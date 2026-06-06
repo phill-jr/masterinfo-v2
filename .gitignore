@@ -1,7 +1,16 @@
 api/config.php
 secrets/*
 !secrets/config.example.php
+
+# Admin credentials (real file kept local, only the .example is versioned)
+auth/credentials.php
+!auth/credentials.example.php
+
 .claude/
 node_modules/
 __pycache__/
 *.pyc
+
+# Security audit reports (gerados localmente — não versionar)
+SECURITY-AUDIT-CODE.md
+SECURITY-AUDIT-INFRA.md

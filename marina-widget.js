@@ -261,11 +261,18 @@
     if (b.vencimento) html += '<span><i class="ph ph-calendar-blank"></i> Vence ' + esc(fmtDate(b.vencimento)) + '</span>';
     if (b.valor != null && b.valor !== '') html += '<span class="marina-boleto-val">' + fmtMoney(b.valor) + '</span>';
     html += '</div>';
-    if (b.pix_qrcode_png_base64) html += '<img class="marina-boleto-qr" alt="QR Code PIX" src="data:image/png;base64,' + esc(b.pix_qrcode_png_base64) + '">';
+    // Validacao de scheme dos campos vindos do servico Marina (defesa em prof.:
+    // mesmo que o backend valide, evita javascript:/data: malicioso na resposta).
+    var pixB64 = (typeof b.pix_qrcode_png_base64 === 'string' && /^[A-Za-z0-9+/=\r\n]+$/.test(b.pix_qrcode_png_base64))
+      ? b.pix_qrcode_png_base64 : '';
+    var pdfUrl = (typeof b.url_pdf === 'string' && /^https?:\/\//i.test(b.url_pdf))
+      ? b.url_pdf : '';
+
+    if (pixB64) html += '<img class="marina-boleto-qr" alt="QR Code PIX" src="data:image/png;base64,' + esc(pixB64) + '">';
     html += '<div class="marina-boleto-actions">';
     html += copyBtn('<i class="ph ph-barcode"></i> Copiar linha digitavel', linha);
     html += copyBtn('<i class="ph ph-qr-code"></i> Copiar codigo PIX', b.pix_copia_cola);
-    if (b.url_pdf) html += '<a class="marina-boleto-btn" href="' + esc(b.url_pdf) + '" target="_blank"><i class="ph ph-file-pdf"></i> Baixar PDF</a>';
+    if (pdfUrl) html += '<a class="marina-boleto-btn" href="' + esc(pdfUrl) + '" target="_blank" rel="noopener noreferrer"><i class="ph ph-file-pdf"></i> Baixar PDF</a>';
     html += '</div>';
     card.innerHTML = html;
     elBody.appendChild(card); scrollDown();
