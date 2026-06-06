@@ -6795,6 +6795,8 @@ body.copa-locked {
   }
 
   .sp-marquee {
+    /* bleed acompanha o padding do container — em <=480 vai virar -16
+       no bloco MOBILE REFLOW abaixo. Evita overflow horizontal. */
     margin: 40px -24px;
   }
 
@@ -7423,5 +7425,152 @@ body.copa-locked {
 
   @keyframes fireFlicker {
     from, to { opacity: 1; }
+  }
+}
+
+/* ========================================================================
+   MOBILE REFLOW — onda 3 do audit Emil multi-agente (06/06/2026)
+   Tudo aqui sao ajustes de respiracao mobile detectados pelos 6 agentes:
+   - section padding mobile (era 120 desktop -> 64 mobile)
+   - hero/cards/footer trust reflows pra 360px
+   - plans-grid intermediario 481-760 single col
+   - bleeds que acompanham padding do container
+   ======================================================================== */
+
+/* ---- Tablet awkward zone: 481-760 → plans 4-cols devem stackar antes ---- */
+@media (min-width: 481px) and (max-width: 760px) {
+  .plans-grid-4 {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}
+
+/* ---- Mobile geral (<= 768px) — respiracao vertical reduzida ---- */
+@media (max-width: 768px) {
+  /* Section padding 120 -> 64 / 100 -> 56: 50% economia vertical sem perder
+     hierarquia, faz cada secao caber mais perto da fold do iPhone. */
+  .plans,
+  .why,
+  .coverage,
+  .final-cta {
+    padding: 64px 0;
+  }
+  .includes {
+    padding: 56px 0;
+  }
+  /* Section-header gigante em mobile gasta 64px de margin — corta pela metade */
+  .section-header {
+    margin-bottom: 36px;
+  }
+  .plans-tab {
+    margin-bottom: 16px;
+  }
+  /* Footer grid: gap 40 -> 28 + padding 80 -> 56 pra footer denso */
+  .footer-grid {
+    gap: 28px;
+    padding: 56px 0 32px;
+  }
+  /* Stats grid em caixinhas (antes 4 numeros colados sem divisor) */
+  .stats-grid {
+    gap: 8px;
+  }
+  .stats-grid .stat-item {
+    flex: 1 1 calc(50% - 4px);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: var(--radius-md);
+    padding: 16px 12px;
+  }
+  /* Hero trust badges gap 32 -> 16 — em 600-768 evitava 3o item orfao na 2a linha */
+  .hero-trust {
+    gap: 16px;
+  }
+  .hero-trust-item {
+    font-size: 0.82rem;
+  }
+  /* Hero arrows: 40x40 -> 44 (HIG) e baixou pra bottom 56 pra nao competir com dots */
+  .hero-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+    opacity: 0.85;
+  }
+}
+
+/* ---- iPhone SE / Android estreito (<= 480px) — onde mais aperta ---- */
+@media (max-width: 480px) {
+  /* sp-marquee bleed agora acompanha o container -16 do .container @480 */
+  .sp-marquee {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+  /* Plan-header/body padding 28 -> 20 pra ganhar 16px de conteudo util */
+  .plan-header {
+    padding: 48px 20px 10px;
+    min-height: 132px;
+  }
+  .plan-body {
+    padding: 0 20px 24px;
+  }
+  /* Footer trust 2x2 vira 1 coluna em 360px (com texto longo, 2x2 truncava) */
+  .footer-trust-inner {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .footer-trust-item {
+    padding: 4px 0;
+  }
+  /* Hero offer amount: flex-wrap pra precos longos nao estourar lateral */
+  .hero-offer-amount {
+    font-size: 3rem;
+  }
+  .hero-offer-price-main {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+  .hero-offer-currency,
+  .hero-offer-cents {
+    font-size: 1.1rem;
+  }
+  /* Discount tag: permitir quebra controlada em vez de overflow */
+  .plan-discount-tag {
+    white-space: normal;
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+  /* Btn padding lateral mais economico em 360 pra caber 2-by-row */
+  .btn {
+    padding: 14px 20px;
+    font-size: 0.92rem;
+  }
+  /* Coverage map: altura proporcional (era 400px fixo) */
+  .coverage-map-real {
+    height: clamp(280px, 60vw, 380px);
+    aspect-ratio: 4/5;
+  }
+  /* Hero dots/arrows reposicao em 480 */
+  .hero-dots {
+    bottom: 16px;
+    gap: 6px;
+  }
+  .hero-arrow {
+    top: auto;
+    bottom: 56px;
+    transform: none;
+  }
+  .hero-arrow-prev { left: 16px; }
+  .hero-arrow-next { right: 16px; }
+  /* CTA banner stack tighter */
+  .cta-banner-inner {
+    padding: 32px 18px;
+    gap: 24px;
+  }
+  .cta-banner-buttons {
+    gap: 10px;
+  }
+  .cta-banner-visual {
+    align-items: center;
   }
 }
