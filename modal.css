@@ -39,6 +39,22 @@
     0 0 80px rgba(255, 122, 5, 0.06);
   transform: translateY(20px) scale(0.97);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Scrollbar fina e brand-tintada (mesmo padrao do .copa-popup-card) */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,122,5,0.45) transparent;
+}
+.mi-modal-card::-webkit-scrollbar {
+  width: 6px;
+}
+.mi-modal-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+.mi-modal-card::-webkit-scrollbar-thumb {
+  background: rgba(255,122,5,0.35);
+  border-radius: 999px;
+}
+.mi-modal-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,122,5,0.6);
 }
 
 .mi-modal-overlay.mi-visible .mi-modal-card {
@@ -61,7 +77,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.15s;
+  transition: background 160ms cubic-bezier(0.23, 1, 0.32, 1),
+              color 160ms cubic-bezier(0.23, 1, 0.32, 1);
   line-height: 1;
 }
 
@@ -82,7 +99,7 @@
   border-radius: 12px;
   font-size: 1.4rem;
   color: var(--orange, #ff7a05);
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
 }
 
 .mi-modal-title {
@@ -93,6 +110,7 @@
   margin: 0 0 8px;
   line-height: 1.2;
   letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .mi-modal-subtitle {
@@ -101,6 +119,7 @@
   color: var(--gray-400, #a1a1aa);
   margin: 0 0 24px;
   line-height: 1.6;
+  text-align: center;
 }
 
 /* Plan tag */
@@ -150,7 +169,9 @@
   font-size: 15px;
   color: var(--white, #fafafa);
   background: var(--gray-800, #232326);
-  transition: all 0.15s;
+  transition: border-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+              background 160ms cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 160ms cubic-bezier(0.23, 1, 0.32, 1);
   outline: none;
   box-sizing: border-box;
 }
@@ -181,7 +202,9 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: all 0.2s;
+  transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+              background 200ms cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 200ms cubic-bezier(0.23, 1, 0.32, 1);
   margin-top: 8px;
   box-shadow: 0 4px 20px rgba(255, 122, 5, 0.25);
 }
@@ -204,7 +227,7 @@
 
 /* Spinner */
 .mi-spinner {
-  animation: mi-spin 0.8s linear infinite;
+  animation: mi-spin 0.6s linear infinite;
 }
 
 @keyframes mi-spin {
@@ -303,7 +326,7 @@
   justify-content: center;
   gap: 0;
   margin-bottom: 28px;
-  padding: 0 10px;
+  padding: 0 50px 0 10px;
 }
 
 .mi-step {
@@ -330,7 +353,9 @@
   font-size: 11px;
   font-weight: 700;
   color: var(--gray-500, #71717a);
-  transition: all 0.3s;
+  transition: background 280ms cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 280ms cubic-bezier(0.23, 1, 0.32, 1),
+              color 280ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .mi-step.active {
@@ -565,5 +590,166 @@
 
   .mi-btn-whatsapp {
     margin-top: 16px;
+  }
+}
+
+/* ========================================
+   POLISH — Emil Kowalski corrections
+   ======================================== */
+
+/* ── 1. Design tokens: usar variáveis do site ── */
+.mi-modal-card {
+  border-radius: var(--radius-xl, 28px);
+}
+
+.mi-modal-btn,
+.mi-btn-whatsapp {
+  border-radius: var(--radius-full, 9999px);
+}
+
+/* ── 2. Transitions: especificar propriedades ── */
+.mi-modal-close {
+  transition: background 150ms cubic-bezier(0.23, 1, 0.32, 1),
+              color 150ms cubic-bezier(0.23, 1, 0.32, 1),
+              transform 120ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.mi-field input {
+  transition: border-color 200ms cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.mi-modal-btn {
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 200ms cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── 3. :active press feedback ── */
+.mi-modal-btn:active:not(:disabled) {
+  transform: scale(0.97);
+  box-shadow: 0 2px 10px rgba(255, 122, 5, 0.2);
+}
+
+.mi-modal-close:active {
+  transform: scale(0.9);
+}
+
+.mi-btn-whatsapp:active {
+  transform: scale(0.97);
+}
+
+.mi-btn-secondary:active {
+  transform: scale(0.97);
+}
+
+/* ── 4. Shimmer no botão principal (coerência com site + checkout) ── */
+.mi-modal-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.mi-modal-btn:hover::after {
+  transform: translateX(100%);
+}
+
+/* ── 5. Focus ring mais forte nos inputs ── */
+.mi-field input:focus {
+  box-shadow: 0 0 0 3px rgba(255, 122, 5, 0.15);
+}
+
+/* ── 6. Card entrance: easing alinhado com site ── */
+.mi-modal-card {
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+              opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.mi-modal-overlay.mi-visible .mi-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+/* ── 7. Glow interno no topo do card (como plan-cards) ── */
+.mi-modal-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  z-index: 1;
+  border-radius: var(--radius-xl, 28px) var(--radius-xl, 28px) 0 0;
+}
+
+/* ── 8. Step progress: transições suaves ── */
+.mi-step span {
+  transition: background 250ms cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 250ms cubic-bezier(0.23, 1, 0.32, 1),
+              color 250ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.mi-step {
+  transition: color 250ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.mi-step-line {
+  transition: background 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ── 9. Trust badges: hover sutil ── */
+.mi-badge {
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.mi-badge:hover {
+  border-color: rgba(255, 122, 5, 0.25);
+  background: rgba(255, 122, 5, 0.04);
+}
+
+/* ── 10. prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .mi-modal-card {
+    transform: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .mi-modal-overlay.mi-visible .mi-modal-card {
+    transform: none;
+  }
+
+  .mi-step-content {
+    animation: none;
+  }
+
+  .mi-modal-btn::after {
+    display: none;
+  }
+
+  .mi-check-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .mi-modal-btn:hover {
+    transform: none;
+  }
+}
+
+/* ── 11. Touch: gate hovers ── */
+@media (hover: hover) and (pointer: fine) {
+  .mi-modal-close:hover {
+    background: var(--gray-700, #333338);
+    color: var(--white, #fafafa);
+  }
+
+  .mi-badge:hover {
+    border-color: rgba(255, 122, 5, 0.25);
   }
 }
