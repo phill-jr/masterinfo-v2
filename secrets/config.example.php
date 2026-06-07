@@ -39,3 +39,12 @@ define('MARINA_TOKEN', 'COLE_O_TOKEN_DO_SYNC_AQUI');
 // define('IXC_URL', 'https://SEU-IXC.com.br/webservice/v1');
 // define('IXC_TOKEN', 'ID:TOKEN');          // formato usuario:token (Basic Auth do IXC)
 // define('VIABILIDADE_RAIO_METROS', 300);   // raio (m) de busca da caixa FTTH mais próxima
+
+// ─── Área do Cliente própria (api/central/*) — envio do código OTP ───
+// Reaproveita IXC_URL/IXC_TOKEN (acima) pra achar cliente, faturas e 2ª via.
+// CENTRAL_OTP_TRANSPORT define COMO o código de 6 dígitos é enviado:
+//   'log'  (default) → grava em secrets/.central-otp-dev.log (modo dev/teste, NÃO envia nada)
+//   'mail'           → PHP mail() simples (precisa de MTA no servidor)
+//   TODO: 'smtp' (PHPMailer) e 'sms' (gateway) — ver api/central/_central.php::central_send_code()
+// define('CENTRAL_OTP_TRANSPORT', 'mail');
+// define('CENTRAL_MAIL_FROM', 'nao-responda@masterinfointernet.com');

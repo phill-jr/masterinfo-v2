@@ -15,9 +15,12 @@
     "checkout": {
         "modo": "simples",
         "whatsapp": "5547989212991",
-        "tema": "black"
+        "tema": "claro"
     },
-    "tema": "black",
+    "tema": "light",
+    "layout": {
+        "siteScale": 85
+    },
     "secoesOrdem": [
         {
             "key": "hero",
@@ -42,6 +45,10 @@
         {
             "key": "depoimentos",
             "on": false
+        },
+        {
+            "key": "indique",
+            "on": true
         },
         {
             "key": "cta",
@@ -165,6 +172,14 @@
                 "on": true
             },
             {
+                "key": "indique",
+                "lado": "dir",
+                "label": "Indique e Ganhe",
+                "tipo": "link",
+                "href": "#indique",
+                "on": true
+            },
+            {
                 "key": "ajuda",
                 "lado": "dir",
                 "label": "Ajuda",
@@ -248,6 +263,10 @@
                         "href": "#nossa-historia"
                     },
                     {
+                        "label": "Indique e Ganhe",
+                        "href": "#indique"
+                    },
+                    {
                         "label": "Dúvidas",
                         "href": "#faq"
                     }
@@ -282,18 +301,24 @@
             }
         ]
     },
-    "hero": {
-        "badge": "100% Fibra Óptica em Joinville",
-        "titulo": "Internet que",
-        "tituloDestaque": "não te deixa",
-        "tituloFim": "na mão.",
-        "subtitulo": "Chega de cair no meio do jogo, travar na live ou esperar o filme carregar. <strong>Fibra óptica de verdade<\/strong> nos bairros Comasa, Boa Vista, Espinheiros e região.",
-        "confianca": [
-            "Instalação em até <strong>3 dias<\/strong>",
-            "<strong>Suporte local<\/strong>",
-            "<strong>+6 anos<\/strong> em Joinville"
-        ]
-    },
+    "heroSlides": [
+        {
+            "id": "copa",
+            "imagem": "imgs\/hero\/banner-copa.png",
+            "plano": "lite-home-office",
+            "ariaLabel": "Copa do Mundo 2026 — Lite Home Office 1 Giga",
+            "bgClass": "hero-bg-home",
+            "on": true
+        },
+        {
+            "id": "lite-casa-600",
+            "imagem": "imgs\/hero\/banner-aplicativos.png",
+            "plano": "lite-casa",
+            "ariaLabel": "Lite Casa 600 Mega",
+            "bgClass": "hero-bg-essencial",
+            "on": true
+        }
+    ],
     "stats": [
         {
             "valor": 10000,
@@ -704,7 +729,10 @@
         "precoCentavos": ",90",
         "descontoTag": "R$ 10 OFF pagando em dia",
         "apps": [
-            { "logo": "imgs/sky.jpg", "nome": "SKY Light" }
+            {
+                "logo": "imgs\/sky.jpg",
+                "nome": "SKY Light"
+            }
         ],
         "features": [
             "Suporte Sábado e Domingo",

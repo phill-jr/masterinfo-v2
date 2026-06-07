@@ -24,6 +24,11 @@ with open(os.path.join(BASE_DIR, "config.json"), encoding="utf-8") as _cfg_f:
     CONFIG = json.load(_cfg_f)
 FOOTER_MENUS = CONFIG.get("menus", {}).get("footer", [])
 
+# Escala do site (admin -> config.layout.siteScale, em %). Na home o site-loader.js
+# seta a CSS var em runtime; as subpaginas sao estaticas, entao a gente "assa" o
+# valor num <style> no <head>. Default 100 = 1 (sem mudanca; cai no default do CSS).
+SITE_SCALE = round((CONFIG.get("layout", {}).get("siteScale", 100) or 100) / 100, 3)
+
 # ─── DADOS DAS PÁGINAS ────────────────────────────────────────────────
 
 INTERNET = [
@@ -268,6 +273,7 @@ def head(title, depth):
   <link rel="icon" type="image/svg+xml" href="{base}favicon.svg">
   <link rel="stylesheet" href="{base}styles.css?v=20260531-e">
   <link rel="stylesheet" href="{base}modal.css?v=20260531-e">
+  <style>:root{{--site-scale:{SITE_SCALE}}}</style>
 </head>
 <body>'''
 
@@ -944,6 +950,9 @@ _FOOTER_COLS_RE = re.compile(
     re.DOTALL,
 )
 
+# <style> que carrega a escala do site nas subpaginas (a home usa site-loader.js).
+_SITE_SCALE_RE = re.compile(r'<style>:root\{--site-scale:[^}]*\}</style>')
+
 
 def sync_menus():
     """Sincroniza HEADER (bloco <header>) e RODAPE (colunas .footer-col) de TODAS
@@ -984,6 +993,39 @@ def sync_menus():
         else:
             same += 1
     print(f"\n  Menus (header + rodapé): {changed} atualizada(s), {same} já em dia, {skipped} pulada(s).")
+
+
+def sync_site_scale():
+    """Injeta/atualiza o <style>:root{--site-scale:X}</style> no <head> de TODAS as
+    subpaginas (X = SITE_SCALE = config.layout.siteScale/100). Cirurgico (so o
+    <style>), idempotente, CRLF-safe. Insere antes do </head> se ausente; atualiza
+    o valor se ja existir. A home NAO entra: o site-loader.js seta a var em runtime."""
+    style_line = f'<style>:root{{--site-scale:{SITE_SCALE}}}</style>'
+    changed = same = skipped = 0
+    for rel, depth in MENU_PAGES:
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            skipped += 1
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        nl = "\r\n" if "\r\n" in orig else "\n"
+        if _SITE_SCALE_RE.search(orig):
+            html = _SITE_SCALE_RE.sub(style_line, orig)
+        elif "</head>" in orig:
+            html = orig.replace("</head>", "  " + style_line + nl + "</head>", 1)
+        else:
+            print(f"  ! pulado (sem </head>): {rel}")
+            skipped += 1
+            continue
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ escala aplicada: {rel}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  Escala do site (--site-scale:{SITE_SCALE}): {changed} atualizada(s), {same} já em dia, {skipped} pulada(s).")
 
 
 def write_file(path, content):
@@ -1056,6 +1098,8 @@ if __name__ == "__main__":
     else:  # --menus (padrão): SÓ header + rodapé, cirúrgico e seguro de rodar sempre
         print(">> Sincronizando os menus (header + rodapé): config.json → todas as páginas…\n")
         sync_menus()
+    print("\nEscala do site (--site-scale) → subpáginas…")
+    sync_site_scale()
     print("\nCTAs das subpáginas Internet → checkout…")
     sync_subpage_ctas()
     print("\n✓ Concluído.")

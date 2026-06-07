@@ -16,6 +16,7 @@
       // Expor config para outros scripts (checkout, modal, tracking)
       window._siteConfig = cfg;
 
+      run('layout', function () { loadLayout(cfg.layout); });
       run('seo', function () { loadSeo(cfg.seo, cfg.empresa, cfg.planos); });
       run('footer', function () { loadFooter(cfg.empresa); });
       run('faq', function () { loadFaq(cfg.faq); });
@@ -25,6 +26,7 @@
       run('footerMenus', function () { loadFooterMenus(cfg.menus && cfg.menus.footer); });
       run('secoesOrdem', function () { loadSecoesOrdem(cfg.secoesOrdem); });
       run('menuHeader', function () { loadMenuHeader(cfg.menuHeader); });
+      run('heroSlides', function () { loadHeroSlides(cfg.heroSlides); });
       run('copaPopup', function () { loadCopaPopup(cfg.copaPopup); });
       run('checkoutLinks', function () { wireCheckoutLinks(); });
     })
@@ -35,6 +37,19 @@
   // Executa cada secao isolada — um erro numa secao nao derruba as outras
   function run(nome, fn) {
     try { fn(); } catch (e) { console.warn('[SiteLoader] falha na secao "' + nome + '":', e); }
+  }
+
+  // ─── Escala global do site (config.layout.siteScale, em %) ───
+  // Seta a CSS var --site-scale (unitless) no :root → o html font-size e o
+  // padding das seções (em calc) encolhem juntos. Default do CSS é 1 (100%),
+  // então ausência do campo = sem mudança. Clamp defensivo 50–150%.
+  function loadLayout(layout) {
+    var pct = layout && layout.siteScale;
+    if (pct == null || pct === '') return;
+    pct = Number(pct);
+    if (!isFinite(pct)) return;
+    pct = Math.max(50, Math.min(150, pct));
+    document.documentElement.style.setProperty('--site-scale', String(pct / 100));
   }
 
   // ─── SEO + Schema.org (metas por atributo + JSON-LD regenerado) ───
@@ -339,7 +354,7 @@
   // ─── Ordem & visibilidade das secoes da home (move os blocos <section>) ───
   function loadSecoesOrdem(arr) {
     if (!arr || !arr.length) return;
-    var MAP = { hero: '.hero', planos1: '#planos', planos2: '.plans-light', historia: '#nossa-historia', cobertura: '#cobertura', depoimentos: '#depoimentos', cta: '.cta-banner', faq: '#faq' };
+    var MAP = { hero: '.hero', planos1: '#planos', planos2: '.plans-light', historia: '#nossa-historia', cobertura: '#cobertura', depoimentos: '#depoimentos', indique: '#indique', cta: '.cta-banner', faq: '#faq' };
     var nodes = [];
     arr.forEach(function (it) {
       var sel = MAP[it.key]; if (!sel) return;
@@ -374,6 +389,86 @@
       return '<div class="footer-col"><h4>' + esc(col.titulo) + '</h4>' + links + '</div>';
     }).join('');
     grid.insertAdjacentHTML('beforeend', html);
+  }
+
+  // ─── Hero Slideshow (slides + dots gerados do config.heroSlides) ───
+  // Substitui o slideshow hardcoded antigo. Cada slide leva pro checkout do
+  // plano selecionado (data-plano -> wireCheckoutLinks fecha o href + clique).
+  function loadHeroSlides(slides) {
+    var sl = document.getElementById('heroSlideshow');
+    if (!sl) return;
+    var arr = (slides || []).filter(function (s) { return s && s.on !== false && s.imagem; });
+    if (!arr.length) { sl.style.display = 'none'; return; }
+
+    var slidesHtml = arr.map(function (s, i) {
+      var bg = s.bgClass || (i === 0 ? 'hero-bg-home' : 'hero-bg-essencial');
+      var active = i === 0 ? ' is-active' : '';
+      var loading = i === 0 ? 'eager' : 'lazy';
+      var href = s.plano ? 'checkout.html?plano=' + encodeURIComponent(s.plano) : (s.href || '#planos');
+      return '<a href="' + esc(href) + '" class="hero-slide' + active + ' ' + esc(bg) + '"' +
+        ' data-slide="' + i + '"' +
+        (s.plano ? ' data-plano="' + esc(s.plano) + '"' : '') +
+        ' aria-label="' + esc(s.ariaLabel || s.id || ('Slide ' + (i + 1))) + '">' +
+        '<img class="hero-slide-img" src="' + esc(s.imagem) + '" alt="" loading="' + loading + '" onerror="this.style.display=\'none\'">' +
+        '</a>';
+    }).join('');
+
+    var dotsHtml = arr.map(function (s, i) {
+      return '<button class="hero-dot' + (i === 0 ? ' is-active' : '') + '" data-go="' + i + '" aria-label="' + esc(s.ariaLabel || ('Slide ' + (i + 1))) + '"></button>';
+    }).join('');
+
+    // Limpa slides antigos (se houver) mas preserva setas e container de dots
+    var oldSlides = sl.querySelectorAll('.hero-slide');
+    for (var k = 0; k < oldSlides.length; k++) oldSlides[k].parentNode.removeChild(oldSlides[k]);
+
+    // Insere slides ANTES das setas (primeiros filhos)
+    var firstArrow = sl.querySelector('.hero-arrow');
+    if (firstArrow) firstArrow.insertAdjacentHTML('beforebegin', slidesHtml);
+    else sl.insertAdjacentHTML('afterbegin', slidesHtml);
+
+    var dotsBox = document.getElementById('heroDots');
+    if (dotsBox) dotsBox.innerHTML = dotsHtml;
+
+    // Liga checkout para os novos slides
+    try { wireCheckoutLinks(sl); } catch (e) {}
+
+    // Navegação (substitui o IIFE inline antigo)
+    var slidesEls = sl.querySelectorAll('.hero-slide');
+    var dotsEls = sl.querySelectorAll('.hero-dot');
+    var prev = document.getElementById('heroPrev');
+    var next = document.getElementById('heroNext');
+    var i = 0, n = slidesEls.length, timer;
+
+    function show(idx) {
+      i = ((idx % n) + n) % n;
+      for (var j = 0; j < n; j++) {
+        slidesEls[j].classList.toggle('is-active', j === i);
+        if (dotsEls[j]) dotsEls[j].classList.toggle('is-active', j === i);
+      }
+    }
+    function play() { clearInterval(timer); if (n > 1) timer = setInterval(function () { show(i + 1); }, 10000); }
+
+    if (n > 1) {
+      if (next) next.onclick = function (e) { e.preventDefault(); e.stopPropagation(); show(i + 1); play(); };
+      if (prev) prev.onclick = function (e) { e.preventDefault(); e.stopPropagation(); show(i - 1); play(); };
+      for (var d = 0; d < dotsEls.length; d++) {
+        (function (dot) {
+          dot.onclick = function (e) {
+            e.preventDefault(); e.stopPropagation();
+            show(parseInt(dot.getAttribute('data-go'), 10));
+            play();
+          };
+        })(dotsEls[d]);
+      }
+    } else {
+      // 1 slide só → esconde setas e dots
+      if (prev) prev.style.display = 'none';
+      if (next) next.style.display = 'none';
+      if (dotsBox) dotsBox.style.display = 'none';
+    }
+
+    show(0);
+    play();
   }
 
   // ─── Popup da Copa (conteudo do config + on/off + abre 1x por sessao) ───

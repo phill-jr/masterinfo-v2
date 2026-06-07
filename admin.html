@@ -21,6 +21,20 @@
       --green: #22c55e;
       --red: #ef4444;
       --radius: 12px;
+      /* Motion: curvas fortes (built-ins do CSS são fracas demais) */
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+      --focus-ring: 0 0 0 3px rgba(255, 122, 5, 0.22);
+    }
+    /* Reduced motion: corta movimento, mantém color/opacity */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
     body {
       font-family: 'Outfit', sans-serif;
@@ -53,9 +67,11 @@
       padding: 6px 12px;
       border-radius: 20px;
       background: var(--surface-2);
+      transition: color 220ms var(--ease-out), background-color 220ms var(--ease-out), filter 180ms ease;
     }
-    .admin-status.saved { color: var(--green); }
-    .admin-status.error { color: var(--red); }
+    .admin-status.is-morphing { filter: blur(2px); opacity: 0.7; }
+    .admin-status.saved { color: var(--green); background: rgba(34,197,94,0.10); }
+    .admin-status.error { color: var(--red); background: rgba(239,68,68,0.10); }
 
     .admin-body {
       max-width: 1400px;
@@ -82,16 +98,28 @@
       color: var(--text-muted);
       cursor: pointer;
       border-radius: 8px;
-      transition: all 0.2s;
       border: none;
       background: none;
+      transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), transform 120ms var(--ease-out);
     }
-    .tab:hover { color: var(--text); background: var(--surface-2); }
+    @media (hover: hover) and (pointer: fine) {
+      .tab:hover { color: var(--text); background: var(--surface-2); }
+    }
+    .tab:active { transform: scale(0.97); }
+    .tab:focus-visible { outline: none; box-shadow: var(--focus-ring); }
     .tab.active { background: var(--orange); color: #fff; }
     .tab i { margin-right: 6px; }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    .tab-content { display: none; opacity: 0; }
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+      animation: tabContentIn 160ms var(--ease-out);
+    }
+    @keyframes tabContentIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
     /* Cards */
     .card {
@@ -133,11 +161,14 @@
       color: var(--text);
       font-family: inherit;
       font-size: 0.9rem;
-      transition: border-color 0.2s;
+      transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
     }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
       outline: none;
       border-color: var(--orange);
+    }
+    .form-group input:focus-visible, .form-group select:focus-visible, .form-group textarea:focus-visible {
+      box-shadow: var(--focus-ring);
     }
     .form-group textarea { resize: vertical; min-height: 80px; }
     .form-group select { cursor: pointer; }
@@ -161,9 +192,10 @@
       border: 2px solid #d4d4d8;
       cursor: pointer;
       position: relative;
-      transition: all 0.25s;
       flex-shrink: 0;
+      transition: background-color 200ms var(--ease-out), border-color 200ms var(--ease-out);
     }
+    .toggle-switch:focus-visible { outline: none; box-shadow: var(--focus-ring); }
     .toggle-switch.on { background: var(--orange); border-color: var(--orange); }
     .toggle-switch::after {
       content: '';
@@ -174,7 +206,7 @@
       position: absolute;
       top: 2px;
       left: 2px;
-      transition: transform 0.25s;
+      transition: transform 200ms var(--ease-drawer);
       box-shadow: 0 1px 3px rgba(0,0,0,0.15);
     }
     .toggle-switch.on::after { transform: translateX(22px); }
@@ -191,32 +223,33 @@
       border-radius: 8px;
       border: none;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), color 160ms var(--ease-out), transform 120ms var(--ease-out), box-shadow 160ms var(--ease-out);
     }
-    .btn-primary {
-      background: var(--orange);
-      color: #fff;
-    }
-    .btn-primary:hover { background: var(--orange-hover); }
+    .btn:active { transform: scale(0.97); }
+    .btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    .btn-primary { background: var(--orange); color: #fff; }
     .btn-danger {
       background: rgba(239,68,68,0.1);
       color: var(--red);
       border: 1px solid rgba(239,68,68,0.2);
     }
-    .btn-danger:hover { background: rgba(239,68,68,0.2); }
     .btn-secondary {
       background: var(--surface-2);
       color: var(--text);
       border: 1px solid var(--border);
     }
-    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
     .btn-save {
       background: var(--green);
       color: #fff;
       padding: 12px 28px;
       font-size: 1rem;
     }
-    .btn-save:hover { filter: brightness(1.1); }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-primary:hover   { background: var(--orange-hover); }
+      .btn-danger:hover    { background: rgba(239,68,68,0.2); }
+      .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+      .btn-save:hover      { background: color-mix(in srgb, var(--green) 88%, white); }
+    }
 
     /* Item list */
     .item-card {
@@ -250,10 +283,14 @@
       background: var(--surface-2);
       color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: border-color 160ms var(--ease-out), color 160ms var(--ease-out), background-color 160ms var(--ease-out), transform 120ms var(--ease-out), box-shadow 160ms var(--ease-out);
     }
-    .btn-icon:hover { border-color: var(--orange); color: var(--orange); }
-    .btn-icon.danger:hover { border-color: var(--red); color: var(--red); }
+    .btn-icon:active { transform: scale(0.94); }
+    .btn-icon:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-icon:hover { border-color: var(--orange); color: var(--orange); }
+      .btn-icon.danger:hover { border-color: var(--red); color: var(--red); background: rgba(239,68,68,0.08); }
+    }
 
     /* Features tags */
     .features-list {
@@ -313,8 +350,9 @@
       border-radius: 6px;
       font-size: 0.8rem;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), color 160ms var(--ease-out), transform 120ms var(--ease-out);
     }
+    .plan-check:active { transform: scale(0.97); }
     .plan-check.checked {
       border-color: var(--orange);
       background: rgba(255,122,5,0.08);
@@ -341,10 +379,31 @@
       justify-content: center;
       gap: 12px;
       z-index: 50;
+      /* Sai do palco quando não há nada pra salvar; volta sob body.is-dirty */
+      transform: translateY(100%);
+      transition: transform 280ms var(--ease-out);
+      pointer-events: none;
     }
+    body.is-dirty .save-bar { transform: translateY(0); pointer-events: auto; }
+    body.is-saving .save-bar { transform: translateY(0); pointer-events: none; }
     .save-bar .btn-save { min-width: 200px; justify-content: center; }
+    /* Estado "salvando": morpha o conteúdo do botão pra um spinner */
+    body.is-saving .save-bar .btn-save { pointer-events: none; }
+    body.is-saving .save-bar .btn-save .btn-label { opacity: 0; }
+    body.is-saving .save-bar .btn-save::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      animation: btnSpin 0.6s linear infinite;
+    }
+    .save-bar .btn-save { position: relative; }
+    .save-bar .btn-save .btn-label { transition: opacity 160ms var(--ease-out); }
+    @keyframes btnSpin { to { transform: rotate(360deg); } }
 
-    /* Bottom padding for save bar */
+    /* Bottom padding for save bar (constante: evita "pulo" quando some) */
     .admin-body { padding-bottom: 100px; }
 
     /* Icon picker helper */
@@ -371,6 +430,125 @@
       text-decoration: none;
     }
     .icon-picker-hint a:hover { text-decoration: underline; }
+
+    /* Slideshow dropzone */
+    .slide-drop {
+      position: relative;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      background: var(--surface-2);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 160px;
+      cursor: pointer;
+      transition: border-color 180ms var(--ease-out), background-color 180ms var(--ease-out), transform 120ms var(--ease-out);
+      text-align: center;
+    }
+    .slide-drop:hover,
+    .slide-drop.is-drag {
+      border-color: var(--orange);
+      background: rgba(255,122,5,0.06);
+    }
+    .slide-drop:active { transform: scale(0.99); }
+    .slide-drop:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    .slide-drop input[type="file"] { display: none; }
+    .slide-drop .drop-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(255,122,5,0.10);
+      color: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      transition: transform 180ms var(--ease-out);
+    }
+    .slide-drop:hover .drop-icon,
+    .slide-drop.is-drag .drop-icon { transform: scale(1.08); }
+    .slide-drop .drop-title { font-size: 0.92rem; font-weight: 600; color: var(--text); }
+    .slide-drop .drop-sub { font-size: 0.78rem; color: var(--text-muted); }
+    .slide-drop.has-image {
+      padding: 0;
+      min-height: auto;
+      background: #0f1115;
+      border-style: solid;
+      border-color: transparent;
+      overflow: hidden;
+    }
+    .slide-drop.has-image img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      display: block;
+      transition: filter 220ms ease, opacity 220ms ease;
+    }
+    .slide-drop.has-image .drop-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(15,17,21,0.55);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 180ms var(--ease-out);
+    }
+    .slide-drop.has-image:hover .drop-overlay,
+    .slide-drop.has-image.is-drag .drop-overlay { opacity: 1; }
+    .slide-drop.is-uploading {
+      border-color: var(--orange);
+      pointer-events: none;
+    }
+    .slide-drop.is-uploading::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(2px);
+    }
+    .slide-drop.is-uploading .drop-spinner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    .slide-drop .drop-spinner { display: none; }
+    .slide-drop.is-uploading .drop-spinner { display: flex; }
+    .slide-drop .drop-spinner i {
+      font-size: 1.6rem;
+      color: var(--orange);
+      animation: btnSpin 0.6s linear infinite;
+    }
+    .slide-url-toggle {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      cursor: pointer;
+      padding: 4px 0;
+      margin-top: 4px;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+    }
+    .slide-url-toggle:hover { color: var(--orange); }
+    .slide-url-row { display: none; margin-top: 6px; }
+    .slide-url-row.is-open { display: block; }
+    .slide-upload-error {
+      color: var(--red);
+      font-size: 0.78rem;
+      margin-top: 6px;
+      padding: 6px 10px;
+      background: rgba(239,68,68,0.08);
+      border-radius: 6px;
+    }
 
     /* Section helpers */
     .section-help {
@@ -455,6 +633,12 @@
       <button class="tab active" data-tab="empresa" onclick="switchTab('empresa')">
         <i class="ph ph-buildings"></i> Empresa
       </button>
+      <button class="tab" data-tab="aparencia" onclick="switchTab('aparencia')">
+        <i class="ph ph-text-aa"></i> Aparência
+      </button>
+      <button class="tab" data-tab="slideshow" onclick="switchTab('slideshow')">
+        <i class="ph ph-images"></i> Slideshow
+      </button>
       <button class="tab" data-tab="cobertura" onclick="switchTab('cobertura')">
         <i class="ph ph-map-pin"></i> Cobertura
       </button>
@@ -485,6 +669,27 @@
       <button class="tab" data-tab="popup" onclick="switchTab('popup')">
         <i class="ph ph-megaphone-simple"></i> Popup
       </button>
+    </div>
+
+    <!-- TAB: Aparência -->
+    <div class="tab-content" id="tab-aparencia">
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-text-aa"></i> Tamanho / escala do site</div>
+        <p style="color:#9494a5;font-size:.92rem;margin:-4px 0 18px;">Ajuste a proporção geral do site (tipografia + espaçamento das seções) caso ache tudo grande demais no monitor. Vale pra home e todas as páginas.</p>
+        <div class="form-group">
+          <label style="display:flex;align-items:center;justify-content:space-between;">
+            <span>Escala do site</span>
+            <strong id="cfgSiteScaleVal" style="font-size:1.1rem;color:#ff7a05;">100%</strong>
+          </label>
+          <input type="range" min="70" max="110" step="5" value="100" id="cfgSiteScale" style="width:100%;accent-color:#ff7a05;cursor:pointer;" oninput="updateSiteScale(this.value)">
+          <div style="display:flex;justify-content:space-between;font-size:.78rem;color:#6b6b7d;margin-top:4px;">
+            <span>70% (menor)</span><span>100% (padrão)</span><span>110% (maior)</span>
+          </div>
+          <p style="color:#9494a5;font-size:.85rem;margin-top:16px;">
+            <i class="ph ph-info"></i> Depois de <strong>Salvar</strong>, recarregue o site (Ctrl+F5) pra ver o efeito. 100% = tamanho atual.
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- TAB: Empresa -->
@@ -573,6 +778,18 @@
           <div class="toggle-switch" id="toggleSiteTema" onclick="toggleSiteTema()" role="switch" aria-checked="false" aria-label="Tema do site" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSiteTema();}"></div>
         </div>
         <div class="section-help"><i class="ph ph-info"></i> Black = index.html &middot; Light = index-light.html. Controla a home e sincroniza o checkout. (Subpaginas ainda nao tem versao clara.)</div>
+      </div>
+    </div>
+
+    <!-- TAB: Slideshow (banner principal da home) -->
+    <div class="tab-content" id="tab-slideshow">
+      <div class="section-help">
+        <i class="ph ph-info"></i>
+        Slides do banner que aparece no topo da home. Cada slide leva o cliente direto pro checkout do plano escolhido. Arraste de cima pra baixo na ordem desejada (setas) e marque "ativo" pra mostrar.
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-images"></i> Slides do banner</div>
+        <div id="slideshowContainer"></div>
       </div>
     </div>
 
@@ -954,7 +1171,7 @@
         .bx-status.loading { background:rgba(255,122,5,0.06); border-color:rgba(255,122,5,0.2); color:var(--orange); }
         .bx-status.ok { background:rgba(34,197,94,0.08); border-color:rgba(34,197,94,0.3); color:#16a34a; }
         .bx-status.err { background:rgba(239,68,68,0.07); border-color:rgba(239,68,68,0.3); color:#dc2626; }
-        .bx-status.loading i { animation:bxspin 0.8s linear infinite; }
+        .bx-status.loading i { animation:bxspin 0.6s linear infinite; }
         @keyframes bxspin { to { transform:rotate(360deg); } }
         .bx-toolbar { display:flex; gap:10px; align-items:center; margin:4px 0 12px; }
         .bx-search { flex:1; padding:10px 14px; border:1px solid rgba(0,0,0,0.12); border-radius:8px; font-size:0.9rem; }
@@ -1079,7 +1296,7 @@
   <!-- Save bar -->
   <div class="save-bar">
     <button class="btn btn-save" onclick="saveConfig()">
-      <i class="ph-fill ph-floppy-disk"></i> Salvar alteracoes
+      <span class="btn-label"><i class="ph-fill ph-floppy-disk"></i> Salvar alteracoes</span>
     </button>
     <span style="font-size:0.75rem;color:var(--text-muted);align-self:center;">Ctrl+S</span>
   </div>
@@ -1116,10 +1333,9 @@
         loadIxc();
       })
       .catch(function() {
-        // Se auth/check.php nao existe (dev local), carrega direto
-        loadConfig();
-        loadMarina();
-        loadIxc();
+        // Fail-closed: qualquer erro de rede/JSON/CORS ao chamar auth/check.php
+        // redireciona para login. Dev local precisa do PHP rodando (php -S).
+        window.location.href = 'admin-login.html';
       });
   }
 
@@ -1296,6 +1512,8 @@
 
   function renderAll() {
     renderEmpresa();
+    renderAparencia();
+    renderSlideshow();
     renderBairros();
     renderFaqAdmin();
     renderPlanos();
@@ -1308,18 +1526,31 @@
     renderCopaPopup();
   }
 
+  // Troca classe do .admin-status com blur sutil entre estados — disfarça o crossfade
+  function setStatus(text, kind) {
+    var el = document.getElementById('saveStatus');
+    if (!el) return;
+    el.classList.add('is-morphing');
+    setTimeout(function () {
+      el.textContent = text;
+      el.className = 'admin-status' + (kind ? ' ' + kind : '') + ' is-morphing';
+      requestAnimationFrame(function () {
+        el.classList.remove('is-morphing');
+      });
+    }, 120);
+  }
+
   function markDirty() {
     dirty = true;
-    var el = document.getElementById('saveStatus');
-    el.textContent = 'Alteracoes nao salvas';
-    el.className = 'admin-status error';
+    document.body.classList.add('is-dirty');
+    setStatus('Alteracoes nao salvas', 'error');
   }
 
   // ─── Save ───
   window.saveConfig = function() {
     var el = document.getElementById('saveStatus');
-    el.textContent = 'Salvando...';
-    el.className = 'admin-status';
+    document.body.classList.add('is-saving');
+    setStatus('Salvando...', '');
 
     // Sync whatsapp empresa → checkout
     if (config.empresa && config.empresa.whatsapp) {
@@ -1337,8 +1568,8 @@
     })
     .then(function(r) {
       if (r.status === 401) {
-        el.textContent = 'Sessao expirada — redirecionando pro login...';
-        el.className = 'admin-status error';
+        document.body.classList.remove('is-saving');
+        setStatus('Sessao expirada — redirecionando pro login...', 'error');
         setTimeout(function() { window.location.href = 'admin-login.html'; }, 900);
         return null;
       }
@@ -1346,6 +1577,7 @@
     })
     .then(function(data) {
       if (!data) return; // 401 ja tratado (redirecionando pro login)
+      document.body.classList.remove('is-saving');
       if (data.ok) {
         var msg = 'Salvo com sucesso!';
         if (data.publish) {
@@ -1355,23 +1587,19 @@
             msg += ' (subpaginas nao republicadas: ' + data.publish.reason + ')';
           }
         }
-        el.textContent = msg;
-        el.className = 'admin-status saved';
+        setStatus(msg, 'saved');
         dirty = false;
+        document.body.classList.remove('is-dirty');
         setTimeout(function() {
-          if (!dirty) {
-            el.textContent = 'Tudo salvo';
-            el.className = 'admin-status saved';
-          }
+          if (!dirty) setStatus('Tudo salvo', 'saved');
         }, 2500);
       } else {
-        el.textContent = 'Erro: ' + (data.error || 'desconhecido');
-        el.className = 'admin-status error';
+        setStatus('Erro: ' + (data.error || 'desconhecido'), 'error');
       }
     })
     .catch(function() {
-      el.textContent = 'Erro de conexao';
-      el.className = 'admin-status error';
+      document.body.classList.remove('is-saving');
+      setStatus('Erro de conexao', 'error');
     });
   };
 
@@ -1704,6 +1932,22 @@
     markDirty();
   };
 
+  // ─── Aparência / escala do site (config.layout.siteScale, em %) ───
+  function renderAparencia() {
+    var s = (config.layout && config.layout.siteScale) || 100;
+    setVal('cfgSiteScale', s);
+    var lbl = document.getElementById('cfgSiteScaleVal');
+    if (lbl) lbl.textContent = s + '%';
+  }
+
+  window.updateSiteScale = function(val) {
+    if (!config.layout) config.layout = {};
+    config.layout.siteScale = Number(val);
+    var lbl = document.getElementById('cfgSiteScaleVal');
+    if (lbl) lbl.textContent = val + '%';
+    markDirty();
+  };
+
   window.toggleCheckout = function() {
     config.checkout.modo = config.checkout.modo === 'simples' ? 'completo' : 'simples';
     renderEmpresa();
@@ -1726,41 +1970,226 @@
     markDirty();
   };
 
-  // ─── Hero ───
-  function renderHero() {
-    if (!config.hero) config.hero = { badge: '', titulo: '', tituloDestaque: '', tituloFim: '', subtitulo: '', confianca: [] };
-    var h = config.hero;
-    setVal('cfgHeroBadge', h.badge);
-    setVal('cfgHeroTitulo', h.titulo);
-    setVal('cfgHeroDestaque', h.tituloDestaque);
-    setVal('cfgHeroFim', h.tituloFim);
-    setVal('cfgHeroSub', h.subtitulo);
+  // ─── Slideshow (banner principal da home) ───
+  // Render: cada slide é um cartão com imagem, plano de destino (dropdown),
+  // texto alternativo (aria-label), classe de background (fallback) e on/off.
+  function renderSlideshow() {
+    if (!Array.isArray(config.heroSlides)) config.heroSlides = [];
+    var cont = document.getElementById('slideshowContainer');
+    if (!cont) return;
 
-    var cont = document.getElementById('heroConfiancaContainer');
-    if (cont && h.confianca) {
-      var icons = ['ph-fill ph-clock', 'ph-fill ph-handshake', 'ph-fill ph-star'];
-      var html = '';
-      h.confianca.forEach(function(item, i) {
-        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">' +
-          '<span class="icon-preview"><i class="' + (icons[i] || 'ph-fill ph-check') + '"></i></span>' +
-          '<span style="font-size:0.75rem;color:var(--text-muted);min-width:16px;">' + (i + 1) + '.</span>' +
-          '<div class="form-group" style="flex:1;margin:0;">' +
-            '<input type="text" value="' + esc(item) + '" oninput="updateConfianca(' + i + ',this.value)" placeholder="Texto com <strong>negrito</strong>">' +
-          '</div>' +
-          '<button class="btn-icon danger" onclick="removeConfianca(' + i + ')"><i class="ph ph-trash"></i></button>' +
-        '</div>';
-      });
-      if (h.confianca.length < 4) {
-        html += '<button class="btn btn-secondary" onclick="addConfianca()" style="margin-top:4px;"><i class="ph ph-plus"></i> Adicionar item</button>';
-      }
-      cont.innerHTML = html;
+    var planos = config.planos || [];
+    var bgOpts = [
+      { v: 'hero-bg-home',      l: 'Laranja (home)' },
+      { v: 'hero-bg-essencial', l: 'Verde (essencial)' },
+      { v: 'hero-bg-streaming', l: 'Roxo (streaming)' },
+      { v: 'hero-bg-gamer',     l: 'Azul (gamer)' }
+    ];
+
+    function planSelect(i, sel) {
+      var opts = planos.map(function (p) {
+        return '<option value="' + esc(p.id) + '"' + (p.id === sel ? ' selected' : '') + '>' +
+          esc((p.nome || p.id) + ' — ' + (p.velocidade || '') + ' ' + (p.unidade || '')) + '</option>';
+      }).join('');
+      return '<select onchange="updateSlide(' + i + ',\'plano\',this.value)">' +
+        '<option value=""' + (!sel ? ' selected' : '') + '>— sem plano (não vai pro checkout) —</option>' +
+        opts + '</select>';
     }
+
+    function bgSelect(i, sel) {
+      var opts = bgOpts.map(function (b) {
+        return '<option value="' + b.v + '"' + (b.v === sel ? ' selected' : '') + '>' + b.l + '</option>';
+      }).join('');
+      return '<select onchange="updateSlide(' + i + ',\'bgClass\',this.value)">' + opts + '</select>';
+    }
+
+    var html = config.heroSlides.length === 0
+      ? '<div style="font-size:0.85rem;color:var(--text-muted);font-style:italic;padding:14px 6px;">Nenhum slide cadastrado. Clique em "Adicionar slide" para começar.</div>'
+      : config.heroSlides.map(function (s, i) {
+          var total = config.heroSlides.length;
+          var dest = s.plano ? 'checkout.html?plano=' + s.plano : (s.href || '(nenhum)');
+          var hasImg = !!s.imagem;
+          var dropInner = hasImg
+            ? '<img src="' + esc(s.imagem) + '" alt="" onerror="this.style.display=\'none\'">' +
+              '<div class="drop-overlay"><i class="ph ph-upload-simple"></i> Trocar imagem</div>'
+            : '<span class="drop-icon"><i class="ph ph-image-square"></i></span>' +
+              '<span class="drop-title">Clique pra enviar uma imagem</span>' +
+              '<span class="drop-sub">Ou arraste aqui — JPG, PNG, WebP ou GIF, até 5MB</span>';
+          return '<div class="item-card" style="' + (s.on === false ? 'opacity:0.55;' : '') + '">' +
+            '<div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;">' +
+              '<span class="mnu-arrows">' +
+                '<button class="mnu-arrow" ' + (i > 0 ? '' : 'disabled ') + 'onclick="moveSlide(' + i + ',-1)" title="Subir">&#9650;</button>' +
+                '<button class="mnu-arrow" ' + (i < total - 1 ? '' : 'disabled ') + 'onclick="moveSlide(' + i + ',1)" title="Descer">&#9660;</button>' +
+              '</span>' +
+              '<strong style="flex:1;">Slide ' + (i + 1) + '</strong>' +
+              '<label class="mnu-chk" style="font-size:0.78rem;color:var(--text-muted);display:flex;align-items:center;gap:5px;cursor:pointer;">' +
+                '<input type="checkbox" ' + (s.on !== false ? 'checked' : '') + ' onchange="updateSlide(' + i + ',\'on\',this.checked)"> ativo' +
+              '</label>' +
+              '<button class="btn-icon danger" onclick="removeSlide(' + i + ')" title="Remover slide"><i class="ph ph-trash"></i></button>' +
+            '</div>' +
+
+            '<div class="form-group"><label>Imagem do slide</label>' +
+              '<div class="slide-drop' + (hasImg ? ' has-image' : '') + '"' +
+                ' tabindex="0"' +
+                ' role="button"' +
+                ' onclick="pickSlideImage(' + i + ')"' +
+                ' onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();pickSlideImage(' + i + ');}"' +
+                ' ondragenter="slideDropEnter(event,this)"' +
+                ' ondragover="slideDropOver(event)"' +
+                ' ondragleave="slideDropLeave(event,this)"' +
+                ' ondrop="slideDropFile(event,' + i + ',this)">' +
+                dropInner +
+                '<span class="drop-spinner"><i class="ph ph-spinner-gap"></i></span>' +
+                '<input type="file" id="slideFile-' + i + '" accept="image/jpeg,image/png,image/webp,image/gif" onchange="uploadSlideImage(' + i + ',this.files&&this.files[0])">' +
+              '</div>' +
+              '<button type="button" class="slide-url-toggle" onclick="toggleSlideUrl(' + i + ')"><i class="ph ph-link-simple"></i> Ou colar uma URL/caminho</button>' +
+              '<div class="slide-url-row" id="slideUrlRow-' + i + '">' +
+                '<input type="text" value="' + esc(s.imagem || '') + '" placeholder="imgs/hero/banner-xxx.png" oninput="updateSlide(' + i + ',\'imagem\',this.value)">' +
+              '</div>' +
+              '<div class="slide-upload-error" id="slideErr-' + i + '" style="display:none;"></div>' +
+            '</div>' +
+
+            '<div class="form-row">' +
+              '<div class="form-group"><label>Plano de destino (vai pro checkout)</label>' + planSelect(i, s.plano || '') + '</div>' +
+              '<div class="form-group"><label>Fundo de fallback (se a imagem falhar)</label>' + bgSelect(i, s.bgClass || 'hero-bg-home') + '</div>' +
+            '</div>' +
+            '<div class="form-group"><label>Texto alternativo (acessibilidade)</label>' +
+              '<input type="text" value="' + esc(s.ariaLabel || '') + '" placeholder="Ex.: Copa do Mundo 2026 — Lite Home Office 1 Giga" oninput="updateSlide(' + i + ',\'ariaLabel\',this.value)"></div>' +
+            '<div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Destino: <code>' + esc(dest) + '</code></div>' +
+          '</div>';
+        }).join('');
+
+    html += '<button class="btn btn-secondary" onclick="addSlide()" style="margin-top:6px;"><i class="ph ph-plus"></i> Adicionar slide</button>';
+    cont.innerHTML = html;
   }
 
-  window.updateHero = function(key, val) { config.hero[key] = val; markDirty(); };
-  window.updateConfianca = function(i, val) { config.hero.confianca[i] = val; markDirty(); };
-  window.removeConfianca = function(i) { config.hero.confianca.splice(i, 1); renderHero(); markDirty(); };
-  window.addConfianca = function() { config.hero.confianca.push('Novo item'); renderHero(); markDirty(); };
+  window.renderSlideshow = renderSlideshow;
+  window.updateSlide = function (i, key, val) {
+    if (!config.heroSlides[i]) return;
+    config.heroSlides[i][key] = val;
+    markDirty();
+  };
+  window.addSlide = function () {
+    if (!Array.isArray(config.heroSlides)) config.heroSlides = [];
+    config.heroSlides.push({
+      id: 'slide-' + (config.heroSlides.length + 1),
+      imagem: '',
+      plano: '',
+      ariaLabel: '',
+      bgClass: 'hero-bg-home',
+      on: true
+    });
+    renderSlideshow();
+    markDirty();
+  };
+  window.removeSlide = function (i) {
+    if (!confirm('Remover este slide?')) return;
+    config.heroSlides.splice(i, 1);
+    renderSlideshow();
+    markDirty();
+  };
+  window.moveSlide = function (i, dir) {
+    var j = i + dir;
+    if (j < 0 || j >= config.heroSlides.length) return;
+    var tmp = config.heroSlides[i];
+    config.heroSlides[i] = config.heroSlides[j];
+    config.heroSlides[j] = tmp;
+    renderSlideshow();
+    markDirty();
+  };
+
+  // Abre o file picker do slide i
+  window.pickSlideImage = function (i) {
+    var input = document.getElementById('slideFile-' + i);
+    if (input) input.click();
+  };
+
+  // Toggla a linha do input de URL (modo manual)
+  window.toggleSlideUrl = function (i) {
+    var row = document.getElementById('slideUrlRow-' + i);
+    if (row) row.classList.toggle('is-open');
+  };
+
+  // Drag & drop visual + dispatch
+  window.slideDropEnter = function (e, el) { e.preventDefault(); el.classList.add('is-drag'); };
+  window.slideDropOver  = function (e)     { e.preventDefault(); if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy'; };
+  window.slideDropLeave = function (e, el) { e.preventDefault(); el.classList.remove('is-drag'); };
+  window.slideDropFile  = function (e, i, el) {
+    e.preventDefault();
+    el.classList.remove('is-drag');
+    var file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (file) uploadSlideImage(i, file);
+  };
+
+  // Upload propriamente dito → api/admin-upload.php
+  window.uploadSlideImage = function (i, file) {
+    if (!file) return;
+    var errEl = document.getElementById('slideErr-' + i);
+    var drop  = document.querySelectorAll('.slide-drop')[i];
+    if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+    if (drop) drop.classList.add('is-uploading');
+
+    // Validacao client-side (servidor revalida com finfo)
+    var allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    if (allowed.indexOf(file.type) === -1) {
+      showSlideError(i, 'Tipo nao permitido (' + (file.type || 'desconhecido') + '). Use JPG, PNG, WebP ou GIF.');
+      if (drop) drop.classList.remove('is-uploading');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      showSlideError(i, 'Imagem maior que 5MB.');
+      if (drop) drop.classList.remove('is-uploading');
+      return;
+    }
+
+    var fd = new FormData();
+    fd.append('imagem', file);
+
+    fetch('api/admin-upload.php', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'X-CSRF-Token': CSRF_TOKEN },
+      body: fd
+    })
+      .then(function (r) {
+        if (r.status === 401) {
+          showSlideError(i, 'Sessao expirada. Redirecionando pro login...');
+          setTimeout(function () { window.location.href = 'admin-login.html'; }, 900);
+          return null;
+        }
+        return r.json().catch(function () { return { error: 'Resposta invalida do servidor.' }; });
+      })
+      .then(function (data) {
+        if (!data) return;
+        if (!data.ok) {
+          showSlideError(i, data.error || 'Falha no upload.');
+          if (drop) drop.classList.remove('is-uploading');
+          return;
+        }
+        // Persiste no config + re-render + marca dirty
+        if (!config.heroSlides[i]) return;
+        config.heroSlides[i].imagem = data.path;
+        renderSlideshow();
+        markDirty();
+        // Cache-bust no preview (caso reaproveite nome)
+        setTimeout(function () {
+          var img = document.querySelectorAll('.slide-drop')[i];
+          var pic = img && img.querySelector('img');
+          if (pic) pic.src = data.path + '?v=' + Date.now();
+        }, 0);
+      })
+      .catch(function (err) {
+        showSlideError(i, 'Erro de conexao no upload.');
+        if (drop) drop.classList.remove('is-uploading');
+      });
+  };
+
+  function showSlideError(i, msg) {
+    var errEl = document.getElementById('slideErr-' + i);
+    if (!errEl) return;
+    errEl.textContent = msg;
+    errEl.style.display = 'block';
+  }
 
   // ─── Stats ───
   function renderStats() {
@@ -2387,7 +2816,7 @@
   };
 
   // ─── Ordem & visibilidade das secoes da home ───
-  var SECOES_NOMES = { hero: 'Hero (banner)', planos1: 'Planos — Com 1 Roteador', planos2: 'Planos — Com 2 Roteadores', historia: 'Nossa Historia', cobertura: 'Cobertura', depoimentos: 'Depoimentos', cta: 'Chamada final (CTA)', faq: 'FAQ' };
+  var SECOES_NOMES = { hero: 'Slideshow (banner)', planos1: 'Planos — Com 1 Roteador', planos2: 'Planos — Com 2 Roteadores', historia: 'Nossa Historia', cobertura: 'Cobertura', depoimentos: 'Depoimentos', cta: 'Chamada final (CTA)', faq: 'FAQ' };
   var SECOES_DEFAULT = ['hero', 'planos1', 'planos2', 'historia', 'cobertura', 'depoimentos', 'cta', 'faq'];
   var _secDrag = null;
 

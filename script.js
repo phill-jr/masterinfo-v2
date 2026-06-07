@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Scroll Reveal ----------
   const revealElements = document.querySelectorAll(
-    '.plan-card, .why-card, .testimonial-card, .coverage-inner, .faq-item, .final-cta-inner'
+    '.plan-card, .why-card, .testimonial-card, .coverage-inner, .faq-item, .final-cta-inner, .referral-inner'
   );
 
   revealElements.forEach(el => el.classList.add('reveal'));

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Área do Cliente | MasterInfo Internet</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+  <style>
+    :root{
+      --azul:#0b3a82; --azul-2:#0a2e66; --laranja:#ff6a00;
+      --tinta:#10233f; --cinza:#5b6b82; --linha:#e6ebf2; --fundo:#eef2f8;
+      --ok:#1aa55b; --erro:#d33; --radius:16px;
+      --sombra:0 18px 50px rgba(11,58,130,.14);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:'Outfit',system-ui,sans-serif; color:var(--tinta);
+      background:radial-gradient(1200px 600px at 50% -10%, #dde7f6 0%, var(--fundo) 60%);
+      min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:24px;
+    }
+    .card{
+      width:100%; max-width:440px; background:#fff; border-radius:var(--radius);
+      box-shadow:var(--sombra); overflow:hidden;
+    }
+    .card.wide{max-width:560px}
+    .top{
+      background:linear-gradient(135deg,var(--azul),var(--azul-2)); color:#fff;
+      padding:26px 28px 22px; position:relative;
+    }
+    .brand{font-weight:800; letter-spacing:.5px; font-size:20px}
+    .brand b{color:var(--laranja)}
+    .top p{margin:6px 0 0; opacity:.85; font-size:14px; font-weight:300}
+    .body{padding:26px 28px 28px}
+    h1{font-size:21px; margin:0 0 4px; font-weight:700}
+    .sub{color:var(--cinza); font-size:14px; margin:0 0 20px; line-height:1.45}
+    label{display:block; font-size:13px; font-weight:600; margin:0 0 6px; color:var(--tinta)}
+    .field{
+      width:100%; border:1.5px solid var(--linha); border-radius:12px; padding:14px 14px;
+      font-family:inherit; font-size:16px; color:var(--tinta); background:#fff; transition:border-color .15s, box-shadow .15s;
+    }
+    .field:focus{outline:none; border-color:var(--azul); box-shadow:0 0 0 4px rgba(11,58,130,.1)}
+    .field.code{text-align:center; letter-spacing:10px; font-size:26px; font-weight:700; padding-left:24px}
+    .btn{
+      width:100%; border:0; border-radius:12px; padding:15px; margin-top:16px; cursor:pointer;
+      font-family:inherit; font-size:16px; font-weight:700; color:#fff;
+      background:linear-gradient(135deg,var(--laranja),#ff8a33); transition:transform .08s, filter .15s;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .btn:hover{filter:brightness(1.04)} .btn:active{transform:translateY(1px)}
+    .btn[disabled]{opacity:.6; cursor:not-allowed; filter:grayscale(.2)}
+    .btn.ghost{background:none; color:var(--azul); box-shadow:inset 0 0 0 1.5px var(--linha); margin-top:10px}
+    .links{display:flex; justify-content:space-between; gap:12px; margin-top:16px}
+    .links a, .linkbtn{
+      background:none; border:0; padding:0; cursor:pointer; font-family:inherit; font-size:13.5px;
+      color:var(--azul); font-weight:600; text-decoration:none;
+    }
+    .linkbtn:disabled{color:var(--cinza); cursor:default}
+    .msg{font-size:13.5px; margin-top:14px; padding:11px 13px; border-radius:10px; display:none; line-height:1.4}
+    .msg.show{display:block}
+    .msg.err{background:#fdecec; color:#a02020}
+    .msg.ok{background:#e8f7ee; color:#107a40}
+    .hint{font-size:12.5px; color:var(--cinza); margin-top:12px; text-align:center}
+    .hint b{color:var(--tinta)}
+    /* painel */
+    .phead{display:flex; align-items:center; justify-content:space-between; gap:12px}
+    .phead .nome{font-size:13px; opacity:.9; font-weight:300}
+    .phead .nome b{font-weight:700; display:block; font-size:16px; opacity:1}
+    .sair{background:rgba(255,255,255,.15); border:0; color:#fff; font-family:inherit; font-weight:600;
+      font-size:13px; padding:8px 12px; border-radius:9px; cursor:pointer}
+    .sair:hover{background:rgba(255,255,255,.25)}
+    .fat{
+      border:1.5px solid var(--linha); border-radius:14px; padding:16px; margin-top:14px;
+    }
+    .fat .row{display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
+    .fat .venc{font-size:12.5px; color:var(--cinza); font-weight:500}
+    .fat .valor{font-size:22px; font-weight:800; color:var(--tinta); margin-top:2px}
+    .badge{font-size:11px; font-weight:700; padding:4px 9px; border-radius:999px; white-space:nowrap}
+    .badge.aberto{background:#fff2e6; color:#b85400}
+    .badge.venc{background:#fdecec; color:#a02020}
+    .fat .acoes{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap}
+    .fat .acoes .btn{margin-top:0; width:auto; flex:1; min-width:140px; padding:12px; font-size:14px}
+    .empty{text-align:center; padding:34px 10px; color:var(--cinza)}
+    .empty .big{font-size:42px} .empty h2{margin:10px 0 4px; color:var(--tinta); font-size:18px}
+    .spin{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.5);border-top-color:#fff;border-radius:50%;
+      animation:sp .7s linear infinite; display:inline-block}
+    @keyframes sp{to{transform:rotate(360deg)}}
+    .center{display:none} .center.on{display:block}
+    .copytip{font-size:12px;color:var(--ok);margin-top:8px;display:none}
+    .copytip.on{display:block}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+
+    <!-- ░░ PASSO 1 — CPF ░░ -->
+    <section class="center on" id="step-cpf">
+      <div class="top">
+        <div class="brand">MASTER<b>INFO</b></div>
+        <p>Área do Cliente</p>
+      </div>
+      <div class="body">
+        <h1>Acesse sua conta</h1>
+        <p class="sub">Digite seu CPF. Vamos enviar um código de acesso para o e-mail ou celular do seu cadastro.</p>
+        <form id="form-cpf">
+          <label for="cpf">CPF</label>
+          <input class="field" id="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14" />
+          <button class="btn" type="submit" id="btn-cpf"><i class="ph ph-paper-plane-tilt"></i> Receber código</button>
+        </form>
+        <div class="msg err" id="msg-cpf"></div>
+        <div class="links"><a href="../">← Voltar ao site</a></div>
+      </div>
+    </section>
+
+    <!-- ░░ PASSO 2 — Código ░░ -->
+    <section class="center" id="step-code">
+      <div class="top">
+        <div class="brand">MASTER<b>INFO</b></div>
+        <p>Confirmação de acesso</p>
+      </div>
+      <div class="body">
+        <h1>Digite o código</h1>
+        <p class="sub" id="code-dest">Enviamos um código de 6 dígitos.</p>
+        <form id="form-code">
+          <label for="code">Código de 6 dígitos</label>
+          <input class="field code" id="code" inputmode="numeric" autocomplete="one-time-code" placeholder="••••••" maxlength="6" />
+          <button class="btn" type="submit" id="btn-code"><i class="ph ph-sign-in"></i> Entrar</button>
+        </form>
+        <div class="msg err" id="msg-code"></div>
+        <div class="links">
+          <button class="linkbtn" id="btn-trocar" type="button">← Trocar CPF</button>
+          <button class="linkbtn" id="btn-reenviar" type="button">Reenviar código</button>
+        </div>
+        <div class="hint">Não chegou? Verifique o spam (e-mail) ou aguarde alguns segundos.</div>
+      </div>
+    </section>
+
+    <!-- ░░ PASSO 3 — Painel ░░ -->
+    <section class="center" id="step-painel">
+      <div class="top">
+        <div class="phead">
+          <div class="nome">Bem-vindo,<b id="cliente-nome">cliente</b></div>
+          <button class="sair" id="btn-sair"><i class="ph ph-sign-out"></i> Sair</button>
+        </div>
+      </div>
+      <div class="body">
+        <h1>Suas faturas</h1>
+        <p class="sub">Faturas em aberto. Baixe a 2ª via em PDF ou copie o código de barras pra pagar.</p>
+        <div id="faturas-loading" class="empty"><div class="big">⏳</div><p>Carregando suas faturas…</p></div>
+        <div id="faturas-lista"></div>
+        <div class="msg err" id="msg-painel"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const API = '../api/central/';
+    const $ = (id) => document.getElementById(id);
+
+    async function api(path, { method = 'GET', body } = {}) {
+      const res = await fetch(API + path, {
+        method,
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        credentials: 'include',
+        body: body ? JSON.stringify(body) : undefined,
+      });
+      let data = {}; try { data = await res.json(); } catch (e) {}
+      return { status: res.status, data };
+    }
+
+    function show(step) {
+      ['step-cpf','step-code','step-painel'].forEach(s => $(s).classList.toggle('on', s === step));
+      window.scrollTo(0, 0);
+    }
+    function flash(el, text, type='err') {
+      el.textContent = text; el.className = 'msg ' + type + (text ? ' show' : '');
+    }
+    function loading(btn, on, label) {
+      btn.disabled = on;
+      btn.innerHTML = on ? '<span class="spin"></span>' : label;
+    }
+    const fmtBRL = (v) => {
+      const n = parseFloat(String(v).replace(',', '.')); if (isNaN(n)) return 'R$ ' + v;
+      return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    };
+    const fmtData = (d) => {
+      const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(d));
+      return m ? `${m[3]}/${m[2]}/${m[1]}` : (d || '—');
+    };
+    const vencida = (d) => {
+      const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(d)); if (!m) return false;
+      return new Date(m[1], +m[2]-1, +m[3]) < new Date(new Date().toDateString());
+    };
+
+    // ── CPF: máscara + envio ──
+    $('cpf').addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      v = v.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+      e.target.value = v;
+    });
+
+    let challenge = null;
+
+    $('form-cpf').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      flash($('msg-cpf'), '');
+      const cpf = $('cpf').value.replace(/\D/g, '');
+      if (cpf.length !== 11) return flash($('msg-cpf'), 'Digite os 11 dígitos do CPF.');
+      loading($('btn-cpf'), true);
+      try {
+        const { data } = await api('auth-start.php', { method: 'POST', body: { cpf } });
+        if (!data.ok) { flash($('msg-cpf'), data.message || 'Não foi possível continuar.'); return; }
+        challenge = data.challenge;
+        $('code-dest').innerHTML = data.message || 'Enviamos um código de 6 dígitos.';
+        flash($('msg-code'), '');
+        $('code').value = '';
+        show('step-code'); $('code').focus();
+      } catch (err) {
+        flash($('msg-cpf'), 'Falha de conexão. Tente de novo.');
+      } finally {
+        loading($('btn-cpf'), false, '<i class="ph ph-paper-plane-tilt"></i> Receber código');
+      }
+    });
+
+    // ── Código: máscara + verificação ──
+    $('code').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6); });
+
+    $('form-code').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      flash($('msg-code'), '');
+      const code = $('code').value.replace(/\D/g, '');
+      if (code.length !== 6) return flash($('msg-code'), 'Digite o código de 6 dígitos.');
+      loading($('btn-code'), true);
+      try {
+        const { data } = await api('auth-verify.php', { method: 'POST', body: { challenge, code } });
+        if (!data.ok) {
+          let m = data.message || 'Código inválido.';
+          if (data.attempts_left != null) m += ` (${data.attempts_left} tentativa(s) restante(s))`;
+          flash($('msg-code'), m);
+          return;
+        }
+        $('cliente-nome').textContent = (data.cliente && data.cliente.nome) || 'cliente';
+        show('step-painel');
+        carregarFaturas();
+      } catch (err) {
+        flash($('msg-code'), 'Falha de conexão. Tente de novo.');
+      } finally {
+        loading($('btn-code'), false, '<i class="ph ph-sign-in"></i> Entrar');
+      }
+    });
+
+    $('btn-trocar').addEventListener('click', () => { challenge = null; show('step-cpf'); $('cpf').focus(); });
+    $('btn-reenviar').addEventListener('click', () => $('form-cpf').dispatchEvent(new Event('submit')));
+
+    // ── Painel: faturas ──
+    async function carregarFaturas() {
+      $('faturas-loading').style.display = 'block';
+      $('faturas-lista').innerHTML = '';
+      flash($('msg-painel'), '');
+      try {
+        const { status, data } = await api('faturas.php');
+        if (status === 401) { show('step-cpf'); return; }
+        $('faturas-loading').style.display = 'none';
+        if (!data.ok) { flash($('msg-painel'), data.message || 'Erro ao carregar faturas.'); return; }
+        if (!data.faturas || data.faturas.length === 0) {
+          $('faturas-lista').innerHTML =
+            '<div class="empty"><div class="big">🎉</div><h2>Você está em dia!</h2><p>Nenhuma fatura em aberto no momento.</p></div>';
+          return;
+        }
+        $('faturas-lista').innerHTML = data.faturas.map(renderFatura).join('');
+      } catch (err) {
+        $('faturas-loading').style.display = 'none';
+        flash($('msg-painel'), 'Falha de conexão ao carregar faturas.');
+      }
+    }
+
+    function renderFatura(f) {
+      const venc = vencida(f.vencimento);
+      const badge = venc
+        ? '<span class="badge venc">Vencida</span>'
+        : '<span class="badge aberto">Em aberto</span>';
+      return `
+        <div class="fat">
+          <div class="row">
+            <div>
+              <div class="venc"><i class="ph ph-calendar-blank"></i> Vence em ${fmtData(f.vencimento)}</div>
+              <div class="valor">${fmtBRL(f.valor_aberto || f.valor)}</div>
+            </div>
+            ${badge}
+          </div>
+          <div class="acoes">
+            <button class="btn" onclick="segundaVia('${f.id}', this)"><i class="ph ph-file-pdf"></i> 2ª via (PDF)</button>
+            ${f.linha_digitavel ? `<button class="btn ghost" onclick="copiar('${f.linha_digitavel}', this)"><i class="ph ph-copy"></i> Copiar código</button>` : ''}
+          </div>
+          <div class="copytip" id="tip-${f.id}">✓ Código de barras copiado!</div>
+        </div>`;
+    }
+
+    window.segundaVia = async (faturaId, btn) => {
+      const label = btn.innerHTML; loading(btn, true);
+      try {
+        const { data } = await api('segunda-via.php', { method: 'POST', body: { fatura_id: faturaId } });
+        if (!data.ok || !data.pdf_base64) { flash($('msg-painel'), data.message || 'Não consegui gerar a 2ª via.'); return; }
+        abrirPdf(data.pdf_base64);
+        flash($('msg-painel'), '');
+      } catch (err) {
+        flash($('msg-painel'), 'Falha ao gerar a 2ª via.');
+      } finally {
+        loading(btn, false, label);
+      }
+    };
+
+    function abrirPdf(b64) {
+      try {
+        const bin = atob(b64); const arr = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+        const url = URL.createObjectURL(new Blob([arr], { type: 'application/pdf' }));
+        window.open(url, '_blank');
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      } catch (e) { flash($('msg-painel'), 'PDF inválido recebido.'); }
+    }
+
+    window.copiar = async (texto, btn) => {
+      try { await navigator.clipboard.writeText(texto); } catch (e) {}
+      const tip = btn.closest('.fat').querySelector('.copytip');
+      if (tip) { tip.classList.add('on'); setTimeout(() => tip.classList.remove('on'), 2500); }
+    };
+
+    $('btn-sair').addEventListener('click', async () => {
+      try { await api('logout.php', { method: 'POST' }); } catch (e) {}
+      challenge = null; $('cpf').value = ''; show('step-cpf');
+    });
+  </script>
+</body>
+</html>

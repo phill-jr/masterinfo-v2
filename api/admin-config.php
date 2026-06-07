@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Validacao basica de estrutura (todas as secoes gerenciadas pelo admin)
-    $required = ['empresa', 'checkout', 'hero', 'stats', 'diferenciais', 'bairros', 'depoimentos', 'faq', 'planos', 'addons'];
+    $required = ['empresa', 'checkout', 'heroSlides', 'stats', 'diferenciais', 'bairros', 'depoimentos', 'faq', 'planos', 'addons'];
     $missing = [];
     foreach ($required as $key) {
         if (!isset($data[$key])) $missing[] = $key;
