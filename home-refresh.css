@@ -15,10 +15,10 @@
 :root {
   /* Par tipográfico com personalidade. Ambos fora da reflex-reject
      list da Impeccable (Outfit, Inter, DM Sans... eram defaults de IA).
-     Bricolage Grotesque = display com caráter (humano, confiante);
-     Hanken Grotesk = body quente e muito legível. Contraste no eixo
-     "caráter de display" vs "neutralidade de leitura", não dois sans iguais. */
-  --font-display: 'Bricolage Grotesque', 'Hanken Grotesk', system-ui, sans-serif;
+     Archivo = display confiante/encorpado (vibe telecom/energia, casa com
+     o laranja-fogo); Hanken Grotesk = body quente e muito legível. Contraste
+     por peso/proporção, não dois sans idênticos. */
+  --font-display: 'Archivo', 'Hanken Grotesk', system-ui, sans-serif;
   --font-main: 'Hanken Grotesk', system-ui, sans-serif;
 }
 
