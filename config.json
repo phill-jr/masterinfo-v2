@@ -481,7 +481,7 @@
     "faq": [
         {
             "pergunta": "Vocês são de Joinville?",
-            "resposta": "<strong>Sim.<\/strong> Nossa empresa nasceu aqui — são <strong>mais de 6 anos<\/strong> levando internet pra Joinville. Equipe local, técnicos da região."
+            "resposta": "<strong>Sim.<\/strong> Nossa empresa nasceu aqui, são <strong>mais de 6 anos<\/strong> levando internet pra Joinville. Equipe local, técnicos da região."
         },
         {
             "pergunta": "Quanto tempo demora a instalação?",
@@ -493,11 +493,11 @@
         },
         {
             "pergunta": "A internet é boa pra gamer?",
-            "resposta": "Muito. <strong>Ping baixo e latência estável<\/strong> — fibra óptica direto até sua casa, sem cabo compartilhado. Ideal pra jogar online, streamar e fazer live sem travamento."
+            "resposta": "Muito. <strong>Ping baixo e latência estável<\/strong>, com fibra óptica direto até sua casa, sem cabo compartilhado. Ideal pra jogar online, streamar e fazer live sem travamento."
         },
         {
             "pergunta": "O Wi-Fi pega em toda a casa?",
-            "resposta": "Sim. Trabalhamos com <strong>metodologia de Wi-Fi premium<\/strong> — temos planos que já vêm com <strong>2 roteadores<\/strong> pra cobrir cada canto da casa, sem ponto cego."
+            "resposta": "Sim. Trabalhamos com <strong>metodologia de Wi-Fi premium<\/strong>: temos planos que já vêm com <strong>2 roteadores<\/strong> pra cobrir cada canto da casa, sem ponto cego."
         }
     ],
     "planos": [

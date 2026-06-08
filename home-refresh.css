@@ -1,0 +1,102 @@
+/* ============================================================
+   HOME REFRESH — camada "anti-cara-de-IA" (Impeccable, pass 1)
+   ------------------------------------------------------------
+   Carregada SÓ na index-light.html, por ÚLTIMO (override).
+   Escopo: home / tema claro. NÃO afeta subpáginas nem index.html
+   (que continuam no Outfit até a propagação — pass de roll-out).
+
+   Pass 1 cobre os 2 tells mensuráveis do detector + os bans visíveis:
+     1. Fonte única "Outfit"  → par display (Bricolage) + body (Hanken)
+     2. Gradient-text (ban)   → cor sólida (ênfase por cor + peso)
+     3. Glows decorativos     → removidos/atenuados
+   Estrutura (hero-metric, card-grids idênticos, eyebrows) = pass 2.
+   ============================================================ */
+
+:root {
+  /* Par tipográfico com personalidade. Ambos fora da reflex-reject
+     list da Impeccable (Outfit, Inter, DM Sans... eram defaults de IA).
+     Bricolage Grotesque = display com caráter (humano, confiante);
+     Hanken Grotesk = body quente e muito legível. Contraste no eixo
+     "caráter de display" vs "neutralidade de leitura", não dois sans iguais. */
+  --font-display: 'Bricolage Grotesque', 'Hanken Grotesk', system-ui, sans-serif;
+  --font-main: 'Hanken Grotesk', system-ui, sans-serif;
+}
+
+/* Body já lê var(--font-main); reforço explícito por garantia. */
+body { font-family: var(--font-main); }
+
+/* ── Display nas headings de peso e nos números grandes ──
+   Hierarquia agora vem de DUAS famílias + peso, não de uma só. */
+.section-title,
+.plans-tab,
+.why-card h3,
+.faq-question,
+.final-cta h2,
+.sp-title,
+.footer-col h4,
+.referral-title,
+.story-title,
+.cta-banner-content h2,
+.hero-title,
+.copa-popup-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;   /* floor de display ≥ -0.04em (não apertar além) */
+}
+
+/* Números (velocidade / preço / stats): display, peso forte, tracking levemente menor */
+.plan-speed-num,
+.plan-value,
+.stat-number,
+.copa-popup-speed-num,
+.copa-popup-amount {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+/* ════════════════════════════════════════════════════════
+   BAN: gradient-text  (background-clip:text + fill transparente)
+   "Decorativo, nunca significativo." Vira cor SÓLIDA.
+   Sem !important de propósito: o seletor de 1 classe perde pro
+   .social-proof .sp-title .title-fire (3 classes), preservando o
+   creme sobre o fundo-fogo da prova social — que é intencional.
+   ════════════════════════════════════════════════════════ */
+
+/* Destaque dos títulos de seção ("combina com você", "toda a casa"):
+   laranja-escuro sólido sobre branco (≈3.4:1, passa em texto grande). */
+.title-fire,
+.hero-highlight {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--orange-dark);
+  color: var(--orange-dark);
+}
+
+/* Número de velocidade do plano: sólido escuro (legível no card branco),
+   sem o fade decorativo dark→laranja. */
+.plan-speed-num {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--text-primary);
+  color: var(--text-primary);
+}
+/* No card em destaque e no hover, o número assume o laranja da marca
+   (ênfase por COR, sem gradiente). */
+.plan-card.plan-featured .plan-speed-num,
+.plan-card:hover .plan-speed-num {
+  -webkit-text-fill-color: var(--orange-dark);
+  color: var(--orange-dark);
+}
+
+/* ── Glows decorativos: fora ──
+   Glow radial atrás do hero e do CTA = "vibe SaaS" sem função.
+   O grid de fundo do hero vira quase imperceptível. */
+.hero-glow,
+.final-cta-glow {
+  display: none;
+}
+.hero-bg-grid {
+  opacity: 0.35;
+}
