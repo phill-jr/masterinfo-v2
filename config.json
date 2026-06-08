@@ -508,63 +508,63 @@
             "tagline": "Casal \/ casa pequena",
             "velocidade": "600",
             "unidade": "Mega",
-            "precoPontual": 99.9,
-            "precoCheio": 109.9,
+            "precoPontual": 99.99,
+            "precoCheio": 109.99,
             "features": [
                 "Internet 600 Mega de fibra",
-                "SKY+ Light grátis (TV)",
-                "Wi-Fi + instalação 3 dias"
+                "App Master Standard (1 app de TV \/ mês)",
+                "Wi-Fi 6 + instalação 3 dias"
             ],
             "badge": null
         },
         {
-            "id": "lite-familia",
+            "id": "lite-premium",
             "linha": "LITE",
-            "nome": "Lite Família",
+            "nome": "Lite Premium",
             "tagline": "Família média \/ vários devices",
             "velocidade": "800",
             "unidade": "Mega",
-            "precoPontual": 109,
-            "precoCheio": 119,
-            "features": [
-                "Internet 800 Mega de fibra",
-                "SKY+ Light grátis (TV)",
-                "Wi-Fi + instalação 3 dias"
-            ],
-            "badge": "Pra família"
-        },
-        {
-            "id": "lite-home-office",
-            "linha": "LITE",
-            "nome": "Lite Home Office",
-            "tagline": "Trabalho remoto \/ reuniões",
-            "velocidade": "1",
-            "unidade": "Giga",
             "precoPontual": 119.9,
             "precoCheio": 129.9,
             "features": [
-                "Internet 1 Giga de fibra",
-                "SKY+ Light ou Deezer (à escolha)",
-                "Estabilidade pra reuniões"
+                "Internet 800 Mega de fibra",
+                "App Master Advanced (1 app de TV \/ mês)",
+                "Wi-Fi 6 + instalação 3 dias"
             ],
             "badge": "Mais procurado",
             "heroi": true
         },
         {
+            "id": "lite-basic",
+            "linha": "LITE",
+            "nome": "Lite Basic",
+            "tagline": "1 Giga sem TV — velocidade pura",
+            "velocidade": "1",
+            "unidade": "Giga",
+            "precoPontual": 129,
+            "precoCheio": 139,
+            "features": [
+                "Internet 1 Giga de fibra",
+                "Sem App de TV (velocidade pura)",
+                "Wi-Fi 6 + instalação 3 dias"
+            ],
+            "badge": null
+        },
+        {
             "id": "ultra-familia",
             "linha": "ULTRA",
             "nome": "Ultra Família",
-            "tagline": "Família grande + streaming completo",
-            "velocidade": "800",
-            "unidade": "Mega",
-            "precoPontual": 139.9,
+            "tagline": "Família grande + streaming premium",
+            "velocidade": "1",
+            "unidade": "Giga",
+            "precoPontual": 149.9,
             "precoCheio": 159.9,
             "features": [
-                "Internet 800 Mega de fibra",
-                "GloboPlay incluso",
-                "Roteador Mesh (Wi-Fi em toda casa)"
+                "Internet 1 Giga de fibra",
+                "App Master Premium (Disney+, HBO Max, GloboPlay…)",
+                "Mesh Wi-Fi 6 (cobertura total)"
             ],
-            "badge": null
+            "badge": "Pra família"
         },
         {
             "id": "ultra-home-office",
@@ -573,15 +573,61 @@
             "tagline": "Profissional \/ empresa em casa",
             "velocidade": "1",
             "unidade": "Giga",
-            "precoPontual": 218.6,
-            "precoCheio": 228.6,
+            "precoPontual": 179.9,
+            "precoCheio": 189.9,
             "features": [
-                "Internet 1 Giga de fibra",
-                "SKY+ Light + Disney+",
-                "Roteador Mesh premium"
+                "Internet 1 Giga + Kaspersky",
+                "App Master TOP + Advanced + Standard (3 apps de TV \/ mês)",
+                "Mesh Wi-Fi 6 (cobertura total)"
             ],
-            "badge": "Tudo incluso · Top",
+            "badge": "Tudo incluso",
             "upsellTop": true
+        },
+        {
+            "id": "ultra-gamer",
+            "linha": "ULTRA",
+            "nome": "Ultra Gamer",
+            "tagline": "Pra gamer — ping mínimo",
+            "velocidade": "1",
+            "unidade": "Giga",
+            "precoPontual": 189.9,
+            "precoCheio": 199.9,
+            "features": [
+                "Internet 1 Giga + ExitLag (ping mínimo)",
+                "App Master TOP + Premium (2 apps de TV \/ mês)",
+                "Mesh Wi-Fi 6 (cobertura total)"
+            ],
+            "badge": "Pra gamer"
+        }
+    ],
+    "playhub": [
+        {
+            "id": "standard",
+            "nome": "Standard",
+            "preco": 24.9,
+            "descricao": "Catálogo de entrada — 1 app\/mês",
+            "apps": ["Looke", "SKY+ Light", "Kiddle Pass", "+Q Nutri", "Kaspersky 1 Lic", "ExitLag", "PlayKids+", "Ubook Plus", "Estuda+"]
+        },
+        {
+            "id": "advanced",
+            "nome": "Advanced",
+            "preco": 34.9,
+            "descricao": "Catálogo intermediário — 1 app\/mês",
+            "apps": ["SKY+ Light c\/ Globo", "Deezer", "Kaspersky 3 Lic", "HotGo", "CurtaOn", "Kiddle Pass", "O Jornalista", "Docway"]
+        },
+        {
+            "id": "top",
+            "nome": "TOP",
+            "preco": 39.99,
+            "descricao": "Catálogo top — 1 app\/mês",
+            "apps": ["Amazon Prime", "Apple TV", "GloboPlay", "Disney+ (Ads)", "HBO Max (Ads)", "SKY+", "Indie", "Leitura 360"]
+        },
+        {
+            "id": "premium",
+            "nome": "Premium",
+            "preco": 45.99,
+            "descricao": "Catálogo premium — versões sem ads",
+            "apps": ["Disney+", "HBO Max", "GloboPlay", "Kaspersky 5 Lic", "SmartContent", "Queima Diária", "Zen"]
         }
     ],
     "addons": [
@@ -718,7 +764,7 @@
         "ratingCount": "2382"
     },
     "copaPopup": {
-        "on": true,
+        "on": false,
         "selo": "PLANO COPA DO MUNDO 2026",
         "titulo": "Vai vibrar com a Seleção?",
         "destaque": "Vibra com 1000 Mega.",

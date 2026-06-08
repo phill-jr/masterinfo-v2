@@ -44,7 +44,7 @@ INTERNET = [
             ("☁️", "Upload turbinado", "Mandar arquivo grande, fazer backup em nuvem, sem espera."),
             ("⚡", "Latência baixa", "Resposta rápida em ferramentas em tempo real."),
         ],
-        "plans": ["lite-home-office", "ultra-home-office"],
+        "plans": ["lite-premium", "ultra-home-office"],
         "cta": "Quero internet pra home office",
     },
     {
@@ -59,7 +59,7 @@ INTERNET = [
             ("🔥", "Zero perda de pacote", "Não vai mais cair partida ranqueada no meio."),
             ("📡", "Fibra dedicada", "Sem cabo compartilhado com vizinho fazendo download."),
         ],
-        "plans": ["lite-home-office", "ultra-home-office"],
+        "plans": ["ultra-gamer", "lite-basic"],
         "cta": "Quero internet de gamer",
     },
     {
@@ -74,7 +74,7 @@ INTERNET = [
             ("📺", "Streaming em 4K", "Netflix, Disney+, Globoplay e SKY+ rodando em qualquer TV da casa."),
             ("🛡️", "Wi-Fi seguro pra criança", "Suporte pra controle parental e antivírus Kaspersky opcional."),
         ],
-        "plans": ["lite-familia", "ultra-familia"],
+        "plans": ["lite-premium", "ultra-familia"],
         "cta": "Quero internet pra família",
     },
     {
@@ -89,7 +89,7 @@ INTERNET = [
             ("🔄", "Rede inteligente", "Seu celular troca de roteador sozinho, sem cair conexão."),
             ("🚀", "Wi-Fi 6", "Velocidade máxima nos dispositivos modernos."),
         ],
-        "plans": ["ultra-familia", "ultra-home-office"],
+        "plans": ["ultra-familia", "ultra-home-office", "ultra-gamer"],
         "cta": "Quero Wi-Fi em toda a casa",
     },
     {
@@ -104,7 +104,7 @@ INTERNET = [
             ("💸", "Preço justo", "A partir de R$ 79,90/mês — sem letra miúda."),
             ("⚡", "Fibra óptica real", "Mesmo plano de entrada, mesma fibra dos planos premium."),
         ],
-        "plans": ["lite-casa", "lite-familia", "lite-home-office"],
+        "plans": ["lite-casa", "lite-premium", "lite-basic"],
         "cta": "Quero plano com 1 roteador",
     },
 ]
@@ -199,57 +199,81 @@ AJUDA = [
 ]
 
 PLANS_MAP = {
+    # ─── LINHA LITE — 1 Roteador Wi-Fi 6 ───
     "lite-casa": {
-        "nome": "1 Roteador", "speed": "600", "preco": "99,90", "preco_cheio": "109,90",
-        "apps": [{"logo": "sky.jpg", "nome": "SKY Light"}],
+        "nome": "Lite Casa", "linha": "LITE",
+        "speed": "600", "unit": "Mega",
+        "preco": "99,99", "preco_cheio": "109,99",
+        "apps": [{"logo": "sky.jpg", "nome": "App Master Standard"}],
         "features": [
-            "Wi-Fi em 1 ambiente",
-            "SKY+ Light grátis",
+            "Wi-Fi 6 em 1 ambiente",
+            "1 app de TV / mês (categoria Standard)",
             "Suporte Sábado e Domingo",
         ],
     },
-    "lite-familia": {
-        "nome": "1 Roteador", "speed": "800", "preco": "109,00", "preco_cheio": "119,00",
-        "apps": [{"logo": "sky.jpg", "nome": "SKY Light"}],
+    "lite-premium": {
+        "nome": "Lite Premium", "linha": "LITE",
+        "speed": "800", "unit": "Mega",
+        "preco": "119,90", "preco_cheio": "129,90",
+        "apps": [{"logo": "sky.jpg", "nome": "App Master Advanced"}],
         "features": [
-            "Wi-Fi em 1 ambiente",
-            "SKY+ Light grátis",
+            "Wi-Fi 6 em 1 ambiente",
+            "1 app de TV / mês (categoria Advanced)",
             "Velocidade pra família",
         ],
     },
-    "lite-home-office": {
-        "nome": "1 Roteador", "speed": "1000", "preco": "119,90", "preco_cheio": "129,90",
-        "apps": [
-            {"logo": "sky.jpg", "nome": "SKY Light"},
-            {"logo": "deezer.webp", "nome": "Deezer"},
-        ],
-        "apps_sep": "ou",
+    "lite-basic": {
+        "nome": "Lite Basic", "linha": "LITE",
+        "speed": "1", "unit": "Giga",
+        "preco": "129,00", "preco_cheio": "139,00",
+        "apps": [],
         "features": [
-            "Wi-Fi em 1 ambiente",
-            "Escolha entre SKY+ Light ou Deezer",
-            "1 Giga para trabalho remoto",
+            "Wi-Fi 6 em 1 ambiente",
+            "Sem app de TV (velocidade pura)",
+            "1 Giga pra trabalho remoto",
         ],
     },
+    # ─── LINHA ULTRA — Mesh Wi-Fi 6 ───
     "ultra-familia": {
-        "nome": "2 Roteadores", "speed": "800", "preco": "139,90", "preco_cheio": "159,90",
-        "apps": [{"logo": "globoplay.png", "nome": "Globoplay"}],
+        "nome": "Ultra Família", "linha": "ULTRA",
+        "speed": "1", "unit": "Giga",
+        "preco": "149,90", "preco_cheio": "159,90",
+        "apps": [{"logo": "disney-plus.png", "nome": "App Master Premium"}],
         "features": [
-            "Wi-Fi em toda a casa (Mesh)",
-            "Globoplay incluso",
-            "Cobertura sem ponto cego",
+            "Mesh Wi-Fi 6 (cobertura total)",
+            "1 app de TV / mês (categoria Premium)",
+            "Streaming sem trava em qualquer canto",
         ],
     },
     "ultra-home-office": {
-        "nome": "2 Roteadores", "speed": "1000", "preco": "218,60", "preco_cheio": "228,60",
+        "nome": "Ultra Home Office", "linha": "ULTRA",
+        "speed": "1", "unit": "Giga",
+        "preco": "179,90", "preco_cheio": "189,90",
         "apps": [
-            {"logo": "sky.jpg", "nome": "SKY Light"},
-            {"logo": "disney-plus.png", "nome": "Disney+"},
+            {"logo": "globoplay.png", "nome": "App Master TOP"},
+            {"logo": "sky.jpg", "nome": "App Master Advanced"},
+            {"logo": "kaspersky.webp", "nome": "Kaspersky"},
         ],
         "apps_sep": "+",
         "features": [
-            "Wi-Fi em toda a casa (Mesh)",
-            "SKY+ Light + Disney+ inclusos",
-            "Suporte prioritário",
+            "Mesh Wi-Fi 6 (cobertura total)",
+            "3 apps de TV / mês (TOP + Advanced + Standard)",
+            "Kaspersky pra segurança dos dados",
+        ],
+    },
+    "ultra-gamer": {
+        "nome": "Ultra Gamer", "linha": "ULTRA",
+        "speed": "1", "unit": "Giga",
+        "preco": "189,90", "preco_cheio": "199,90",
+        "apps": [
+            {"logo": "exitlag.png", "nome": "ExitLag"},
+            {"logo": "globoplay.png", "nome": "App Master TOP"},
+        ],
+        "apps_sep": "+",
+        "features": [
+            "Mesh Wi-Fi 6 (cobertura total)",
+            "2 apps de TV / mês (TOP + Premium)",
+            "ExitLag — ping mínimo no online",
         ],
     },
 }
