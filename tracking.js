@@ -282,7 +282,9 @@
     if (typeof window.fbq === 'function') {
       var fbMap = {
         'generate_lead': function () { window.fbq('track', 'Lead', { content_name: params.plan || 'Site MasterInfo', content_category: 'Internet Fibra', value: params.value || 0, currency: 'BRL' }); },
-        'purchase': function () { window.fbq('track', 'Purchase', { content_name: params.plan || '', content_category: 'Internet Fibra', value: params.value || 0, currency: 'BRL' }); },
+        // 'purchase' = conclusão do checkout NO SITE (signup, não pagamento) → CompleteRegistration.
+        // O Purchase REAL (contrato assinado) sai só pelo CAPI server-side, no mesmo pixel → evita contar 2x.
+        'purchase': function () { window.fbq('track', 'CompleteRegistration', { content_name: params.plan || '', content_category: 'Internet Fibra', value: params.value || 0, currency: 'BRL' }); },
         'begin_checkout': function () { window.fbq('track', 'InitiateCheckout', { content_name: params.plan || '', value: params.value || 0, currency: 'BRL' }); },
         'cep_check': function () { window.fbq('trackCustom', 'CEPCheck', { cep: params.cep, viable: params.viable }); },
         'whatsapp_click': function () { window.fbq('trackCustom', 'WhatsAppClick', { context: params.context }); },

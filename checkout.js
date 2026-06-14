@@ -913,7 +913,8 @@
           orderId: orderNum
         });
       } else if (typeof fbq === 'function') {
-        fbq('track', 'Purchase', {
+        // Purchase REAL fica só no CAPI (contrato assinado). Aqui é signup do site → CompleteRegistration.
+        fbq('track', 'CompleteRegistration', {
           content_name: p.name + ' ' + p.speed + ' ' + p.speedUnit,
           content_category: 'Internet Fibra',
           value: state.totalMensal,
