@@ -164,6 +164,16 @@ if (!empty(BITRIX_WEBHOOK)) {
         if ($jornada !== '' && $deal_id) {
             bx_timeline_comment((int) $deal_id, 'deal', $jornada);
         }
+
+        // 4. fbclid / _fbp → campos do Negócio (p/ o CAPI do Sync Hub mandar fbc/fbp no Purchase).
+        //    Inerte até o admin criar os campos no Bitrix e definir BITRIX_UF_FBCLID / BITRIX_UF_FBP
+        //    em secrets/config.php (ex.: define('BITRIX_UF_FBCLID', 'UF_CRM_1700000000');).
+        if ($deal_id && (defined('BITRIX_UF_FBCLID') || defined('BITRIX_UF_FBP'))) {
+            $ufFields = [];
+            if (defined('BITRIX_UF_FBCLID') && !empty($input['fbclid'])) $ufFields[BITRIX_UF_FBCLID] = mb_substr((string) $input['fbclid'], 0, 255);
+            if (defined('BITRIX_UF_FBP') && !empty($input['fbp']))       $ufFields[BITRIX_UF_FBP]    = mb_substr((string) $input['fbp'], 0, 255);
+            if ($ufFields) bx_request('crm.deal.update.json', ['id' => $deal_id, 'fields' => $ufFields]);
+        }
     } catch (\Throwable $e) {
         error_log('[MasterInfo Checkout] Bitrix24 error: ' . get_class($e) . ': ' . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
         // Não falha o checkout por erro do CRM

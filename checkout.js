@@ -257,6 +257,8 @@
 
     // Grava lead no CRM (best-effort) antes do WhatsApp — não perde o lead se a pessoa não enviar.
     var jornadaSimple = (typeof window.miJourneyText === 'function') ? window.miJourneyText() : '';
+    var attSimple = (typeof window.miAttribution === 'function') ? window.miAttribution() : {};
+    if (typeof window.miIdentify === 'function') window.miIdentify({ nome: nome, phone: phoneDigits });
     try {
       fetch(API_BASE + 'form-submit.php', {
         method: 'POST', keepalive: true,
@@ -266,6 +268,7 @@
           telefone: phoneDigits,
           observacao: 'Checkout (modo simples) · Plano: ' + (p ? (p.name + ' ' + p.speed + ' ' + p.speedUnit) : '—') + (end ? ' · CEP: ' + state.viabilidade.cep : ''),
           jornada: jornadaSimple,
+          fbclid: attSimple.fbclid || '', fbp: attSimple.fbp || '', fbc: attSimple.fbc || '',
           origem: 'Checkout simples (site)'
         } })
       }).catch(function () {});
@@ -732,6 +735,12 @@
       referencia: val('ck_referencia'),
     };
 
+    // Correspondência Avançada (Advanced Matching) — dados completos do cliente.
+    if (typeof window.miIdentify === 'function') {
+      var _v = state.viabilidade || {}, _e = _v.endereco || {};
+      window.miIdentify({ nome: nome, email: email, phone: phoneDigits, cpf: cpfDigits, cidade: _e.cidade, uf: _e.uf, cep: _v.cep });
+    }
+
     goToStep(4);
   };
 
@@ -886,6 +895,8 @@
     // Envia o pedido pro Bitrix (api/checkout.php cria Contato + Negócio) e segue
     // pro sucesso de qualquer jeito (best-effort). Anexa a jornada do cliente.
     orderData.jornada = (typeof window.miJourneyText === 'function') ? window.miJourneyText() : '';
+    var _att = (typeof window.miAttribution === 'function') ? window.miAttribution() : {};
+    orderData.fbclid = _att.fbclid || ''; orderData.fbp = _att.fbp || ''; orderData.fbc = _att.fbc || '';
     var fallbackNum = 'MI-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 99999)).padStart(5, '0');
 
     function finalizeCheckout(orderNum) {

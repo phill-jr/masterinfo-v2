@@ -18,6 +18,7 @@
   'use strict';
 
   var cfg = null;
+  var miUserData = null;   // dados do cliente p/ Correspondência Avançada (Advanced Matching)
 
   // ═══════════════════════════════════════════════
   //  JORNADA DO CLIENTE (1st-party → comentário do lead no Bitrix)
@@ -215,9 +216,56 @@
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
     (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
     /* jshint ignore:end */
-    window.fbq('init', id);
+    // 2º arg = Correspondência Avançada (e-mail/telefone/nome/CPF). Se já identificado, vai junto;
+    // o fbevents.js faz o hash SHA-256 no navegador. Eleva a qualidade de correspondência (EMQ).
+    window.fbq('init', id, miUserData || undefined);
     window.fbq('track', 'PageView');
   }
+
+  // ═══════════════════════════════════════════════
+  //  CORRESPONDÊNCIA AVANÇADA (Advanced Matching) + ATRIBUIÇÃO
+  // ═══════════════════════════════════════════════
+
+  // Normaliza dados do cliente p/ Advanced Matching (lowercase/trim/dígitos).
+  // O fbevents.js faz o hash SHA-256 no navegador antes de enviar.
+  function buildAdvancedMatching(u) {
+    var am = {};
+    if (!u) return am;
+    if (u.email) am.em = String(u.email).trim().toLowerCase();
+    if (u.phone) { var d = String(u.phone).replace(/\D/g, ''); if (d) am.ph = (d.length <= 11 ? '55' + d : d); }
+    if (u.nome) {
+      var parts = String(u.nome).trim().toLowerCase().split(/\s+/);
+      if (parts[0]) am.fn = parts[0];
+      if (parts.length > 1) am.ln = parts[parts.length - 1];
+    }
+    if (u.cpf) am.external_id = String(u.cpf).replace(/\D/g, '');
+    if (u.cidade) am.ct = String(u.cidade).trim().toLowerCase().replace(/\s+/g, '');
+    if (u.uf) am.st = String(u.uf).trim().toLowerCase();
+    if (u.cep) am.zp = String(u.cep).replace(/\D/g, '');
+    return am;
+  }
+
+  // Identifica o cliente (Advanced Matching). Pode ser chamada a qualquer momento do checkout;
+  // se o pixel ainda não inicializou (sem consentimento), guarda p/ usar no init.
+  window.miIdentify = function (user) {
+    try {
+      var am = buildAdvancedMatching(user);
+      if (!am || !Object.keys(am).length) return;
+      miUserData = Object.assign(miUserData || {}, am);
+      if (typeof window.fbq === 'function' && cfg && cfg.facebookPixelId && _inited.fb) {
+        window.fbq('init', cfg.facebookPixelId, miUserData); // re-init adiciona AM aos próximos eventos
+      }
+    } catch (e) {}
+  };
+
+  // Identificadores de atribuição p/ enviar ao Bitrix (→ o CAPI do Sync Hub usa como fbc/fbp).
+  window.miAttribution = function () {
+    var src = {}; try { src = JSON.parse(sessionStorage.getItem(SRC_KEY)) || {}; } catch (e) {}
+    var fbp = (document.cookie.match(/_fbp=([^;]+)/) || [])[1] || '';
+    var fbc = (document.cookie.match(/_fbc=([^;]+)/) || [])[1] || '';
+    if (!fbc && src.fbclid) fbc = 'fb.1.' + Date.now() + '.' + src.fbclid; // monta o fbc a partir do fbclid
+    return { fbclid: src.fbclid || '', fbp: fbp, fbc: fbc, gclid: src.gclid || '' };
+  };
 
   // ═══════════════════════════════════════════════
   //  EVENTO CENTRAL: miTrack()
