@@ -648,6 +648,9 @@
       <button class="tab" data-tab="planos" onclick="switchTab('planos')">
         <i class="ph ph-lightning"></i> Planos
       </button>
+      <button class="tab" data-tab="playhub" onclick="switchTab('playhub')">
+        <i class="ph ph-app-store-logo"></i> PlayHub
+      </button>
       <button class="tab" data-tab="addons" onclick="switchTab('addons')">
         <i class="ph ph-plus-circle"></i> Extras
       </button>
@@ -897,6 +900,19 @@
         <button class="btn btn-primary" onclick="addPlano()"><i class="ph ph-plus"></i> Novo plano</button>
       </div>
       <div id="planosContainer"></div>
+    </div>
+
+    <!-- TAB: PlayHub (categorias de apps) -->
+    <div class="tab-content" id="tab-playhub">
+      <div class="section-help" style="margin-bottom:16px;">
+        <i class="ph ph-info"></i>
+        <span><strong>PlayHub</strong> é o catálogo de apps que aparece nos cards de plano e na seção da home. Cada categoria tem um preço avulso e uma lista de apps. Em cada plano (na aba <strong>Planos</strong>) você define quais categorias dão acesso.</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3 style="font-size:1.1rem;font-weight:700;">Categorias PlayHub</h3>
+        <button class="btn btn-primary" onclick="addPlayhubCategoria()"><i class="ph ph-plus"></i> Nova categoria</button>
+      </div>
+      <div id="playhubContainer"></div>
     </div>
 
     <!-- TAB: Extras -->
@@ -1517,6 +1533,7 @@
     renderBairros();
     renderFaqAdmin();
     renderPlanos();
+    renderPlayhub();
     renderAddons();
     renderTracking();
     renderSeo();
@@ -2423,6 +2440,18 @@
           '</div>' +
         '</div>' +
         '<div class="form-group">' +
+          '<label>Categorias PlayHub liberadas (marca quais este plano dá acesso)</label>' +
+          '<div style="display:flex;flex-wrap:wrap;gap:8px;padding:8px;background:rgba(0,0,0,0.03);border-radius:6px;">' +
+            ((config.playhub || []).map(function(cat) {
+              var checked = (p.categorias || []).indexOf(cat.id) !== -1 ? 'checked' : '';
+              return '<label style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-size:.9rem;padding:4px 10px;background:#fff;border:1px solid #ddd;border-radius:6px;">' +
+                '<input type="checkbox" ' + checked + ' onchange="togglePlanoCategoria(' + i + ',\'' + esc(cat.id) + '\',this.checked)" style="margin:0;">' +
+                '<span style="color:' + esc(cat.cor || '#444') + ';font-weight:600;">' + esc(cat.nome) + '</span>' +
+                '</label>';
+            }).join('') || '<span style="font-size:.85rem;color:#888;">Cadastre categorias na aba PlayHub primeiro.</span>') +
+          '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
           '<label>Diferenciais</label>' +
           '<div class="features-list" id="features-' + i + '">' +
             p.features.map(function(f, fi) {
@@ -2448,6 +2477,15 @@
       var p = config.planos[i];
       p.id = slugify(p.nome) + '-' + p.velocidade;
     }
+    markDirty();
+  };
+
+  window.togglePlanoCategoria = function(planoIdx, catId, on) {
+    var p = config.planos[planoIdx];
+    if (!p.categorias) p.categorias = [];
+    var idx = p.categorias.indexOf(catId);
+    if (on && idx === -1) p.categorias.push(catId);
+    if (!on && idx !== -1) p.categorias.splice(idx, 1);
     markDirty();
   };
 
@@ -2486,6 +2524,113 @@
     if (!confirm('Remover o plano "' + config.planos[i].nome + '"?')) return;
     config.planos.splice(i, 1);
     renderPlanos();
+    markDirty();
+  };
+
+  // ─── PlayHub (categorias de apps) ───
+  function renderPlayhub() {
+    var container = document.getElementById('playhubContainer');
+    if (!container) return;
+    if (!config.playhub) config.playhub = [];
+
+    var html = '';
+    config.playhub.forEach(function(cat, i) {
+      var apps = cat.apps || [];
+      html += '<div class="item-card" data-cat-index="' + i + '" style="border-left:4px solid ' + esc(cat.cor || '#6b7280') + ';">' +
+        '<div class="item-card-header">' +
+          '<h4 style="color:' + esc(cat.cor || '#1a1a1a') + ';"><i class="ph-fill ph-app-store-logo"></i> ' + esc(cat.nome) + ' — ' + apps.length + ' apps</h4>' +
+          '<div class="item-card-actions">' +
+            '<button class="btn-icon danger" onclick="removePlayhubCategoria(' + i + ')" title="Remover"><i class="ph ph-trash"></i></button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-row">' +
+          '<div class="form-group">' +
+            '<label>Nome</label>' +
+            '<input type="text" value="' + esc(cat.nome) + '" oninput="updatePlayhubCat(' + i + ',\'nome\',this.value)">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>ID (slug)</label>' +
+            '<input type="text" value="' + esc(cat.id) + '" oninput="updatePlayhubCat(' + i + ',\'id\',this.value)">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Preço avulso (R$/mês)</label>' +
+            '<input type="number" step="0.01" value="' + (cat.preco != null ? cat.preco : '') + '" oninput="updatePlayhubCat(' + i + ',\'preco\',parseFloat(this.value))">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Cor (hex)</label>' +
+            '<input type="color" value="' + esc(cat.cor || '#6b7280') + '" oninput="updatePlayhubCat(' + i + ',\'cor\',this.value)" style="height:38px;padding:2px;">' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label>Descrição curta</label>' +
+          '<input type="text" value="' + esc(cat.descricao || '') + '" oninput="updatePlayhubCat(' + i + ',\'descricao\',this.value)">' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label>Apps desta categoria</label>' +
+          '<div id="playhubApps-' + i + '" style="display:flex;flex-direction:column;gap:6px;">' +
+            apps.map(function(a, ai) {
+              return '<div style="display:flex;gap:6px;align-items:center;">' +
+                '<input type="text" placeholder="Nome" value="' + esc(a.nome) + '" oninput="updatePlayhubApp(' + i + ',' + ai + ',\'nome\',this.value)" style="flex:1;">' +
+                '<input type="text" placeholder="Logo (ex: imgs/sky.jpg ou vazio)" value="' + esc(a.logo || '') + '" oninput="updatePlayhubApp(' + i + ',' + ai + ',\'logo\',this.value)" style="flex:1.4;">' +
+                '<button class="btn-icon danger" onclick="removePlayhubApp(' + i + ',' + ai + ')" title="Remover"><i class="ph ph-trash"></i></button>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+          '<div style="margin-top:8px;display:flex;gap:6px;">' +
+            '<input type="text" placeholder="Nome do novo app" id="newApp-' + i + '" style="flex:1;" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addPlayhubApp(' + i + ')}">' +
+            '<button class="btn" onclick="addPlayhubApp(' + i + ')"><i class="ph ph-plus"></i> Adicionar app</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  window.updatePlayhubCat = function(i, key, val) {
+    config.playhub[i][key] = val;
+    markDirty();
+  };
+
+  window.addPlayhubCategoria = function() {
+    if (!config.playhub) config.playhub = [];
+    config.playhub.push({
+      id: 'nova-cat-' + Date.now(),
+      nome: 'Nova Categoria',
+      preco: 19.9,
+      cor: '#6b7280',
+      descricao: 'Descrição curta',
+      apps: []
+    });
+    renderPlayhub();
+    markDirty();
+  };
+
+  window.removePlayhubCategoria = function(i) {
+    if (!confirm('Remover a categoria "' + config.playhub[i].nome + '"?')) return;
+    config.playhub.splice(i, 1);
+    renderPlayhub();
+    markDirty();
+  };
+
+  window.addPlayhubApp = function(i) {
+    var input = document.getElementById('newApp-' + i);
+    var val = (input.value || '').trim();
+    if (!val) return;
+    if (!config.playhub[i].apps) config.playhub[i].apps = [];
+    config.playhub[i].apps.push({ nome: val, logo: '' });
+    input.value = '';
+    renderPlayhub();
+    markDirty();
+  };
+
+  window.updatePlayhubApp = function(catIdx, appIdx, key, val) {
+    config.playhub[catIdx].apps[appIdx][key] = val;
+    markDirty();
+  };
+
+  window.removePlayhubApp = function(catIdx, appIdx) {
+    config.playhub[catIdx].apps.splice(appIdx, 1);
+    renderPlayhub();
     markDirty();
   };
 

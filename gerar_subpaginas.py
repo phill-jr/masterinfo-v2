@@ -110,47 +110,67 @@ INTERNET = [
 ]
 
 APLICATIVOS = [
+    # cats: em quais categorias do PlayHub esse app aparece (cruzado em compute_escolher_em)
     {"slug": "sky-light", "name": "SKY+ Light", "tag": "TV ao vivo",
-     "desc": "Canais de TV no celular, smart TV ou computador. Esportes, jornalismo, novelas — onde você estiver.",
+     "desc": "Canais de TV no celular, smart TV ou computador. Esportes, jornalismo, novelas, onde você estiver.",
      "logo": "sky.jpg",
      "highlights": ["50+ canais ao vivo", "App pra smart TV, celular e PC", "Sem antena, sem parabólica"],
-     "incluso_em": "Lite Casa, Família, Home Office e toda linha Ultra"},
+     "cats": ["standard", "advanced", "top"]},  # SKY+ Light (std), c/ Globo (adv), SKY+ (top)
     {"slug": "deezer", "name": "Deezer", "tag": "Música sem anúncios",
      "desc": "Mais de 90 milhões de músicas em alta qualidade. Sem propaganda, modo offline, playlists personalizadas.",
      "logo": "deezer.webp",
      "highlights": ["90M+ músicas em HD", "Modo offline (baixe e ouça sem net)", "Sem nenhum anúncio"],
-     "incluso_em": "Lite Home Office (à escolha entre SKY+ Light ou Deezer)"},
+     "cats": ["advanced"]},
     {"slug": "globoplay", "name": "Globoplay", "tag": "Novelas e esportes",
      "desc": "Novelas inéditas, séries originais, futebol ao vivo e tudo da Globo on demand.",
      "logo": "globoplay.png",
      "highlights": ["Novelas e séries Globo", "Futebol ao vivo (Brasileirão, Libertadores)", "Filmes Telecine inclusos"],
-     "incluso_em": "Ultra Família"},
+     "cats": ["top", "premium"]},
     {"slug": "disney-plus", "name": "Disney+", "tag": "Disney, Pixar, Marvel",
-     "desc": "Disney, Pixar, Marvel, Star Wars e National Geographic — tudo em um único app, sem anúncios.",
+     "desc": "Disney, Pixar, Marvel, Star Wars e National Geographic. Tudo em um único app.",
      "logo": "disney-plus.png",
-     "highlights": ["Tudo da Disney, Pixar, Marvel", "Star Wars e Nat Geo", "4K, Dolby Atmos, sem ads"],
-     "incluso_em": "Ultra Home Office"},
+     "highlights": ["Tudo da Disney, Pixar, Marvel", "Star Wars e Nat Geo", "4K, Dolby Atmos"],
+     "cats": ["top", "premium"]},  # TOP (Ads) + Premium (sem ads)
     {"slug": "hbo-max", "name": "HBO Max", "tag": "Séries premium e Warner",
      "desc": "Séries originais da HBO, filmes Warner, DC, Cartoon Network. As maiores produções num só lugar.",
      "logo": "hbo-max.jpg",
      "highlights": ["Game of Thrones, House of the Dragon, The Last of Us", "Filmes Warner em estreia", "DC Universe completo"],
-     "incluso_em": "Add-on disponível em todos os planos"},
+     "cats": ["top", "premium"]},  # TOP (Ads) + Premium (sem ads)
     {"slug": "prime-video", "name": "Prime Video", "tag": "Amazon Originals",
      "desc": "Séries originais Amazon (The Boys, Reacher, Rings of Power), filmes em estreia e clássicos.",
      "logo": "prime-video.png",
      "highlights": ["The Boys, Reacher, Fallout", "Filmes em estreia", "Combo com SKY+ Light disponível"],
-     "incluso_em": "Add-on combo SKY+ Light + Amazon"},
+     "cats": ["top"]},
     {"slug": "exitlag", "name": "Exitlag", "tag": "Otimizador pra gamers",
-     "desc": "Reduz seu ping até 70% em jogos online — Valorant, CS, LoL, Fortnite. Conexão otimizada por servidores dedicados.",
+     "desc": "Reduz seu ping até 70% em jogos online: Valorant, CS, LoL, Fortnite. Conexão otimizada por servidores dedicados.",
      "logo": "exitlag.png",
      "highlights": ["Ping até 70% menor", "Suporta 1.000+ jogos", "Servidores dedicados pra gamers"],
-     "incluso_em": "Add-on disponível em todos os planos"},
+     "cats": ["standard"]},
     {"slug": "kaspersky", "name": "Kaspersky", "tag": "Antivírus premium",
-     "desc": "Proteção completa pra 3 dispositivos. Antivírus, VPN, gerenciador de senhas e proteção pra crianças.",
+     "desc": "Proteção completa pra até 5 dispositivos. Antivírus, VPN, gerenciador de senhas e proteção pra crianças.",
      "logo": "kaspersky.webp",
-     "highlights": ["Protege até 3 dispositivos", "VPN ilimitada inclusa", "Controle parental e antivírus"],
-     "incluso_em": "Add-on disponível em todos os planos"},
+     "highlights": ["Protege seu PC, celular e da família", "VPN ilimitada inclusa", "Controle parental e antivírus"],
+     "cats": ["standard", "advanced", "premium"]},  # 1 Lic (std), 3 Lic (adv), 5 Lic (prem)
 ]
+
+
+def compute_escolher_em(app_cats):
+    """Cruza as categorias PlayHub do app com os planos do config.json e
+    retorna lista [(nome_plano, categoria_nome), ...] dos planos que liberam
+    pelo menos uma das categorias do app. Ex.: app SKY+ Light tem cats=[standard,
+    advanced, top] -> retorna [(Lite Casa, Standard), (Lite Premium, Advanced),
+    (Ultra Home Office, Standard), (Ultra Gamer, TOP)] etc."""
+    planos = CONFIG.get("planos") or []
+    playhub = CONFIG.get("playhub") or []
+    cat_nome = {c["id"]: c.get("nome", c["id"]) for c in playhub}
+    out = []
+    for p in planos:
+        p_cats = p.get("categorias") or []
+        # Pega a PRIMEIRA cat do plano que casa com as do app (evita duplicar plano)
+        match_cat = next((c for c in p_cats if c in app_cats), None)
+        if match_cat:
+            out.append((p.get("nome", p.get("id", "?")), cat_nome.get(match_cat, match_cat)))
+    return out
 
 AJUDA = [
     {
@@ -280,7 +300,7 @@ PLANS_MAP = {
 
 # ─── HEADER + FOOTER COMUNS ──────────────────────────────────────────
 
-def head(title, depth):
+def head(title, depth, extra_head=""):
     base = "../" * depth
     return f'''<!DOCTYPE html>
 <html lang="pt-BR">
@@ -297,6 +317,7 @@ def head(title, depth):
   <link rel="icon" type="image/svg+xml" href="{base}favicon.svg">
   <link rel="stylesheet" href="{base}styles.css?v=20260531-e">
   <link rel="stylesheet" href="{base}modal.css?v=20260531-e">
+  {extra_head}
   <style>:root{{--site-scale:{SITE_SCALE}}}</style>
 </head>
 <body>'''
@@ -405,7 +426,7 @@ def render_footer_cols(base):
     return "\n".join(blocks)
 
 
-def footer(depth, boleto=True):
+def footer(depth, boleto=True, extra_scripts=""):
     base = "../" * depth
     boleto_html = (f'''
   <!-- ========== BOLETO / 2ª VIA FLOAT ========== -->
@@ -513,6 +534,7 @@ def footer(depth, boleto=True):
   }})();
   </script>
 {boleto_html}
+{extra_scripts}
   <script src="/tracking.js?v=20260603a" defer></script>
   <script src="/cookie-consent.js?v=20260603-cc"></script>
 </body>
@@ -665,7 +687,29 @@ def page_app(a, depth=2):
     for h in a["highlights"]:
         highlights_html += f'<li><i class="ph-fill ph-check-circle"></i> {h}</li>'
 
-    return f'''{head(a["name"], depth)}
+    # Cruza categorias do app com os planos do config.json (validado).
+    escolher = compute_escolher_em(a.get("cats") or [])
+    if escolher:
+        items = "".join(
+            f'<li><i class="ph-fill ph-check"></i> <strong>{nome_p}</strong> <span class="sub-app-cat">categoria {cat_nome}</span></li>'
+            for nome_p, cat_nome in escolher)
+        escolher_html = f'''
+      <div class="sub-app-escolher">
+        <h3>Onde você pode escolher esse app</h3>
+        <p class="sub-app-escolher-sub">Cada plano libera uma categoria PlayHub e você escolhe 1 app por mês dentro dela.</p>
+        <ul class="sub-app-escolher-list">{items}</ul>
+      </div>'''
+    else:
+        escolher_html = '''
+      <div class="sub-app-escolher sub-app-escolher-empty">
+        <p>Esse app é vendido como add-on avulso. Fala com a gente pelo WhatsApp pra contratar.</p>
+      </div>'''
+
+    base = "../" * depth
+    extra_head = f'<link rel="stylesheet" href="{base}playhub.css?v=20260603-c">'
+    extra_scripts = f'  <script src="{base}playhub.js?v=20260603-c" defer></script>'
+
+    return f'''{head(a["name"], depth, extra_head=extra_head)}
 {header(depth)}
 
   <!-- HERO da subpágina (app) -->
@@ -683,7 +727,7 @@ def page_app(a, depth=2):
     </div>
   </section>
 
-  <!-- O que tem -->
+  <!-- O que tem + onde escolher -->
   <section class="sub-section sub-section-light">
     <div class="container sub-section-narrow">
       <div class="section-header section-header-tight">
@@ -691,13 +735,34 @@ def page_app(a, depth=2):
       </div>
       <ul class="sub-app-features">{highlights_html}
       </ul>
-      <p class="sub-app-incluso">
-        <strong>Disponível em:</strong> {a["incluso_em"]}
-      </p>
+{escolher_html}
     </div>
   </section>
 
-{footer(depth)}'''
+  <!-- ========== PLAYHUB · APPS POR CATEGORIA ========== -->
+  <section class="playhub-section" id="playhub">
+    <div class="container">
+      <div class="ph-head">
+        <div class="ph-head-text">
+          <span class="ph-eyebrow">PlayHub</span>
+          <h2 class="ph-title">Aproveite com a <span class="title-fire">MasterInfo</span></h2>
+          <p class="ph-subtitle">Em qualquer plano com app de TV, você escolhe 1 app por mês dentro da sua categoria. Mais de 30 opções entre streaming, segurança, educação e mais.</p>
+        </div>
+        <a href="#playhub-howto" class="ph-aux-btn">Como funciona <i class="ph ph-info"></i></a>
+      </div>
+
+      <div id="playhub-grid" class="playhub-grid">
+        <!-- preenchido pelo playhub.js -->
+      </div>
+
+      <div class="playhub-howto" id="playhub-howto">
+        <i class="ph-fill ph-info"></i>
+        <span>Cada plano tem uma categoria liberada. Os planos Ultra Home Office e Ultra Gamer dão acesso a mais de uma categoria, com 1 escolha por mês em cada.</span>
+      </div>
+    </div>
+  </section>
+
+{footer(depth, extra_scripts=extra_scripts)}'''
 
 
 # Widget de chat de boletos (Marina). String comum (NÃO f-string) p/ não conflitar

@@ -13,6 +13,7 @@
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="stylesheet" href="../styles.css?v=20260531-l">
   <link rel="stylesheet" href="../modal.css?v=20260531-l">
+  <link rel="stylesheet" href="../playhub.css?v=20260603-c">
 
   <style>
     /* ───────── Página TV e Streaming ───────── */
@@ -100,12 +101,13 @@
     }
     .tvs-hero-logo:hover { transform: translateY(-4px) scale(1.05); }
 
-    /* App blocks */
+    /* App blocks — sempre preto, texto branco */
     .tvs-app {
       padding: 70px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      background: #1a1a1a;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .tvs-app:nth-child(even) { background: #faf7f2; }
     .tvs-app-inner {
       display: grid;
       grid-template-columns: 1fr 1.2fr;
@@ -120,7 +122,8 @@
       align-items: center;
       justify-content: center;
       padding: 30px;
-      background: var(--bg, linear-gradient(135deg, #f3f0e9, #fff));
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 22px;
       min-height: 240px;
     }
@@ -139,7 +142,8 @@
       flex-direction: column;
       gap: 18px;
       padding: 24px;
-      background: var(--bg, linear-gradient(135deg, #f3f0e9, #fff));
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 22px;
     }
     .tvs-app-visual-logo {
@@ -210,7 +214,7 @@
       font-weight: 900;
       letter-spacing: -0.02em;
       margin-bottom: 10px;
-      color: #1a1a1a;
+      color: #fff;
     }
     .tvs-app-tag {
       display: inline-block;
@@ -225,7 +229,7 @@
     .tvs-app-content p {
       font-size: 1.05rem;
       line-height: 1.6;
-      color: #444;
+      color: rgba(255,255,255,0.72);
       margin-bottom: 18px;
     }
     .tvs-app-features {
@@ -241,43 +245,35 @@
       align-items: center;
       gap: 10px;
       font-size: 0.98rem;
-      color: #333;
+      color: rgba(255,255,255,0.85);
     }
-    .tvs-app-features i { color: #00b86b; font-size: 1.15rem; }
+    .tvs-app-features i { color: #00d97e; font-size: 1.15rem; }
     .tvs-app-incluso {
       display: inline-block;
       padding: 8px 14px;
-      background: linear-gradient(135deg, rgba(252,195,5,0.15), rgba(255,122,5,0.15));
-      border: 1px solid rgba(255,122,5,0.3);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 10px;
       font-size: 0.85rem;
-      color: #c1121f;
+      color: rgba(255,255,255,0.85);
       margin-bottom: 18px;
     }
-    .tvs-app-incluso strong { color: #1a1a1a; }
+    .tvs-app-incluso strong { color: #fff; }
     .tvs-app-cta {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       padding: 12px 22px;
-      background: var(--orange);
-      color: #fff;
+      background: #fff;
+      color: #1a1a1a;
       font-weight: 700;
       border-radius: 999px;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: opacity 0.2s;
     }
-    .tvs-app-cta:hover { background: var(--red); }
+    .tvs-app-cta:hover { opacity: 0.88; }
 
-    /* Brand-colored backgrounds per app */
-    .tvs-app-skylight .tvs-app-visual { background: linear-gradient(135deg, #d4001a 0%, #ff0024 100%); }
-    .tvs-app-globoplay .tvs-app-visual { background: linear-gradient(135deg, #ff5400 0%, #ff8800 100%); }
-    .tvs-app-disney .tvs-app-visual { background: linear-gradient(135deg, #001a4d 0%, #003daa 100%); }
-    .tvs-app-hbomax .tvs-app-visual { background: linear-gradient(135deg, #0a0a23 0%, #2d1b69 100%); }
-    .tvs-app-prime .tvs-app-visual { background: linear-gradient(135deg, #00050a 0%, #001a3d 100%); }
-    .tvs-app-deezer .tvs-app-visual { background: linear-gradient(135deg, #1a0033 0%, #4a1480 50%, #6b1fb3 100%); }
-    .tvs-app-exitlag .tvs-app-visual { background: linear-gradient(135deg, #1a0a0a 0%, #4a1a00 50%, #ff6b00 100%); }
-    .tvs-app-kaspersky .tvs-app-visual { background: linear-gradient(135deg, #0a1f0a 0%, #0d3b1a 50%, #00b86b 100%); }
+    /* Removidos gradientes coloridos: tudo preto/branco coerente */
 
     /* Matriz de planos */
     .tvs-matrix {
@@ -368,28 +364,29 @@
     .tvs-final {
       padding: 90px 0;
       text-align: center;
-      background: linear-gradient(135deg, #ff7a05 0%, #fcc305 100%);
-      color: #1a1a1a;
+      background: #000;
+      color: #fff;
     }
     .tvs-final h2 {
       font-size: clamp(1.8rem, 4vw, 2.8rem);
       font-weight: 900;
       letter-spacing: -0.02em;
       margin-bottom: 14px;
+      color: #fff;
     }
     .tvs-final p {
       font-size: 1.1rem;
       max-width: 540px;
       margin: 0 auto 30px;
-      opacity: 0.85;
+      color: rgba(255,255,255,0.72);
     }
     .tvs-final-cta {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       padding: 18px 38px;
-      background: #1a1a1a;
-      color: #fff;
+      background: #fff;
+      color: #1a1a1a;
       font-weight: 800;
       border-radius: 999px;
       text-decoration: none;
@@ -420,6 +417,7 @@
                   <li><a href="../gamer/" class="dropdown-link">Gamer</a></li>
                   <li><a href="../com-2-roteadores/" class="dropdown-link">Com 2 Roteadores</a></li>
                   <li><a href="../com-1-roteador/" class="dropdown-link">Com 1 Roteador</a></li>
+                  <li><a href="../tv-streaming/" class="dropdown-link">TV & Streaming</a></li>
                 </ul>
               </div>
             </div>
@@ -799,6 +797,29 @@
     </div>
   </section>
 
+  <!-- ========== PLAYHUB · APPS POR CATEGORIA ========== -->
+  <section class="playhub-section" id="playhub">
+    <div class="container">
+      <div class="ph-head">
+        <div class="ph-head-text">
+          <span class="ph-eyebrow">PlayHub</span>
+          <h2 class="ph-title">Aproveite com a <span class="title-fire">MasterInfo</span></h2>
+          <p class="ph-subtitle">Em qualquer plano com app de TV, você escolhe 1 app por mês dentro da sua categoria. Mais de 30 opções entre streaming, segurança, educação e mais.</p>
+        </div>
+        <a href="#playhub-howto" class="ph-aux-btn">Como funciona <i class="ph ph-info"></i></a>
+      </div>
+
+      <div id="playhub-grid" class="playhub-grid">
+        <!-- preenchido pelo playhub.js -->
+      </div>
+
+      <div class="playhub-howto" id="playhub-howto">
+        <i class="ph-fill ph-info"></i>
+        <span>Cada plano tem uma categoria liberada. Os planos Ultra Home Office e Ultra Gamer dão acesso a mais de uma categoria, com 1 escolha por mês em cada.</span>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA FINAL -->
   <section class="tvs-final">
     <div class="container">
@@ -917,6 +938,7 @@
     <i class="ph-fill ph-barcode"></i>
     <span class="boleto-pulse"></span>
   </a>
+  <script src="../playhub.js?v=20260603-c" defer></script>
   <script src="../marina-widget.js?v=20260602-a" defer></script>
   <script src="/tracking.js?v=20260603a" defer></script>
   <script src="/cookie-consent.js?v=20260603-cc"></script>

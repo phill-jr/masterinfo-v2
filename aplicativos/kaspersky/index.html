@@ -13,6 +13,7 @@
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="stylesheet" href="../../styles.css?v=20260531-e">
   <link rel="stylesheet" href="../../modal.css?v=20260531-e">
+  <link rel="stylesheet" href="../../playhub.css?v=20260603-c">
   <style>:root{--site-scale:0.85}</style>
 </head>
 <body>
@@ -35,6 +36,7 @@
                   <li><a href="../../gamer/" class="dropdown-link">Gamer</a></li>
                   <li><a href="../../com-2-roteadores/" class="dropdown-link">Com 2 Roteadores</a></li>
                   <li><a href="../../com-1-roteador/" class="dropdown-link">Com 1 Roteador</a></li>
+                  <li><a href="../../tv-streaming/" class="dropdown-link">TV & Streaming</a></li>
                 </ul>
               </div>
             </div>
@@ -93,23 +95,49 @@
       <div class="sub-app-content">
         <span class="sub-hero-tag">APLICATIVO · Antivírus premium</span>
         <h1 class="sub-hero-title">Kaspersky</h1>
-        <p class="sub-hero-subtitle">Proteção completa pra 3 dispositivos. Antivírus, VPN, gerenciador de senhas e proteção pra crianças.</p>
+        <p class="sub-hero-subtitle">Proteção completa pra até 5 dispositivos. Antivírus, VPN, gerenciador de senhas e proteção pra crianças.</p>
         <a href="../../#planos" class="sub-hero-cta">Ver planos com Kaspersky <i class="ph ph-arrow-right"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- O que tem -->
+  <!-- O que tem + onde escolher -->
   <section class="sub-section sub-section-light">
     <div class="container sub-section-narrow">
       <div class="section-header section-header-tight">
         <h2 class="section-title">O que vem incluso</h2>
       </div>
-      <ul class="sub-app-features"><li><i class="ph-fill ph-check-circle"></i> Protege até 3 dispositivos</li><li><i class="ph-fill ph-check-circle"></i> VPN ilimitada inclusa</li><li><i class="ph-fill ph-check-circle"></i> Controle parental e antivírus</li>
+      <ul class="sub-app-features"><li><i class="ph-fill ph-check-circle"></i> Protege seu PC, celular e da família</li><li><i class="ph-fill ph-check-circle"></i> VPN ilimitada inclusa</li><li><i class="ph-fill ph-check-circle"></i> Controle parental e antivírus</li>
       </ul>
-      <p class="sub-app-incluso">
-        <strong>Disponível em:</strong> Add-on disponível em todos os planos
-      </p>
+
+      <div class="sub-app-escolher">
+        <h3>Onde você pode escolher esse app</h3>
+        <p class="sub-app-escolher-sub">Cada plano libera uma categoria PlayHub e você escolhe 1 app por mês dentro dela.</p>
+        <ul class="sub-app-escolher-list"><li><i class="ph-fill ph-check"></i> <strong>Lite Casa</strong> <span class="sub-app-cat">categoria Standard</span></li><li><i class="ph-fill ph-check"></i> <strong>Lite Premium</strong> <span class="sub-app-cat">categoria Advanced</span></li><li><i class="ph-fill ph-check"></i> <strong>Ultra Família</strong> <span class="sub-app-cat">categoria Premium</span></li><li><i class="ph-fill ph-check"></i> <strong>Ultra Home Office</strong> <span class="sub-app-cat">categoria Advanced</span></li><li><i class="ph-fill ph-check"></i> <strong>Ultra Gamer</strong> <span class="sub-app-cat">categoria Premium</span></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PLAYHUB · APPS POR CATEGORIA ========== -->
+  <section class="playhub-section" id="playhub">
+    <div class="container">
+      <div class="ph-head">
+        <div class="ph-head-text">
+          <span class="ph-eyebrow">PlayHub</span>
+          <h2 class="ph-title">Aproveite com a <span class="title-fire">MasterInfo</span></h2>
+          <p class="ph-subtitle">Em qualquer plano com app de TV, você escolhe 1 app por mês dentro da sua categoria. Mais de 30 opções entre streaming, segurança, educação e mais.</p>
+        </div>
+        <a href="#playhub-howto" class="ph-aux-btn">Como funciona <i class="ph ph-info"></i></a>
+      </div>
+
+      <div id="playhub-grid" class="playhub-grid">
+        <!-- preenchido pelo playhub.js -->
+      </div>
+
+      <div class="playhub-howto" id="playhub-howto">
+        <i class="ph-fill ph-info"></i>
+        <span>Cada plano tem uma categoria liberada. Os planos Ultra Home Office e Ultra Gamer dão acesso a mais de uma categoria, com 1 escolha por mês em cada.</span>
+      </div>
     </div>
   </section>
 
@@ -128,11 +156,11 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="../../" class="logo"><img src="../../imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img"></a>
-          <p>Internet fibra óptica de verdade. Mais de 6 anos conectando famílias e empresas em Joinville.</p>
+          <p>Internet fibra óptica de verdade. Mais de 6 anos conectando famílias e empresas.</p>
           <div class="footer-social">
-            <a href="https://www.instagram.com/masterinfo.internet" target="_blank" rel="noopener" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
-            <a href="https://www.facebook.com/masterinfointernet" target="_blank" rel="noopener" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
-            <a href="https://wa.me/554734341734" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+            <a href="https://www.instagram.com/masterinfo.internet" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+            <a href="https://www.facebook.com/masterinfointernet" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://wa.me/554734341734" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
           </div>
         </div>
         <div class="footer-col">
@@ -229,6 +257,7 @@
     }
   })();
   </script>
+
   <!-- ========== BOLETO / 2ª VIA FLOAT ========== -->
   <a href="/ajuda/boletos" class="boleto-float" aria-label="Boletos e 2ª via de fatura">
     <span class="boleto-tooltip">
@@ -239,6 +268,7 @@
     <span class="boleto-pulse"></span>
   </a>
   <script src="../../marina-widget.js?v=20260602-a" defer></script>
+  <script src="../../playhub.js?v=20260603-c" defer></script>
   <script src="/tracking.js?v=20260603a" defer></script>
   <script src="/cookie-consent.js?v=20260603-cc"></script>
 </body>
