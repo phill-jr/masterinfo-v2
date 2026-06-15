@@ -685,6 +685,22 @@ body::before {
   padding-bottom: 16px;
 }
 
+/* ═══ FIX REGRESSÃO PlayHub: vão branco interno nos cards de plano ═══
+   A redesign PlayHub (playhub.js) troca .plan-apps-list por .plan-apps-vitrine,
+   de ALTURA VARIÁVEL por card (logos quebram linha nos planos cheios). Como
+   .plans-grid é grid STRETCH (default), todos os cards da linha eram esticados à
+   altura do MAIS ALTO, e o `.btn-plan{margin-top:auto}` empurrava o botão pro
+   fundo — abrindo um VÃO BRANCO entre as features e o botão (a "faixa branca").
+   Fix: cards no TAMANHO DO CONTEÚDO (align-items:start, sem stretch) → o botão
+   fica logo após as features, sem vão. A vitrine define a própria altura
+   (min-height:0). Escopado a .plans-grid (só a home light). NÃO mexe em escala. */
+.plans-grid {
+  align-items: start;
+}
+.plans-grid .plan-apps {
+  min-height: 0;
+}
+
 /* ═══════════════════════════════════════════
    ACCENT FOGO (--gradient-brand) — fio condutor da marca
    Usado como ACCENT (texto branco por cima), nunca como fundo de texto escuro.
