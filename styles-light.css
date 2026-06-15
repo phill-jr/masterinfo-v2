@@ -10,9 +10,9 @@
 :root {
   /* Neutrals (inverted scale) */
   --black: #ffffff;
-  --gray-950: #f7f3ec;
-  --gray-900: #f0eae1;
-  --gray-800: #e6ded2;
+  --gray-950: #f8f8fb;
+  --gray-900: #f2f2f5;
+  --gray-800: #e8e8ec;
   --gray-700: #d4d4d8;
   --gray-600: #a1a1aa;
   --gray-500: #71717a;
@@ -31,16 +31,16 @@
   --text-muted: #6a6a7a;
 
   /* Shadows (lighter) */
-  --shadow-sm: 0 1px 3px rgba(70,50,25,0.06);
-  --shadow-md: 0 4px 20px rgba(70,50,25,0.08);
-  --shadow-lg: 0 8px 40px rgba(70,50,25,0.10);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.1);
   --shadow-glow: 0 0 60px rgba(255,122,5,0.08);
   --shadow-glow-strong: 0 0 80px rgba(255,122,5,0.14);
 }
 
 /* ---------- Base ---------- */
 body {
-  background: #fdfaf6;
+  background: #ffffff;
   color: #4a4a5a;
   -webkit-font-smoothing: auto;
 }
@@ -165,7 +165,7 @@ body {
    HERO
    ======================================== */
 .hero {
-  background: linear-gradient(180deg, #ffffff 0%, #fdf1e4 50%, #ffffff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fef8f2 50%, #ffffff 100%);
 }
 
 .hero-bg-grid {
@@ -237,7 +237,7 @@ body {
 .plan-card {
   background: #ffffff;
   border-color: rgba(0,0,0,0.08);
-  box-shadow: 0 2px 14px rgba(70,50,25,0.05);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 }
 
 .plan-card:hover {
@@ -309,7 +309,7 @@ body {
    WHY SECTION
    ======================================== */
 .why {
-  background: #f7f2ea;
+  background: #f8f8fb;
 }
 
 .why::before,
@@ -320,7 +320,7 @@ body {
 .why-card {
   background: #ffffff;
   border-color: rgba(0,0,0,0.06);
-  box-shadow: 0 2px 12px rgba(70,50,25,0.06);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.03);
 }
 
 .why-card:hover {
@@ -425,7 +425,7 @@ body {
    TESTIMONIALS
    ======================================== */
 .testimonials {
-  background: #f7f2ea;
+  background: #f8f8fb;
 }
 
 .testimonials::before {
@@ -435,7 +435,7 @@ body {
 .testimonial-card {
   background: #ffffff;
   border-color: rgba(0,0,0,0.06);
-  box-shadow: 0 2px 12px rgba(70,50,25,0.06);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.03);
 }
 
 .testimonial-card:hover {
@@ -597,7 +597,7 @@ body {
    STATS SECTION
    ======================================== */
 .stats {
-  background: #f7f2ea;
+  background: #f8f8fb;
   border-top: 1px solid rgba(0,0,0,0.06);
   border-bottom: 1px solid rgba(0,0,0,0.06);
 }
@@ -675,16 +675,7 @@ body::before {
     radial-gradient(ellipse at 12% 12%, rgba(255,122,5,0.16) 0%, transparent 55%),
     radial-gradient(ellipse at 88% 85%, rgba(255,122,5,0.12) 0%, transparent 55%),
     linear-gradient(135deg, #fff1e2 0%, #ffe7d2 100%);
-  /* Aperta o vão branco planos→cobertura (era 120px). */
-  padding-top: 20px;
 }
-
-/* Aperta o vão branco abaixo dos planos (era 120px). O card é 826px fixo com o
-   botão dentro — reduzir este padding NÃO corta botão (medido). */
-.plans.plans-light {
-  padding-bottom: 16px;
-}
-
 
 /* ═══════════════════════════════════════════
    ACCENT FOGO (--gradient-brand) — fio condutor da marca
@@ -860,45 +851,3 @@ body::before {
 
 /* INDIQUE E GANHE: card é FOGO nos 2 temas (base no styles.css) — sem override
    de tema claro aqui de propósito. Ver bloco .referral* em styles.css. */
-
-/* ═══════════════════════════════════════════
-   FUNDO QUENTE nas seções NEUTRAS que REALMENTE renderizam na home
-   (config.secoesOrdem = hero, planos1, planos2, cobertura, indique, cta, faq).
-   As 2 seções de planos eram #fff PURO (fixo no styles.css) e o FAQ não tinha
-   fundo → esse era o grande bloco branco "sem vida". Agora creme quente: os
-   cards brancos (#fff) saltam e o calor da marca (fogo) flui pela página toda,
-   ligando hero → planos → cobertura → prova social.
-   Especificidade .plans.plans-X (0,2,0) ≥ base, e este arquivo vem depois do
-   @import → vence o #fff base sem !important.
-   ═══════════════════════════════════════════ */
-/* RITMO (não chapar): faixas adjacentes precisam diferir, senão vira tapete
-   creme uniforme = também "sem vida". planos1 claro → planos2 mais quente
-   (constrói calor e entrega na Cobertura/fogo). faq volta ao claro = banda de
-   descanso entre o CTA escuro e o rodapé escuro. Cards brancos (#fff) saltam
-   nos dois tons. */
-.plans.plans-dark {
-  background: #fdf8f1;
-}
-.plans.plans-light {
-  background: #f6ecdd;
-}
-
-.faq {
-  background: #fdf8f1;
-}
-
-/* ═══ FIX: botão "Contratar" sumindo na 2ª linha (Ultra) = a "faixa branca" ═══
-   O JS injeta `reveal-stagger` em `.plans-grid`: os cards entram animando
-   (transform: translateY(30px) → none) ao dar scroll. Na 2ª linha de planos,
-   que anima JÁ no scroll sob `body{zoom}`, a transição de transform deixa o
-   RODAPÉ do card com paint OBSOLETO no Chrome → o botão "Contratar" não pinta e
-   abre um vão branco até a Cobertura. Quem usa "reduzir movimento" nunca viu o
-   bug (o @media reduced-motion, L6640, pula a animação) — por isso variava por
-   máquina. Solução: cards de plano aparecem ESTÁTICOS (sem o transform do
-   reveal), idêntico ao comportamento reduced-motion — sem camada de composição,
-   sem glitch de paint. Hover do card é só border/shadow (NÃO usa transform),
-   então nada quebra. Vale pros dois grids (Lite e Ultra). NÃO mexe na escala. */
-.plans-grid.reveal-stagger > * {
-  opacity: 1 !important;
-  transform: none !important;
-}
