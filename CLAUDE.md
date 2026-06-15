@@ -13,4 +13,10 @@ Você está na pasta **certa**. Esta é a versão ATIVA / produção do site Mas
 - Subpáginas (familia, gamer, home-office, tv-streaming, aplicativos/*) são geradas por `gerar_subpaginas.py` — **texto chumbado no Python, NÃO lê o config**.
 - `copa/`, `api/form-submit.php`, `api/admin/bitrix-*.php`, `secrets/bitrix-mapping.json` = captação de lead (Bitrix24), fora do conteúdo do admin.
 
-Histórico e detalhes mais finos ficam na memória do projeto (`repos-masterinfo`, `v2-arquitetura`).
+## ⚠️ Tema claro — armadilha de cor (a "faixa branca", 15/06/2026)
+Antes de mexer na **cor de fundo das seções** do `index-light.html`, leia o bloco de aviso no **topo do `styles-light.css`**. Resumo:
+- O light **inverte** os neutros (`--black:#ffffff`, `--bg-base`→#fff). Qualquer regra herdada do `styles.css` (tema dark) com `#fff`/`var(--black)`/`var(--bg-base)` de **fundo** vira BRANCO sólido no claro — invisível enquanto a seção é branca, salta quando o fundo vira creme.
+- A **"faixa branca"** entre os cards de plano e a Cobertura era o pseudo `.plans-light::after` (styles.css:7237) virando `#fff→#fff` (bloco de 120px). Já está `display:none` no fim do `styles-light.css` — **não reative**. Causa-raiz completa: memória `faixa-branca-licao`.
+- **Sempre** testar cor em `localhost:8091` + verificar **no DOM** (`getComputedStyle(el,'::after').display`), nunca em screenshot do Chrome MCP — ele tem o **scroll travado sob `body{zoom}`** e os prints mentem.
+
+Histórico e detalhes mais finos ficam na memória do projeto (`repos-masterinfo`, `v2-arquitetura`, `faixa-branca-licao`).

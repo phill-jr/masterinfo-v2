@@ -6,6 +6,38 @@
    borders, shadows. No layout changes.
    ======================================== */
 
+/* ⚠️⚠️⚠️ LEIA ANTES DE MEXER NA COR DE FUNDO DAS SEÇÕES ⚠️⚠️⚠️
+   ────────────────────────────────────────────────────────────────────────────
+   ARMADILHA #1 — TOKENS INVERTIDOS viram BRANCO:
+   Neste arquivo (linha ~12) o tema claro INVERTE os neutros: `--black: #ffffff`,
+   `--white: #1a1a2e`, e `--bg-base` (definido no styles.css) resolve para
+   `var(--black)` = #fff. Logo, QUALQUER regra herdada do styles.css (tema dark)
+   que use `#fff`, `var(--black)` ou `var(--bg-base)` como FUNDO/gradiente vira
+   um BLOCO BRANCO no tema claro. Enquanto as seções eram brancas, isso ficava
+   invisível. Se você ESCURECE/AQUECE o fundo das seções, esses brancos saltam.
+
+   ARMADILHA #2 — PSEUDOS DE TRANSIÇÃO DE SEÇÃO (a famigerada "faixa branca"):
+   O styles.css tem `.plans-dark::after`, `.plans-light::after` e `.plans-light::before`
+   (styles.css ~7212/7224/7237): faixas absolutas de 80–120px no topo/rodapé das
+   seções de planos, com `linear-gradient(... , #fff / var(--bg-base))`. Foram
+   feitas pra FUNDIR os planos com a antiga seção escura `#nossa-historia` no DARK.
+   No light viram #fff sólido. Como `#nossa-historia` está `display:none`
+   (`historia.on=false`), a Cobertura peach encostava no rodapé e expunha o branco
+   = a "faixa branca" que custou horas (15/06/2026). → JÁ NEUTRALIZADOS com
+   `display:none` no fim deste arquivo. NÃO reative sem testar.
+
+   COMO MUDAR COR COM SEGURANÇA (processo obrigatório):
+   1) Edite SÓ aqui (styles-light.css). Mantenha as seções de planos num tom
+      QUASE-BRANCO (contraste ≤ ~10 vs #fff) pra não revelar vão/branco dos cards.
+   2) Teste em http://localhost:8091/index-light.html com Ctrl+Shift+R.
+   3) VERIFIQUE NO DOM, não em screenshot: o Chrome MCP tem o scroll TRAVADO sob
+      `body{zoom}` (--site-scale) → prints mentem. Cheque assim no console:
+        getComputedStyle(document.querySelector('.plans-light'),'::after').display  // tem que dar "none"
+   4) Bug visual que não cede em 1–2 tentativas? NÃO chute cor: rode varredura
+      multi-agente do CSS (foi o que achou a causa). Detalhes: memória
+      `faixa-branca-licao` + commit do fix dos pseudos.
+   ──────────────────────────────────────────────────────────────────────────── */
+
 /* ---------- CSS Variables ---------- */
 :root {
   /* Neutrals (inverted scale) */
@@ -669,12 +701,16 @@ body::before {
 }
 
 /* Cobertura: fundo da secao com tom laranja mais presente (creme/pessego),
-   destacando o card do mapa (branco) sobre ele. Mantem textos legiveis. */
+   destacando o card do mapa (branco) sobre ele. Mantem textos legiveis.
+   IMPORTANTE: o gradiente COMECA no #fdfaf6 (mesmo tom dos planos/body) no topo
+   e SO depois vira pessego. Sem isso, havia um DEGRAU de cor entre o creme dos
+   planos e o pessego da cobertura = a "faixa". Comecando igual, o espaco flui
+   pra dentro da cobertura sem emenda. 180deg (vertical) = topo uniforme. */
 .coverage {
   background:
     radial-gradient(ellipse at 12% 12%, rgba(255,122,5,0.16) 0%, transparent 55%),
     radial-gradient(ellipse at 88% 85%, rgba(255,122,5,0.12) 0%, transparent 55%),
-    linear-gradient(135deg, #fff1e2 0%, #ffe7d2 100%);
+    linear-gradient(180deg, #fdfaf6 0%, #fff1e2 24%, #ffe7d2 100%);
 }
 
 /* ═══════════════════════════════════════════
@@ -851,3 +887,84 @@ body::before {
 
 /* INDIQUE E GANHE: card é FOGO nos 2 temas (base no styles.css) — sem override
    de tema claro aqui de propósito. Ver bloco .referral* em styles.css. */
+
+/* ═══════════════════════════════════════════
+   PALETA QUENTE v2 — "vida" SEM a faixa branca (15/06/2026)
+   ───────────────────────────────────────────
+   Lição da v1 (revertida em 3ecc1ec): fundo de seção saturado (#f6ecdd) ATRÁS
+   dos cards fazia o ESPAÇO VAZIO dos cards (grid stretch → cards curtos viram
+   retângulos brancos) saltar como "faixa branca".
+   Princípio v2: o calor vem de PROFUNDIDADE (neutros + sombras quentes) e dos
+   gradientes que JÁ existem (hero / cobertura / fogo) — NUNCA de chapar creme
+   atrás dos cards. As seções de planos ficam num quente quase-branco (= tom do
+   body), então o vazio branco do card quase não contrasta = sem faixa.
+   ═══════════════════════════════════════════ */
+
+/* Neutros e sombras QUENTES (r>g>b) — calor global sem chapar cor de fundo */
+:root {
+  --gray-950: #f7f3ec;
+  --gray-900: #f0eae1;
+  --gray-800: #e6ded2;
+  --shadow-sm: 0 1px 3px rgba(70,50,25,0.06);
+  --shadow-md: 0 4px 20px rgba(70,50,25,0.08);
+  --shadow-lg: 0 8px 40px rgba(70,50,25,0.10);
+}
+
+/* Canvas off-white quente (não branco-gelado) — base "com vida" e UNIFORME */
+body {
+  background: #fdfaf6;
+}
+
+/* Hero: creme um tom mais presente no meio do gradiente */
+.hero {
+  background: linear-gradient(180deg, #ffffff 0%, #fdf1e4 50%, #ffffff 100%);
+}
+
+/* Cards saltam por SOMBRA QUENTE (profundidade) — é isto que substitui o creme
+   saturado atrás deles. Borda quase igual, sombra quente = depth sem faixa. */
+.plan-card {
+  box-shadow: 0 2px 14px rgba(70,50,25,0.05);
+}
+.why-card,
+.testimonial-card {
+  box-shadow: 0 2px 12px rgba(70,50,25,0.06);
+}
+
+/* Seções de PLANOS: quente quase-branco = tom do body. Contraste com o card
+   branco ~3% → o espaço vazio dos cards NÃO vira faixa. As duas no MESMO tom =
+   sem emenda entre planos1 e planos2 (são adjacentes). */
+.plans.plans-dark,
+.plans.plans-light {
+  background: #fdfaf6;
+}
+
+/* Seções SEM card-vazio (prova social) podem puxar um creme um tom acima, pra
+   dar ritmo. Não renderizam na home atual, mas ficam corretas se entrarem. */
+.why,
+.testimonials,
+.stats {
+  background: #f7f2ea;
+}
+
+/* FAQ: creme leve = banda de descanso antes do rodapé escuro. Itens são
+   acordeões (não cards altos vazios) → sem risco de faixa. */
+.faq {
+  background: #fdf8f1;
+}
+
+/* ═══ FIX VERIFICADO (workflow 6 agentes) — a TIRA BRANCA real ═══
+   A faixa NÃO era cor de fundo nem o gradiente da cobertura. Era o pseudo
+   .plans-light::after (styles.css:7237): faixa absoluta de 120px no rodapé da
+   seção, background linear-gradient(to bottom, #fff, var(--bg-base)). No tema
+   claro --black=#fff (styles-light.css:12) → --bg-base=#fff → o gradiente vira
+   #fff→#fff = BLOCO SÓLIDO de #fff puro, mais claro que o fundo #fdfaf6 = a
+   tira branca. Existia pra fundir os planos com a antiga seção escura
+   #nossa-historia (hoje display:none, historia.on=false); sem ela embaixo, a
+   cobertura peach encosta no rodapé e expõe o #fff. No tema claro esses fades
+   brancos não servem. Matando os 3. Verificado por 2 agentes adversariais:
+   elimina a faixa, não quebra stretch/featured/mobile/dark/reveal. */
+.plans-light::after,
+.plans-light::before,
+.plans-dark::after {
+  display: none;
+}
