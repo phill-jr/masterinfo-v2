@@ -676,13 +676,13 @@ body::before {
     radial-gradient(ellipse at 88% 85%, rgba(255,122,5,0.12) 0%, transparent 55%),
     linear-gradient(135deg, #fff1e2 0%, #ffe7d2 100%);
   /* Aperta o vão branco planos→cobertura (era 120px). */
-  padding-top: 28px;
+  padding-top: 20px;
 }
 
 /* Aperta o vão branco abaixo dos planos (era 120px). O card é 826px fixo com o
    botão dentro — reduzir este padding NÃO corta botão (medido). */
 .plans.plans-light {
-  padding-bottom: 24px;
+  padding-bottom: 16px;
 }
 
 /* ═══════════════════════════════════════════
