@@ -96,13 +96,15 @@ try {
             // com o número que o WhatsApp grava (ver _bitrix-helper.php).
             $bucket['PHONE'] = [['VALUE' => bx_normalize_phone_br((string) $value), 'VALUE_TYPE' => 'MOBILE']];
         } elseif ($field === 'EMAIL') {
-            $bucket['EMAIL'] = [['VALUE' => $value, 'VALUE_TYPE' => 'WORK']];
+            $bucket['EMAIL'] = [['VALUE' => bx_sanitize_text(is_scalar($value) ? (string) $value : '', 254), 'VALUE_TYPE' => 'WORK']];
         } else {
+            // Texto livre do visitante → sanitiza (XSS armazenado no Bitrix + injeção em log).
+            $clean = bx_sanitize_text(is_scalar($value) ? (string) $value : '');
             // Concatena se mesmo campo recebe vários (ex: COMMENTS)
             if (isset($bucket[$field])) {
-                $bucket[$field] .= "\n" . $value;
+                $bucket[$field] .= "\n" . $clean;
             } else {
-                $bucket[$field] = $value;
+                $bucket[$field] = $clean;
             }
         }
     }
@@ -133,9 +135,12 @@ try {
     if ($cfg['entity'] === 'deal') {
         // Título do deal (template opcional)
         if (!empty($cfg['deal_title_template'])) {
+            // O template é admin (confiável); os VALORES vêm do visitante → sanitiza cada um.
             $title = $cfg['deal_title_template'];
-            foreach ($data as $k => $v) $title = str_replace('{' . $k . '}', (string) $v, $title);
-            $dealFields['TITLE'] = $title;
+            foreach ($data as $k => $v) {
+                $title = str_replace('{' . $k . '}', bx_sanitize_text(is_scalar($v) ? (string) $v : '', 200), $title);
+            }
+            $dealFields['TITLE'] = mb_substr($title, 0, 250, 'UTF-8');
         }
         if (empty($dealFields['TITLE'])) $dealFields['TITLE'] = $cfg['label'];
         $dealFields['CATEGORY_ID'] = $cfg['category_id'];
@@ -166,7 +171,7 @@ try {
     if ($entityId && !empty($data['gclid']) && in_array($cfg['entity'], ['deal', 'lead'], true)) {
         try {
             $ufGclid = defined('BITRIX_UF_GCLID') ? BITRIX_UF_GCLID : 'UF_CRM_GCLID';
-            $gcl     = mb_substr((string) $data['gclid'], 0, 512);
+            $gcl     = bx_sanitize_text((string) $data['gclid'], 512);
             $method  = $cfg['entity'] === 'deal' ? 'crm.deal.update.json' : 'crm.lead.update.json';
             bx_request($method, ['id' => $entityId, 'fields' => [$ufGclid => $gcl]]);
         } catch (\Throwable $e) {
@@ -199,5 +204,6 @@ try {
 } catch (\Throwable $e) {
     error_log('[form-submit] ' . get_class($e) . ': ' . $e->getMessage());
     http_response_code(502);
-    echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
+    // Não vaza detalhe interno (estrutura do CRM, etc.) — motivo real fica só no error_log acima.
+    echo json_encode(['ok' => false, 'error' => 'Falha ao processar o envio. Tente novamente.']);
 }

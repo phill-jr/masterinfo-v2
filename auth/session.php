@@ -8,6 +8,11 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_samesite', 'Strict');
 ini_set('session.use_strict_mode', 1);
 ini_set('session.gc_maxlifetime', 7200); // 2 horas
+// Cookie da sessao admin só por HTTPS (atrás de proxy TLS, confia no X-Forwarded-Proto).
+// Evita vazar o PHPSESSID se algo trafegar por HTTP (MITM em rede aberta).
+$__mi_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+ini_set('session.cookie_secure', $__mi_https ? '1' : '0');
 
 /**
  * Exige sessao admin valida. Retorna 401 JSON se nao autenticado.

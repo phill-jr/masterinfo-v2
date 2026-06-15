@@ -16,9 +16,14 @@ function checkRateLimit(string $endpoint, int $maxReqs, int $windowSec): void {
     $key = md5($endpoint . ':' . $ip);
     $file = sys_get_temp_dir() . '/mi_rate_' . $key;
 
-    $data = file_exists($file)
-        ? json_decode(file_get_contents($file), true)
-        : ['count' => 0, 'reset' => time() + $windowSec];
+    // Read-modify-write ATÔMICO sob flock — senão rajadas concorrentes leem o mesmo
+    // count e furam o teto (corrida). Fail-open se /tmp falhar (não derruba o site).
+    $fh = @fopen($file, 'c+');
+    if ($fh === false) { return; }
+    flock($fh, LOCK_EX);
+    $raw  = stream_get_contents($fh);
+    $data = ($raw !== '' && $raw !== false) ? json_decode($raw, true) : null;
+    if (!is_array($data)) { $data = ['count' => 0, 'reset' => time() + $windowSec]; }
 
     // Resetar janela se expirou
     if (time() > ($data['reset'] ?? 0)) {
@@ -26,7 +31,12 @@ function checkRateLimit(string $endpoint, int $maxReqs, int $windowSec): void {
     }
 
     $data['count']++;
-    file_put_contents($file, json_encode($data), LOCK_EX);
+    rewind($fh);
+    ftruncate($fh, 0);
+    fwrite($fh, json_encode($data));
+    fflush($fh);
+    flock($fh, LOCK_UN);
+    fclose($fh);
 
     if ($data['count'] > $maxReqs) {
         $retry = max(1, ($data['reset'] ?? time()) - time());

@@ -62,6 +62,28 @@ function bx_request(string $method, array $data = []): array {
 }
 
 /**
+ * Sanitiza texto livre do visitante antes de mandar pro Bitrix24.
+ *
+ * O Bitrix renderiza COMMENTS/TITLE (e vários UF_CRM) como HTML em telas do
+ * operador → input cru = XSS ARMAZENADO no painel. Também neutraliza injeção de
+ * tags/control-chars no log. APLICAR em todo valor de texto livre, não só na jornada.
+ *
+ * - strip_tags: remove qualquer marcação HTML/JS
+ * - remove control chars perigosos (preserva \t \n \r p/ comentários multilinha)
+ * - mb_substr: limita o tamanho (anti-abuso de campo / payload gigante)
+ * Preserva acentuação UTF-8.
+ */
+function bx_sanitize_text(string $value, int $maxLen = 2000): string {
+    $clean = strip_tags($value);
+    // Remove NUL e demais control chars (mantém tab 0x09, LF 0x0A, CR 0x0D).
+    // Sem flag /u de propósito: esses bytes nunca compõem char UTF-8 multibyte,
+    // então não corrompem acentuação — e evita o null de PCRE em UTF-8 inválido.
+    $stripped = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $clean);
+    if ($stripped !== null) $clean = $stripped;
+    return mb_substr($clean, 0, $maxLen, 'UTF-8');
+}
+
+/**
  * Normaliza um telefone brasileiro pro formato E.164 (+55DDDNUMERO).
  * Necessário pra casar com o número que o conector de WhatsApp do Bitrix grava
  * e a deduplicação por telefone funcionar — o Bitrix NÃO trata
@@ -107,6 +129,9 @@ function bx_find_contact(string $phone = '', string $email = ''): ?int {
  * @return int|null  ID do contato criado, ou null.
  */
 function bx_create_contact(string $nome, string $phone = '', string $email = '', string $endereco = '', string $sourceId = 'WEB'): ?int {
+    // Texto livre do visitante → sanitiza antes de qualquer uso (XSS no painel Bitrix).
+    $nome     = bx_sanitize_text($nome, 150);
+    $endereco = bx_sanitize_text($endereco, 500);
     $parts = preg_split('/\s+/', trim($nome), 2);
     $fields = [
         'NAME'      => $parts[0] ?? $nome,
@@ -126,6 +151,9 @@ function bx_create_contact(string $nome, string $phone = '', string $email = '',
  * @return int|null  ID do negócio criado, ou null.
  */
 function bx_create_deal(string $title, ?int $contactId, $opportunity = 0, string $comments = '', $categoryId = 0, string $stageId = 'NEW', string $sourceId = 'WEB'): ?int {
+    // Texto livre do visitante → sanitiza (TITLE e COMMENTS são renderizados como HTML no Bitrix).
+    $title    = bx_sanitize_text($title, 250);
+    $comments = $comments !== '' ? bx_sanitize_text($comments, 20000) : '';
     $fields = [
         'TITLE'       => $title,
         'CATEGORY_ID' => $categoryId,
@@ -143,6 +171,8 @@ function bx_create_deal(string $title, ?int $contactId, $opportunity = 0, string
 
 /** Posta um comentário de timeline numa entidade ('lead'|'deal'|...). Best-effort (loga, não lança). */
 function bx_timeline_comment(int $entityId, string $entityType, string $comment): bool {
+    // Texto livre do visitante → sanitiza (comentário de timeline renderiza HTML no Bitrix).
+    $comment = bx_sanitize_text($comment, 20000);
     if ($entityId <= 0 || $comment === '') return false;
     try {
         bx_request('crm.timeline.comment.add.json', ['fields' => [

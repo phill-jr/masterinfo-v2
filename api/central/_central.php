@@ -71,7 +71,8 @@ function central_input(): array {
 function central_session_boot(): void {
     if (session_status() === PHP_SESSION_ACTIVE) { return; }
     session_name('MICENTRAL');
-    $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+    $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
     session_set_cookie_params([
         'lifetime' => 0, 'path' => '/', 'httponly' => true,
         'secure' => $secure, 'samesite' => 'Lax',

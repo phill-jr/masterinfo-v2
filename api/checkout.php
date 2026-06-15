@@ -175,9 +175,9 @@ if (!empty(BITRIX_WEBHOOK)) {
         if (!defined('BITRIX_UF_GCLID')) define('BITRIX_UF_GCLID', 'UF_CRM_GCLID');
         if ($deal_id && (defined('BITRIX_UF_FBCLID') || defined('BITRIX_UF_FBP') || defined('BITRIX_UF_GCLID'))) {
             $ufFields = [];
-            if (defined('BITRIX_UF_FBCLID') && !empty($input['fbclid'])) $ufFields[BITRIX_UF_FBCLID] = mb_substr((string) $input['fbclid'], 0, 255);
-            if (defined('BITRIX_UF_FBP') && !empty($input['fbp']))       $ufFields[BITRIX_UF_FBP]    = mb_substr((string) $input['fbp'], 0, 255);
-            if (defined('BITRIX_UF_GCLID') && !empty($input['gclid']))   $ufFields[BITRIX_UF_GCLID]  = mb_substr((string) $input['gclid'], 0, 512);
+            if (defined('BITRIX_UF_FBCLID') && !empty($input['fbclid'])) $ufFields[BITRIX_UF_FBCLID] = bx_sanitize_text((string) $input['fbclid'], 255);
+            if (defined('BITRIX_UF_FBP') && !empty($input['fbp']))       $ufFields[BITRIX_UF_FBP]    = bx_sanitize_text((string) $input['fbp'], 255);
+            if (defined('BITRIX_UF_GCLID') && !empty($input['gclid']))   $ufFields[BITRIX_UF_GCLID]  = bx_sanitize_text((string) $input['gclid'], 512);
             if ($ufFields) bx_request('crm.deal.update.json', ['id' => $deal_id, 'fields' => $ufFields]);
         }
     } catch (\Throwable $e) {
