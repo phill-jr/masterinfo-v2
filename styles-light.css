@@ -675,6 +675,14 @@ body::before {
     radial-gradient(ellipse at 12% 12%, rgba(255,122,5,0.16) 0%, transparent 55%),
     radial-gradient(ellipse at 88% 85%, rgba(255,122,5,0.12) 0%, transparent 55%),
     linear-gradient(135deg, #fff1e2 0%, #ffe7d2 100%);
+  /* "Faixa branca": o padding 120+120 (planos↓ + cobertura↑) deixava ~240px de
+     vão quase-branco entre os cards e a cobertura. Aperta a junção. */
+  padding-top: 48px;
+}
+
+/* Reduz o padding inferior da última seção de planos (junção com a cobertura) */
+.plans.plans-light {
+  padding-bottom: 40px;
 }
 
 /* ═══════════════════════════════════════════
