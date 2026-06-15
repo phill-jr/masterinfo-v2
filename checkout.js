@@ -268,7 +268,7 @@
           telefone: phoneDigits,
           observacao: 'Checkout (modo simples) · Plano: ' + (p ? (p.name + ' ' + p.speed + ' ' + p.speedUnit) : '—') + (end ? ' · CEP: ' + state.viabilidade.cep : ''),
           jornada: jornadaSimple,
-          fbclid: attSimple.fbclid || '', fbp: attSimple.fbp || '', fbc: attSimple.fbc || '',
+          fbclid: attSimple.fbclid || '', fbp: attSimple.fbp || '', fbc: attSimple.fbc || '', gclid: attSimple.gclid || '',
           origem: 'Checkout simples (site)'
         } })
       }).catch(function () {});
@@ -896,7 +896,7 @@
     // pro sucesso de qualquer jeito (best-effort). Anexa a jornada do cliente.
     orderData.jornada = (typeof window.miJourneyText === 'function') ? window.miJourneyText() : '';
     var _att = (typeof window.miAttribution === 'function') ? window.miAttribution() : {};
-    orderData.fbclid = _att.fbclid || ''; orderData.fbp = _att.fbp || ''; orderData.fbc = _att.fbc || '';
+    orderData.fbclid = _att.fbclid || ''; orderData.fbp = _att.fbp || ''; orderData.fbc = _att.fbc || ''; orderData.gclid = _att.gclid || '';
     var fallbackNum = 'MI-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 99999)).padStart(5, '0');
 
     function finalizeCheckout(orderNum) {
