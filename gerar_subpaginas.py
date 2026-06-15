@@ -1117,6 +1117,46 @@ def sync_site_scale():
     print(f"\n  Escala do site (--site-scale:{SITE_SCALE}): {changed} atualizada(s), {same} já em dia, {skipped} pulada(s).")
 
 
+# Widgets flutuantes: script inline (marcado) injetado antes do </body> das subpaginas.
+# Le config.json -> widgets em RUNTIME e esconde os FABs desligados no admin. Imune a
+# adblock (sem nome 'tracking'); como le o config ao vivo, NAO precisa regenerar a cada
+# toggle — basta existir uma vez nas paginas.
+_WIDGETS_RE = re.compile(r'[ \t]*<script data-mi-widgets>.*?</script>', re.DOTALL)
+_WIDGETS_SCRIPT = "<script data-mi-widgets>(function(){try{fetch('/config.json?v='+Date.now()).then(function(r){return r.json();}).then(function(c){var w=(c&&c.widgets)||{},m={indicacao:'.indicar-float',boleto:'.boleto-float',whatsapp:'.whatsapp-float'};Object.keys(m).forEach(function(k){if(w[k]===false){var e=document.querySelector(m[k]);if(e)e.style.display='none';}});}).catch(function(){});}catch(e){}})();</script>"
+
+
+def sync_widget_floats():
+    """Injeta/atualiza o <script data-mi-widgets> antes do </body> de TODAS as
+    subpaginas. Em runtime le config.json -> widgets e esconde .indicar-float/
+    .boleto-float/.whatsapp-float marcados como false no admin. Cirurgico,
+    idempotente, CRLF-safe. A home NAO entra (site-loader.js faz via loadWidgets)."""
+    changed = same = skipped = 0
+    for rel, depth in MENU_PAGES:
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            skipped += 1
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        nl = "\r\n" if "\r\n" in orig else "\n"
+        if _WIDGETS_RE.search(orig):
+            html = _WIDGETS_RE.sub(lambda m: "  " + _WIDGETS_SCRIPT, orig)
+        elif "</body>" in orig:
+            html = orig.replace("</body>", "  " + _WIDGETS_SCRIPT + nl + "</body>", 1)
+        else:
+            print(f"  ! pulado (sem </body>): {rel}")
+            skipped += 1
+            continue
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ widgets script: {rel}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  Widgets flutuantes (config.widgets): {changed} atualizada(s), {same} já em dia, {skipped} pulada(s).")
+
+
 def write_file(path, content):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -1189,6 +1229,8 @@ if __name__ == "__main__":
         sync_menus()
     print("\nEscala do site (--site-scale) → subpáginas…")
     sync_site_scale()
+    print("\nWidgets flutuantes (config.widgets) → subpáginas…")
+    sync_widget_floats()
     print("\nCTAs das subpáginas Internet → checkout…")
     sync_subpage_ctas()
     print("\n✓ Concluído.")
