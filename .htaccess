@@ -46,6 +46,9 @@
 # Impedir listagem de diretorios
 Options -Indexes
 
+# Home padrao = tema claro (index-light). Producao cutover 15/06/2026.
+DirectoryIndex index-light.html index.html index.php
+
 # Forcar HTTPS em producao (descomentar quando tiver certificado SSL)
 # <IfModule mod_rewrite.c>
 #     RewriteEngine On
