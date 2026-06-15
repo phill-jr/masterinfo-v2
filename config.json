@@ -794,14 +794,14 @@
     "tracking": {
         "gtmId": "",
         "ga4Id": "",
-        "googleAdsId": "",
+        "googleAdsId": "AW-11398403431",
         "googleAdsConversions": {
-            "lead": "",
+            "lead": "qEHyCLz9mN4ZEOeql7sq",
             "purchase": "",
             "whatsappClick": ""
         },
         "facebookPixelId": "28026550920279054",
-        "enableTracking": false
+        "enableTracking": true
     },
     "seo": {
         "title": "MasterInfo Internet | Fibra Óptica 100% em Joinville",
