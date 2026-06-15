@@ -693,6 +693,26 @@
           </p>
         </div>
       </div>
+
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-dots-three-outline"></i> Widgets flutuantes</div>
+        <p style="color:#9494a5;font-size:.92rem;margin:-4px 0 18px;">Liga/desliga os botões flutuantes do canto inferior direito da home.</p>
+        <label style="display:flex;align-items:center;gap:10px;margin:12px 0;cursor:pointer;">
+          <input type="checkbox" id="cfgWidgetIndicacao" onchange="updateWidget('indicacao', this.checked)" style="width:auto;">
+          <span><i class="ph ph-gift" style="color:#ff7a05;"></i> Indicação <small style="color:#9494a5;">— Indique e Ganhe</small></span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;margin:12px 0;cursor:pointer;">
+          <input type="checkbox" id="cfgWidgetBoleto" onchange="updateWidget('boleto', this.checked)" style="width:auto;">
+          <span><i class="ph ph-barcode" style="color:#ff7a05;"></i> Boleto <small style="color:#9494a5;">— 2ª via / chat Marina</small></span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;margin:12px 0;cursor:pointer;">
+          <input type="checkbox" id="cfgWidgetWhatsapp" onchange="updateWidget('whatsapp', this.checked)" style="width:auto;">
+          <span><i class="ph ph-whatsapp-logo" style="color:#25d366;"></i> WhatsApp</span>
+        </label>
+        <p style="color:#9494a5;font-size:.85rem;margin-top:14px;">
+          <i class="ph ph-info"></i> Após <strong>Salvar</strong>, recarregue o site (Ctrl+F5).
+        </p>
+      </div>
     </div>
 
     <!-- TAB: Empresa -->
@@ -1955,13 +1975,25 @@
     setVal('cfgSiteScale', s);
     var lbl = document.getElementById('cfgSiteScaleVal');
     if (lbl) lbl.textContent = s + '%';
+    // Widgets flutuantes (default: todos ligados)
+    var w = config.widgets || {};
+    setChkW('cfgWidgetIndicacao', w.indicacao !== false);
+    setChkW('cfgWidgetBoleto', w.boleto !== false);
+    setChkW('cfgWidgetWhatsapp', w.whatsapp !== false);
   }
+  function setChkW(id, on) { var el = document.getElementById(id); if (el) el.checked = !!on; }
 
   window.updateSiteScale = function(val) {
     if (!config.layout) config.layout = {};
     config.layout.siteScale = Number(val);
     var lbl = document.getElementById('cfgSiteScaleVal');
     if (lbl) lbl.textContent = val + '%';
+    markDirty();
+  };
+
+  window.updateWidget = function(key, on) {
+    if (!config.widgets) config.widgets = {};
+    config.widgets[key] = !!on;
     markDirty();
   };
 

@@ -17,6 +17,7 @@
       window._siteConfig = cfg;
 
       run('layout', function () { loadLayout(cfg.layout); });
+      run('widgets', function () { loadWidgets(cfg.widgets); });
       run('seo', function () { loadSeo(cfg.seo, cfg.empresa, cfg.planos); });
       run('footer', function () { loadFooter(cfg.empresa); });
       run('faq', function () { loadFaq(cfg.faq); });
@@ -50,6 +51,20 @@
     if (!isFinite(pct)) return;
     pct = Math.max(50, Math.min(150, pct));
     document.documentElement.style.setProperty('--site-scale', String(pct / 100));
+  }
+
+  // ─── Widgets flutuantes (config.widgets) — liga/desliga os FABs da home ───
+  // Cada chave === false esconde o float. Ausência/true = visível (compatível
+  // com o HTML estático existente). FABs: indicacao/boleto/whatsapp.
+  function loadWidgets(w) {
+    if (!w) return;
+    var map = { indicacao: '.indicar-float', boleto: '.boleto-float', whatsapp: '.whatsapp-float' };
+    Object.keys(map).forEach(function (k) {
+      if (w[k] === false) {
+        var el = document.querySelector(map[k]);
+        if (el) el.style.display = 'none';
+      }
+    });
   }
 
   // ─── SEO + Schema.org (metas por atributo + JSON-LD regenerado) ───

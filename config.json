@@ -21,6 +21,11 @@
     "layout": {
         "siteScale": 85
     },
+    "widgets": {
+        "indicacao": true,
+        "boleto": true,
+        "whatsapp": true
+    },
     "secoesOrdem": [
         {
             "key": "hero",
