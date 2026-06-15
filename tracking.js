@@ -140,6 +140,8 @@
       // só disparam se a tag correspondente foi inicializada (gate de consentimento).
       trackPageView();
       trackWhatsAppClicks();
+      tagAllWaLinks();                 // marca os links wa.me já presentes na página
+      setTimeout(tagAllWaLinks, 1500); // e os injetados depois (widget Marina, rodapé, modais)
       trackCTAClicks();
       trackPlanClicks();
       trackScrollDepth();
@@ -361,11 +363,43 @@
     });
   }
 
+  // ─── Atribuição no WhatsApp: injeta #mi_gc=/#mi_fbc= no texto pré-preenchido do wa.me ───
+  //   Quando o visitante chegou de anúncio (gclid/fbclid na URL → mi_src), o Sync Hub
+  //   (WaFbclidCapture) lê esse marcador na 1ª mensagem do cliente e atribui a venda do
+  //   contrato à campanha (Google Ads / Meta). Espelha o snippet do WordPress. No-op sem gclid/fbclid.
+  function waAttributionMarker() {
+    var src = {}; try { src = JSON.parse(sessionStorage.getItem(SRC_KEY)) || {}; } catch (e) {}
+    var g = String(src.gclid || '').replace(/[^A-Za-z0-9_\-.]/g, '');
+    var f = String(src.fbclid || '').replace(/[^A-Za-z0-9_\-.]/g, '');
+    var m = '';
+    if (g) m += ' #mi_gc=' + g;
+    if (f) m += ' #mi_fbc=' + f;
+    return m;
+  }
+  function tagWaLink(link) {
+    try {
+      if (!link || !link.href) return;
+      var m = waAttributionMarker();
+      if (!m) return;
+      var u = new URL(link.href, location.href);
+      var t = u.searchParams.get('text') || '';
+      if (t.indexOf('#mi_gc=') !== -1 || t.indexOf('#mi_fbc=') !== -1) return; // já marcado (texto decodificado — evita duplicar)
+      u.searchParams.set('text', t + m);
+      link.href = u.toString();
+    } catch (e) {}
+  }
+  function tagAllWaLinks() {
+    if (!waAttributionMarker()) return;
+    var links = document.querySelectorAll('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
+    for (var i = 0; i < links.length; i++) tagWaLink(links[i]);
+  }
+
   // ─── WhatsApp: interceptar todos os cliques ───
   function trackWhatsAppClicks() {
     document.addEventListener('click', function (e) {
-      var link = e.target.closest('a[href*="wa.me"]');
+      var link = e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
       if (!link) return;
+      tagWaLink(link); // injeta o marcador de atribuição (#mi_gc=/#mi_fbc=) antes de abrir o WhatsApp
 
       var context = 'unknown';
       if (link.closest('.hero')) context = 'hero';
