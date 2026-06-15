@@ -159,6 +159,21 @@ try {
         $entityId = $r['result'] ?? null;
     }
 
+    // ─── Atribuição Google Ads (gclid) → campo do Negócio/Lead ───
+    // O campo UF_CRM_GCLID já existe no Bitrix (criado pelo Sync Hub), então a atribuição funciona
+    // POR PADRÃO, sem depender do mapeamento do admin. Best-effort: nunca derruba o envio do form.
+    // (fbclid/_fbp do Meta ficam opt-in via mapeamento — nomes de campo não estáveis.)
+    if ($entityId && !empty($data['gclid']) && in_array($cfg['entity'], ['deal', 'lead'], true)) {
+        try {
+            $ufGclid = defined('BITRIX_UF_GCLID') ? BITRIX_UF_GCLID : 'UF_CRM_GCLID';
+            $gcl     = mb_substr((string) $data['gclid'], 0, 512);
+            $method  = $cfg['entity'] === 'deal' ? 'crm.deal.update.json' : 'crm.lead.update.json';
+            bx_request($method, ['id' => $entityId, 'fields' => [$ufGclid => $gcl]]);
+        } catch (\Throwable $e) {
+            error_log('[form-submit] gclid attribution: ' . get_class($e) . ': ' . $e->getMessage());
+        }
+    }
+
     // ─── Jornada do cliente → comentário de timeline + store p/ propagar ao Negócio ───
     // Sanitiza (strip_tags) e limita: o texto vem com UTM/referrer controlados pelo visitante.
     $jornada = mb_substr(strip_tags(isset($data['jornada']) ? trim((string) $data['jornada']) : ''), 0, 2000);

@@ -167,9 +167,12 @@ if (!empty(BITRIX_WEBHOOK)) {
 
         // 4. fbclid / _fbp / gclid → campos do Negócio (p/ o CAPI do Sync Hub mandar fbc/fbp no Purchase
         //    e atribuição do Google Ads).
-        //    Inerte até o admin criar os campos no Bitrix e definir BITRIX_UF_FBCLID / BITRIX_UF_FBP /
-        //    BITRIX_UF_GCLID em secrets/config.php (ex.: define('BITRIX_UF_FBCLID', 'UF_CRM_1700000000');
-        //    define('BITRIX_UF_GCLID', 'UF_CRM_GCLID');).
+        //    gclid: ATIVO POR PADRÃO — o campo UF_CRM_GCLID já existe no Bitrix (criado pelo Sync Hub,
+        //    userfield id 3608), então a atribuição do Google Ads NÃO depende de config na produção.
+        //    secrets/config.php pode sobrescrever o nome do campo se necessário. fbclid/_fbp continuam
+        //    OPT-IN (nomes de campo do Meta não são estáveis): defina BITRIX_UF_FBCLID / BITRIX_UF_FBP
+        //    em secrets/config.php (ex.: define('BITRIX_UF_FBCLID', 'UF_CRM_1700000000');) para ligá-los.
+        if (!defined('BITRIX_UF_GCLID')) define('BITRIX_UF_GCLID', 'UF_CRM_GCLID');
         if ($deal_id && (defined('BITRIX_UF_FBCLID') || defined('BITRIX_UF_FBP') || defined('BITRIX_UF_GCLID'))) {
             $ufFields = [];
             if (defined('BITRIX_UF_FBCLID') && !empty($input['fbclid'])) $ufFields[BITRIX_UF_FBCLID] = mb_substr((string) $input['fbclid'], 0, 255);
