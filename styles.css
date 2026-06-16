@@ -1178,6 +1178,8 @@ img.dropdown-logo.dropdown-logo-real {
   position: relative;
   z-index: 2;
   width: 100%;
+  max-width: 1200px;       /* alinha o texto ao container central do site (não cola na borda) */
+  margin: 0 auto;
   padding: 0 24px 80px;
   display: flex;
   flex-direction: column;
