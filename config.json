@@ -521,9 +521,9 @@
             "precoCheio": 109.99,
             "categorias": ["standard"],
             "features": [
-                "Internet 600 Mega de fibra",
-                "App Master Standard (1 app de TV \/ mês)",
-                "Wi-Fi 6 + instalação 3 dias"
+                "1 app de TV / mês (cat. Standard)",
+                "Instalação em até 3 dias",
+                "100% Fibra Óptica"
             ],
             "badge": null
         },
@@ -538,9 +538,9 @@
             "precoCheio": 129.9,
             "categorias": ["advanced"],
             "features": [
-                "Internet 800 Mega de fibra",
-                "App Master Advanced (1 app de TV \/ mês)",
-                "Wi-Fi 6 + instalação 3 dias"
+                "1 app de TV / mês (cat. Advanced)",
+                "Velocidade pra família",
+                "100% Fibra Óptica"
             ],
             "badge": "Mais procurado",
             "heroi": true
@@ -556,9 +556,9 @@
             "precoCheio": 139,
             "categorias": [],
             "features": [
-                "Internet 1 Giga de fibra",
-                "Sem App de TV (velocidade pura)",
-                "Wi-Fi 6 + instalação 3 dias"
+                "1 Giga pra trabalho remoto",
+                "Instalação em até 3 dias",
+                "100% Fibra Óptica"
             ],
             "badge": null
         },
@@ -573,9 +573,9 @@
             "precoCheio": 159.9,
             "categorias": ["premium"],
             "features": [
-                "Internet 1 Giga de fibra",
-                "App Master Premium (Disney+, HBO Max, GloboPlay…)",
-                "Mesh Wi-Fi 6 (cobertura total)"
+                "Mesh Wi-Fi 6 (cobertura total)",
+                "1 app de TV / mês (cat. Premium)",
+                "Disney+, HBO Max, GloboPlay…"
             ],
             "badge": "Pra família"
         },
@@ -590,9 +590,9 @@
             "precoCheio": 189.9,
             "categorias": ["top", "advanced", "standard"],
             "features": [
-                "Internet 1 Giga + Kaspersky",
-                "App Master TOP + Advanced + Standard (3 apps de TV \/ mês)",
-                "Mesh Wi-Fi 6 (cobertura total)"
+                "Mesh Wi-Fi 6 (cobertura total)",
+                "3 apps de TV / mês (TOP + Advanced + Standard)",
+                "Kaspersky pra segurança"
             ],
             "badge": "Tudo incluso",
             "upsellTop": true
@@ -608,9 +608,9 @@
             "precoCheio": 199.9,
             "categorias": ["top", "premium"],
             "features": [
-                "Internet 1 Giga + ExitLag (ping mínimo)",
-                "App Master TOP + Premium (2 apps de TV \/ mês)",
-                "Mesh Wi-Fi 6 (cobertura total)"
+                "Mesh Wi-Fi 6 (cobertura total)",
+                "2 apps de TV / mês (TOP + Premium)",
+                "ExitLag — ping mínimo no online"
             ],
             "badge": "Pra gamer"
         }

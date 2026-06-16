@@ -218,8 +218,10 @@
     }, null, 2);
   }
 
-  // ─── Planos: sincroniza os PRECOS dos cards da home a partir do config ───
-  // (layout, apps inclusos e features sao bespoke do redesign — nao mexemos)
+  // ─── Planos: sincroniza os cards da home a partir do config ───
+  // Casa cada card pelo ID do link de checkout e atualiza nome, velocidade,
+  // unidade, preços, features e o TEXTO do badge (preservando o ícone bespoke).
+  // O layout e a faixa de apps inclusos continuam bespoke do redesign.
   function loadPlanos(planos) {
     if (!planos || !planos.length) return;
     // alias do link de checkout -> id nominal do config (mesmo mapa do checkout.js)
@@ -236,6 +238,17 @@
       var p = byId[id];
       if (!p) return;
 
+      // Nome
+      var nameEl = card.querySelector('.plan-name');
+      if (nameEl && p.nome != null) nameEl.textContent = p.nome;
+
+      // Velocidade + unidade
+      var numEl = card.querySelector('.plan-speed-num');
+      var unitEl = card.querySelector('.plan-speed-unit');
+      if (numEl && p.velocidade != null) numEl.textContent = p.velocidade;
+      if (unitEl && p.unidade != null) unitEl.textContent = p.unidade;
+
+      // Preço à vista
       var pontual = (p.precoPontual != null ? p.precoPontual : p.preco);
       if (pontual != null) {
         var intPart = Math.floor(pontual);
@@ -245,9 +258,26 @@
         if (valEl) valEl.textContent = String(intPart);
         if (centsEl) centsEl.textContent = ',' + ('0' + cents).slice(-2);
       }
+      // Preço cheio (de R$ X por apenas)
       if (p.precoCheio != null) {
         var origEl = card.querySelector('.plan-price-original');
         if (origEl) origEl.innerHTML = 'de <s>R$ ' + formatBRL(p.precoCheio) + '</s> por apenas';
+      }
+
+      // Features (reconstrói a lista preservando o ícone de check)
+      if (p.features && p.features.length) {
+        var ul = card.querySelector('.plan-features');
+        if (ul) ul.innerHTML = p.features.map(function (f) {
+          return '<li><i class="ph-fill ph-check-circle"></i> ' + esc(f) + '</li>';
+        }).join('');
+      }
+
+      // Badge: atualiza só o texto (mantém o ícone bespoke do card). Só mexe se o
+      // card já tem um badge — não cria/remove elemento pra não alterar o layout.
+      var badgeEl = card.querySelector('.plan-badge');
+      if (badgeEl && p.badge) {
+        var icon = badgeEl.querySelector('i');
+        badgeEl.innerHTML = (icon ? icon.outerHTML + ' ' : '') + esc(p.badge);
       }
     });
   }

@@ -29,6 +29,20 @@ FOOTER_MENUS = CONFIG.get("menus", {}).get("footer", [])
 # valor num <style> no <head>. Default 100 = 1 (sem mudanca; cai no default do CSS).
 SITE_SCALE = round((CONFIG.get("layout", {}).get("siteScale", 100) or 100) / 100, 3)
 
+# Planos do config.json indexados por id — fonte unica dos campos de texto dos
+# cards das subpaginas (nome/velocidade/unidade/precos/features). A faixa de apps
+# inclusos continua curada no PLANS_MAP. Em runtime o <script data-mi-plans>
+# (PLANS_SYNC_SCRIPT) refaz a mesma sincronizacao, entao editar no admin reflete
+# sem precisar re-gerar.
+CFG_PLANS_BY_ID = {p.get("id"): p for p in CONFIG.get("planos", [])}
+
+
+def fmt_brl(n):
+    """Numero do config (99.99) -> string BR '99,99'. None -> '' (cai no fallback)."""
+    if n is None:
+        return ""
+    return f"{float(n):.2f}".replace(".", ",")
+
 # ─── DADOS DAS PÁGINAS ────────────────────────────────────────────────
 
 INTERNET = [
@@ -578,12 +592,28 @@ def find_imgs(slug, base_path):
     return [single] if single else []
 
 
+# Patcher de runtime das subpaginas: le config.json e atualiza os .sub-plan-card
+# (nome/velocidade/unidade/precos/features) ao vivo — mesma ideia do data-mi-widgets.
+# Assim, editar um plano no admin reflete nas subpaginas sem precisar re-gerar. A
+# faixa de apps inclusos (curada) nao e tocada.
+PLANS_SYNC_SCRIPT = """<script data-mi-plans>(function(){function brl(n){return Number(n).toFixed(2).replace('.',',');}function esc(s){var d=document.createElement('div');d.textContent=(s==null?'':s);return d.innerHTML;}var A={'600':'lite-casa','800':'lite-familia','1000':'lite-home-office','ultra-800':'ultra-familia','ultra-1000':'ultra-home-office'};try{fetch('/config.json?v='+Date.now()).then(function(r){return r.json();}).then(function(c){var b={};(c.planos||[]).forEach(function(p){b[p.id]=p;});document.querySelectorAll('a.sub-plan-card[href*="checkout.html?plano="]').forEach(function(card){var m=card.getAttribute('href').match(/plano=([^&]+)/);if(!m)return;var p=b[A[m[1]]||m[1]];if(!p)return;var sp=card.querySelector('.sub-plan-speed');if(sp&&p.velocidade!=null)sp.innerHTML=esc(p.velocidade)+'<small> '+esc(p.unidade||'Mega')+'</small>';var nm=card.querySelector('.sub-plan-name');if(nm&&p.nome!=null)nm.textContent=p.nome;var po=card.querySelector('.sub-plan-price-original');if(po&&p.precoCheio!=null)po.innerHTML='de <s>R$ '+brl(p.precoCheio)+'</s> por';var pr=card.querySelector('.sub-plan-price');var pt=(p.precoPontual!=null?p.precoPontual:p.precoCheio);if(pr&&pt!=null)pr.innerHTML='R$ '+brl(pt)+' <em>/mês</em>';var ul=card.querySelector('.sub-plan-features');if(ul&&p.features&&p.features.length)ul.innerHTML=p.features.map(function(f){return '<li><i class="ph-fill ph-check-circle"></i> '+esc(f)+'</li>';}).join('');});}).catch(function(){});}catch(e){}})();</script>"""
+
+
 def page_internet(p, depth=1):
     plan_cards = ""
     for plan_id in p["plans"]:
         plan = PLANS_MAP[plan_id]
+        cfg = CFG_PLANS_BY_ID.get(plan_id, {})
 
-        # Faixa de apps
+        # Campos de texto: config.json e a fonte unica; PLANS_MAP e so fallback.
+        nome = cfg.get("nome") or plan["nome"]
+        speed = cfg.get("velocidade") or plan["speed"]
+        unit = cfg.get("unidade") or plan.get("unit", "Mega")
+        preco = fmt_brl(cfg.get("precoPontual")) or plan["preco"]
+        preco_cheio = fmt_brl(cfg.get("precoCheio")) or plan["preco_cheio"]
+        features = cfg.get("features") or plan["features"]
+
+        # Faixa de apps (curada no PLANS_MAP, fica como esta)
         apps_html = ""
         sep = plan.get("apps_sep")
         for i, app in enumerate(plan["apps"]):
@@ -598,18 +628,18 @@ def page_internet(p, depth=1):
         # Features
         features_html = "".join(
             f'<li><i class="ph-fill ph-check-circle"></i> {f}</li>'
-            for f in plan["features"]
+            for f in features
         )
 
         plan_cards += f'''
         <a href="../checkout.html?plano={plan_id}" class="sub-plan-card">
           <div class="sub-plan-head">
-            <span class="sub-plan-speed">{plan["speed"]}<small> Mega</small></span>
-            <span class="sub-plan-name">{plan["nome"]}</span>
+            <span class="sub-plan-speed">{speed}<small> {unit}</small></span>
+            <span class="sub-plan-name">{nome}</span>
           </div>
           <div class="sub-plan-price-wrap">
-            <span class="sub-plan-price-original">de <s>R$ {plan["preco_cheio"]}</s> por</span>
-            <span class="sub-plan-price">R$ {plan["preco"]} <em>/mês</em></span>
+            <span class="sub-plan-price-original">de <s>R$ {preco_cheio}</s> por</span>
+            <span class="sub-plan-price">R$ {preco} <em>/mês</em></span>
             <span class="sub-plan-discount"><i class="ph-fill ph-tag"></i> R$ 10+ OFF pagando em dia</span>
           </div>
           <div class="sub-plan-apps">
@@ -678,7 +708,7 @@ def page_internet(p, depth=1):
       </div>
     </div>
   </section>
-
+{PLANS_SYNC_SCRIPT}
 {footer(depth)}'''
 
 
@@ -1157,6 +1187,48 @@ def sync_widget_floats():
     print(f"\n  Widgets flutuantes (config.widgets): {changed} atualizada(s), {same} já em dia, {skipped} pulada(s).")
 
 
+# Planos em runtime: o PLANS_SYNC_SCRIPT (definido junto do page_internet) injetado
+# antes do </body> das subpaginas que tem tabela de plano (.sub-plan-card). Le
+# config.json -> planos ao vivo e sincroniza nome/velocidade/unidade/precos/features
+# dos cards. Como le o config ao vivo, NAO precisa regenerar a cada edicao no admin.
+_PLANS_RE = re.compile(r'[ \t]*<script data-mi-plans>.*?</script>', re.DOTALL)
+
+
+def sync_plans_runtime():
+    """Injeta/atualiza o <script data-mi-plans> antes do </body> das subpaginas que
+    tem .sub-plan-card (as 5 paginas de Internet). Em runtime le config.json ->
+    planos e sincroniza os cards com o admin (mesma fonte que o site-loader.loadPlanos
+    usa na home). Cirurgico, idempotente, CRLF-safe. A home NAO entra."""
+    changed = same = skipped = 0
+    for rel, depth in MENU_PAGES:
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            skipped += 1
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        # So mexe nas paginas que tem tabela de plano.
+        if "sub-plan-card" not in orig:
+            continue
+        nl = "\r\n" if "\r\n" in orig else "\n"
+        if _PLANS_RE.search(orig):
+            html = _PLANS_RE.sub(lambda m: "  " + PLANS_SYNC_SCRIPT, orig)
+        elif "</body>" in orig:
+            html = orig.replace("</body>", "  " + PLANS_SYNC_SCRIPT + nl + "</body>", 1)
+        else:
+            print(f"  ! pulado (sem </body>): {rel}")
+            skipped += 1
+            continue
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ planos runtime: {rel}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  Planos em runtime (data-mi-plans): {changed} atualizada(s), {same} já em dia, {skipped} pulada(s).")
+
+
 def write_file(path, content):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -1231,6 +1303,8 @@ if __name__ == "__main__":
     sync_site_scale()
     print("\nWidgets flutuantes (config.widgets) → subpáginas…")
     sync_widget_floats()
+    print("\nPlanos em runtime (config.planos) → subpáginas…")
+    sync_plans_runtime()
     print("\nCTAs das subpáginas Internet → checkout…")
     sync_subpage_ctas()
     print("\n✓ Concluído.")
