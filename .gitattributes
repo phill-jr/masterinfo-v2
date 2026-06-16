@@ -1,0 +1,4 @@
+# Shell scripts rodam via WSL/bash — força LF SEMPRE, mesmo no Windows (core.autocrlf).
+# CRLF num .sh quebra a execução ("bad interpreter" / erros de sintaxe). Evita repetir
+# a armadilha CRLF que já mordeu este repo.
+*.sh text eol=lf
