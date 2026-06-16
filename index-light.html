@@ -77,7 +77,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles-light.css?v=20260616c">
+  <link rel="stylesheet" href="styles-light.css?v=20260616d">
   <link rel="stylesheet" href="modal-light.css?v=20260601-c">
   <!-- Pass 1 Impeccable "anti-cara-de-IA": tipografia (Bricolage+Hanken) + remoção de gradient-text/glows. Carrega por último. -->
   <link rel="stylesheet" href="home-refresh.css?v=20260608">
@@ -1912,6 +1912,10 @@
   (function() {
     var sl = document.getElementById('heroSlideshow');
     if (!sl) return;
+    // Fallback do gate anti-flash: se o site-loader.js nao rodar (renderHero nao
+    // adiciona .hero-ready), revela os slides estaticos por timeout pra nao deixar
+    // o hero invisivel. No caminho normal o renderHero revela bem antes disto.
+    setTimeout(function () { sl.classList.add('hero-ready'); }, 4000);
     var slides = sl.querySelectorAll('.hero-slide');
     var dots = sl.querySelectorAll('.hero-dot');
     var prev = document.getElementById('heroPrev');

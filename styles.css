@@ -1122,6 +1122,17 @@ img.dropdown-logo.dropdown-logo-real {
   overflow: hidden;
 }
 
+/* Anti-flash do hero da HOME (escopado pelo id #heroSlideshow; subpaginas usam so a
+   classe .hero-slideshow e NAO sao afetadas). O slideshow fica invisivel ate o
+   site-loader.js decidir o modo (banners x paginas) e renderizar — renderHero entao
+   adiciona .hero-ready e o opacity sobe com fade. Sem isto, o slideshow estatico
+   antigo (banner-copa/aplicativos) + o IIFE inline davam play() e apareciam/ciclavam
+   antes do hero por paginas assumir (o flash). Durante o load aparece so o fundo do
+   .hero (creme no claro), sem banner errado. Fallback: o IIFE inline do index-light
+   adiciona .hero-ready por timeout se o site-loader nao rodar. */
+#heroSlideshow { transition: opacity .45s ease; }
+#heroSlideshow:not(.hero-ready) { opacity: 0; }
+
 .hero-slide {
   position: absolute;
   inset: 0;

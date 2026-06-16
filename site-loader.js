@@ -463,7 +463,7 @@
     var sl = document.getElementById('heroSlideshow');
     if (!sl) return;
     var arr = (items || []).filter(function (s) { return s && s.img; });
-    if (!arr.length) { sl.style.display = 'none'; return; }
+    if (!arr.length) { sl.style.display = 'none'; sl.classList.add('hero-ready'); return; }
     sl.style.display = '';
 
     var slidesHtml = arr.map(function (s, i) {
@@ -567,6 +567,10 @@
 
     show(0);
     play();
+
+    // Revela o hero (remove o gate anti-flash #heroSlideshow:not(.hero-ready)) so
+    // depois do conteudo correto montado → fade-in suave, sem flash do slideshow antigo.
+    sl.classList.add('hero-ready');
   }
 
   // Modo padrão: banners do config.heroSlides (sem título; checkout via data-plano).
