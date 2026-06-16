@@ -754,7 +754,11 @@ body::before {
 
 /* CTA banner ("Ainda em duvida?") e um card ESCURO mantido de proposito.
    Os textos de leitura herdavam cor escura do tema claro -> ilegiveis sobre o preto.
-   Clareia paragrafo + label, preservando o numero em gradiente fogo e os avatares. */
+   Clareia titulo + paragrafo + label + botao "ligar", preservando o numero em
+   gradiente fogo e os avatares. */
+.cta-banner-content h3 {
+  color: #ffffff;
+}
 .cta-banner-content p {
   color: rgba(255,255,255,0.82);
 }
@@ -763,6 +767,15 @@ body::before {
 }
 .cta-banner-stat span {
   color: rgba(255,255,255,0.55);
+}
+/* Botao secundario "ligar": ghost branco sobre o preto. No tema claro herdava
+   texto navy (--text-primary) + borda quase invisivel (--border-default escuro). */
+.cta-banner-call {
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.18);
+}
+.cta-banner-call:hover {
+  border-color: rgba(255,122,5,0.45);
 }
 
 /* Footer (mantido dark): chips de "FORMAS DE PAGAMENTO" tinham texto escuro
