@@ -231,9 +231,20 @@
   // ─── Google Ads (remarketing + conversoes) ───
   function initGoogleAds(id) {
     if (!id) return;
+    // Carrega o loader do gtag.js usando o proprio ID do Google Ads quando ele ainda nao
+    // foi injetado (ex.: sem GA4 configurado). Antes deste fix so o initGA4() injetava o
+    // loader; sem GA4 o gtag.js nunca carregava e o config abaixo ficava preso na fila do
+    // dataLayer -> nenhuma conversao/remarketing client-side era transmitida ao Google.
+    if (!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(s);
+    }
     if (!window.gtag) {
       window.dataLayer = window.dataLayer || [];
       window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
     }
     window.gtag('config', id);
   }
