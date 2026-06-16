@@ -713,6 +713,18 @@
           <i class="ph ph-info"></i> Após <strong>Salvar</strong>, recarregue o site (Ctrl+F5).
         </p>
       </div>
+
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-images"></i> Hero da home por páginas</div>
+        <p style="color:#9494a5;font-size:.92rem;margin:-4px 0 18px;">Quando ligado, o banner principal mostra <strong>um slide por página de Internet</strong> (imagem + título da página), e o clique leva pros planos. Desligado = banners da aba Slideshow.</p>
+        <label style="display:flex;align-items:center;gap:10px;margin:12px 0;cursor:pointer;">
+          <input type="checkbox" id="cfgHomeHeroPaginas" onchange="updateHomeHero(this.checked)" style="width:auto;">
+          <span><i class="ph ph-images" style="color:#ff7a05;"></i> Usar páginas no hero <small style="color:#9494a5;">— oculta os banners atuais</small></span>
+        </label>
+        <p style="color:#9494a5;font-size:.85rem;margin-top:14px;">
+          <i class="ph ph-info"></i> Após <strong>Salvar</strong>, recarregue o site (Ctrl+F5). As imagens e títulos vêm das páginas de Internet.
+        </p>
+      </div>
     </div>
 
     <!-- TAB: Empresa -->
@@ -2014,6 +2026,8 @@
     setChkW('cfgWidgetIndicacao', w.indicacao !== false);
     setChkW('cfgWidgetBoleto', w.boleto !== false);
     setChkW('cfgWidgetWhatsapp', w.whatsapp !== false);
+    // Hero da home por páginas (default: desligado)
+    setChkW('cfgHomeHeroPaginas', !!(config.homeHero && config.homeHero.usarPaginas));
   }
   function setChkW(id, on) { var el = document.getElementById(id); if (el) el.checked = !!on; }
 
@@ -2028,6 +2042,13 @@
   window.updateWidget = function(key, on) {
     if (!config.widgets) config.widgets = {};
     config.widgets[key] = !!on;
+    markDirty();
+  };
+
+  // Hero da home: usar páginas de Internet (slide por página + título) em vez dos banners.
+  window.updateHomeHero = function(on) {
+    if (!config.homeHero) config.homeHero = {};
+    config.homeHero.usarPaginas = !!on;
     markDirty();
   };
 

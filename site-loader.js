@@ -27,7 +27,16 @@
       run('footerMenus', function () { loadFooterMenus(cfg.menus && cfg.menus.footer); });
       run('secoesOrdem', function () { loadSecoesOrdem(cfg.secoesOrdem); });
       run('menuHeader', function () { loadMenuHeader(cfg.menuHeader); });
-      run('heroSlides', function () { loadHeroSlides(cfg.heroSlides); });
+      run('heroSlides', function () {
+        if (cfg.homeHero && cfg.homeHero.usarPaginas) {
+          loadHeroPaginas(cfg.heroSlides).catch(function (e) {
+            console.warn('[SiteLoader] internet-hero.json falhou, fallback heroSlides:', e);
+            loadHeroSlides(cfg.heroSlides);
+          });
+        } else {
+          loadHeroSlides(cfg.heroSlides);
+        }
+      });
       run('copaPopup', function () { loadCopaPopup(cfg.copaPopup); });
       run('checkoutLinks', function () { wireCheckoutLinks(); });
     })
@@ -447,27 +456,38 @@
   // ─── Hero Slideshow (slides + dots gerados do config.heroSlides) ───
   // Substitui o slideshow hardcoded antigo. Cada slide leva pro checkout do
   // plano selecionado (data-plano -> wireCheckoutLinks fecha o href + clique).
-  function loadHeroSlides(slides) {
+  // Renderizador compartilhado do hero. items = [{ img, href, bgClass?, ariaLabel?,
+  // plano?, title?, tag? }]. Slide com title ganha overlay (.hero-slide-shade +
+  // .hero-slide-content) — usado pelo modo "páginas". Reusa ciclo/dots/setas.
+  function renderHero(items) {
     var sl = document.getElementById('heroSlideshow');
     if (!sl) return;
-    var arr = (slides || []).filter(function (s) { return s && s.on !== false && s.imagem; });
+    var arr = (items || []).filter(function (s) { return s && s.img; });
     if (!arr.length) { sl.style.display = 'none'; return; }
+    sl.style.display = '';
 
     var slidesHtml = arr.map(function (s, i) {
       var bg = s.bgClass || (i === 0 ? 'hero-bg-home' : 'hero-bg-essencial');
       var active = i === 0 ? ' is-active' : '';
       var loading = i === 0 ? 'eager' : 'lazy';
-      var href = s.plano ? 'checkout.html?plano=' + encodeURIComponent(s.plano) : (s.href || '#planos');
-      return '<a href="' + esc(href) + '" class="hero-slide' + active + ' ' + esc(bg) + '"' +
+      var overlay = s.title
+        ? '<div class="hero-slide-shade"></div>' +
+          '<div class="hero-slide-content">' +
+            (s.tag ? '<span class="hero-slide-tag hero-slide-tag-fire">' + esc(s.tag) + '</span>' : '') +
+            '<h2 class="hero-slide-title">' + esc(s.title) + '</h2>' +
+          '</div>'
+        : '';
+      return '<a href="' + esc(s.href || '#planos') + '" class="hero-slide' + active + ' ' + esc(bg) + '"' +
         ' data-slide="' + i + '"' +
         (s.plano ? ' data-plano="' + esc(s.plano) + '"' : '') +
-        ' aria-label="' + esc(s.ariaLabel || s.id || ('Slide ' + (i + 1))) + '">' +
-        '<img class="hero-slide-img" src="' + esc(s.imagem) + '" alt="" loading="' + loading + '" onerror="this.style.display=\'none\'">' +
+        ' aria-label="' + esc(s.ariaLabel || s.title || ('Slide ' + (i + 1))) + '">' +
+        '<img class="hero-slide-img" src="' + esc(s.img) + '" alt="" loading="' + loading + '" onerror="this.style.display=\'none\'">' +
+        overlay +
         '</a>';
     }).join('');
 
     var dotsHtml = arr.map(function (s, i) {
-      return '<button class="hero-dot' + (i === 0 ? ' is-active' : '') + '" data-go="' + i + '" aria-label="' + esc(s.ariaLabel || ('Slide ' + (i + 1))) + '"></button>';
+      return '<button class="hero-dot' + (i === 0 ? ' is-active' : '') + '" data-go="' + i + '" aria-label="' + esc(s.ariaLabel || s.title || ('Slide ' + (i + 1))) + '"></button>';
     }).join('');
 
     // Limpa slides antigos (se houver) mas preserva setas e container de dots
@@ -482,14 +502,19 @@
     var dotsBox = document.getElementById('heroDots');
     if (dotsBox) dotsBox.innerHTML = dotsHtml;
 
-    // Liga checkout para os novos slides
+    // Liga checkout para os novos slides (só age em [data-plano]; slides "#planos" ficam)
     try { wireCheckoutLinks(sl); } catch (e) {}
 
-    // Navegação (substitui o IIFE inline antigo)
-    var slidesEls = sl.querySelectorAll('.hero-slide');
-    var dotsEls = sl.querySelectorAll('.hero-dot');
+    // cloneNode nas setas/dots remove listeners de IIFE inline antigo (o index-light.html
+    // tinha o seu) — evita double-bind/timer duplicado. Pega as refs DEPOIS do clone.
     var prev = document.getElementById('heroPrev');
     var next = document.getElementById('heroNext');
+    if (prev) { var cp = prev.cloneNode(true); prev.parentNode.replaceChild(cp, prev); prev = cp; }
+    if (next) { var cn = next.cloneNode(true); next.parentNode.replaceChild(cn, next); next = cn; }
+    if (dotsBox) { var cd = dotsBox.cloneNode(true); dotsBox.parentNode.replaceChild(cd, dotsBox); dotsBox = cd; }
+
+    var slidesEls = sl.querySelectorAll('.hero-slide');
+    var dotsEls = dotsBox ? dotsBox.querySelectorAll('.hero-dot') : [];
     var i = 0, n = slidesEls.length, timer;
 
     function show(idx) {
@@ -502,6 +527,9 @@
     function play() { clearInterval(timer); if (n > 1) timer = setInterval(function () { show(i + 1); }, 10000); }
 
     if (n > 1) {
+      if (prev) prev.style.display = '';
+      if (next) next.style.display = '';
+      if (dotsBox) dotsBox.style.display = '';
       if (next) next.onclick = function (e) { e.preventDefault(); e.stopPropagation(); show(i + 1); play(); };
       if (prev) prev.onclick = function (e) { e.preventDefault(); e.stopPropagation(); show(i - 1); play(); };
       for (var d = 0; d < dotsEls.length; d++) {
@@ -522,6 +550,41 @@
 
     show(0);
     play();
+  }
+
+  // Modo padrão: banners do config.heroSlides (sem título; checkout via data-plano).
+  function loadHeroSlides(slides) {
+    var arr = (slides || []).filter(function (s) { return s && s.on !== false && s.imagem; });
+    renderHero(arr.map(function (s) {
+      return {
+        img: s.imagem,
+        href: s.plano ? 'checkout.html?plano=' + encodeURIComponent(s.plano) : (s.href || '#planos'),
+        plano: s.plano || null,
+        bgClass: s.bgClass || '',
+        ariaLabel: s.ariaLabel || s.id || ''
+      };
+    }));
+  }
+
+  // Modo "páginas" (config.homeHero.usarPaginas): 1 slide por página de Internet,
+  // título por cima, clique → #planos. Dados em internet-hero.json (gerado pelo Python).
+  function loadHeroPaginas(fallbackSlides) {
+    return fetch('internet-hero.json?v=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (pages) {
+        var arr = (pages || []).filter(function (p) { return p && p.img; });
+        if (!arr.length) { loadHeroSlides(fallbackSlides); return; }
+        renderHero(arr.map(function (p) {
+          return {
+            img: p.img,
+            href: p.href || '#planos',
+            title: p.title || '',
+            tag: p.tag || '',
+            bgClass: 'hero-bg-home',
+            ariaLabel: p.title || p.slug || ''
+          };
+        }));
+      });
   }
 
   // ─── Popup da Copa (conteudo do config + on/off + abre 1x por sessao) ───

@@ -1288,6 +1288,30 @@ def gerar_bodies():
         write_file(os.path.join(BASE_DIR, "ajuda", a["slug"], "index.html"), page_ajuda(a, depth=2))
 
 
+def gerar_internet_hero():
+    """Gera internet-hero.json: 1 entrada por pagina de Internet (slug, title, tag,
+    1a imagem do slideshow da pagina, href). A home (site-loader.loadHeroPaginas) le
+    esse arquivo quando config.homeHero.usarPaginas = true e mostra 1 slide por pagina
+    com o titulo por cima. Paths ROOT-relative (a home esta na raiz, sem ../)."""
+    out = []
+    for p in INTERNET:
+        imgs = find_imgs(IMG_BG.get(p["slug"], ""), BASE_DIR)
+        if not imgs:
+            print(f"  ! '{p['slug']}' sem imagem em imgs/hero/sub — pulando")
+            continue
+        out.append({
+            "slug": p["slug"],
+            "title": p["title"],
+            "tag": p["tag"],
+            "img": imgs[0],
+            "href": "#planos",
+        })
+    path = os.path.join(BASE_DIR, "internet-hero.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=2)
+    print(f"  internet-hero.json: {len(out)} pagina(s).")
+
+
 if __name__ == "__main__":
     modo = sys.argv[1] if len(sys.argv) > 1 else "--menus"
     if modo in ("--full", "--tudo", "--bodies"):
@@ -1307,4 +1331,6 @@ if __name__ == "__main__":
     sync_plans_runtime()
     print("\nCTAs das subpáginas Internet → checkout…")
     sync_subpage_ctas()
+    print("\nHero da home por páginas (internet-hero.json)…")
+    gerar_internet_hero()
     print("\n✓ Concluído.")

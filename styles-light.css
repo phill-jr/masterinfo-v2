@@ -238,6 +238,19 @@ body {
   color: #6a6a7a;
 }
 
+/* Hero "por páginas" (config.homeHero.usarPaginas): título + tag ficam sobre a
+   imagem da página + scrim escuro (.hero-slide-shade) → texto CLARO nos 2 temas.
+   No light, var(--white) inverte pra escuro (#1a1a2e), então força branco literal. */
+.hero-slide-title {
+  color: #fff;
+}
+.hero-slide-title span {
+  color: rgba(255,255,255,0.85);
+}
+.hero-slide-tag-fire {
+  color: #fff;
+}
+
 .hero-trust-item strong {
   color: #3a3a44;
 }

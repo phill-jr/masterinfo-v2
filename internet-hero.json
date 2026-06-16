@@ -1,0 +1,37 @@
+[
+  {
+    "slug": "home-office",
+    "title": "Internet pra trabalhar de casa",
+    "tag": "INTERNET · TRABALHO",
+    "img": "imgs/hero/sub/home-office-1.jpg",
+    "href": "#planos"
+  },
+  {
+    "slug": "gamer",
+    "title": "Internet de gamer, de verdade",
+    "tag": "INTERNET · GAMER",
+    "img": "imgs/hero/sub/gamer-1.jpg",
+    "href": "#planos"
+  },
+  {
+    "slug": "familia",
+    "title": "Internet pra família toda usar ao mesmo tempo",
+    "tag": "INTERNET · PRA FAMÍLIA",
+    "img": "imgs/hero/sub/familia-1.jpg",
+    "href": "#planos"
+  },
+  {
+    "slug": "com-2-roteadores",
+    "title": "Wi-Fi em toda a casa, sem ponto cego",
+    "tag": "INTERNET · WI-FI EM TODA A CASA",
+    "img": "imgs/hero/sub/2-roteadores-1.jpg",
+    "href": "#planos"
+  },
+  {
+    "slug": "com-1-roteador",
+    "title": "Internet boa pra apartamento e casa pequena",
+    "tag": "INTERNET · ENTRADA",
+    "img": "imgs/hero/sub/1-roteador-1.jpg",
+    "href": "#planos"
+  }
+]
