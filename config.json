@@ -910,7 +910,8 @@
             "whatsappClick": ""
         },
         "facebookPixelId": "28026550920279054",
-        "enableTracking": true
+        "enableTracking": true,
+        "requireConsent": false
     },
     "seo": {
         "title": "MasterInfo Internet | Fibra Óptica 100% em Joinville",

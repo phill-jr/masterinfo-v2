@@ -118,6 +118,17 @@
     if (c.marketing && !_inited.fb) { _inited.fb = true; initFacebookPixel(cfg.facebookPixelId); }
   }
 
+  // SEM gate de consentimento: dispara TODOS os pixels configurados já no load.
+  // Usado quando cfg.requireConsent === false — o banner (cookie-consent.js) segue
+  // aparecendo só como AVISO, mas o pixel não espera o aceite.
+  function initAll() {
+    if (!cfg || !cfg.enableTracking) return;
+    if (!_inited.gtm) { _inited.gtm = true; initGTM(cfg.gtmId); }
+    if (!_inited.ga4) { _inited.ga4 = true; initGA4(cfg.ga4Id); }
+    if (!_inited.ads) { _inited.ads = true; initGoogleAds(cfg.googleAdsId); }
+    if (!_inited.fb)  { _inited.fb  = true; initFacebookPixel(cfg.facebookPixelId); }
+  }
+
   // ─── Bootstrap: carrega config e inicializa tudo ───
   fetch('/config.json?v=' + Date.now())
     .then(function (r) { return r.json(); })
@@ -126,7 +137,15 @@
       // Pixels (GTM/GA4/Ads/FB) só com enableTracking ligado + IDs configurados
       // E somente após o consentimento de cookies (cookie-consent.js).
       if (cfg.enableTracking) {
-        if (typeof window.miOnConsent === 'function') {
+        if (cfg.requireConsent === false) {
+          // Consentimento DESLIGADO (config.tracking.requireConsent=false): os pixels
+          // disparam JÁ no load, sem esperar o aceite. O banner (cookie-consent.js)
+          // continua aparecendo, mas como AVISO — clicar nele não muda o disparo.
+          // ⚠️ LGPD/ANPD: disparar pixel de marketing antes do consentimento é decisão
+          // do dono do site (tecnicamente cinza). Reversível: requireConsent=true.
+          console.info('[Tracking] requireConsent=false → pixels disparam no load (banner é só aviso).');
+          initAll();
+        } else if (typeof window.miOnConsent === 'function') {
           window.miOnConsent(initAllowed);              // dispara agora se já decidido; e a cada mudança
         } else {
           // cookie-consent.js ausente: sem consentimento explícito, NÃO dispara pixels.
