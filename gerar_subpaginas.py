@@ -483,7 +483,6 @@ def footer(depth, boleto=True, extra_scripts=""):
           <span class="payment-icon"><i class="ph-fill ph-currency-circle-dollar"></i> PIX</span>
           <span class="payment-icon"><i class="ph-fill ph-barcode"></i> Boleto</span>
           <span class="payment-icon"><i class="ph-fill ph-credit-card"></i> Cartão</span>
-          <span class="payment-icon"><i class="ph-fill ph-bank"></i> Débito automático</span>
         </div>
       </div>
       <div class="footer-bottom">
@@ -1187,6 +1186,48 @@ def sync_widget_floats():
     print(f"\n  Widgets flutuantes (config.widgets): {changed} atualizada(s), {same} já em dia, {skipped} pulada(s).")
 
 
+# Formas de pagamento em runtime: <script data-mi-payment> injetado antes do </body>
+# das subpaginas. Le config.json -> formasPagamento e reconstroi .footer-payment-icons
+# (default: PIX/Boleto/Cartao ON, Debito automatico OFF). Como le o config ao vivo, NAO
+# precisa regenerar a cada toggle no admin. A home faz via site-loader.loadFormasPagamento.
+_PAYMENT_RE = re.compile(r'[ \t]*<script data-mi-payment>.*?</script>', re.DOTALL)
+_PAYMENT_SCRIPT = "<script data-mi-payment>(function(){try{var M=[['pix','PIX','ph-currency-circle-dollar'],['boleto','Boleto','ph-barcode'],['cartao','Cartão','ph-credit-card'],['debitoAutomatico','Débito automático','ph-bank']];var D={pix:true,boleto:true,cartao:true,debitoAutomatico:false};fetch('/config.json?v='+Date.now()).then(function(r){return r.json();}).then(function(c){var fp=(c&&c.formasPagamento)||{},box=document.querySelector('.footer-payment-icons');if(!box)return;box.innerHTML=M.filter(function(m){var v=(m[0] in fp)?fp[m[0]]:D[m[0]];return v!==false;}).map(function(m){return '<span class=\"payment-icon\"><i class=\"ph-fill '+m[2]+'\"></i> '+m[1]+'</span>';}).join('');}).catch(function(){});}catch(e){}})();</script>"
+# Linha estatica do "Debito automatico" no rodape (removida das subpaginas; default OFF).
+_DEBITO_STATIC_RE = re.compile(r'[ \t]*<span class="payment-icon"><i class="ph-fill ph-bank"></i> Débito automático</span>\r?\n')
+
+
+def sync_payment():
+    """Remove a forma estatica 'Debito automatico' do rodape e injeta/atualiza o
+    <script data-mi-payment> antes do </body> de TODAS as subpaginas. A home NAO entra
+    (site-loader.js faz via loadFormasPagamento). Cirurgico, idempotente, CRLF-safe."""
+    changed = same = skipped = 0
+    for rel, depth in MENU_PAGES:
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            skipped += 1
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        nl = "\r\n" if "\r\n" in orig else "\n"
+        html = _DEBITO_STATIC_RE.sub("", orig)
+        if _PAYMENT_RE.search(html):
+            html = _PAYMENT_RE.sub(lambda m: "  " + _PAYMENT_SCRIPT, html)
+        elif "</body>" in html:
+            html = html.replace("</body>", "  " + _PAYMENT_SCRIPT + nl + "</body>", 1)
+        else:
+            print(f"  ! pulado (sem </body>): {rel}")
+            skipped += 1
+            continue
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ formas de pagamento: {rel}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  Formas de pagamento (config.formasPagamento): {changed} atualizada(s), {same} já em dia, {skipped} pulada(s).")
+
+
 # Planos em runtime: o PLANS_SYNC_SCRIPT (definido junto do page_internet) injetado
 # antes do </body> das subpaginas que tem tabela de plano (.sub-plan-card). Le
 # config.json -> planos ao vivo e sincroniza nome/velocidade/unidade/precos/features
@@ -1329,6 +1370,8 @@ if __name__ == "__main__":
     sync_site_scale()
     print("\nWidgets flutuantes (config.widgets) → subpáginas…")
     sync_widget_floats()
+    print("\nFormas de pagamento (config.formasPagamento) → subpáginas…")
+    sync_payment()
     print("\nPlanos em runtime (config.planos) → subpáginas…")
     sync_plans_runtime()
     print("\nCTAs das subpáginas Internet → checkout…")

@@ -715,6 +715,30 @@
       </div>
 
       <div class="card">
+        <div class="card-title"><i class="ph-fill ph-wallet"></i> Formas de pagamento</div>
+        <p style="color:#9494a5;font-size:.92rem;margin:-4px 0 18px;">Liga/desliga as formas de pagamento mostradas no rodapé do site (home e subpáginas).</p>
+        <label style="display:flex;align-items:center;gap:10px;margin:12px 0;cursor:pointer;">
+          <input type="checkbox" id="cfgPagPix" onchange="updateFormaPagamento('pix', this.checked)" style="width:auto;">
+          <span><i class="ph ph-currency-circle-dollar" style="color:#ff7a05;"></i> PIX</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;margin:12px 0;cursor:pointer;">
+          <input type="checkbox" id="cfgPagBoleto" onchange="updateFormaPagamento('boleto', this.checked)" style="width:auto;">
+          <span><i class="ph ph-barcode" style="color:#ff7a05;"></i> Boleto</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;margin:12px 0;cursor:pointer;">
+          <input type="checkbox" id="cfgPagCartao" onchange="updateFormaPagamento('cartao', this.checked)" style="width:auto;">
+          <span><i class="ph ph-credit-card" style="color:#ff7a05;"></i> Cartão</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;margin:12px 0;cursor:pointer;">
+          <input type="checkbox" id="cfgPagDebito" onchange="updateFormaPagamento('debitoAutomatico', this.checked)" style="width:auto;">
+          <span><i class="ph ph-bank" style="color:#ff7a05;"></i> Débito automático</span>
+        </label>
+        <p style="color:#9494a5;font-size:.85rem;margin-top:14px;">
+          <i class="ph ph-info"></i> Após <strong>Salvar</strong>, recarregue o site (Ctrl+F5).
+        </p>
+      </div>
+
+      <div class="card">
         <div class="card-title"><i class="ph-fill ph-images"></i> Hero da home por páginas</div>
         <p style="color:#9494a5;font-size:.92rem;margin:-4px 0 18px;">Quando ligado, o banner principal mostra <strong>um slide por página de Internet</strong> (imagem + título da página), e o clique leva pros planos. Desligado = banners da aba Slideshow.</p>
         <label style="display:flex;align-items:center;gap:10px;margin:12px 0;cursor:pointer;">
@@ -2098,6 +2122,12 @@
     setChkW('cfgWidgetWhatsapp', w.whatsapp !== false);
     // Hero da home por páginas (default: desligado)
     setChkW('cfgHomeHeroPaginas', !!(config.homeHero && config.homeHero.usarPaginas));
+    // Formas de pagamento (default: PIX/Boleto/Cartão ON, Débito automático OFF)
+    var fp = config.formasPagamento || {};
+    setChkW('cfgPagPix', fp.pix !== false);
+    setChkW('cfgPagBoleto', fp.boleto !== false);
+    setChkW('cfgPagCartao', fp.cartao !== false);
+    setChkW('cfgPagDebito', fp.debitoAutomatico === true);
   }
   function setChkW(id, on) { var el = document.getElementById(id); if (el) el.checked = !!on; }
 
@@ -2112,6 +2142,13 @@
   window.updateWidget = function(key, on) {
     if (!config.widgets) config.widgets = {};
     config.widgets[key] = !!on;
+    markDirty();
+  };
+
+  // Formas de pagamento do rodapé (config.formasPagamento → site-loader/data-mi-payment)
+  window.updateFormaPagamento = function(key, on) {
+    if (!config.formasPagamento) config.formasPagamento = {};
+    config.formasPagamento[key] = !!on;
     markDirty();
   };
 

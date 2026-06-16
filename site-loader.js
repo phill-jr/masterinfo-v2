@@ -25,6 +25,7 @@
       run('planos', function () { loadPlanos(cfg.planos); });
       run('bairros', function () { loadBairros(cfg.bairros); });
       run('footerMenus', function () { loadFooterMenus(cfg.menus && cfg.menus.footer); });
+      run('formasPagamento', function () { loadFormasPagamento(cfg.formasPagamento); });
       run('secoesOrdem', function () { loadSecoesOrdem(cfg.secoesOrdem); });
       run('menuHeader', function () { loadMenuHeader(cfg.menuHeader); });
       run('heroSlides', function () {
@@ -451,6 +452,29 @@
       return '<div class="footer-col"><h4>' + esc(col.titulo) + '</h4>' + links + '</div>';
     }).join('');
     grid.insertAdjacentHTML('beforeend', html);
+  }
+
+  // ─── Formas de pagamento do rodape (config.formasPagamento; admin → Aparencia) ───
+  // Default: PIX/Boleto/Cartao ON, Debito automatico OFF (chave ausente = esse default).
+  // Mesma logica do <script data-mi-payment> que o gerador injeta nas subpaginas.
+  function loadFormasPagamento(fp) {
+    var box = document.querySelector('.footer-payment-icons');
+    if (!box) return;
+    var DEF = { pix: true, boleto: true, cartao: true, debitoAutomatico: false };
+    var METHODS = [
+      { id: 'pix', label: 'PIX', icon: 'ph-currency-circle-dollar' },
+      { id: 'boleto', label: 'Boleto', icon: 'ph-barcode' },
+      { id: 'cartao', label: 'Cartão', icon: 'ph-credit-card' },
+      { id: 'debitoAutomatico', label: 'Débito automático', icon: 'ph-bank' }
+    ];
+    fp = fp || {};
+    var html = METHODS.filter(function (m) {
+      var v = (m.id in fp) ? fp[m.id] : DEF[m.id];
+      return v !== false;
+    }).map(function (m) {
+      return '<span class="payment-icon"><i class="ph-fill ' + m.icon + '"></i> ' + esc(m.label) + '</span>';
+    }).join('');
+    if (html) box.innerHTML = html;
   }
 
   // ─── Hero Slideshow (slides + dots gerados do config.heroSlides) ───
