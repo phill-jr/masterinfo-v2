@@ -1594,6 +1594,12 @@
       config.checkout.whatsapp = config.empresa.whatsapp;
     }
 
+    // IDs de plano sao imutaveis depois de salvos: remove a flag _new (nao persiste
+    // lixo no config e trava o ID — updatePlano so regenera o ID enquanto _new).
+    if (Array.isArray(config.planos)) {
+      config.planos.forEach(function (p) { if (p && p._new) delete p._new; });
+    }
+
     fetch('api/admin-config.php', {
       method: 'POST',
       credentials: 'same-origin',
@@ -2532,8 +2538,12 @@
 
   window.updatePlano = function(i, key, val) {
     config.planos[i][key] = val;
-    // Auto-generate ID
-    if (key === 'nome' || key === 'velocidade') {
+    // Auto-gera o ID a partir de nome+velocidade SO pra plano NOVO (ainda nao salvo).
+    // Plano existente tem ID IMUTAVEL: ele e a chave dos links de checkout
+    // (checkout.html?plano=ID) e da sincronizacao dos cards do site. Mudar o ID de um
+    // plano ja publicado ORFANA o plano (card volta pro valor chumbado + checkout
+    // quebra) — foi exatamente o bug do "lite-basic" virar "lite-basic-1000".
+    if (config.planos[i]._new && (key === 'nome' || key === 'velocidade')) {
       var p = config.planos[i];
       p.id = slugify(p.nome) + '-' + p.velocidade;
     }
@@ -2568,6 +2578,7 @@
   window.addPlano = function() {
     config.planos.push({
       id: 'novo-plano',
+      _new: true,            // enquanto novo, o ID acompanha nome+velocidade; trava ao salvar
       nome: 'Novo Plano',
       velocidade: '300',
       unidade: 'Mega',

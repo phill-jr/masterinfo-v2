@@ -236,7 +236,15 @@
       if (!m) return;
       var id = ALIAS[m[1]] || m[1];
       var p = byId[id];
-      if (!p) return;
+      if (!p) {
+        // Link aponta pra um id que nao existe no config (ex.: id do plano foi
+        // renomeado no admin). O card fica no valor chumbado — avisa no console
+        // em vez de falhar em silencio.
+        if (window.console && console.warn) {
+          console.warn('[loadPlanos] plano "' + id + '" (link de checkout) nao existe em config.planos — card mantem o valor chumbado.');
+        }
+        return;
+      }
 
       // Nome
       var nameEl = card.querySelector('.plan-name');
