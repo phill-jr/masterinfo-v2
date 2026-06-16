@@ -23,7 +23,7 @@
     },
     "widgets": {
         "indicacao": false,
-        "boleto": false,
+        "boleto": true,
         "whatsapp": true
     },
     "secoesOrdem": [
