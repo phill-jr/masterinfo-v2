@@ -22,8 +22,8 @@
         "siteScale": 85
     },
     "widgets": {
-        "indicacao": true,
-        "boleto": true,
+        "indicacao": false,
+        "boleto": false,
         "whatsapp": true
     },
     "secoesOrdem": [
@@ -519,9 +519,11 @@
             "unidade": "Mega",
             "precoPontual": 99.99,
             "precoCheio": 109.99,
-            "categorias": ["standard"],
+            "categorias": [
+                "standard"
+            ],
             "features": [
-                "1 app de TV / mês (cat. Standard)",
+                "1 app de TV \/ mês (cat. Standard)",
                 "Instalação em até 3 dias",
                 "100% Fibra Óptica"
             ],
@@ -536,9 +538,11 @@
             "unidade": "Mega",
             "precoPontual": 119.9,
             "precoCheio": 129.9,
-            "categorias": ["advanced"],
+            "categorias": [
+                "advanced"
+            ],
             "features": [
-                "1 app de TV / mês (cat. Advanced)",
+                "1 app de TV \/ mês (cat. Advanced)",
                 "Velocidade pra família",
                 "100% Fibra Óptica"
             ],
@@ -567,14 +571,16 @@
             "linha": "ULTRA",
             "nome": "Ultra Família",
             "tagline": "Família grande + streaming premium",
-            "velocidade": "1",
-            "unidade": "Giga",
+            "velocidade": "1000",
+            "unidade": "Mega",
             "precoPontual": 149.9,
             "precoCheio": 159.9,
-            "categorias": ["premium"],
+            "categorias": [
+                "premium"
+            ],
             "features": [
                 "Mesh Wi-Fi 6 (cobertura total)",
-                "1 app de TV / mês (cat. Premium)",
+                "1 app de TV \/ mês (cat. Premium)",
                 "Disney+, HBO Max, GloboPlay…"
             ],
             "badge": "Pra família"
@@ -584,14 +590,18 @@
             "linha": "ULTRA",
             "nome": "Ultra Home Office",
             "tagline": "Profissional \/ empresa em casa",
-            "velocidade": "1",
-            "unidade": "Giga",
+            "velocidade": "1000",
+            "unidade": "Mega",
             "precoPontual": 179.9,
             "precoCheio": 189.9,
-            "categorias": ["top", "advanced", "standard"],
+            "categorias": [
+                "top",
+                "advanced",
+                "standard"
+            ],
             "features": [
                 "Mesh Wi-Fi 6 (cobertura total)",
-                "3 apps de TV / mês (TOP + Advanced + Standard)",
+                "3 apps de TV \/ mês (TOP + Advanced + Standard)",
                 "Kaspersky pra segurança"
             ],
             "badge": "Tudo incluso",
@@ -602,14 +612,17 @@
             "linha": "ULTRA",
             "nome": "Ultra Gamer",
             "tagline": "Pra gamer — ping mínimo",
-            "velocidade": "1",
-            "unidade": "Giga",
+            "velocidade": "1000",
+            "unidade": "Mega",
             "precoPontual": 189.9,
             "precoCheio": 199.9,
-            "categorias": ["top", "premium"],
+            "categorias": [
+                "top",
+                "premium"
+            ],
             "features": [
                 "Mesh Wi-Fi 6 (cobertura total)",
-                "2 apps de TV / mês (TOP + Premium)",
+                "2 apps de TV \/ mês (TOP + Premium)",
                 "ExitLag — ping mínimo no online"
             ],
             "badge": "Pra gamer"
@@ -623,15 +636,42 @@
             "descricao": "Catálogo de entrada — 1 app\/mês",
             "cor": "#0ea5e9",
             "apps": [
-                {"nome": "SKY+ Light", "logo": "imgs\/sky.jpg"},
-                {"nome": "Looke", "logo": ""},
-                {"nome": "Kiddle Pass", "logo": ""},
-                {"nome": "+Q Nutri", "logo": ""},
-                {"nome": "Kaspersky 1 Lic", "logo": "imgs\/kaspersky.webp"},
-                {"nome": "ExitLag", "logo": "imgs\/exitlag.png"},
-                {"nome": "PlayKids+", "logo": ""},
-                {"nome": "Ubook Plus", "logo": ""},
-                {"nome": "Estuda+", "logo": ""}
+                {
+                    "nome": "SKY+ Light",
+                    "logo": "imgs\/sky.jpg"
+                },
+                {
+                    "nome": "Looke",
+                    "logo": ""
+                },
+                {
+                    "nome": "Kiddle Pass",
+                    "logo": ""
+                },
+                {
+                    "nome": "+Q Nutri",
+                    "logo": ""
+                },
+                {
+                    "nome": "Kaspersky 1 Lic",
+                    "logo": "imgs\/kaspersky.webp"
+                },
+                {
+                    "nome": "ExitLag",
+                    "logo": "imgs\/exitlag.png"
+                },
+                {
+                    "nome": "PlayKids+",
+                    "logo": ""
+                },
+                {
+                    "nome": "Ubook Plus",
+                    "logo": ""
+                },
+                {
+                    "nome": "Estuda+",
+                    "logo": ""
+                }
             ]
         },
         {
@@ -641,14 +681,38 @@
             "descricao": "Catálogo intermediário — 1 app\/mês",
             "cor": "#10b981",
             "apps": [
-                {"nome": "SKY+ Light c\/ Globo", "logo": "imgs\/sky.jpg"},
-                {"nome": "Deezer", "logo": "imgs\/deezer.webp"},
-                {"nome": "Kaspersky 3 Lic", "logo": "imgs\/kaspersky.webp"},
-                {"nome": "HotGo", "logo": ""},
-                {"nome": "CurtaOn", "logo": ""},
-                {"nome": "Kiddle Pass", "logo": ""},
-                {"nome": "O Jornalista", "logo": ""},
-                {"nome": "Docway", "logo": ""}
+                {
+                    "nome": "SKY+ Light c\/ Globo",
+                    "logo": "imgs\/sky.jpg"
+                },
+                {
+                    "nome": "Deezer",
+                    "logo": "imgs\/deezer.webp"
+                },
+                {
+                    "nome": "Kaspersky 3 Lic",
+                    "logo": "imgs\/kaspersky.webp"
+                },
+                {
+                    "nome": "HotGo",
+                    "logo": ""
+                },
+                {
+                    "nome": "CurtaOn",
+                    "logo": ""
+                },
+                {
+                    "nome": "Kiddle Pass",
+                    "logo": ""
+                },
+                {
+                    "nome": "O Jornalista",
+                    "logo": ""
+                },
+                {
+                    "nome": "Docway",
+                    "logo": ""
+                }
             ]
         },
         {
@@ -658,14 +722,38 @@
             "descricao": "Catálogo top — 1 app\/mês",
             "cor": "#f97316",
             "apps": [
-                {"nome": "Amazon Prime", "logo": "imgs\/prime-video.png"},
-                {"nome": "Apple TV", "logo": ""},
-                {"nome": "GloboPlay", "logo": "imgs\/globoplay.png"},
-                {"nome": "Disney+ (Ads)", "logo": "imgs\/disney-plus.png"},
-                {"nome": "HBO Max (Ads)", "logo": "imgs\/hbo-max.jpg"},
-                {"nome": "SKY+", "logo": "imgs\/sky.jpg"},
-                {"nome": "Indie", "logo": ""},
-                {"nome": "Leitura 360", "logo": ""}
+                {
+                    "nome": "Amazon Prime",
+                    "logo": "imgs\/prime-video.png"
+                },
+                {
+                    "nome": "Apple TV",
+                    "logo": ""
+                },
+                {
+                    "nome": "GloboPlay",
+                    "logo": "imgs\/globoplay.png"
+                },
+                {
+                    "nome": "Disney+ (Ads)",
+                    "logo": "imgs\/disney-plus.png"
+                },
+                {
+                    "nome": "HBO Max (Ads)",
+                    "logo": "imgs\/hbo-max.jpg"
+                },
+                {
+                    "nome": "SKY+",
+                    "logo": "imgs\/sky.jpg"
+                },
+                {
+                    "nome": "Indie",
+                    "logo": ""
+                },
+                {
+                    "nome": "Leitura 360",
+                    "logo": ""
+                }
             ]
         },
         {
@@ -675,13 +763,34 @@
             "descricao": "Catálogo premium — versões sem ads",
             "cor": "#a855f7",
             "apps": [
-                {"nome": "Disney+", "logo": "imgs\/disney-plus.png"},
-                {"nome": "HBO Max", "logo": "imgs\/hbo-max.jpg"},
-                {"nome": "GloboPlay", "logo": "imgs\/globoplay.png"},
-                {"nome": "Kaspersky 5 Lic", "logo": "imgs\/kaspersky.webp"},
-                {"nome": "SmartContent", "logo": ""},
-                {"nome": "Queima Diária", "logo": ""},
-                {"nome": "Zen", "logo": ""}
+                {
+                    "nome": "Disney+",
+                    "logo": "imgs\/disney-plus.png"
+                },
+                {
+                    "nome": "HBO Max",
+                    "logo": "imgs\/hbo-max.jpg"
+                },
+                {
+                    "nome": "GloboPlay",
+                    "logo": "imgs\/globoplay.png"
+                },
+                {
+                    "nome": "Kaspersky 5 Lic",
+                    "logo": "imgs\/kaspersky.webp"
+                },
+                {
+                    "nome": "SmartContent",
+                    "logo": ""
+                },
+                {
+                    "nome": "Queima Diária",
+                    "logo": ""
+                },
+                {
+                    "nome": "Zen",
+                    "logo": ""
+                }
             ]
         }
     ],
