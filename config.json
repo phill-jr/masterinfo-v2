@@ -953,5 +953,8 @@
         "ctaPlano": "lite-home-office",
         "ctaHref": "checkout.html?plano=1000",
         "fine": "Sujeito a análise de crédito · Valor com pagamento em pontualidade"
+    },
+    "homeHero": {
+        "usarPaginas": true
     }
 }
