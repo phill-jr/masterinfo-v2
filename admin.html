@@ -1652,7 +1652,7 @@
     if (tab === 'bitrix' && !bxInited) {
       bxInited = true;
       bxTestConnection();
-      Promise.all([bxLoadMapping(), bxLoadFieldOptions(), bxLoadCategories()]).then(bxRenderForms);
+      Promise.all([bxLoadMapping(), bxLoadFieldOptions(), bxLoadCategories(), bxLoadSources()]).then(bxRenderForms);
     }
   };
 
@@ -1757,6 +1757,32 @@
       .catch(function() {});
   }
 
+  // Origens (SOURCE_ID) reais cadastradas no Bitrix — alimentam o select "Origem do lead".
+  var bxSources = [];
+
+  function bxLoadSources() {
+    return fetch('api/admin/bitrix-sources.php', { credentials: 'same-origin' })
+      .then(function(r) { return r.json(); })
+      .then(function(d) { if (d && d.ok) bxSources = d.sources || []; })
+      .catch(function() {});
+  }
+
+  // Monta as <option> de origem, marcando a atual. Se a origem salva não existir
+  // na lista (ou ela não carregou), preserva o valor atual pra não perdê-lo no save.
+  function bxSourceOptions(sel) {
+    sel = sel || 'WEB';
+    var found = false;
+    var opts = bxSources.map(function(s) {
+      var is = (s.status_id === sel);
+      if (is) found = true;
+      return '<option value="' + bxEsc(s.status_id) + '"' + (is ? ' selected' : '') + '>' + bxEsc(s.name) + '</option>';
+    }).join('');
+    if (!found) {
+      opts = '<option value="' + bxEsc(sel) + '" selected>' + bxEsc(sel) + (bxSources.length ? ' (atual — fora da lista)' : '') + '</option>' + opts;
+    }
+    return opts;
+  }
+
   function bxCatOptions(sel) {
     return bxCategories.map(function(c) {
       return '<option value="' + c.id + '"' + (c.id === sel ? ' selected' : '') + '>' + bxEsc(c.name) + '</option>';
@@ -1784,6 +1810,7 @@
           '<label><input type="radio" name="bxent_' + bxEsc(slug) + '" value="deal"' + (ent === 'deal' ? ' checked' : '') + ' onchange="bxOnEntityChange(this,\'' + bxEsc(slug) + '\')"> Negócio</label>' +
           '<label><input type="radio" name="bxent_' + bxEsc(slug) + '" value="lead"' + (ent === 'lead' ? ' checked' : '') + ' onchange="bxOnEntityChange(this,\'' + bxEsc(slug) + '\')"> Lead</label>' +
         '</div></div>' +
+        '<div class="bx-fld"><label>Origem do lead</label><select class="bxf-source">' + bxSourceOptions(cfg.source_id || 'WEB') + '</select></div>' +
       '</div>' +
       '<div class="bx-grid">' +
         '<div class="bx-fld bxf-deal-only"' + (ent === 'lead' ? ' style="display:none;"' : '') + '><label>Funil</label><select class="bxf-cat" onchange="bxOnFunilChange(this,\'' + bxEsc(slug) + '\')">' + bxCatOptions(cfg.category_id || 0) + '</select></div>' +
@@ -1872,7 +1899,8 @@
     cfg.stage_id = block.querySelector('.bxf-stage').value || 'NEW';
     cfg.deal_title_template = block.querySelector('.bxf-title').value.trim();
     cfg.mappings = maps;
-    if (!cfg.source_id) cfg.source_id = 'WEB';
+    var srcSel = block.querySelector('.bxf-source');
+    cfg.source_id = (srcSel && srcSel.value) ? srcSel.value : (cfg.source_id || 'WEB');
     if (!cfg.dedupe_by) cfg.dedupe_by = ['phone'];
     bxMapping.forms[slug] = cfg;
     status.textContent = 'Salvando…';
