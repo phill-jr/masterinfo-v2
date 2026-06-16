@@ -322,8 +322,9 @@ body {
   color: #6a6a7a;
 }
 
-.plan-price {
-  border-bottom-color: rgba(0,0,0,0.06);
+/* Linha divisoria (movida do .plan-price pro .plan-apps::before) no tema claro */
+.plan-apps::before {
+  background: rgba(0,0,0,0.06);
 }
 
 .plan-currency {

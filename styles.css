@@ -2108,7 +2108,7 @@ img.dropdown-logo.dropdown-logo-real {
   align-items: center;
   gap: 6px;
   width: fit-content;
-  margin: 6px auto 18px;
+  margin: 8px auto 26px;
   padding: 7px 16px;
   background: var(--gradient-brand);
   color: #fff;
@@ -2145,9 +2145,7 @@ img.dropdown-logo.dropdown-logo-real {
   align-items: baseline;
   justify-content: center;
   gap: 2px;
-  margin-bottom: 28px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 12px;
 }
 
 .plan-currency {
@@ -4169,6 +4167,20 @@ img.sp-card-avatar {
   border-radius: var(--radius-md);
   position: relative;
   min-height: 156px;
+}
+
+/* Linha divisoria desenhada ACIMA da caixa "INCLUSO" (full-width).
+   Antes ficava como border-bottom do .plan-price (entre preco e badge);
+   movida pra ca para o chip "R$ 10 OFF" subir e ficar agrupado ao preco,
+   sinalizando que o desconto faz parte do plano. */
+.plan-apps::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
 }
 
 .plan-apps-label {
