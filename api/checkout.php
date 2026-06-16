@@ -142,19 +142,20 @@ if (!empty($input['cto_nome'])) $comments .= "\n── CTO ──\n" . $input['c
 
 // ─── Enviar para Bitrix24 ───
 $deal_id = null;
+$sourceId = bx_determine_source_id($input, []); // Origem dinamica (gclid/fbclid -> SOURCE_ID)
 
 if (!empty(BITRIX_WEBHOOK)) {
     try {
         // 1. Contato (dedup por telefone normalizado + email) → cria se não existir
         $contact_id = bx_find_contact($phoneE164, $email);
         if (!$contact_id) {
-            $contact_id = bx_create_contact($nome, $phoneE164, $email, $endereco);
+            $contact_id = bx_create_contact($nome, $phoneE164, $email, $endereco, $sourceId);
         }
 
         // 2. Negócio vinculado ao contato
         if ($contact_id) {
             $deal_title = "Checkout Site - {$input['plano_nome']} - $nome";
-            $deal_id = bx_create_deal($deal_title, $contact_id, $input['total_mensal'] ?? 0, $comments, BITRIX_CATEGORY, BITRIX_STAGE);
+            $deal_id = bx_create_deal($deal_title, $contact_id, $input['total_mensal'] ?? 0, $comments, BITRIX_CATEGORY, BITRIX_STAGE, $sourceId);
         }
 
         // 3. Jornada → comentário de timeline NO NEGÓCIO recém-criado (sanitizada).

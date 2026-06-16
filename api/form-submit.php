@@ -73,6 +73,9 @@ if (!$cfg) {
 try {
     // ─── Aplica mapeamento ───
     // Cada destino é "ENTIDADE.CAMPO" (ex: CONTACT.NAME, DEAL.TITLE, DEAL.UF_CRM_xxx)
+    // Origem (SOURCE_ID) dinamica pela fonte de trafego — regras editaveis no admin.
+    $sourceId = bx_determine_source_id($data, $cfg);
+
     $contactFields = [];
     $dealFields    = [];
     $leadFields    = [];
@@ -124,7 +127,7 @@ try {
             $contactFields['NAME']      = $parts[0];
             $contactFields['LAST_NAME'] = $parts[1] ?? '';
         }
-        $contactFields['SOURCE_ID'] = $cfg['source_id'] ?? 'WEB';
+        $contactFields['SOURCE_ID'] = $sourceId;
         $contactFields['OPENED']    = 'Y';
         $r = bx_request('crm.contact.add.json', ['fields' => $contactFields]);
         $contactId = $r['result'] ?? null;
@@ -145,7 +148,7 @@ try {
         if (empty($dealFields['TITLE'])) $dealFields['TITLE'] = $cfg['label'];
         $dealFields['CATEGORY_ID'] = $cfg['category_id'];
         $dealFields['STAGE_ID']    = $cfg['stage_id'];
-        $dealFields['SOURCE_ID']   = $cfg['source_id'] ?? 'WEB';
+        $dealFields['SOURCE_ID']   = $sourceId;
         $dealFields['CURRENCY_ID'] = 'BRL';
         $dealFields['OPENED']      = 'Y';
         if ($contactId) $dealFields['CONTACT_ID'] = $contactId;
@@ -157,7 +160,7 @@ try {
     } elseif ($cfg['entity'] === 'lead') {
         $leadFields['TITLE']       = $cfg['label'];
         $leadFields['STATUS_ID']   = $cfg['stage_id'];
-        $leadFields['SOURCE_ID']   = $cfg['source_id'] ?? 'WEB';
+        $leadFields['SOURCE_ID']   = $sourceId;
         $leadFields['OPENED']      = 'Y';
         if ($contactId) $leadFields['CONTACT_ID'] = $contactId; // vincula o lead ao contato criado/encontrado
         $r = bx_request('crm.lead.add.json', ['fields' => $leadFields]);

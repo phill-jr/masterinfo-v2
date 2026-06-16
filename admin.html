@@ -1269,6 +1269,17 @@
       </div>
 
       <div class="card">
+        <div class="card-title"><i class="ph-fill ph-funnel"></i> Origem por fonte de tráfego</div>
+        <div class="section-help">
+          <i class="ph ph-info"></i>
+          Define a <b>Origem</b> (campo nativo do funil) automaticamente pela fonte do clique: quem chega com <code>gclid</code> recebe a origem do Google Ads, com <code>fbclid</code> a do Meta Ads; sem nenhum dos dois, usa o padrão (ou a origem do próprio formulário). Os campos abaixo são as origens reais do seu Bitrix.
+        </div>
+        <div id="bxSourceRules">
+          <div class="bx-empty">Carregando origens…</div>
+        </div>
+      </div>
+
+      <div class="card">
         <div class="card-title"><i class="ph-fill ph-faders"></i> Formulários do site</div>
         <div class="section-help">
           <i class="ph ph-info"></i>
@@ -1670,7 +1681,7 @@
     if (tab === 'bitrix' && !bxInited) {
       bxInited = true;
       bxTestConnection();
-      Promise.all([bxLoadMapping(), bxLoadFieldOptions(), bxLoadCategories(), bxLoadSources()]).then(bxRenderForms);
+      Promise.all([bxLoadMapping(), bxLoadFieldOptions(), bxLoadCategories(), bxLoadSources()]).then(function () { bxRenderForms(); bxRenderSourceRules(); });
     }
   };
 
@@ -1705,7 +1716,7 @@
 
   // Estado da integracao
   var bxDestFields = [];
-  var bxMapping = { field_labels: {}, forms: {} };
+  var bxMapping = { field_labels: {}, forms: {}, source_rules: { gclid: '', fbclid: '', default: 'WEBFORM' } };
 
   function bxEsc(s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function(c) {
@@ -1721,6 +1732,7 @@
           bxMapping = d.mapping;
           if (!bxMapping.field_labels) bxMapping.field_labels = {};
           if (!bxMapping.forms) bxMapping.forms = {};
+          if (!bxMapping.source_rules) bxMapping.source_rules = { gclid: '', fbclid: '', default: 'WEBFORM' };
         }
       })
       .catch(function() {});
@@ -1856,6 +1868,64 @@
     slugs.forEach(function(slug) { var f = forms[slug]; bxLoadStages(slug, f.category_id || 0, f.stage_id, null, f.entity || 'deal'); });
   };
 
+  // ─── Origem por fonte de trafego (gclid/fbclid -> SOURCE_ID) ───
+  function bxSrcOpts(cur, emptyLabel) {
+    var found = false;
+    var opts = '<option value="">' + bxEsc(emptyLabel) + '</option>';
+    bxSources.forEach(function (s) {
+      var is = (s.status_id === cur);
+      if (is) found = true;
+      opts += '<option value="' + bxEsc(s.status_id) + '"' + (is ? ' selected' : '') + '>' + bxEsc(s.name) + '</option>';
+    });
+    if (cur && !found) opts += '<option value="' + bxEsc(cur) + '" selected>' + bxEsc(cur) + ' (atual — fora da lista)</option>';
+    return opts;
+  }
+
+  window.bxRenderSourceRules = function () {
+    var box = document.getElementById('bxSourceRules');
+    if (!box) return;
+    if (!bxMapping.source_rules) bxMapping.source_rules = { gclid: '', fbclid: '', default: 'WEBFORM' };
+    var r = bxMapping.source_rules;
+    function fld(id, cur, label, hint, emptyLabel) {
+      return '<div class="bx-fld" style="flex:1;min-width:220px;"><label>' + label + '</label>' +
+        '<select class="bxsr-' + id + '">' + bxSrcOpts(cur || '', emptyLabel) + '</select>' +
+        '<div class="bx-form-slug" style="margin-top:4px;">' + hint + '</div></div>';
+    }
+    box.innerHTML =
+      '<div class="bx-grid">' +
+        fld('gclid', r.gclid, 'Clique do Google (gclid)', 'Lead/Negócio com gclid → esta origem', '— não classificar —') +
+        fld('fbclid', r.fbclid, 'Clique do Meta (fbclid)', 'Lead/Negócio com fbclid → esta origem', '— não classificar —') +
+        fld('default', r.default, 'Padrão (orgânico/direto)', 'Sem gclid/fbclid → esta origem', '— usar origem do formulário —') +
+      '</div>' +
+      '<div class="bx-form-actions">' +
+        '<button type="button" class="btn btn-secondary" onclick="bxSaveSourceRules(this)"><i class="ph ph-floppy-disk"></i> Salvar origens</button>' +
+        '<span class="bx-count bxsr-status"></span>' +
+      '</div>';
+  };
+
+  window.bxSaveSourceRules = function (btn) {
+    var box = document.getElementById('bxSourceRules');
+    if (!box) return;
+    var status = box.querySelector('.bxsr-status');
+    var g = box.querySelector('.bxsr-gclid'), f = box.querySelector('.bxsr-fbclid'), d = box.querySelector('.bxsr-default');
+    bxMapping.source_rules = {
+      gclid:   (g && g.value) || '',
+      fbclid:  (f && f.value) || '',
+      default: (d && d.value) || 'WEBFORM'
+    };
+    if (status) status.textContent = 'Salvando…';
+    btn.disabled = true;
+    fetch('api/admin/bitrix-mapping.php', {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF_TOKEN },
+      body: JSON.stringify({ field_labels: bxMapping.field_labels || {}, forms: bxMapping.forms || {}, source_rules: bxMapping.source_rules })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (status) status.textContent = (d && d.ok) ? '✓ origens salvas' : ('Erro: ' + ((d && d.error) || 'falha')); })
+      .catch(function () { if (status) status.textContent = 'Erro de conexão'; })
+      .finally(function () { btn.disabled = false; });
+  };
+
   window.bxAddMapRow = function(btn) {
     btn.parentElement.querySelector('.bxf-maps').insertAdjacentHTML('beforeend', bxMapRowHtml('', ''));
   };
@@ -1926,7 +1996,7 @@
     fetch('api/admin/bitrix-mapping.php', {
       method: 'POST', credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF_TOKEN },
-      body: JSON.stringify({ field_labels: bxMapping.field_labels || {}, forms: bxMapping.forms })
+      body: JSON.stringify({ field_labels: bxMapping.field_labels || {}, forms: bxMapping.forms, source_rules: bxMapping.source_rules || {} })
     })
       .then(function(r) { return r.json(); })
       .then(function(d) { status.textContent = (d && d.ok) ? '✓ formulário salvo' : ('Erro: ' + ((d && d.error) || 'falha')); })

@@ -50,7 +50,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $clean = [
         'field_labels' => [],
         'forms'        => [],
+        'source_rules' => [],
     ];
+
+    // Origem por fonte de trafego (gclid/fbclid -> SOURCE_ID). STATUS_ID ate 80 chars.
+    // Preserva o existente se o POST nao enviar (defesa contra wipe — o admin sempre manda).
+    if (!isset($data['source_rules'])) {
+        $existing = bx_load_mapping();
+        if (!empty($existing['source_rules']) && is_array($existing['source_rules'])) {
+            $clean['source_rules'] = $existing['source_rules'];
+        }
+    } elseif (is_array($data['source_rules'])) {
+        foreach (['gclid', 'fbclid', 'default'] as $sk) {
+            $sv = $data['source_rules'][$sk] ?? '';
+            if (is_string($sv)) $clean['source_rules'][$sk] = substr(trim($sv), 0, 80);
+        }
+    }
 
     if (isset($data['field_labels']) && is_array($data['field_labels'])) {
         foreach ($data['field_labels'] as $k => $v) {

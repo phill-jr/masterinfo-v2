@@ -169,6 +169,21 @@ function bx_create_deal(string $title, ?int $contactId, $opportunity = 0, string
     return isset($r['result']) ? (int) $r['result'] : null;
 }
 
+/**
+ * Decide o SOURCE_ID (Origem nativa do Bitrix) pela fonte de trafego capturada.
+ * Precedencia: gclid (Google Ads) > fbclid (Meta Ads) > origem do form > default das regras > WEBFORM.
+ * As origens sao EDITAVEIS no admin (bitrix-mapping.json -> source_rules). Usa STATUS_ID, nunca o nome.
+ * So usa fbclid (NAO fbp/fbc — esses existem em trafego organico e classificariam tudo como Meta).
+ */
+function bx_determine_source_id(array $data, array $cfg): string {
+    $rules = bx_load_mapping()['source_rules'] ?? [];
+    if (!empty($data['gclid'])  && !empty($rules['gclid']))  return bx_sanitize_text((string) $rules['gclid'], 80);
+    if (!empty($data['fbclid']) && !empty($rules['fbclid'])) return bx_sanitize_text((string) $rules['fbclid'], 80);
+    $fallback = $cfg['source_id'] ?? '';
+    if ($fallback === '' || $fallback === 'WEB') $fallback = $rules['default'] ?? 'WEBFORM'; // 'WEB' nao existe nesse portal
+    return bx_sanitize_text((string) $fallback, 80);
+}
+
 /** Posta um comentário de timeline numa entidade ('lead'|'deal'|...). Best-effort (loga, não lança). */
 function bx_timeline_comment(int $entityId, string $entityType, string $comment): bool {
     // Texto livre do visitante → sanitiza (comentário de timeline renderiza HTML no Bitrix).
@@ -216,6 +231,12 @@ function bx_default_mapping(): array {
         'field_labels' => [
             // 'UF_CRM_1676591723362' => 'Bairro',
             // 'UF_CRM_1676772668897' => 'Plano',
+        ],
+        // Origem por fonte de trafego (SOURCE_ID dinamico) — editavel no admin (STATUS_ID, nao o nome).
+        'source_rules' => [
+            'gclid'   => '',          // ex.: UC_BPJ8RQ (Google Ads)
+            'fbclid'  => '',          // ex.: 10|BITRIX_WHATCRM_NET_70680444 (Meta Ads)
+            'default' => 'WEBFORM',   // Site (fallback organico/direto)
         ],
         // Configuração POR FORMULÁRIO do site
         'forms' => [
