@@ -20,6 +20,17 @@
   var cfg = null;
   var miUserData = null;   // dados do cliente p/ Correspondência Avançada (Advanced Matching)
 
+  // ── POLÍTICA DE CONSENTIMENTO DOS PIXELS (LGPD) ──────────────────────────────
+  // Fica AQUI (tracking.js é versionado e vai pro deploy direto). NÃO no config.json:
+  // o deploy.sh (passo 0.5) PUXA o config.json da produção e sobrescreveria qualquer
+  // flag posto no repo. Por isso o controle mora no código.
+  //   false = pixels (Meta/Google Ads) DISPARAM NO LOAD; o banner de cookies continua
+  //           aparecendo, mas só como AVISO (clicar não muda o disparo).
+  //   true  = pixels só disparam APÓS o aceite de marketing no banner (LGPD estrito).
+  // config.tracking.requireConsent, SE existir, tem prioridade sobre este padrão.
+  // ⚠️ Decisão do dono do site; disparar marketing antes do aceite é cinza na ANPD.
+  var REQUIRE_CONSENT_DEFAULT = false;
+
   // ═══════════════════════════════════════════════
   //  JORNADA DO CLIENTE (1st-party → comentário do lead no Bitrix)
   //  Origem/UTM e páginas são captadas SEMPRE (mesmo com pixels off);
@@ -137,13 +148,13 @@
       // Pixels (GTM/GA4/Ads/FB) só com enableTracking ligado + IDs configurados
       // E somente após o consentimento de cookies (cookie-consent.js).
       if (cfg.enableTracking) {
-        if (cfg.requireConsent === false) {
-          // Consentimento DESLIGADO (config.tracking.requireConsent=false): os pixels
-          // disparam JÁ no load, sem esperar o aceite. O banner (cookie-consent.js)
-          // continua aparecendo, mas como AVISO — clicar nele não muda o disparo.
-          // ⚠️ LGPD/ANPD: disparar pixel de marketing antes do consentimento é decisão
-          // do dono do site (tecnicamente cinza). Reversível: requireConsent=true.
-          console.info('[Tracking] requireConsent=false → pixels disparam no load (banner é só aviso).');
+        // config tem prioridade; sem o campo, usa o padrão do código (REQUIRE_CONSENT_DEFAULT)
+        var needConsent = (cfg.requireConsent === undefined || cfg.requireConsent === null)
+          ? REQUIRE_CONSENT_DEFAULT : !!cfg.requireConsent;
+        if (!needConsent) {
+          // Sem gate de consentimento: pixels disparam JÁ no load. O banner
+          // (cookie-consent.js) continua aparecendo, mas como AVISO — clicar não muda.
+          console.info('[Tracking] consentimento dispensado → pixels disparam no load (banner é só aviso).');
           initAll();
         } else if (typeof window.miOnConsent === 'function') {
           window.miOnConsent(initAllowed);              // dispara agora se já decidido; e a cada mudança
