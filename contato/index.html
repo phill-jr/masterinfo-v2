@@ -852,7 +852,8 @@
       }
 
       // Best-effort: registra no funil (Bitrix) se o backend existir.
-      var dados = { nome: nome, telefone: telefone, mensagem: mensagem, motivo: motivo, origem: 'contato-site', jornada: (typeof window.miJourneyText === 'function' ? window.miJourneyText() : '') };
+      var _att = (typeof window.miAttribution === 'function') ? window.miAttribution() : {};
+      var dados = { nome: nome, telefone: telefone, mensagem: mensagem, motivo: motivo, origem: 'contato-site', jornada: (typeof window.miJourneyText === 'function' ? window.miJourneyText() : ''), gclid: _att.gclid || '', fbclid: _att.fbclid || '', fbp: _att.fbp || '', fbc: _att.fbc || '' };
       try {
         fetch('../api/form-submit.php', {
           method: 'POST',

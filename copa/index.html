@@ -446,13 +446,15 @@
       if (SHEETS_ENDPOINT) {
         btn.disabled = true;
         btn.innerHTML = 'Enviando... <i class="ph-bold ph-spinner"></i>';
+        var _att = (typeof window.miAttribution === 'function') ? window.miAttribution() : {};
         var dados = {
           nome: nome,
           bairro: bairro,
           telefone: telefone,
           plano: 'Plano da Copa R$ 59,90 (3 primeiros meses)',
           origem: 'pre-venda-copa',
-          jornada: (typeof window.miJourneyText === 'function' ? window.miJourneyText() : '')
+          jornada: (typeof window.miJourneyText === 'function' ? window.miJourneyText() : ''),
+          gclid: _att.gclid || '', fbclid: _att.fbclid || '', fbp: _att.fbp || '', fbc: _att.fbc || ''
         };
 
         // Envia TAMBEM pro Bitrix24 (em paralelo ao Sheets — redundancia).

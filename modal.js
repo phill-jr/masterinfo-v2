@@ -376,11 +376,13 @@
   function miPostLead(form, data) {
     if (IS_WP) return; // no WP o lead já vai pela ação AJAX dedicada (submitLead)
     try {
+      var att = (typeof window.miAttribution === 'function') ? window.miAttribution() : {};
+      var payload = Object.assign({}, data, { gclid: att.gclid || '', fbclid: att.fbclid || '', fbp: att.fbp || '', fbc: att.fbc || '' });
       fetch(API_BASE + 'form-submit.php', {
         method: 'POST',
         keepalive: true,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ form: form, data: data })
+        body: JSON.stringify({ form: form, data: payload })
       }).catch(function () {});
     } catch (e) {}
   }

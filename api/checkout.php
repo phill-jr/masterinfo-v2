@@ -172,7 +172,9 @@ if (!empty(BITRIX_WEBHOOK)) {
         //    secrets/config.php pode sobrescrever o nome do campo se necessário. fbclid/_fbp continuam
         //    OPT-IN (nomes de campo do Meta não são estáveis): defina BITRIX_UF_FBCLID / BITRIX_UF_FBP
         //    em secrets/config.php (ex.: define('BITRIX_UF_FBCLID', 'UF_CRM_1700000000');) para ligá-los.
-        if (!defined('BITRIX_UF_GCLID')) define('BITRIX_UF_GCLID', 'UF_CRM_GCLID');
+        if (!defined('BITRIX_UF_GCLID'))  define('BITRIX_UF_GCLID', 'UF_CRM_GCLID');
+        if (!defined('BITRIX_UF_FBCLID')) define('BITRIX_UF_FBCLID', 'UF_CRM_FBCLID');
+        if (!defined('BITRIX_UF_FBP'))    define('BITRIX_UF_FBP', 'UF_CRM_FBP');
         if ($deal_id && (defined('BITRIX_UF_FBCLID') || defined('BITRIX_UF_FBP') || defined('BITRIX_UF_GCLID'))) {
             $ufFields = [];
             if (defined('BITRIX_UF_FBCLID') && !empty($input['fbclid'])) $ufFields[BITRIX_UF_FBCLID] = bx_sanitize_text((string) $input['fbclid'], 255);

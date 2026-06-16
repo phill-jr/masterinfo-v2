@@ -168,14 +168,23 @@ try {
     // O campo UF_CRM_GCLID já existe no Bitrix (criado pelo Sync Hub), então a atribuição funciona
     // POR PADRÃO, sem depender do mapeamento do admin. Best-effort: nunca derruba o envio do form.
     // (fbclid/_fbp do Meta ficam opt-in via mapeamento — nomes de campo não estáveis.)
-    if ($entityId && !empty($data['gclid']) && in_array($cfg['entity'], ['deal', 'lead'], true)) {
+    // gclid + fbclid + _fbp -> campos do deal/lead. Campos UF_CRM_* existem no Bitrix, entao
+    // funciona por padrao; o CAPI do Sync Hub le fbclid/_fbp e manda fbc/fbp no Purchase (eleva EMQ).
+    if ($entityId && in_array($cfg['entity'], ['deal', 'lead'], true)) {
         try {
-            $ufGclid = defined('BITRIX_UF_GCLID') ? BITRIX_UF_GCLID : 'UF_CRM_GCLID';
-            $gcl     = bx_sanitize_text((string) $data['gclid'], 512);
-            $method  = $cfg['entity'] === 'deal' ? 'crm.deal.update.json' : 'crm.lead.update.json';
-            bx_request($method, ['id' => $entityId, 'fields' => [$ufGclid => $gcl]]);
+            $ufGclid  = defined('BITRIX_UF_GCLID')  ? BITRIX_UF_GCLID  : 'UF_CRM_GCLID';
+            $ufFbclid = defined('BITRIX_UF_FBCLID') ? BITRIX_UF_FBCLID : 'UF_CRM_FBCLID';
+            $ufFbp    = defined('BITRIX_UF_FBP')    ? BITRIX_UF_FBP    : 'UF_CRM_FBP';
+            $attr = [];
+            if (!empty($data['gclid']))  $attr[$ufGclid]  = bx_sanitize_text((string) $data['gclid'], 512);
+            if (!empty($data['fbclid'])) $attr[$ufFbclid] = bx_sanitize_text((string) $data['fbclid'], 255);
+            if (!empty($data['fbp']))    $attr[$ufFbp]    = bx_sanitize_text((string) $data['fbp'], 255);
+            if ($attr) {
+                $method = $cfg['entity'] === 'deal' ? 'crm.deal.update.json' : 'crm.lead.update.json';
+                bx_request($method, ['id' => $entityId, 'fields' => $attr]);
+            }
         } catch (\Throwable $e) {
-            error_log('[form-submit] gclid attribution: ' . get_class($e) . ': ' . $e->getMessage());
+            error_log('[form-submit] attribution: ' . get_class($e) . ': ' . $e->getMessage());
         }
     }
 
