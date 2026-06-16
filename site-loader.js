@@ -470,19 +470,36 @@
       var bg = s.bgClass || (i === 0 ? 'hero-bg-home' : 'hero-bg-essencial');
       var active = i === 0 ? ' is-active' : '';
       var loading = i === 0 ? 'eager' : 'lazy';
-      var overlay = s.title
-        ? '<div class="hero-slide-shade"></div>' +
+      var img = '<img class="hero-slide-img" src="' + esc(s.img) + '" alt="" loading="' + loading + '" onerror="this.style.display=\'none\'">';
+      var aria = esc(s.ariaLabel || s.title || ('Slide ' + (i + 1)));
+
+      // Modo "páginas": slide com título/CTA vira <div> (não dá pra aninhar <a> em <a>),
+      // com overlay = tag + título + BOTÃO de checkout do plano da página.
+      if (s.title || s.cta) {
+        var cta = '';
+        if (s.cta) {
+          var ctaHref = s.plano ? 'checkout.html?plano=' + encodeURIComponent(s.plano) : (s.href || '#planos');
+          cta = '<a class="hero-slide-cta" href="' + esc(ctaHref) + '"' +
+            (s.plano ? ' data-plano="' + esc(s.plano) + '"' : '') + '>' +
+            esc(s.cta) + ' <i class="ph ph-arrow-right"></i></a>';
+        }
+        return '<div class="hero-slide' + active + ' ' + esc(bg) + '" data-slide="' + i + '" aria-label="' + aria + '">' +
+          img +
+          '<div class="hero-slide-shade"></div>' +
           '<div class="hero-slide-content">' +
             (s.tag ? '<span class="hero-slide-tag hero-slide-tag-fire">' + esc(s.tag) + '</span>' : '') +
-            '<h2 class="hero-slide-title">' + esc(s.title) + '</h2>' +
-          '</div>'
-        : '';
+            (s.title ? '<h2 class="hero-slide-title">' + esc(s.title) + '</h2>' : '') +
+            cta +
+          '</div>' +
+          '</div>';
+      }
+
+      // Modo banner (config.heroSlides): slide inteiro é o link.
       return '<a href="' + esc(s.href || '#planos') + '" class="hero-slide' + active + ' ' + esc(bg) + '"' +
         ' data-slide="' + i + '"' +
         (s.plano ? ' data-plano="' + esc(s.plano) + '"' : '') +
-        ' aria-label="' + esc(s.ariaLabel || s.title || ('Slide ' + (i + 1))) + '">' +
-        '<img class="hero-slide-img" src="' + esc(s.img) + '" alt="" loading="' + loading + '" onerror="this.style.display=\'none\'">' +
-        overlay +
+        ' aria-label="' + aria + '">' +
+        img +
         '</a>';
     }).join('');
 
@@ -567,7 +584,7 @@
   }
 
   // Modo "páginas" (config.homeHero.usarPaginas): 1 slide por página de Internet,
-  // título por cima, clique → #planos. Dados em internet-hero.json (gerado pelo Python).
+  // título + botão de checkout do plano da página. Dados em internet-hero.json (Python).
   function loadHeroPaginas(fallbackSlides) {
     return fetch('internet-hero.json?v=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
@@ -578,6 +595,8 @@
           return {
             img: p.img,
             href: p.href || '#planos',
+            plano: p.plano || null,
+            cta: p.cta || 'Quero esse plano',
             title: p.title || '',
             tag: p.tag || '',
             bgClass: 'hero-bg-home',

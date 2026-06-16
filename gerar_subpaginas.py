@@ -1304,7 +1304,9 @@ def gerar_internet_hero():
             "title": p["title"],
             "tag": p["tag"],
             "img": imgs[0],
-            "href": "#planos",
+            "plano": (p["plans"][0] if p.get("plans") else None),  # plano primário → checkout
+            "cta": p.get("cta") or "Quero esse plano",
+            "href": "#planos",  # fallback se o plano não existir
         })
     path = os.path.join(BASE_DIR, "internet-hero.json")
     with open(path, "w", encoding="utf-8") as f:
