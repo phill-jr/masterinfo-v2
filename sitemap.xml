@@ -43,6 +43,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://masterinfointernet.com/playhub/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://masterinfointernet.com/com-1-roteador/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>

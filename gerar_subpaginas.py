@@ -736,7 +736,7 @@ def page_app(a, depth=2):
 
     base = "../" * depth
     extra_head = f'<link rel="stylesheet" href="{base}playhub.css?v=20260617-playhub2">'
-    extra_scripts = f'  <script src="{base}playhub.js?v=20260617-playhub" defer></script>'
+    extra_scripts = f'  <script src="{base}playhub.js?v=20260617-playhub-b" defer></script>'
 
     return f'''{head(a["name"], depth, extra_head=extra_head)}
 {header(depth)}
@@ -1050,10 +1050,81 @@ def page_ajuda(a, depth=2):
 # profundidade (base = "../"*depth). As 16 geradas saem das listas de dados; as 5
 # estaticas (nao geradas por template) entram explicitas. A home NAO entra: ela
 # monta header+rodape em runtime via site-loader.js (mesma fonte = o config).
+def page_playhub(depth=1):
+    """Página dedicada do PlayHub (/playhub/): hero + como funciona + as 4 categorias
+    (cards renderizados pelo playhub.js; clicar abre o modal do nível). depth=1."""
+    base = "../" * depth
+    extra_head = f'<link rel="stylesheet" href="{base}playhub.css?v=20260617-playhub2">'
+    extra_scripts = f'  <script src="{base}playhub.js?v=20260617-playhub-b" defer></script>'
+
+    passos = [
+        ("📺", "Escolha seu plano", "Todo plano com app de TV já vem com uma categoria PlayHub liberada — sem custo extra."),
+        ("🎯", "Escolha 1 app por mês", "Dentro da sua categoria você troca de app quando quiser: 1 por mês, na hora que preferir."),
+        ("✨", "Aproveite tudo", "Streaming, música, leitura, educação e segurança — direto no seu plano de internet."),
+    ]
+    passos_html = ""
+    for emoji, titulo, desc in passos:
+        passos_html += f'''
+        <div class="sub-highlight">
+          <div class="sub-highlight-emoji">{emoji}</div>
+          <h3>{titulo}</h3>
+          <p>{desc}</p>
+        </div>'''
+
+    return f'''{head("PlayHub — Catálogo de apps incluso no seu plano", depth, extra_head=extra_head)}
+{header(depth)}
+
+  <!-- HERO PlayHub -->
+  <section class="sub-hero" style="background: linear-gradient(135deg, #1a1a1a 0%, #3a1e05 100%);">
+    <div class="container sub-hero-inner">
+      <span class="sub-hero-tag">PLAYHUB · CATÁLOGO DE APPS</span>
+      <h1 class="sub-hero-title">Os melhores apps, inclusos no seu plano</h1>
+      <p class="sub-hero-subtitle">Em qualquer plano com app de TV você escolhe 1 app por mês dentro da sua categoria. Mais de 30 opções entre streaming, música, leitura, educação e segurança.</p>
+      <a href="{base}#planos" class="sub-hero-cta">Ver planos <i class="ph ph-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- Como funciona -->
+  <section class="sub-section sub-section-light">
+    <div class="container">
+      <div class="section-header section-header-tight">
+        <h2 class="section-title">Como funciona</h2>
+      </div>
+      <div class="sub-highlights">{passos_html}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PLAYHUB · CATEGORIAS ========== -->
+  <section class="playhub-section" id="playhub">
+    <div class="container">
+      <div class="ph-head">
+        <div class="ph-head-text">
+          <span class="ph-eyebrow">Catálogos</span>
+          <h2 class="ph-title">Escolha o seu <span class="title-fire">catálogo</span></h2>
+          <p class="ph-subtitle">Cada plano libera uma categoria. Clique pra ver tudo que tem em cada uma — Standard, Advanced, TOP e Premium.</p>
+        </div>
+        <a href="#playhub-howto" class="ph-aux-btn">Como funciona <i class="ph ph-info"></i></a>
+      </div>
+
+      <div id="playhub-grid" class="playhub-grid">
+        <!-- preenchido pelo playhub.js -->
+      </div>
+
+      <div class="playhub-howto" id="playhub-howto">
+        <i class="ph-fill ph-info"></i>
+        <span>Cada plano tem uma categoria liberada. Os planos Ultra Home Office e Ultra Gamer dão acesso a mais de uma categoria, com 1 escolha por mês em cada.</span>
+      </div>
+    </div>
+  </section>
+
+{footer(depth, extra_scripts=extra_scripts)}'''
+
+
 MENU_PAGES = (
     [(f'{p["slug"]}/index.html', 1) for p in INTERNET]
     + [(f'{s}/index.html', 1) for s in
-       ("contato", "tv-streaming", "termos", "privacidade", "lgpd")]
+       ("contato", "tv-streaming", "termos", "privacidade", "lgpd", "playhub")]
     + [(f'aplicativos/{a["slug"]}/index.html', 2) for a in APLICATIVOS]
     + [(f'ajuda/{a["slug"]}/index.html', 2) for a in AJUDA]
 )
@@ -1367,6 +1438,8 @@ def gerar_bodies():
     print("\nAjuda (3 páginas)…")
     for a in AJUDA:
         write_file(os.path.join(BASE_DIR, "ajuda", a["slug"], "index.html"), page_ajuda(a, depth=2))
+    print("\nPlayHub (1 página)…")
+    write_file(os.path.join(BASE_DIR, "playhub", "index.html"), page_playhub(depth=1))
 
 
 def gerar_internet_hero():

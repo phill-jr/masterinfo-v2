@@ -22,6 +22,29 @@
     return (t.charAt(0) || '?').toUpperCase();
   }
 
+  // Base até a raiz, derivada do próprio <script src> ("" na home, "../" em /playhub/,
+  // "../../" em /aplicativos/x/). Os logos no config são relativos (imgs/x.png) e só
+  // resolveriam na raiz; prefixar com a base faz funcionar em qualquer profundidade.
+  var _BASE = null;
+  function assetBase() {
+    if (_BASE !== null) return _BASE;
+    _BASE = '';
+    try {
+      var scripts = document.getElementsByTagName('script');
+      for (var i = scripts.length - 1; i >= 0; i--) {
+        var s = scripts[i].getAttribute('src') || '';
+        var idx = s.indexOf('playhub.js');
+        if (idx >= 0) { _BASE = s.slice(0, idx); break; }
+      }
+    } catch (_) {}
+    return _BASE;
+  }
+  function assetUrl(logo) {
+    logo = logo || '';
+    if (!logo || logo.charAt(0) === '/' || /^https?:/.test(logo)) return logo;
+    return assetBase() + logo;
+  }
+
   // Mini-vitrine no card (até 4 logos + "+X" + categoria + link)
   function renderVitrine(plano, catsById) {
     var cats = plano.categorias || [];
@@ -56,7 +79,7 @@
 
     var logosHtml = visible.map(function (a) {
       if (a.logo) {
-        return '<img class="vitrine-logo" src="' + escapeHtml(a.logo) + '" alt="' + escapeHtml(a.nome) + '" loading="lazy" onerror="this.outerHTML=\'<span class=&quot;vitrine-fallback&quot;>' + escapeHtml(initial(a.nome)) + '</span>\'">';
+        return '<img class="vitrine-logo" src="' + escapeHtml(assetUrl(a.logo)) + '" alt="' + escapeHtml(a.nome) + '" loading="lazy" onerror="this.outerHTML=\'<span class=&quot;vitrine-fallback&quot;>' + escapeHtml(initial(a.nome)) + '</span>\'">';
       }
       return '<span class="vitrine-fallback">' + escapeHtml(initial(a.nome)) + '</span>';
     }).join('');
@@ -82,7 +105,7 @@
     }
 
     var logoInner = destaque
-      ? '<img class="ph-card-hero-logo" src="' + escapeHtml(destaque.logo) + '" alt="' + escapeHtml(destaque.nome) + '" loading="lazy" onerror="this.outerHTML=\'<span class=&quot;ph-card-hero-fallback&quot;>' + escapeHtml((cat.nome || '?').charAt(0)) + '</span>\'">'
+      ? '<img class="ph-card-hero-logo" src="' + escapeHtml(assetUrl(destaque.logo)) + '" alt="' + escapeHtml(destaque.nome) + '" loading="lazy" onerror="this.outerHTML=\'<span class=&quot;ph-card-hero-fallback&quot;>' + escapeHtml((cat.nome || '?').charAt(0)) + '</span>\'">'
       : '<span class="ph-card-hero-fallback">' + escapeHtml((cat.nome || '?').charAt(0)) + '</span>';
 
     var precoFmt = Number(cat.preco || 0).toFixed(2).replace('.', ',');
@@ -113,7 +136,7 @@
 
     var appsHtml = apps.map(function (a) {
       var inner = a.logo
-        ? '<img src="' + escapeHtml(a.logo) + '" alt="' + escapeHtml(a.nome) + '" loading="lazy" onerror="this.outerHTML=\'<span class=&quot;playhub-app-fallback&quot;>' + escapeHtml(initial(a.nome)) + '</span>\'">'
+        ? '<img src="' + escapeHtml(assetUrl(a.logo)) + '" alt="' + escapeHtml(a.nome) + '" loading="lazy" onerror="this.outerHTML=\'<span class=&quot;playhub-app-fallback&quot;>' + escapeHtml(initial(a.nome)) + '</span>\'">'
         : '<span class="playhub-app-fallback">' + escapeHtml(initial(a.nome)) + '</span>';
       return (
         '<div class="playhub-modal-app">' +
