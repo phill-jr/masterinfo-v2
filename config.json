@@ -40,19 +40,19 @@
             "on": true
         },
         {
-            "key": "historia",
-            "on": false
-        },
-        {
             "key": "cobertura",
             "on": true
         },
         {
             "key": "depoimentos",
-            "on": false
+            "on": true
         },
         {
             "key": "indique",
+            "on": false
+        },
+        {
+            "key": "historia",
             "on": true
         },
         {
@@ -186,7 +186,7 @@
                 "label": "Indique e Ganhe",
                 "tipo": "link",
                 "href": "#indique",
-                "on": true
+                "on": false
             },
             {
                 "key": "ajuda",
