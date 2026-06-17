@@ -199,7 +199,7 @@ AJUDA = [
             ("🔄", "Reiniciar quando travar", "Tire o roteador da tomada por 30 segundos e ligue de novo — resolve a maioria das lentidões momentâneas."),
         ],
         "cta_label": "Falar com o suporte no WhatsApp",
-        "cta_href": "https://wa.me/5547989212991?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20para%20configurar%20meu%20Wi-Fi.",
+        "cta_href": "https://wa.me/554734341734?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20para%20configurar%20meu%20Wi-Fi.",
     },
     {
         "slug": "reportar",
@@ -213,7 +213,7 @@ AJUDA = [
             ("📡", "Quedas constantes", "Anote os horários em que cai — isso ajuda nossa equipe a identificar a causa mais rápido."),
         ],
         "cta_label": "Abrir chamado no WhatsApp",
-        "cta_href": "https://wa.me/5547989212991?text=Ol%C3%A1!%20Quero%20reportar%20um%20problema%20na%20minha%20internet.",
+        "cta_href": "https://wa.me/554734341734?text=Ol%C3%A1!%20Quero%20reportar%20um%20problema%20na%20minha%20internet.",
     },
     {
         "slug": "boletos",
@@ -452,7 +452,7 @@ def footer(depth, boleto=True, extra_scripts=""):
     <i class="ph-fill ph-barcode"></i>
     <span class="boleto-pulse"></span>
   </a>
-  <script src="{base}marina-widget.js?v=20260602-a" defer></script>''') if boleto else ""
+  <script src="{base}marina-widget.js?v=20260617-a" defer></script>''') if boleto else ""
     return f'''
   <!-- FOOTER -->
   <footer class="footer" id="contato">
@@ -818,7 +818,7 @@ CHAT_BOLETOS_HTML = r'''
             <input type="tel" id="miCpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" autocomplete="off">
             <button type="button" id="miCpfBtn">Continuar <i class="ph ph-arrow-right"></i></button>
           </div>
-          <p class="mi-chat-note">Usamos seu CPF só pra localizar suas faturas. <a href="https://wa.me/5547989212991" target="_blank">Prefere o WhatsApp?</a></p>
+          <p class="mi-chat-note">Usamos seu CPF só pra localizar suas faturas. <a href="https://wa.me/554734341734" target="_blank">Prefere o WhatsApp?</a></p>
         </div>
         <div class="mi-chat-body" id="miChatBody" hidden></div>
         <div class="mi-chat-input" id="miChatInput" hidden>

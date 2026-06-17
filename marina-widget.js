@@ -105,7 +105,7 @@
         '<input type="tel" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" autocomplete="off" class="marina-cpf-input">' +
         '<button type="button" class="marina-cpf-btn">Continuar <i class="ph ph-arrow-right"></i></button>' +
       '</div>' +
-      '<p class="marina-pop-note">Usamos seu CPF so pra localizar suas faturas. <a href="https://wa.me/5547989212991" target="_blank">Prefere o WhatsApp?</a></p>' +
+      '<p class="marina-pop-note">Usamos seu CPF so pra localizar suas faturas. <a href="https://wa.me/554734341734" target="_blank">Prefere o WhatsApp?</a></p>' +
     '</div>' +
     '<div class="marina-pop-body" hidden></div>' +
     '<div class="marina-pop-input" hidden>' +
