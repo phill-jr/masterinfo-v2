@@ -1071,6 +1071,46 @@ _FOOTER_COLS_RE = re.compile(
 # <style> que carrega a escala do site nas subpaginas (a home usa site-loader.js).
 _SITE_SCALE_RE = re.compile(r'<style>:root\{--site-scale:[^}]*\}</style>')
 
+# URL canonica do site (sem barra final) — base do <link rel="canonical"> self-referente.
+SITE_URL = "https://masterinfointernet.com"
+_CANONICAL_RE = re.compile(r'[ \t]*<link rel="canonical"[^>]*>')
+
+
+def sync_canonical():
+    """Injeta/atualiza o <link rel="canonical"> SELF-REFERENTE no <head> de TODAS as
+    subpaginas (MENU_PAGES). URL = SITE_URL + dir/ (ex.: familia/index.html ->
+    https://masterinfointernet.com/familia/). Cirurgico (so a tag canonical),
+    idempotente, CRLF-safe: atualiza se ja existir, insere antes do </head> se faltar.
+    A home NAO entra: index.html/index-light.html tem canonical estatico apontando p/ a raiz."""
+    changed = same = skipped = 0
+    for rel, depth in MENU_PAGES:
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            skipped += 1
+            continue
+        url_path = rel.rsplit("/index.html", 1)[0]
+        canonical_url = f"{SITE_URL}/{url_path}/"
+        link_line = f'<link rel="canonical" href="{canonical_url}">'
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        nl = "\r\n" if "\r\n" in orig else "\n"
+        if _CANONICAL_RE.search(orig):
+            html = _CANONICAL_RE.sub(lambda m: "  " + link_line, orig)
+        elif "</head>" in orig:
+            html = orig.replace("</head>", "  " + link_line + nl + "</head>", 1)
+        else:
+            print(f"  ! pulado (sem </head>): {rel}")
+            skipped += 1
+            continue
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ canonical: {rel} -> {canonical_url}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  Canonical (self-referente): {changed} aplicada(s), {same} já em dia, {skipped} pulada(s).")
+
 
 def sync_menus():
     """Sincroniza HEADER (bloco <header>) e RODAPE (colunas .footer-col) de TODAS
@@ -1368,6 +1408,8 @@ if __name__ == "__main__":
         sync_menus()
     print("\nEscala do site (--site-scale) → subpáginas…")
     sync_site_scale()
+    print("\nCanonical (self-referente) → subpáginas…")
+    sync_canonical()
     print("\nWidgets flutuantes (config.widgets) → subpáginas…")
     sync_widget_floats()
     print("\nFormas de pagamento (config.formasPagamento) → subpáginas…")

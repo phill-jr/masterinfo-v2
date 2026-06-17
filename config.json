@@ -642,19 +642,19 @@
                 },
                 {
                     "nome": "Looke",
-                    "logo": ""
+                    "logo": "imgs\/looke.png"
                 },
                 {
                     "nome": "Kiddle Pass",
-                    "logo": ""
+                    "logo": "imgs\/kiddle-pass.png"
                 },
                 {
                     "nome": "+Q Nutri",
-                    "logo": ""
+                    "logo": "imgs\/mais-q-nutri.png"
                 },
                 {
                     "nome": "Kaspersky 1 Lic",
-                    "logo": "imgs\/kaspersky.webp"
+                    "logo": "imgs\/kaspersky.png"
                 },
                 {
                     "nome": "ExitLag",
@@ -662,15 +662,15 @@
                 },
                 {
                     "nome": "PlayKids+",
-                    "logo": ""
+                    "logo": "imgs\/playkids.png"
                 },
                 {
                     "nome": "Ubook Plus",
-                    "logo": ""
+                    "logo": "imgs\/ubook.png"
                 },
                 {
                     "nome": "Estuda+",
-                    "logo": ""
+                    "logo": "imgs\/estuda.png"
                 }
             ]
         },
@@ -687,31 +687,31 @@
                 },
                 {
                     "nome": "Deezer",
-                    "logo": "imgs\/deezer.webp"
+                    "logo": "imgs\/deezer.png"
                 },
                 {
                     "nome": "Kaspersky 3 Lic",
-                    "logo": "imgs\/kaspersky.webp"
+                    "logo": "imgs\/kaspersky.png"
                 },
                 {
                     "nome": "HotGo",
-                    "logo": ""
+                    "logo": "imgs\/hotgo.png"
                 },
                 {
                     "nome": "CurtaOn",
-                    "logo": ""
+                    "logo": "imgs\/curtaon.png"
                 },
                 {
                     "nome": "Kiddle Pass",
-                    "logo": ""
+                    "logo": "imgs\/kiddle-pass.png"
                 },
                 {
                     "nome": "O Jornalista",
-                    "logo": ""
+                    "logo": "imgs\/o-jornalista.png"
                 },
                 {
                     "nome": "Docway",
-                    "logo": ""
+                    "logo": "imgs\/docway.png"
                 }
             ]
         },
@@ -728,7 +728,7 @@
                 },
                 {
                     "nome": "Apple TV",
-                    "logo": ""
+                    "logo": "imgs\/apple-tv.png"
                 },
                 {
                     "nome": "GloboPlay",
@@ -748,11 +748,11 @@
                 },
                 {
                     "nome": "Indie",
-                    "logo": ""
+                    "logo": "imgs\/cindie.png"
                 },
                 {
                     "nome": "Leitura 360",
-                    "logo": ""
+                    "logo": "imgs\/leitura-360.png"
                 }
             ]
         },
@@ -777,19 +777,19 @@
                 },
                 {
                     "nome": "Kaspersky 5 Lic",
-                    "logo": "imgs\/kaspersky.webp"
+                    "logo": "imgs\/kaspersky.png"
                 },
                 {
                     "nome": "SmartContent",
-                    "logo": ""
+                    "logo": "imgs\/smartcontent.png"
                 },
                 {
                     "nome": "Queima Diária",
-                    "logo": ""
+                    "logo": "imgs\/queima-diaria.png"
                 },
                 {
                     "nome": "Zen",
-                    "logo": ""
+                    "logo": "imgs\/zen.png"
                 }
             ]
         }

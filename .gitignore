@@ -14,3 +14,6 @@ __pycache__/
 # Security audit reports (gerados localmente — não versionar)
 SECURITY-AUDIT-CODE.md
 SECURITY-AUDIT-INFRA.md
+
+# Rascunhos/scratch locais (deploy ja exclui; nunca versionar)
+temporarios/
