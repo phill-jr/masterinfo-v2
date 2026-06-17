@@ -112,10 +112,14 @@ body {
   background: rgba(255,122,5,0.04);
 }
 
+/* Botao secundario dos planos: outline laranja (antes era rgba(0,0,0,0.03) +
+   borda 0.08 -> sumia no card branco / fundo creme). Borda + texto laranja dao
+   contraste claro e combinam com o primario solido; no hover vira laranja solido. */
 .btn-plan {
-  background: rgba(0,0,0,0.03);
-  color: #1a1a2e;
-  border-color: rgba(0,0,0,0.08);
+  background: rgba(255,122,5,0.07);
+  color: var(--orange-dark);
+  border-color: var(--orange);
+  border-width: 1.5px;
 }
 
 .btn-plan:hover {
