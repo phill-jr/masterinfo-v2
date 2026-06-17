@@ -509,6 +509,45 @@
   margin: 0;
 }
 
+/* Parágrafo "o que é este nível" (descrição rica do catálogo) */
+.playhub-modal-about {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #444;
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  background: color-mix(in srgb, var(--cat-color, #6b7280) 8%, #fff);
+  border-left: 3px solid var(--cat-color, #6b7280);
+  border-radius: 0 10px 10px 0;
+}
+
+/* Abas (pills) quando o plano dá acesso a 2+ níveis */
+.playhub-modal-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.playhub-modal-tabs .ph-tab {
+  border: 1.5px solid color-mix(in srgb, var(--cat-color, #6b7280) 40%, #fff);
+  background: #fff;
+  color: #555;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.playhub-modal-tabs .ph-tab:hover {
+  border-color: var(--cat-color, #6b7280);
+}
+.playhub-modal-tabs .ph-tab.is-active {
+  background: var(--cat-color, #6b7280);
+  color: #fff;
+  border-color: var(--cat-color, #6b7280);
+}
+
 .playhub-modal-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));

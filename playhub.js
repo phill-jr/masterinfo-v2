@@ -64,10 +64,10 @@
     var moreHtml = rest > 0 ? '<span class="vitrine-more">+' + rest + '</span>' : '';
 
     return (
-      '<div class="plan-apps-vitrine" style="--cat-color:' + corCat + '">' +
+      '<div class="plan-apps-vitrine" style="--cat-color:' + corCat + ';cursor:pointer" data-cats="' + escapeHtml(cats.join(',')) + '">' +
       '<span class="vitrine-cat"><span class="vitrine-cat-dot"></span>' + escapeHtml(catLabel) + '</span>' +
       '<div class="vitrine-logos">' + logosHtml + moreHtml + '</div>' +
-      '<a href="#playhub" class="vitrine-link">Ver os ' + totalApps + ' apps disponíveis <i class="ph ph-arrow-down"></i></a>' +
+      '<a href="#" class="vitrine-link" data-vitrine-link role="button">Ver os ' + totalApps + ' apps disponíveis <i class="ph ph-arrow-up-right"></i></a>' +
       '</div>'
     );
   }
@@ -106,8 +106,8 @@
     );
   }
 
-  // Modal: TODOS os apps + planos que dão acesso
-  function renderModal(cat, planosByCat) {
+  // Corpo do modal de UMA categoria (head + sobre + grid + planos) — sem o wrapper/close
+  function renderModalBody(cat, planosByCat) {
     var planos = planosByCat[cat.id] || [];
     var apps = cat.apps || [];
 
@@ -133,22 +133,47 @@
         '</ul></div>'
       : '<p style="color:#888;font-size:0.9rem">Esta categoria é vendida apenas como add-on avulso.</p>';
 
+    // Descrição rica do nível (só aparece se preenchida — fallback p/ produção sem o campo)
+    var about = cat.descricaoLonga || '';
+    var aboutHtml = about ? '<p class="playhub-modal-about">' + escapeHtml(about) + '</p>' : '';
+
     return (
-      '<div class="playhub-modal-card" style="--cat-color:' + (cat.cor || '#6b7280') + '">' +
-      '<button class="playhub-modal-close" aria-label="Fechar" data-close>×</button>' +
       '<div class="playhub-modal-head">' +
       '<h3 class="playhub-modal-title">' + escapeHtml(cat.nome) + '</h3>' +
       '<p class="playhub-modal-sub">' + escapeHtml(cat.descricao || '') + ' · 1 app por mês · R$ ' + Number(cat.preco || 0).toFixed(2).replace('.', ',') + ' avulso</p>' +
       '</div>' +
+      aboutHtml +
       '<div class="playhub-modal-grid">' + appsHtml + '</div>' +
-      planosHtml +
+      planosHtml
+    );
+  }
+
+  // Card do modal com 1+ níveis. Com 2+ níveis vira abas (pills) pra trocar de catálogo.
+  function renderModalMulti(cats, planosByCat) {
+    var first = cats[0];
+    var tabsHtml = '';
+    if (cats.length > 1) {
+      tabsHtml = '<div class="playhub-modal-tabs">' +
+        cats.map(function (c, i) {
+          return '<button type="button" class="ph-tab' + (i === 0 ? ' is-active' : '') + '" data-cat="' + escapeHtml(c.id) + '" style="--cat-color:' + (c.cor || '#6b7280') + '">' + escapeHtml(c.nome) + '</button>';
+        }).join('') +
+        '</div>';
+    }
+    return (
+      '<div class="playhub-modal-card" style="--cat-color:' + (first.cor || '#6b7280') + '">' +
+      '<button class="playhub-modal-close" aria-label="Fechar" data-close>×</button>' +
+      tabsHtml +
+      '<div class="playhub-modal-body" data-body>' + renderModalBody(first, planosByCat) + '</div>' +
       '</div>'
     );
   }
 
-  function openModal(catId, playhub, planosByCat) {
-    var cat = playhub.filter(function (c) { return c.id === catId; })[0];
-    if (!cat) return;
+  // Abre o modal pra 1+ categorias (níveis). Reusa a overlay única #playhubModal.
+  function openModalForCats(catIds, playhub, planosByCat) {
+    var cats = (catIds || []).map(function (id) {
+      return playhub.filter(function (c) { return c.id === id; })[0];
+    }).filter(Boolean);
+    if (!cats.length) return;
 
     var overlay = document.getElementById('playhubModal');
     if (!overlay) {
@@ -156,13 +181,30 @@
       overlay.id = 'playhubModal';
       overlay.className = 'playhub-modal';
       overlay.addEventListener('click', function (e) {
-        if (e.target === overlay || e.target.matches('[data-close], [data-close] *')) closeModal();
+        if (e.target === overlay || e.target.matches('[data-close], [data-close] *')) { closeModal(); return; }
+        var tab = e.target.closest ? e.target.closest('.ph-tab') : null;
+        if (tab && overlay.__cats) {
+          var cat = overlay.__cats.filter(function (c) { return c.id === tab.getAttribute('data-cat'); })[0];
+          if (!cat) return;
+          var body = overlay.querySelector('[data-body]');
+          if (body) body.innerHTML = renderModalBody(cat, overlay.__planosByCat || {});
+          var card = overlay.querySelector('.playhub-modal-card');
+          if (card) card.style.setProperty('--cat-color', cat.cor || '#6b7280');
+          overlay.querySelectorAll('.ph-tab').forEach(function (t) { t.classList.toggle('is-active', t === tab); });
+        }
       });
       document.body.appendChild(overlay);
     }
-    overlay.innerHTML = renderModal(cat, planosByCat);
+    overlay.__cats = cats;
+    overlay.__planosByCat = planosByCat;
+    overlay.innerHTML = renderModalMulti(cats, planosByCat);
     requestAnimationFrame(function () { overlay.classList.add('is-open'); });
     document.body.style.overflow = 'hidden';
+  }
+
+  // Compat: abre 1 categoria (usado pela seção PlayHub das subpáginas)
+  function openModal(catId, playhub, planosByCat) {
+    openModalForCats([catId], playhub, planosByCat);
   }
 
   function closeModal() {
@@ -204,6 +246,15 @@
         var temp = document.createElement('div');
         temp.innerHTML = renderVitrine(plano, catsById);
         list.replaceWith(temp.firstChild);
+      }
+
+      // Clicar na vitrine (link "Ver os apps") abre o popup do(s) nível(is) do plano
+      var vit = apps.querySelector('.plan-apps-vitrine');
+      if (vit && plano.categorias && plano.categorias.length) {
+        vit.addEventListener('click', function (e) {
+          e.preventDefault();
+          openModalForCats(plano.categorias, playhub, planosByCat);
+        });
       }
     });
 

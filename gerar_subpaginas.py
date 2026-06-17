@@ -735,8 +735,8 @@ def page_app(a, depth=2):
       </div>'''
 
     base = "../" * depth
-    extra_head = f'<link rel="stylesheet" href="{base}playhub.css?v=20260603-c">'
-    extra_scripts = f'  <script src="{base}playhub.js?v=20260603-c" defer></script>'
+    extra_head = f'<link rel="stylesheet" href="{base}playhub.css?v=20260617-playhub">'
+    extra_scripts = f'  <script src="{base}playhub.js?v=20260617-playhub" defer></script>'
 
     return f'''{head(a["name"], depth, extra_head=extra_head)}
 {header(depth)}

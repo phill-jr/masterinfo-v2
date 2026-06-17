@@ -634,6 +634,7 @@
             "nome": "Standard",
             "preco": 24.9,
             "descricao": "Catálogo de entrada — 1 app\/mês",
+            "descricaoLonga": "Catálogo de entrada pra já curtir no seu plano: TV ao vivo no SKY+ Light, filmes no Looke, conteúdo pra criançada e até antivírus. Você escolhe 1 app por mês, sem pagar a mais.",
             "cor": "#0ea5e9",
             "apps": [
                 {
@@ -679,6 +680,7 @@
             "nome": "Advanced",
             "preco": 34.9,
             "descricao": "Catálogo intermediário — 1 app\/mês",
+            "descricaoLonga": "Um passo acima, com apps mais completos pra família toda: música no Deezer, SKY+ com Globo, segurança pra 3 dispositivos e mais. 1 escolha por mês já inclusa no plano.",
             "cor": "#10b981",
             "apps": [
                 {
@@ -720,6 +722,7 @@
             "nome": "TOP",
             "preco": 39.99,
             "descricao": "Catálogo top — 1 app\/mês",
+            "descricaoLonga": "Os grandes nomes do streaming no seu plano: Prime Video, Apple TV, GloboPlay, Disney+ e HBO Max (com anúncios). Os apps que todo mundo quer, 1 por mês sem custo extra.",
             "cor": "#f97316",
             "apps": [
                 {
@@ -761,6 +764,7 @@
             "nome": "Premium",
             "preco": 45.99,
             "descricao": "Catálogo premium — versões sem ads",
+            "descricaoLonga": "O melhor da casa, nas versões sem anúncios: Disney+ e HBO Max completos, GloboPlay e Kaspersky pra 5 dispositivos. Experiência premium, 1 app por mês já incluso.",
             "cor": "#a855f7",
             "apps": [
                 {
