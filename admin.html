@@ -663,6 +663,9 @@
       <button class="tab" data-tab="menus" onclick="switchTab('menus')">
         <i class="ph ph-list-dashes"></i> Menus
       </button>
+      <button class="tab" data-tab="seccoes" onclick="switchTab('seccoes')">
+        <i class="ph ph-rows"></i> Seções
+      </button>
       <button class="tab" data-tab="bitrix" onclick="switchTab('bitrix')">
         <i class="ph ph-plugs-connected"></i> Bitrix
       </button>
@@ -1189,11 +1192,11 @@
         #tab-menus .mnu-dragging { opacity:0.4; }
         #tab-menus .mnu-col.drag-over { outline:2px dashed var(--orange); outline-offset:3px; }
         #tab-menus .mnu-link.drag-over { outline:2px dashed var(--orange); outline-offset:1px; background:rgba(255,122,5,0.07); }
-        #tab-menus .sec-row { display:flex; gap:10px; align-items:center; margin-bottom:7px; padding:9px 11px; border-radius:9px; background:rgba(0,0,0,0.025); border:1px solid rgba(0,0,0,0.06); }
-        #tab-menus .sec-row.sec-off { opacity:0.5; }
-        #tab-menus .sec-nome { flex:1; font-weight:600; font-size:0.9rem; }
-        #tab-menus .sec-toggle { flex-shrink:0; }
-        #tab-menus .sec-row.drag-over { outline:2px dashed var(--orange); outline-offset:1px; background:rgba(255,122,5,0.08); }
+        .sec-row { display:flex; gap:10px; align-items:center; margin-bottom:7px; padding:9px 11px; border-radius:9px; background:rgba(0,0,0,0.025); border:1px solid rgba(0,0,0,0.06); }
+        .sec-row.sec-off { opacity:0.5; }
+        .sec-nome { flex:1; font-weight:600; font-size:0.9rem; }
+        .sec-toggle { flex-shrink:0; }
+        .sec-row.drag-over { outline:2px dashed var(--orange); outline-offset:1px; background:rgba(255,122,5,0.08); }
         #tab-menus .hdr-item { margin-bottom:8px; }
         #tab-menus .hdr-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 12px; flex-wrap:wrap; }
         #tab-menus .hdr-hint { font-size:0.8rem; color:var(--text-muted); line-height:1.4; flex:1; min-width:180px; }
@@ -1215,11 +1218,6 @@
         #tab-menus .hdr-item-head.drag-over, #tab-menus .hdr-child.drag-over { outline:2px dashed var(--orange); outline-offset:1px; background:rgba(255,122,5,0.08); }
       </style>
       <div class="card">
-        <div class="card-title"><i class="ph-fill ph-rows"></i> Ordem &amp; visibilidade das seções</div>
-        <div class="section-help"><i class="ph ph-info"></i> Arraste (ou use as setas &#9650;&#9660;) para reordenar as seções da home. Desligue para ocultar uma seção sem apagá-la.</div>
-        <div id="secoesOrdemContainer"></div>
-      </div>
-      <div class="card">
         <div class="card-title"><i class="ph-fill ph-list-numbers"></i> Menu do topo (header)</div>
         <div class="section-help"><i class="ph ph-info"></i> Reordene (setas &#9650;&#9660;), edite texto/link, troque de lado (esquerda/direita do divisor) e ligue/desligue cada item. Nos dropdowns, gerencie os sublinks. <strong>Obs:</strong> os dropdowns abrem visualmente no tema <strong>Black</strong>; no Light ainda falta o CSS do mega-menu.</div>
         <div id="menuHeaderContainer"></div>
@@ -1231,6 +1229,15 @@
           <button class="btn btn-primary" onclick="addMenuCol()"><i class="ph ph-plus"></i> Nova coluna</button>
         </div>
         <div id="menusRodapeContainer"></div>
+      </div>
+    </div>
+
+    <!-- TAB: Seções da home -->
+    <div class="tab-content" id="tab-seccoes">
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-rows"></i> Ordem &amp; visibilidade das seções da home</div>
+        <div class="section-help"><i class="ph ph-info"></i> Ligue/desligue cada seção da home e arraste (ou use as setas &#9650;&#9660;) para reordenar. <strong>Desligar só esconde</strong> a seção — o conteúdo continua no site e pode ser religado a qualquer momento.</div>
+        <div id="secoesOrdemContainer"></div>
       </div>
     </div>
 
@@ -3160,8 +3167,8 @@
   };
 
   // ─── Ordem & visibilidade das secoes da home ───
-  var SECOES_NOMES = { hero: 'Slideshow (banner)', planos1: 'Planos — Com 1 Roteador', planos2: 'Planos — Com 2 Roteadores', historia: 'Nossa Historia', cobertura: 'Cobertura', depoimentos: 'Depoimentos', cta: 'Chamada final (CTA)', faq: 'FAQ' };
-  var SECOES_DEFAULT = ['hero', 'planos1', 'planos2', 'historia', 'cobertura', 'depoimentos', 'cta', 'faq'];
+  var SECOES_NOMES = { hero: 'Slideshow (banner)', planos1: 'Planos — Com 1 Roteador', planos2: 'Planos — Com 2 Roteadores', historia: 'Nossa História', cobertura: 'Cobertura', depoimentos: 'Depoimentos', indique: 'Indique e Ganhe', cta: 'Chamada final (CTA)', faq: 'FAQ' };
+  var SECOES_DEFAULT = ['hero', 'planos1', 'planos2', 'historia', 'cobertura', 'depoimentos', 'indique', 'cta', 'faq'];
   var _secDrag = null;
 
   function renderSecoesOrdem() {
