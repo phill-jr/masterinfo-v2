@@ -104,7 +104,7 @@ PILARES = [
         "tag": "INTERNET · EMPRESAS",
         "h1": "Internet empresarial em Joinville, com banda garantida",
         "lead": "Link dedicado em fibra óptica para a sua empresa em Joinville: velocidade garantida em download e upload, IP fixo, SLA e suporte prioritário de uma equipe que fica na cidade.",
-        "hero_img": "/imgs/hero/sub/home-office-1.jpg",
+        "hero_img": "/imgs/hero/sub/empresarial-1.jpg",
         "gradient": "linear-gradient(135deg, #0a1f44 0%, #14366b 50%, #1f5fa8 100%)",
         "cta": "Pedir proposta empresarial",
         "cta_whatsapp": "5547989212991",
@@ -266,7 +266,7 @@ BLOG = [
         "lead": "Os três tipos de conexão mais comuns no Brasil têm diferenças grandes de estabilidade e velocidade. Entenda cada um em linguagem simples e veja por que a fibra virou o padrão.",
         "author": "tecnica",
         "date": DATE_DEFAULT,
-        "image": "/imgs/wifi6.svg",
+        "image": "/imgs/blog/fibra-optica.jpg",
         "tags": ["Tecnologia", "Fibra óptica"],
         "body": """
     <div class="tldr">
@@ -314,7 +314,7 @@ BLOG = [
         "lead": "Antes de contratar, vale confirmar se a fibra já chegou na sua rua. Dá pra checar em segundos pelo CEP, sem precisar ligar pra ninguém. Veja o passo a passo.",
         "author": "tecnica",
         "date": DATE_DEFAULT,
-        "image": "/imgs/hero/sub/2-roteadores-1.jpg",
+        "image": "/imgs/blog/cobertura-joinville.jpg",
         "tags": ["Cobertura", "Joinville", "Instalação"],
         "body": """
     <div class="tldr">
