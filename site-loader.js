@@ -112,7 +112,10 @@
     var schema = {
       '@context': 'https://schema.org',
       '@type': 'InternetServiceProvider',
+      '@id': 'https://masterinfointernet.com/#provedor',
       'name': seo.ogSiteName || 'MasterInfo Internet',
+      'image': 'https://masterinfointernet.com/og-image.jpg',
+      'logo': 'https://masterinfointernet.com/logo-masterinfo.png',
       'description': seo.schemaDescription || seo.description || '',
       'url': url,
       'telephone': emp.telefone ? '+55' + emp.telefone.replace(/\D/g, '') : '',
@@ -130,14 +133,9 @@
       'sameAs': [emp.instagram, emp.facebook].filter(Boolean)
     };
 
-    if (seo.ratingValue) {
-      schema.aggregateRating = {
-        '@type': 'AggregateRating',
-        'ratingValue': String(seo.ratingValue),
-        'bestRating': '5',
-        'ratingCount': String(seo.ratingCount || '')
-      };
-    }
+    // aggregateRating REMOVIDO (17/06): o Google proíbe rating auto-atribuído em
+    // Organization/InternetServiceProvider (self-serving) → causava "Rich Results
+    // FAIL: Review snippets" na home. Só reintroduzir com reviews de 3os válidos.
 
     if (planos && planos.length) {
       schema.hasOfferCatalog = {

@@ -11,6 +11,9 @@ import re
 import sys
 import json
 
+# Conteúdo (páginas-pilar + blog) — fonte única do texto dessas páginas. Ver conteudo_blog.py.
+from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT
+
 # Console do Windows e cp1252 por padrao e quebra em '✓'/acentos. Forca UTF-8.
 try:
     sys.stdout.reconfigure(encoding="utf-8")
@@ -1121,12 +1124,275 @@ def page_playhub(depth=1):
 {footer(depth, extra_scripts=extra_scripts)}'''
 
 
+# ─── PÁGINAS-PILAR + BLOG (camada de conteúdo SEO/GEO) ────────────────────
+# Geradas por funções (usam head()/header()/footer() → nascem compatíveis com os
+# syncs cirúrgicos) e registradas em MENU_PAGES + SEO_META. Flag: --content / --blog.
+BLOGCSS_VER = "20260618-a"
+BLOG_BY_REL = {f'blog/{_p["slug"]}/index.html': _p for _p in BLOG}
+_MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+
+
+def format_date_br(iso):
+    try:
+        y, m, d = iso.split("-")
+        return f"{int(d)} {_MESES[int(m) - 1]} {y}"
+    except Exception:
+        return iso
+
+
+def render_plan_cards(plan_ids):
+    """Monta os <a class="sub-plan-card"> (href root-absolute p/ checkout). Texto vem do
+    config.json (CFG_PLANS_BY_ID), fallback PLANS_MAP; apps curados no PLANS_MAP. Casa com
+    o PLANS_SYNC_SCRIPT (que sincroniza pelo href checkout.html?plano=)."""
+    cards = ""
+    for plan_id in plan_ids:
+        plan = PLANS_MAP.get(plan_id, {})
+        cfg = CFG_PLANS_BY_ID.get(plan_id, {})
+        nome = cfg.get("nome") or plan.get("nome", plan_id)
+        speed = cfg.get("velocidade") or plan.get("speed", "")
+        unit = cfg.get("unidade") or plan.get("unit", "Mega")
+        preco = fmt_brl(cfg.get("precoPontual")) or plan.get("preco", "")
+        preco_cheio = fmt_brl(cfg.get("precoCheio")) or plan.get("preco_cheio", "")
+        features = cfg.get("features") or plan.get("features", [])
+        apps_html = ""
+        for app in plan.get("apps", []):
+            apps_html += (f'\n              <div class="sub-plan-app">'
+                          f'<img src="/imgs/{app["logo"]}" alt="{app["nome"]}" class="sub-plan-app-logo">'
+                          f'<span class="sub-plan-app-name">{app["nome"]}</span></div>')
+        features_html = "".join(f'<li><i class="ph-fill ph-check-circle"></i> {f}</li>' for f in features)
+        cards += (
+            f'\n        <a href="/checkout.html?plano={plan_id}" class="sub-plan-card">'
+            f'\n          <div class="sub-plan-head">'
+            f'\n            <span class="sub-plan-speed">{speed}<small> {unit}</small></span>'
+            f'\n            <span class="sub-plan-name">{nome}</span>'
+            f'\n          </div>'
+            f'\n          <div class="sub-plan-price-wrap">'
+            f'\n            <span class="sub-plan-price-original">de <s>R$ {preco_cheio}</s> por</span>'
+            f'\n            <span class="sub-plan-price">R$ {preco} <em>/mês</em></span>'
+            f'\n            <span class="sub-plan-discount"><i class="ph-fill ph-tag"></i> R$ 10+ OFF pagando em dia</span>'
+            f'\n          </div>'
+            f'\n          <div class="sub-plan-apps"><span class="sub-plan-apps-label">INCLUSO</span>'
+            f'<div class="sub-plan-apps-list">{apps_html}\n            </div></div>'
+            f'\n          <ul class="sub-plan-features">{features_html}</ul>'
+            f'\n          <span class="sub-plan-cta">Ver detalhes <i class="ph ph-arrow-right"></i></span>'
+            f'\n        </a>')
+    return cards
+
+
+def build_plans_inline(plan_ids):
+    return f'<div class="sub-plans-grid article-plans">{render_plan_cards(plan_ids)}\n      </div>'
+
+
+def build_plans_section(plan_ids):
+    return (f'\n  <section class="sub-section sub-section-dark" id="planos">'
+            f'\n    <div class="container">'
+            f'\n      <div class="section-header section-header-tight"><h2 class="section-title">Planos disponíveis</h2></div>'
+            f'\n      <div class="sub-plans-grid">{render_plan_cards(plan_ids)}\n      </div>'
+            f'\n    </div>\n  </section>')
+
+
+def render_faq(faqs):
+    """(html_section, jsonld_script) para [(pergunta, resposta), ...]. Usa <details>/<summary>
+    (funciona sem JS, pois as subpáginas não carregam o site-loader) + JSON-LD FAQPage."""
+    if not faqs:
+        return "", ""
+    items = ""
+    for q, a in faqs:
+        items += (f'\n        <details class="faq-q"><summary>{q}</summary>'
+                  f'<div class="faq-a"><p>{a}</p></div></details>')
+    html = (f'\n  <section class="sub-section sub-section-light">'
+            f'\n    <div class="container article-narrow">'
+            f'\n      <div class="section-header section-header-tight"><h2 class="section-title">Perguntas frequentes</h2></div>'
+            f'\n      <div class="faq-block">{items}\n      </div>'
+            f'\n    </div>\n  </section>')
+    nodes = [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]
+    data = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": nodes}
+    script = '\n  <script type="application/ld+json">\n' + json.dumps(data, ensure_ascii=False, indent=2) + '\n  </script>'
+    return html, script
+
+
+def build_schema_data(rel, name, desc, url):
+    """JSON-LD por tipo de página: BlogPosting (posts), Blog (índice), WebPage (resto)."""
+    if rel in BLOG_BY_REL:
+        post = BLOG_BY_REL[rel]
+        a = AUTHORS.get(post.get("author"), AUTHORS["equipe"])
+        author_node = {"@type": a["type"], "name": a["name"]}
+        au = a.get("url", "")
+        if au:
+            author_node["url"] = (SITE_URL + au) if au.startswith("/") else au
+        img = post.get("image", "")
+        img_abs = (SITE_URL + img) if img.startswith("/") else img
+        return {"@context": "https://schema.org", "@graph": [
+            {"@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE_URL + "/"},
+                {"@type": "ListItem", "position": 2, "name": "Blog", "item": SITE_URL + "/blog/"},
+                {"@type": "ListItem", "position": 3, "name": name, "item": url},
+            ]},
+            {"@type": "BlogPosting", "headline": post.get("h1", name), "description": desc,
+             "url": url, "datePublished": post.get("date", DATE_DEFAULT),
+             "dateModified": post.get("date", DATE_DEFAULT), "image": img_abs, "inLanguage": "pt-BR",
+             "author": author_node,
+             "publisher": {"@type": "Organization", "name": PUBLISHER["name"],
+                           "logo": {"@type": "ImageObject", "url": SITE_URL + PUBLISHER["logo"]}},
+             "mainEntityOfPage": {"@type": "WebPage", "@id": url},
+             "isPartOf": {"@type": "Blog", "name": "Blog MasterInfo", "url": SITE_URL + "/blog/"}},
+        ]}
+    if rel == "blog/index.html":
+        return {"@context": "https://schema.org", "@graph": [
+            {"@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE_URL + "/"},
+                {"@type": "ListItem", "position": 2, "name": "Blog", "item": url},
+            ]},
+            {"@type": "Blog", "name": "Blog MasterInfo", "description": desc, "url": url, "inLanguage": "pt-BR",
+             "publisher": {"@type": "Organization", "name": PUBLISHER["name"],
+                           "logo": {"@type": "ImageObject", "url": SITE_URL + PUBLISHER["logo"]}},
+             "blogPost": [{"@type": "BlogPosting", "headline": _p.get("h1"),
+                           "url": SITE_URL + "/blog/" + _p["slug"] + "/",
+                           "datePublished": _p.get("date", DATE_DEFAULT)} for _p in BLOG]},
+        ]}
+    return {"@context": "https://schema.org", "@graph": [
+        {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE_URL + "/"},
+            {"@type": "ListItem", "position": 2, "name": name, "item": url},
+        ]},
+        {"@type": "WebPage", "name": name, "description": desc, "url": url, "inLanguage": "pt-BR",
+         "isPartOf": {"@type": "WebSite", "name": "MasterInfo Internet", "url": SITE_URL + "/"},
+         "about": {"@type": "Organization", "name": "MasterInfo Internet", "url": SITE_URL + "/"}},
+    ]}
+
+
+def page_pilar(p, depth=1):
+    extra = f'<link rel="stylesheet" href="/blog.css?v={BLOGCSS_VER}">'
+    short_title = p["title"].split(" | ")[0]
+    if p.get("cta_whatsapp"):
+        cta_href = "https://wa.me/" + p["cta_whatsapp"]
+    else:
+        cta_href = "/checkout.html?plano=" + p.get("cta_plano", "")
+    hero_style = (f"background-image: linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.42)), "
+                  f"url('{p['hero_img']}'); background-size:cover; background-position:center;")
+    hero = (f'\n  <section class="sub-hero" style="{hero_style}">'
+            f'\n    <div class="container sub-hero-inner">'
+            f'\n      <span class="sub-hero-tag">{p["tag"]}</span>'
+            f'\n      <h1 class="sub-hero-title">{p["h1"]}</h1>'
+            f'\n      <p class="sub-hero-subtitle">{p["lead"]}</p>'
+            f'\n      <a href="{cta_href}" class="sub-hero-cta">{p["cta"]} <i class="ph ph-arrow-right"></i></a>'
+            f'\n    </div>\n  </section>')
+    body = p["body"]
+    plans_after = ""
+    if p.get("plans"):
+        if "<!--PLANS_GRID-->" in body:
+            body = body.replace("<!--PLANS_GRID-->", build_plans_inline(p["plans"]))
+        else:
+            plans_after = build_plans_section(p["plans"])
+    else:
+        body = body.replace("<!--PLANS_GRID-->", "")
+    article = f'\n  <div class="article-band">\n    <div class="article">{body}\n    </div>\n  </div>'
+    faq_html, faq_jsonld = render_faq(p.get("faq", []))
+    if p.get("cta_whatsapp"):
+        band = ("Vamos montar a internet ideal pra sua empresa?",
+                "Fale com nosso time comercial e receba uma proposta sob medida para o seu endereço em Joinville.",
+                "Pedir proposta no WhatsApp", cta_href)
+    else:
+        band = ("Pronto pra ter fibra de verdade?",
+                "Consulte a cobertura no seu endereço e contrate em minutos, com suporte de gente da região.",
+                p["cta"], cta_href)
+    cta_band = (f'\n  <section class="cta-band">\n    <div class="container">'
+                f'\n      <h2>{band[0]}</h2>\n      <p>{band[1]}</p>'
+                f'\n      <a href="{band[3]}" class="cta-band-btn">{band[2]} <i class="ph ph-arrow-right"></i></a>'
+                f'\n    </div>\n  </section>')
+    plans_script = ("\n" + PLANS_SYNC_SCRIPT) if p.get("plans") else ""
+    return (head(short_title, depth, extra) + header(depth) + hero + article
+            + plans_after + faq_html + cta_band + faq_jsonld + plans_script + footer(depth))
+
+
+def page_blog_index(depth=1):
+    extra = f'<link rel="stylesheet" href="/blog.css?v={BLOGCSS_VER}">'
+    cards = ""
+    for p in BLOG:
+        a = AUTHORS.get(p.get("author"), AUTHORS["equipe"])
+        tag0 = p["tags"][0] if p.get("tags") else "Blog"
+        cards += (f'\n        <a href="/blog/{p["slug"]}/" class="blog-card">'
+                  f'\n          <div class="blog-card-img" style="background-image:url(\'{p["image"]}\');"></div>'
+                  f'\n          <div class="blog-card-body">'
+                  f'\n            <span class="blog-card-tag">{tag0}</span>'
+                  f'\n            <h2 class="blog-card-title">{p["h1"]}</h2>'
+                  f'\n            <p class="blog-card-excerpt">{p["lead"]}</p>'
+                  f'\n            <span class="blog-card-meta">{a["name"]} · {format_date_br(p.get("date", DATE_DEFAULT))}</span>'
+                  f'\n          </div>\n        </a>')
+    hero = ('\n  <section class="blog-hero">\n    <div class="container">'
+            '\n      <span class="blog-hero-eyebrow">BLOG MASTERINFO</span>'
+            '\n      <h1>Dicas de internet pra aproveitar melhor sua conexão</h1>'
+            '\n      <p>Guias diretos sobre fibra, Wi-Fi, velocidade e cobertura, feitos pela equipe da MasterInfo em Joinville.</p>'
+            '\n    </div>\n  </section>')
+    grid = (f'\n  <section class="article-band">\n    <div class="container">'
+            f'\n      <div class="blog-grid">{cards}\n      </div>\n    </div>\n  </section>')
+    return head("Blog", depth, extra) + header(depth) + hero + grid + footer(depth)
+
+
+def build_related(post):
+    others = [q for q in BLOG if q["slug"] != post["slug"]][:3]
+    items = "".join(f'\n        <li><a href="/blog/{q["slug"]}/">{q["h1"]}</a></li>' for q in others)
+    return (f'\n  <section class="article-band">\n    <div class="article">'
+            f'\n      <h2 class="related-title">Leia também</h2>'
+            f'\n      <ul class="related-list">{items}\n      </ul>'
+            f'\n      <div class="post-cta">'
+            f'\n        <div class="post-cta-text"><strong>Quer fibra de verdade em Joinville?</strong><p>Veja os planos e a cobertura no seu endereço.</p></div>'
+            f'\n        <a href="/internet-joinville/" class="cta-band-btn">Ver internet em Joinville <i class="ph ph-arrow-right"></i></a>'
+            f'\n      </div>\n    </div>\n  </section>')
+
+
+def page_blog_post(post, depth=2):
+    extra = f'<link rel="stylesheet" href="/blog.css?v={BLOGCSS_VER}">'
+    a = AUTHORS.get(post.get("author"), AUTHORS["equipe"])
+    short_title = post["title"].split(" | ")[0]
+    img = post.get("image", "")
+    if img and not img.endswith(".svg"):
+        hero_style = (f"background-image: linear-gradient(rgba(12,12,24,.62), rgba(12,12,24,.62)), "
+                      f"url('{img}'); background-size:cover; background-position:center;")
+    else:
+        hero_style = "background:linear-gradient(135deg,#0a1f44 0%,#14366b 55%,#1f5fa8 100%);"
+    tag0 = post["tags"][0] if post.get("tags") else "Artigo"
+    hero = (f'\n  <section class="blog-post-hero" style="{hero_style}">\n    <div class="container">'
+            f'\n      <nav class="blog-breadcrumb"><a href="/">Início</a> <span>/</span> <a href="/blog/">Blog</a> <span>/</span> <span>{tag0}</span></nav>'
+            f'\n      <span class="blog-post-tag">{tag0}</span>'
+            f'\n      <h1>{post["h1"]}</h1>'
+            f'\n      <p class="blog-post-lead">{post["lead"]}</p>'
+            f'\n    </div>\n  </section>')
+    byline = (f'\n      <div class="byline">'
+              f'<img src="{a["img"]}" alt="{a["name"]}" class="byline-avatar" loading="lazy">'
+              f'<div class="byline-info"><span class="byline-name">{a["name"]}</span>'
+              f'<span class="byline-role">{a["role"]} · {format_date_br(post.get("date", DATE_DEFAULT))}</span></div></div>')
+    article = (f'\n  <main class="blog-main">\n    <div class="article-band">'
+               f'\n      <article class="article">{byline}{post["body"]}\n      </article>'
+               f'\n    </div>')
+    faq_html, faq_jsonld = render_faq(post.get("faq", []))
+    related = build_related(post)
+    return (head(short_title, depth, extra) + header(depth) + hero + article
+            + faq_html + related + "\n  </main>" + faq_jsonld + footer(depth))
+
+
+def gerar_pilares():
+    print("Páginas-pilar (landing comercial)…")
+    for p in PILARES:
+        write_file(os.path.join(BASE_DIR, p["slug"], "index.html"), page_pilar(p, depth=1))
+
+
+def gerar_blog():
+    print("\nBlog (índice + posts)…")
+    write_file(os.path.join(BASE_DIR, "blog", "index.html"), page_blog_index(depth=1))
+    for p in BLOG:
+        write_file(os.path.join(BASE_DIR, "blog", p["slug"], "index.html"), page_blog_post(p, depth=2))
+
+
 MENU_PAGES = (
     [(f'{p["slug"]}/index.html', 1) for p in INTERNET]
     + [(f'{s}/index.html', 1) for s in
        ("contato", "tv-streaming", "termos", "privacidade", "lgpd", "playhub")]
     + [(f'aplicativos/{a["slug"]}/index.html', 2) for a in APLICATIVOS]
     + [(f'ajuda/{a["slug"]}/index.html', 2) for a in AJUDA]
+    + [(f'{p["slug"]}/index.html', 1) for p in PILARES]              # páginas-pilar
+    + [('blog/index.html', 1)]                                       # índice do blog
+    + [(f'blog/{p["slug"]}/index.html', 2) for p in BLOG]            # posts
 )
 
 # Bloco <header>...</header> inteiro (nao aninha, entao non-greedy basta).
@@ -1181,6 +1447,202 @@ def sync_canonical():
         else:
             same += 1
     print(f"\n  Canonical (self-referente): {changed} aplicada(s), {same} já em dia, {skipped} pulada(s).")
+
+
+# SEO por página: <title> e <meta description> ÚNICOS e otimizados (keywords reais do
+# GSC + "Joinville"). Mata o duplicate-meta (head() dava a mesma desc genérica p/ todas)
+# e melhora o CTR. Title <=60 chars, desc ~150-160. Sem em-dash (pass anti-IA).
+SEO_META = {
+    "home-office/index.html": ("Internet para Home Office em Joinville | MasterInfo",
+        "Internet fibra para trabalhar de casa em Joinville: conexão estável para reuniões, upload rápido e Wi-Fi 6. Planos home office com instalação rápida."),
+    "gamer/index.html": ("Internet para Gamer em Joinville, Baixa Latência | MasterInfo",
+        "Internet fibra para jogar online em Joinville: baixa latência, ping estável, 1 Giga e Exitlag. Plano gamer com Wi-Fi 6. Confira a cobertura."),
+    "familia/index.html": ("Internet Fibra para Família em Joinville | MasterInfo",
+        "Internet fibra óptica para a família toda em Joinville: 800 Mega a 1 Giga, Wi-Fi 6 e vários aparelhos ao mesmo tempo. Instalação rápida. Veja os planos."),
+    "com-2-roteadores/index.html": ("Wi-Fi em Toda a Casa em Joinville (2 Roteadores) | MasterInfo",
+        "Wi-Fi sem ponto cego em Joinville: kit com 2 roteadores Wi-Fi 6 para sinal forte em todos os cômodos. Cobertura total da casa. Veja os planos."),
+    "com-1-roteador/index.html": ("Internet Fibra para Apartamento em Joinville | MasterInfo",
+        "Internet fibra óptica para apartamento e casa pequena em Joinville, com roteador Wi-Fi 6. Planos a partir de 600 Mega. Confira a cobertura."),
+    "contato/index.html": ("Fale com a MasterInfo, Contato em Joinville | MasterInfo",
+        "Entre em contato com a MasterInfo Internet em Joinville: WhatsApp, telefone e atendimento local. Tire dúvidas sobre planos, cobertura e suporte."),
+    "tv-streaming/index.html": ("Internet com TV e Streaming em Joinville | MasterInfo",
+        "Internet fibra com TV ao vivo e apps de streaming inclusos em Joinville: SKY+ Light, Globoplay e mais. Planos com entretenimento. Confira."),
+    "termos/index.html": ("Termos de Uso | MasterInfo Internet",
+        "Termos de uso dos serviços de internet fibra óptica da MasterInfo em Joinville. Conheça as condições de contratação e uso dos planos."),
+    "privacidade/index.html": ("Política de Privacidade | MasterInfo Internet",
+        "Política de privacidade da MasterInfo Internet: como coletamos, usamos e protegemos seus dados pessoais conforme a LGPD."),
+    "lgpd/index.html": ("LGPD e Proteção de Dados | MasterInfo Internet",
+        "Como a MasterInfo trata seus dados conforme a Lei Geral de Proteção de Dados (LGPD). Seus direitos e nossos compromissos de privacidade."),
+    "playhub/index.html": ("PlayHub: Apps e Streaming Inclusos | MasterInfo Internet",
+        "PlayHub da MasterInfo: SKY+ Light, Deezer, Globoplay e mais apps de streaming inclusos no seu plano de internet fibra em Joinville. Conheça."),
+    "aplicativos/sky-light/index.html": ("SKY+ Light Incluso na Internet Fibra | MasterInfo Joinville",
+        "Tenha SKY+ Light incluso no seu plano de internet fibra em Joinville: TV ao vivo nos canais que você ama, direto na sua conexão MasterInfo."),
+    "aplicativos/deezer/index.html": ("Deezer Incluso na Internet Fibra | MasterInfo Joinville",
+        "Música sem anúncios com Deezer incluso no seu plano de internet fibra MasterInfo em Joinville. Ouça onde quiser, sem interrupção."),
+    "aplicativos/globoplay/index.html": ("Globoplay Incluso na Internet Fibra | MasterInfo Joinville",
+        "Novelas, esportes e séries com Globoplay incluso no seu plano de internet fibra MasterInfo em Joinville. Assista quando e onde quiser."),
+    "aplicativos/disney-plus/index.html": ("Disney+ Incluso na Internet Fibra | MasterInfo Joinville",
+        "Disney, Pixar, Marvel e Star Wars com Disney+ incluso no seu plano de internet fibra MasterInfo em Joinville. Maratone os clássicos."),
+    "aplicativos/hbo-max/index.html": ("HBO Max Incluso na Internet Fibra | MasterInfo Joinville",
+        "Séries premium e filmes da Warner com HBO Max incluso no seu plano de internet fibra MasterInfo em Joinville. Assista em alta qualidade."),
+    "aplicativos/prime-video/index.html": ("Prime Video Incluso na Internet Fibra | MasterInfo Joinville",
+        "Amazon Originals, filmes e séries com Prime Video incluso no seu plano de internet fibra MasterInfo em Joinville. Entretenimento sem limite."),
+    "aplicativos/exitlag/index.html": ("Exitlag Incluso, Internet Gamer | MasterInfo Joinville",
+        "Reduza o ping e jogue sem lag com Exitlag incluso no seu plano de internet fibra MasterInfo em Joinville. Otimizador ideal para gamers."),
+    "aplicativos/kaspersky/index.html": ("Kaspersky Incluso na Internet Fibra | MasterInfo Joinville",
+        "Proteja seus dispositivos com o antivírus Kaspersky premium incluso no seu plano de internet fibra MasterInfo em Joinville. Navegue seguro."),
+    "ajuda/wifi/index.html": ("Como Configurar seu Wi-Fi | Ajuda MasterInfo",
+        "Passo a passo para configurar e melhorar seu Wi-Fi MasterInfo: posição do roteador, senha, canais e dicas para sinal forte em toda a casa."),
+    "ajuda/reportar/index.html": ("Reportar um Problema na Internet | MasterInfo",
+        "Está com a internet lenta ou fora do ar em Joinville? Veja como reportar um problema à MasterInfo e acionar o suporte técnico rápido."),
+    "ajuda/boletos/index.html": ("2a Via de Boleto e Faturas | MasterInfo",
+        "Acesse a 2a via do seu boleto MasterInfo, consulte faturas e formas de pagamento. Resolva sua fatura de internet em Joinville pelo chat da Marina."),
+}
+
+# Pilares + blog: title/desc únicos vindos do conteudo_blog. Mantém o SEO_META como
+# fonte única dos syncs (title/meta/og/schema) para TODAS as páginas geradas.
+for _pil in PILARES:
+    SEO_META[f'{_pil["slug"]}/index.html'] = (_pil["title"], _pil["desc"])
+SEO_META["blog/index.html"] = (
+    "Blog MasterInfo: Dicas de Internet em Joinville",
+    "Dicas e guias sobre internet fibra, Wi-Fi, velocidade e cobertura. Conteúdo da MasterInfo para você aproveitar melhor sua conexão em Joinville.")
+for _post in BLOG:
+    SEO_META[f'blog/{_post["slug"]}/index.html'] = (_post["title"], _post["desc"])
+
+_TITLE_RE = re.compile(r'<title>.*?</title>', re.DOTALL)
+_DESC_RE = re.compile(r'<meta name="description" content="[^"]*">')
+
+
+def sync_seo_meta():
+    """Aplica <title> e <meta description> ÚNICOS (SEO_META) em cada subpágina.
+    Cirúrgico (só title+desc), idempotente, CRLF-safe. Mata o duplicate-meta."""
+    changed = same = skipped = 0
+    for rel, depth in MENU_PAGES:
+        if rel not in SEO_META:
+            skipped += 1
+            continue
+        title, desc = SEO_META[rel]
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            skipped += 1
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        html = _TITLE_RE.sub(lambda m: '<title>' + title + '</title>', orig, count=1)
+        html = _DESC_RE.sub(lambda m: '<meta name="description" content="' + desc + '">', html, count=1)
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ seo-meta: {rel}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  SEO meta (title + description): {changed} atualizada(s), {same} já em dia, {skipped} sem mapa.")
+
+
+_OG_RE = re.compile(r'[ \t]*<!-- og:auto -->.*?<!-- /og:auto -->\r?\n?', re.DOTALL)
+_SCHEMA_RE = re.compile(r'[ \t]*<!-- schema:auto -->.*?<!-- /schema:auto -->\r?\n?', re.DOTALL)
+
+
+def sync_schema():
+    """Injeta JSON-LD (BreadcrumbList + WebPage ligada ao Organization) no <head> de
+    cada subpágina — elas não tinham schema nenhum (só a home tinha). Nome do breadcrumb
+    derivado do SEO_META title (antes do ' | '). Bloco marcado, idempotente, CRLF-safe."""
+    changed = same = skipped = 0
+    for rel, depth in MENU_PAGES:
+        if rel not in SEO_META:
+            skipped += 1
+            continue
+        title, desc = SEO_META[rel]
+        name = title.split(" | ")[0].strip()
+        url = SITE_URL + "/" + rel.rsplit("/index.html", 1)[0] + "/"
+        # BlogPosting (posts) / Blog (índice) / WebPage (pilares e demais).
+        data = build_schema_data(rel, name, desc, url)
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            skipped += 1
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        nl = "\r\n" if "\r\n" in orig else "\n"
+        json_str = json.dumps(data, ensure_ascii=False, indent=2).replace("\n", nl)
+        block = nl.join([
+            '  <!-- schema:auto -->',
+            '  <script type="application/ld+json">',
+            json_str,
+            '  </script>',
+            '  <!-- /schema:auto -->',
+            '',
+        ])
+        if _SCHEMA_RE.search(orig):
+            html = _SCHEMA_RE.sub(lambda m: block, orig, count=1)
+        elif "</head>" in orig:
+            html = orig.replace("</head>", block + "</head>", 1)
+        else:
+            print(f"  ! pulado (sem </head>): {rel}")
+            skipped += 1
+            continue
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ schema: {rel}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  JSON-LD (Breadcrumb + WebPage): {changed} atualizada(s), {same} já em dia, {skipped} sem mapa/head.")
+
+
+def sync_og():
+    """Injeta Open Graph + Twitter Card no <head> de cada subpágina (head() do gerador
+    NÃO emite OG → links no WhatsApp/Facebook ficavam sem preview). Usa SEO_META p/
+    title/desc + URL canônica + og-image.jpg (1200x630). Bloco marcado <!-- og:auto -->,
+    idempotente, CRLF-safe."""
+    img = SITE_URL + "/og-image.jpg"
+    changed = same = skipped = 0
+    for rel, depth in MENU_PAGES:
+        if rel not in SEO_META:
+            skipped += 1
+            continue
+        title, desc = SEO_META[rel]
+        url = SITE_URL + "/" + rel.rsplit("/index.html", 1)[0] + "/"
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            skipped += 1
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        nl = "\r\n" if "\r\n" in orig else "\n"
+        block = nl.join([
+            '  <!-- og:auto -->',
+            '  <meta property="og:type" content="website">',
+            '  <meta property="og:site_name" content="MasterInfo Internet">',
+            '  <meta property="og:title" content="' + title + '">',
+            '  <meta property="og:description" content="' + desc + '">',
+            '  <meta property="og:url" content="' + url + '">',
+            '  <meta property="og:image" content="' + img + '">',
+            '  <meta name="twitter:card" content="summary_large_image">',
+            '  <meta name="twitter:title" content="' + title + '">',
+            '  <meta name="twitter:description" content="' + desc + '">',
+            '  <meta name="twitter:image" content="' + img + '">',
+            '  <!-- /og:auto -->',
+            '',
+        ])
+        if _OG_RE.search(orig):
+            html = _OG_RE.sub(lambda m: block, orig, count=1)
+        elif "</head>" in orig:
+            html = orig.replace("</head>", block + "</head>", 1)
+        else:
+            print(f"  ! pulado (sem </head>): {rel}")
+            skipped += 1
+            continue
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ og: {rel}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  Open Graph + Twitter: {changed} atualizada(s), {same} já em dia, {skipped} sem mapa/head.")
 
 
 def sync_menus():
@@ -1476,6 +1938,12 @@ if __name__ == "__main__":
         gerar_bodies()
         print("\nSincronizando header + rodapé com o config.json…")
         sync_menus()
+    elif modo in ("--content", "--blog", "--paginas"):
+        print(">> Modo CONTENT: gera páginas-pilar + blog, depois sincroniza tudo.\n")
+        gerar_pilares()
+        gerar_blog()
+        print("\nSincronizando header + rodapé com o config.json…")
+        sync_menus()
     else:  # --menus (padrão): SÓ header + rodapé, cirúrgico e seguro de rodar sempre
         print(">> Sincronizando os menus (header + rodapé): config.json → todas as páginas…\n")
         sync_menus()
@@ -1483,6 +1951,12 @@ if __name__ == "__main__":
     sync_site_scale()
     print("\nCanonical (self-referente) → subpáginas…")
     sync_canonical()
+    print("\nSEO meta (title + description únicos) → subpáginas…")
+    sync_seo_meta()
+    print("\nOpen Graph + Twitter Card → subpáginas…")
+    sync_og()
+    print("\nJSON-LD (Breadcrumb + WebPage) → subpáginas…")
+    sync_schema()
     print("\nWidgets flutuantes (config.widgets) → subpáginas…")
     sync_widget_floats()
     print("\nFormas de pagamento (config.formasPagamento) → subpáginas…")

@@ -32,6 +32,14 @@
     Deny from all
 </Files>
 
+# Canonical host: forca NON-www. Pos-migracao o www servia 200 (conteudo duplicado)
+# e causava canibalizacao www/non-www no Google. 301 www.* -> dominio sem www. (18/06/2026)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+</IfModule>
+
 # Bloquear pastas sensiveis
 <IfModule mod_rewrite.c>
     RewriteEngine On
@@ -55,3 +63,33 @@ DirectoryIndex index-light.html index.html index.php
 #     RewriteCond %{HTTPS} off
 #     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 # </IfModule>
+
+# ========================================
+# 301 Redirects - migracao WordPress -> v2 (17/06/2026)
+# URLs do WP antigo ainda indexadas no Google davam 404/orfas (achado via
+# auditoria GSC awesome-gsc). 301 preserva o SEO/link equity. RedirectMatch
+# (mod_alias) com ^...$ ancorado evita prefix-bleed (ex.: /assine != /assine-ja).
+# Destinos sao paginas v2 indexaveis (nao mandar equity p/ checkout noindex).
+# ========================================
+<IfModule mod_alias.c>
+    RedirectMatch 301 ^/planos-residenciais/?$   /familia/
+    RedirectMatch 301 ^/planos-empresariais/?$   /
+    RedirectMatch 301 ^/fale-conosco/?$          /contato/
+    RedirectMatch 301 ^/trabalheconosco/?$       /contato/
+    RedirectMatch 301 ^/formulario-bitrix/?$     /contato/
+    RedirectMatch 301 ^/contratos/?$             /termos/
+    RedirectMatch 301 ^/assine/?$                /
+    RedirectMatch 301 ^/assine-ja/?$             /
+    RedirectMatch 301 ^/cadastro/?$              /
+    RedirectMatch 301 ^/our-services/?$          /
+    RedirectMatch 301 ^/combos/?$                /
+    RedirectMatch 301 ^/pacotes-telefonia/?$     /
+    # Lote 2 (18/06): mais órfãs do WP achadas via canibalização no GSC
+    RedirectMatch 301 ^/politica-de-privacidade/?$  /privacidade/
+    RedirectMatch 301 ^/politica-de-cookies/?$      /privacidade/
+    RedirectMatch 301 ^/termos-de-uso/?$            /termos/
+    RedirectMatch 301 ^/sobre/?$                    /
+    RedirectMatch 301 ^/sobre-nos/?$                /
+    RedirectMatch 301 ^/quem-somos/?$               /
+    RedirectMatch 301 ^/planos/?$                   /
+</IfModule>
