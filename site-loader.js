@@ -433,6 +433,12 @@
     });
     var anchor = lastDom.nextSibling;
     nodes.forEach(function (n) { parent.insertBefore(n, anchor); });
+
+    // .home-intro (intro answer-first) NAO e secao do admin / nao esta no MAP acima.
+    // Sem isto, o reorder acima a deixa orfa ACIMA do hero. Re-ancora logo apos o hero.
+    var introEl = document.querySelector('.home-intro');
+    var heroEl = document.querySelector('.hero');
+    if (introEl && heroEl && heroEl.parentNode) heroEl.parentNode.insertBefore(introEl, heroEl.nextSibling);
   }
 
   // ─── Menus do rodape (regenera as 3 colunas a partir do config) ───
