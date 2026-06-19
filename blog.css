@@ -244,8 +244,8 @@
 }
 .post-cta-text strong { display: block; font-size: 1.1rem; color: var(--mi-ink); }
 .post-cta-text p { margin: 4px 0 0; color: var(--mi-muted); font-size: 15px; }
-.post-cta .cta-band-btn { background: var(--mi-red); color: #fff; }
-.post-cta .cta-band-btn:hover { background: var(--mi-orange); }
+.post-cta .cta-band-btn { background: var(--mi-orange); color: #fff; text-decoration: none; }
+.post-cta .cta-band-btn:hover { background: #e8590c; color: #fff; }
 
 /* ---- Índice do blog ---- */
 .blog-hero {

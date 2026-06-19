@@ -1127,7 +1127,7 @@ def page_playhub(depth=1):
 # ─── PÁGINAS-PILAR + BLOG (camada de conteúdo SEO/GEO) ────────────────────
 # Geradas por funções (usam head()/header()/footer() → nascem compatíveis com os
 # syncs cirúrgicos) e registradas em MENU_PAGES + SEO_META. Flag: --content / --blog.
-BLOGCSS_VER = "20260618-a"
+BLOGCSS_VER = "20260618-b"
 BLOG_BY_REL = {f'blog/{_p["slug"]}/index.html': _p for _p in BLOG}
 _MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
 
