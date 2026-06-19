@@ -1319,7 +1319,7 @@ def page_blog_index(depth=1):
                   f'\n            <p class="blog-card-excerpt">{p["lead"]}</p>'
                   f'\n            <span class="blog-card-meta">{a["name"]} · {format_date_br(p.get("date", DATE_DEFAULT))}</span>'
                   f'\n          </div>\n        </a>')
-    hero = ('\n  <section class="blog-hero">\n    <div class="container">'
+    hero = ('\n  <section class="blog-hero" style="background-image: linear-gradient(rgba(16,17,28,.82), rgba(46,30,14,.66)), url(\'/imgs/blog/blog-banner.jpg\'); background-size:cover; background-position:center;">\n    <div class="container">'
             '\n      <span class="blog-hero-eyebrow">BLOG MASTERINFO</span>'
             '\n      <h1>Dicas de internet pra aproveitar melhor sua conexão</h1>'
             '\n      <p>Guias diretos sobre fibra, Wi-Fi, velocidade e cobertura, feitos pela equipe da MasterInfo em Joinville.</p>'
