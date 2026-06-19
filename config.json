@@ -317,7 +317,7 @@
             "plano": "lite-home-office",
             "ariaLabel": "Copa do Mundo 2026 — Lite Home Office 1 Giga",
             "bgClass": "hero-bg-home",
-            "on": true
+            "on": false
         },
         {
             "id": "lite-casa-600",
@@ -325,7 +325,7 @@
             "plano": "lite-casa",
             "ariaLabel": "Lite Casa 600 Mega",
             "bgClass": "hero-bg-essencial",
-            "on": true
+            "on": false
         }
     ],
     "stats": [
