@@ -222,6 +222,14 @@
                         "href": "\/ajuda\/boletos"
                     }
                 ]
+            },
+            {
+                "key": "item1781831636700",
+                "lado": "esq",
+                "label": "Blog",
+                "tipo": "link",
+                "href": "\/blog",
+                "on": true
             }
         ],
         "clientButton": {
