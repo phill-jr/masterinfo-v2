@@ -96,6 +96,18 @@
                     {
                         "label": "TV & Streaming",
                         "href": "\/tv-streaming"
+                    },
+                    {
+                        "label": "Internet em Joinville",
+                        "href": "\/internet-joinville"
+                    },
+                    {
+                        "label": "Melhor Internet de Joinville",
+                        "href": "\/melhor-internet-joinville"
+                    },
+                    {
+                        "label": "Internet Empresarial",
+                        "href": "\/internet-empresarial"
                     }
                 ]
             },
