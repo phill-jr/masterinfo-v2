@@ -1220,6 +1220,9 @@
       <div class="card">
         <div class="card-title"><i class="ph-fill ph-list-numbers"></i> Menu do topo (header)</div>
         <div class="section-help"><i class="ph ph-info"></i> Reordene (setas &#9650;&#9660;), edite texto/link, troque de lado (esquerda/direita do divisor) e ligue/desligue cada item. Nos dropdowns, gerencie os sublinks. <strong>Obs:</strong> os dropdowns abrem visualmente no tema <strong>Black</strong>; no Light ainda falta o CSS do mega-menu.</div>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+          <button class="btn btn-primary" onclick="addHdrItem()"><i class="ph ph-plus"></i> Novo item</button>
+        </div>
         <div id="menuHeaderContainer"></div>
       </div>
       <div class="card">
@@ -3247,6 +3250,7 @@
           ? '<input type="text" value="' + esc(it.href) + '" placeholder="Link" oninput="updateHdrItem(' + i + ',\'href\',this.value)">'
           : '<button type="button" class="hdr-toggle" onclick="toggleHdrCollapse(\'' + ikey + '\')" title="Mostrar/ocultar sublinks"><i class="ph ' + (hdrIsCollapsed(ikey) ? 'ph-caret-right' : 'ph-caret-down') + '"></i> ' + nFilhos + ' sublinks</button>') +
         '<label class="mnu-chk"><input type="checkbox" ' + (on ? 'checked' : '') + ' onchange="toggleHdrItem(' + i + ',this.checked)"> visível</label>' +
+        '<button class="btn-icon danger" onclick="removeHdrItem(' + i + ')" title="Remover item"><i class="ph ph-trash"></i></button>' +
         '</div>';
       var children = '';
       if (it.tipo !== 'link') {
@@ -3277,6 +3281,16 @@
     cont.innerHTML = html;
   }
   window.updateHdrItem = function (i, k, v) { config.menuHeader.itens[i][k] = v; markDirty(); };
+  window.addHdrItem = function () {
+    if (!config.menuHeader) config.menuHeader = { itens: [], clientButton: {} };
+    if (!config.menuHeader.itens) config.menuHeader.itens = [];
+    config.menuHeader.itens.push({ key: 'item' + Date.now(), lado: 'esq', label: 'Novo item', tipo: 'link', href: '/', on: true });
+    renderMenuHeader(); markDirty();
+  };
+  window.removeHdrItem = function (i) {
+    if (!confirm('Remover este item do menu do topo?')) return;
+    config.menuHeader.itens.splice(i, 1); renderMenuHeader(); markDirty();
+  };
   window.toggleHdrItem = function (i, on) { config.menuHeader.itens[i].on = on; renderMenuHeader(); markDirty(); };
   // Estado de UI (recolhido/expandido) por key — NAO persiste no config; default = recolhido.
   var _hdrCollapsed = {};
