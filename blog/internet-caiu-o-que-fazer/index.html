@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>window.miCfg=window.miCfg||function(){return window.__miCfgP||(window.__miCfgP=fetch('/config.json?v='+Date.now()).then(function(r){return r.json();}));};</script>
   <title>A Internet Caiu? Passo a Passo para Voltar a Conectar | MasterInfo</title>
   <meta name="description" content="Internet caiu ou sem conexão? Veja um passo a passo simples para resolver: checar luzes do roteador, reiniciar, testar por cabo e quando chamar o suporte.">
 
@@ -113,6 +114,9 @@
                   <li><a href="../../com-2-roteadores/" class="dropdown-link">Com 2 Roteadores</a></li>
                   <li><a href="../../com-1-roteador/" class="dropdown-link">Com 1 Roteador</a></li>
                   <li><a href="../../tv-streaming/" class="dropdown-link">TV & Streaming</a></li>
+                  <li><a href="../../internet-joinville/" class="dropdown-link">Internet em Joinville</a></li>
+                  <li><a href="../../melhor-internet-joinville/" class="dropdown-link">Melhor Internet de Joinville</a></li>
+                  <li><a href="../../internet-empresarial/" class="dropdown-link">Internet Empresarial</a></li>
                 </ul>
               </div>
             </div>
@@ -388,7 +392,7 @@
 
   <script src="/tracking.js?v=20260616b" defer></script>
   <script src="/cookie-consent.js?v=20260603-cc"></script>
-  <script data-mi-widgets>(function(){try{fetch('/config.json?v='+Date.now()).then(function(r){return r.json();}).then(function(c){var w=(c&&c.widgets)||{},m={indicacao:'.indicar-float',boleto:'.boleto-float',whatsapp:'.whatsapp-float'};Object.keys(m).forEach(function(k){if(w[k]===false){var e=document.querySelector(m[k]);if(e)e.style.display='none';}});}).catch(function(){});}catch(e){}})();</script>
-  <script data-mi-payment>(function(){try{var M=[['pix','PIX','ph-currency-circle-dollar'],['boleto','Boleto','ph-barcode'],['cartao','Cartão','ph-credit-card'],['debitoAutomatico','Débito automático','ph-bank']];var D={pix:true,boleto:true,cartao:true,debitoAutomatico:false};fetch('/config.json?v='+Date.now()).then(function(r){return r.json();}).then(function(c){var fp=(c&&c.formasPagamento)||{},box=document.querySelector('.footer-payment-icons');if(!box)return;box.innerHTML=M.filter(function(m){var v=(m[0] in fp)?fp[m[0]]:D[m[0]];return v!==false;}).map(function(m){return '<span class="payment-icon"><i class="ph-fill '+m[2]+'"></i> '+m[1]+'</span>';}).join('');}).catch(function(){});}catch(e){}})();</script>
+  <script data-mi-widgets>(function(){try{(window.miCfg?window.miCfg():fetch('/config.json?v='+Date.now()).then(function(r){return r.json();})).then(function(c){var w=(c&&c.widgets)||{},m={indicacao:'.indicar-float',boleto:'.boleto-float',whatsapp:'.whatsapp-float'};Object.keys(m).forEach(function(k){if(w[k]===false){var e=document.querySelector(m[k]);if(e)e.style.display='none';}});}).catch(function(){});}catch(e){}})();</script>
+  <script data-mi-payment>(function(){try{var M=[['pix','PIX','ph-currency-circle-dollar'],['boleto','Boleto','ph-barcode'],['cartao','Cartão','ph-credit-card'],['debitoAutomatico','Débito automático','ph-bank']];var D={pix:true,boleto:true,cartao:true,debitoAutomatico:false};(window.miCfg?window.miCfg():fetch('/config.json?v='+Date.now()).then(function(r){return r.json();})).then(function(c){var fp=(c&&c.formasPagamento)||{},box=document.querySelector('.footer-payment-icons');if(!box)return;box.innerHTML=M.filter(function(m){var v=(m[0] in fp)?fp[m[0]]:D[m[0]];return v!==false;}).map(function(m){return '<span class="payment-icon"><i class="ph-fill '+m[2]+'"></i> '+m[1]+'</span>';}).join('');}).catch(function(){});}catch(e){}})();</script>
 </body>
 </html>

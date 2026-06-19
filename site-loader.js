@@ -10,8 +10,7 @@
 (function () {
   'use strict';
 
-  fetch('config.json?v=' + Date.now())
-    .then(function (r) { return r.json(); })
+  (window.miCfg ? window.miCfg() : fetch('config.json?v=' + Date.now()).then(function (r) { return r.json(); }))
     .then(function (cfg) {
       // Expor config para outros scripts (checkout, modal, tracking)
       window._siteConfig = cfg;

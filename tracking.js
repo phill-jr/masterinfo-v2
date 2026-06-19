@@ -141,8 +141,7 @@
   }
 
   // ─── Bootstrap: carrega config e inicializa tudo ───
-  fetch('/config.json?v=' + Date.now())
-    .then(function (r) { return r.json(); })
+  (window.miCfg ? window.miCfg() : fetch('/config.json?v=' + Date.now()).then(function (r) { return r.json(); }))
     .then(function (data) {
       cfg = data.tracking || {};
       // Pixels (GTM/GA4/Ads/FB) só com enableTracking ligado + IDs configurados

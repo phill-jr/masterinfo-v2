@@ -316,8 +316,7 @@
   // Quando o config carrega via site-loader
   function getConfig(cb) {
     if (window.__masterConfig) { cb(window.__masterConfig); return; }
-    fetch(configUrl())
-      .then(function (r) { return r.json(); })
+    (window.miCfg ? window.miCfg() : fetch(configUrl()).then(function (r) { return r.json(); }))
       .then(function (c) { window.__masterConfig = c; cb(c); })
       .catch(function () { });
   }

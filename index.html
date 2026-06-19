@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- config.json compartilhado: 1 fetch por página (antes eram 4). Fallback gracioso. -->
+  <script>window.miCfg=window.miCfg||function(){return window.__miCfgP||(window.__miCfgP=fetch('/config.json?v='+Date.now()).then(function(r){return r.json();}));};</script>
+
   <!-- Tema do site (black|light): redireciona entre index.html e index-light.html conforme config.tema -->
   <script>
     (function () {
@@ -12,7 +15,7 @@
         if (theme !== here) location.replace((theme === 'light' ? 'index-light.html' : 'index.html') + location.search + location.hash);
       }
       try { var c = localStorage.getItem('mi_site_tema'); if (c === 'light' || c === 'black') go(c); } catch (e) {}
-      fetch('config.json?v=' + Date.now()).then(function (r) { return r.json(); }).then(function (cfg) {
+      window.miCfg().then(function (cfg) {
         var t = (cfg && cfg.tema === 'light') ? 'light' : 'black';
         try { localStorage.setItem('mi_site_tema', t); } catch (e) {}
         go(t);
