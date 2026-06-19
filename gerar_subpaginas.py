@@ -330,7 +330,7 @@ def head(title, depth, extra_head=""):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+  <link rel="stylesheet" href="/vendor/phosphor/phosphor.css?v=20260619">
   <link rel="icon" type="image/svg+xml" href="{base}favicon.svg">
   <link rel="stylesheet" href="{base}styles.css?v=20260531-e">
   <link rel="stylesheet" href="{base}modal.css?v=20260531-e">
@@ -1458,6 +1458,42 @@ SITE_URL = "https://masterinfointernet.com"
 _CANONICAL_RE = re.compile(r'[ \t]*<link rel="canonical"[^>]*>')
 
 
+# Phosphor: troca o <script> do unpkg (CDN externo lento + carrega 6 pesos + JS) por CSS
+# LOCAL com só regular+fill+bold (os 3 usados). Grande ganho de LCP/INP. Cobre subpáginas
+# (MENU_PAGES) + homes + checkout + copa.
+_PHOSPHOR_RE = re.compile(r'[ \t]*<script src="https://unpkg\.com/@phosphor-icons/web@2\.0\.3"></script>')
+_PHOSPHOR_LINK = '<link rel="stylesheet" href="/vendor/phosphor/phosphor.css?v=20260619">'
+PHOSPHOR_PAGES = [rel for rel, _ in MENU_PAGES] + [
+    "index.html", "index-light.html", "checkout.html", "copa/index.html",
+]
+
+
+def sync_phosphor():
+    """Substitui o <script> do Phosphor (unpkg) por <link> pro CSS local. Cirúrgico,
+    idempotente, CRLF-safe. Inclui as homes/checkout/copa (que os outros syncs não tocam)."""
+    changed = same = skipped = 0
+    for rel in PHOSPHOR_PAGES:
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            skipped += 1
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        if _PHOSPHOR_RE.search(orig):
+            html = _PHOSPHOR_RE.sub(lambda m: "  " + _PHOSPHOR_LINK, orig)
+        else:
+            same += 1  # já trocado (ou sem o script)
+            continue
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ phosphor local: {rel}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  Phosphor (CSS local) : {changed} trocada(s), {same} já em dia/sem script, {skipped} pulada(s).")
+
+
 def sync_canonical():
     """Injeta/atualiza o <link rel="canonical"> SELF-REFERENTE no <head> de TODAS as
     subpaginas (MENU_PAGES). URL = SITE_URL + dir/ (ex.: familia/index.html ->
@@ -2000,6 +2036,8 @@ if __name__ == "__main__":
     sync_site_scale()
     print("\nCanonical (self-referente) → subpáginas…")
     sync_canonical()
+    print("\nPhosphor (CSS local, sem unpkg) → páginas…")
+    sync_phosphor()
     print("\nSEO meta (title + description únicos) → subpáginas…")
     sync_seo_meta()
     print("\nOpen Graph + Twitter Card → subpáginas…")
