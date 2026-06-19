@@ -15,7 +15,7 @@ produção (domínio na raiz) e no `php -S localhost:8091`.
 AUTHORS = {
     "philipe": {
         "type": "Person", "name": "Philipe Alves Medeiros", "role": "Fundador da MasterInfo",
-        "img": "/imgs/historia/fundador-philipe.jpg", "url": "/#nossa-historia",
+        "img": "/imgs/historia/fundador-philipe.jpg", "url": "/sobre/philipe/",
         "bio": "Fundador da MasterInfo Internet. Há mais de 6 anos levando fibra óptica de verdade pra Joinville, com equipe e suporte da região.",
     },
     "tatiane": {
@@ -28,7 +28,7 @@ AUTHORS = {
     "tecnica": {
         "type": "Person", "name": "Philipe Alves Medeiros",
         "role": "Fundador da MasterInfo",
-        "img": "/imgs/historia/fundador-philipe.jpg", "url": "/#nossa-historia",
+        "img": "/imgs/historia/fundador-philipe.jpg", "url": "/sobre/philipe/",
         "bio": "Fundador da MasterInfo Internet, à frente da rede de fibra óptica em Joinville há mais de 6 anos.",
     },
     "equipe": {
@@ -389,6 +389,211 @@ BLOG = [
             ("Reiniciar o roteador ajuda?", "Sim. Tirar o roteador da tomada por 30 segundos e religar resolve a maioria das lentidões momentâneas. É a primeira coisa a tentar."),
             ("Qual a diferença entre as redes 2,4 GHz e 5 GHz?", "A 2,4 GHz alcança mais longe, mas é mais lenta; a 5 GHz é mais rápida, com alcance menor. Use a 5 GHz nos aparelhos que precisam de velocidade e estão perto do roteador."),
             ("Testei e a internet está lenta até por cabo, o que faço?", "Se a velocidade vem ruim até conectado por cabo, pode não ser o Wi-Fi. Verifique se o plano atende seu uso e, se persistir, fale com o suporte da MasterInfo para avaliarmos a conexão."),
+        ],
+    },
+    # ─── ONDA 2 ───
+    {
+        "slug": "internet-caiu-o-que-fazer",
+        "title": "A Internet Caiu? Passo a Passo para Voltar a Conectar | MasterInfo",
+        "desc": "Internet caiu ou sem conexão? Veja um passo a passo simples para resolver: checar luzes do roteador, reiniciar, testar por cabo e quando chamar o suporte.",
+        "h1": "A internet caiu? Passo a passo para voltar a conectar",
+        "lead": "Antes de achar que é problema grande, a maioria das quedas se resolve em minutos com alguns passos simples. Veja o que fazer na ordem certa e quando acionar o suporte.",
+        "author": "tecnica",
+        "date": DATE_DEFAULT,
+        "image": "/imgs/hero/sub/2-roteadores-3.jpg",
+        "tags": ["Suporte", "Wi-Fi"],
+        "body": """
+    <div class="tldr">
+      <strong>Resposta rápida:</strong> 1) confira as <strong>luzes do roteador</strong> (a de internet/PON precisa estar acesa e fixa); 2) <strong>reinicie</strong> o roteador (tire da tomada 30 segundos e religue); 3) teste <strong>por cabo</strong> e em outro aparelho; 4) se as luzes estiverem anormais ou nada resolver, <strong>fale com o suporte</strong>. Em Joinville, nossa equipe é local e resolve rápido.
+    </div>
+
+    <h2>1. Olhe as luzes do roteador</h2>
+    <p>O roteador conta muita coisa pelas luzes. A luz de <strong>Power</strong> deve estar acesa; a de <strong>internet/PON/LOS</strong> (fibra) precisa estar acesa e estável. Se a luz LOS estiver <strong>vermelha ou piscando</strong>, costuma indicar problema no sinal da fibra, algo que o suporte precisa verificar. Se tudo está apagado, confira se o aparelho está na tomada e ligado.</p>
+
+    <h2>2. Reinicie o roteador (resolve a maioria)</h2>
+    <p>Parece clichê, mas funciona: <strong>tire o roteador da tomada, espere 30 segundos e ligue de novo</strong>. Aguarde 1 a 2 minutos até as luzes estabilizarem. Esse "desliga e liga" resolve boa parte das quedas e lentidões momentâneas.</p>
+
+    <h2>3. Teste por cabo e em outro aparelho</h2>
+    <p>Para saber se o problema é a internet ou só o Wi-Fi, conecte um computador <strong>por cabo</strong> ao roteador. Se funcionar por cabo mas não no Wi-Fi, o problema é a rede sem fio (veja <a href="/blog/como-melhorar-wifi-em-casa/">como melhorar o Wi-Fi em casa</a>). Teste também em outro celular: se só um aparelho está sem internet, o problema pode ser nele.</p>
+
+    <h2>4. Verifique se é só na sua casa</h2>
+    <p>Às vezes a queda é momentânea e regional. Se possível, pergunte a um vizinho que também é cliente. Isso ajuda a equipe a identificar mais rápido se é algo pontual no seu imóvel ou na rede.</p>
+
+    <h2>5. Ainda sem internet? Fale com a gente</h2>
+    <p>Se as luzes estão anormais (LOS vermelha) ou nada resolveu, é hora de acionar o suporte. Abra um chamado em <a href="/ajuda/reportar/">reportar um problema</a> ou chame no WhatsApp. Tenha em mãos o que você já testou e os horários em que cai, isso acelera muito o atendimento. Por sermos um provedor <a href="/internet-joinville/">local de Joinville</a>, o suporte é com gente da região.</p>
+""",
+        "faq": [
+            ("Por que minha internet cai sozinha?", "As causas mais comuns são roteador precisando reiniciar, Wi-Fi com interferência, ou oscilação no sinal da fibra. Comece reiniciando o roteador e testando por cabo; se persistir ou a luz LOS ficar vermelha, fale com o suporte."),
+            ("O que significa a luz vermelha (LOS) no roteador?", "A luz LOS vermelha ou piscando geralmente indica que o sinal da fibra não está chegando corretamente ao aparelho. Reinicie uma vez; se continuar vermelha, acione o suporte para verificar."),
+            ("Reiniciar o roteador resolve mesmo?", "Sim, na maioria dos casos. Tire da tomada por 30 segundos e religue, aguardando as luzes estabilizarem. Resolve boa parte das quedas e lentidões momentâneas."),
+            ("Como falo com o suporte da MasterInfo?", "Pelo WhatsApp ou pela página de reportar um problema. Informe o que já testou e os horários das quedas; nossa equipe local de Joinville resolve rápido."),
+        ],
+    },
+    {
+        "slug": "como-funciona-instalacao-da-fibra",
+        "title": "Como Funciona a Instalação da Fibra (e Quanto Tempo Leva) | MasterInfo",
+        "desc": "Vai contratar fibra? Veja como funciona a instalação passo a passo, quanto tempo leva, o que o técnico faz e como deixar tudo pronto para o dia.",
+        "h1": "Como funciona a instalação da fibra (e quanto tempo leva)",
+        "lead": "Contratou e ficou na dúvida sobre o dia da instalação? Veja o que acontece, quanto tempo costuma levar e como deixar tudo pronto para a equipe.",
+        "author": "tecnica",
+        "date": DATE_DEFAULT,
+        "image": "/imgs/historia/momento-time-tecnico.jpg",
+        "tags": ["Instalação", "Cobertura"],
+        "body": """
+    <div class="tldr">
+      <strong>Resposta rápida:</strong> depois de confirmar a <strong>cobertura</strong> e contratar, a instalação é <strong>agendada</strong> e feita pela equipe técnica local. No dia, o técnico passa o <strong>cabo de fibra</strong> até o imóvel, instala o equipamento (ONU/roteador), configura o Wi-Fi e testa a velocidade. Costuma levar <strong>de 1 a 2 horas</strong>.
+    </div>
+
+    <h2>Antes da instalação: confirme a cobertura</h2>
+    <p>O primeiro passo é confirmar que a fibra já atende o seu endereço. Dá para checar em segundos pelo CEP (veja <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>). Com a viabilidade confirmada e o plano escolhido, a instalação é agendada para os próximos dias úteis.</p>
+
+    <h2>O que o técnico faz no dia</h2>
+    <ol>
+      <li><strong>Passa o cabo de fibra</strong> da rede até a sua casa ou apartamento.</li>
+      <li><strong>Instala o equipamento</strong> (a ONU/roteador) num ponto adequado do imóvel.</li>
+      <li><strong>Configura o Wi-Fi</strong> (nome da rede e senha) e orienta sobre o uso.</li>
+      <li><strong>Testa a velocidade</strong> para garantir que está tudo entregando como contratado.</li>
+    </ol>
+
+    <h2>Quanto tempo leva</h2>
+    <p>A instalação costuma levar <strong>de 1 a 2 horas</strong>, dependendo do imóvel e do trajeto do cabo. Apartamentos com infraestrutura pronta tendem a ser mais rápidos; casas grandes ou trajetos mais longos podem levar um pouco mais.</p>
+
+    <h2>Como se preparar</h2>
+    <ul>
+      <li>Tenha em mente <strong>onde quer o roteador</strong> (de preferência num ponto central e alto, para o Wi-Fi pegar bem; veja <a href="/blog/como-melhorar-wifi-em-casa/">dicas de Wi-Fi</a>).</li>
+      <li>Garanta que haja <strong>uma tomada</strong> perto desse ponto.</li>
+      <li>Deixe o acesso livre para o técnico passar o cabo.</li>
+    </ul>
+
+    <h2>Depois de instalado</h2>
+    <p>Com tudo pronto, é só conectar seus aparelhos. Se quiser tirar o máximo do plano, vale escolher o pacote certo para o seu uso, veja <a href="/blog/quantos-mega-de-internet-voce-precisa/">quantos Mega você precisa</a> ou conheça os planos em <a href="/internet-joinville/">internet em Joinville</a>.</p>
+""",
+        "faq": [
+            ("Quanto tempo leva a instalação da fibra?", "Normalmente de 1 a 2 horas, dependendo do imóvel e do trajeto do cabo. Apartamentos com infraestrutura pronta costumam ser mais rápidos."),
+            ("Preciso estar em casa na instalação?", "Sim, é necessário que um responsável esteja no local para liberar o acesso, indicar onde instalar o roteador e receber as orientações."),
+            ("A instalação tem custo?", "Depende do plano e da promoção vigente. Confirme as condições ao contratar; muitas vezes há instalação facilitada. Fale com a gente para os detalhes do seu caso."),
+            ("Em quanto tempo consigo agendar?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, conforme a disponibilidade da equipe."),
+        ],
+    },
+    {
+        "slug": "internet-para-empresas-o-que-considerar",
+        "title": "Internet para Empresas: o que Considerar Antes de Contratar | MasterInfo",
+        "desc": "Vai contratar internet para a sua empresa? Veja os pontos que importam: banda garantida, upload, IP fixo, SLA e suporte, e como escolher entre link dedicado e banda larga.",
+        "h1": "Internet para empresas: o que considerar antes de contratar",
+        "lead": "Internet de empresa não é igual à de casa. Antes de fechar, veja os critérios que evitam dor de cabeça e mantêm seu negócio sempre online.",
+        "author": "philipe",
+        "date": DATE_DEFAULT,
+        "image": "/imgs/hero/sub/empresarial-1.jpg",
+        "tags": ["Empresas"],
+        "body": """
+    <div class="tldr">
+      <strong>Resposta rápida:</strong> para empresa, priorize <strong>banda garantida</strong>, <strong>upload alto (simétrico)</strong>, <strong>IP fixo</strong>, <strong>SLA</strong> e <strong>suporte prioritário</strong>. Para operações que não podem parar, o <strong>link dedicado</strong> supera a banda larga comum. Veja a <a href="/internet-empresarial/">internet empresarial da MasterInfo</a> em Joinville.
+    </div>
+
+    <h2>1. Banda garantida x compartilhada</h2>
+    <p>A internet residencial é compartilhada e pode oscilar nos horários de pico. Para empresa, o ideal é <strong>banda garantida</strong> (link dedicado): a capacidade contratada é sua, de ponta a ponta, sem cair quando o bairro inteiro está usando.</p>
+
+    <h2>2. Upload tão importante quanto download</h2>
+    <p>Empresas mandam tanto quanto recebem: backup em nuvem, videoconferência, sistemas ERP, envio de arquivos. Por isso o <strong>upload simétrico</strong> (igual ao download) faz muita diferença, algo que a banda larga comum raramente entrega.</p>
+
+    <h2>3. IP fixo</h2>
+    <p>Se a empresa usa servidores, câmeras, VPN, ponto eletrônico ou acesso remoto, vai precisar de <strong>IP fixo</strong>. É um item que a maioria dos planos residenciais não oferece.</p>
+
+    <h2>4. SLA e suporte prioritário</h2>
+    <p>O <strong>SLA</strong> (acordo de nível de serviço) define o compromisso de disponibilidade e tempo de resposta. Junto com um <strong>suporte prioritário e local</strong>, é o que garante que, se algo acontecer, sua empresa volte rápido. Provedor regional ajuda aqui: equipe na cidade resolve mais rápido que um call center distante.</p>
+
+    <h2>5. Escalabilidade</h2>
+    <p>Sua empresa vai crescer. Vale escolher um provedor que permita <strong>aumentar a banda</strong> conforme a demanda, sem precisar trocar tudo.</p>
+
+    <h2>Link dedicado ou banda larga?</h2>
+    <p>Se a internet é crítica para o seu negócio (atendimento online, sistemas em nuvem, muitos pagamentos), o <strong>link dedicado</strong> compensa. Para uso mais leve, uma banda larga empresarial pode bastar. Na dúvida, fale com nosso time comercial pelo <a href="https://wa.me/5547989212991">WhatsApp (47) 98921-2991</a> ou conheça a <a href="/internet-empresarial/">internet empresarial</a>.</p>
+""",
+        "faq": [
+            ("Qual a diferença entre internet de empresa e residencial?", "A de empresa prioriza banda garantida, upload simétrico, IP fixo, SLA e suporte prioritário. A residencial é compartilhada e assimétrica, ótima para casa, mas sem garantia de banda nos horários de pico."),
+            ("Minha empresa precisa de link dedicado?", "Se a internet é crítica (sistemas em nuvem, videoconferência constante, muitos pagamentos, câmeras), sim. Para uso mais leve, uma banda larga empresarial pode ser suficiente."),
+            ("Internet empresarial tem IP fixo?", "Sim, o link dedicado empresarial inclui IP fixo, necessário para servidores, VPN, câmeras e acesso remoto."),
+            ("Como peço uma proposta para minha empresa?", "Pelo WhatsApp comercial (47) 98921-2991 ou pela página de internet empresarial. Montamos a proposta conforme a banda e a estrutura que sua empresa precisa em Joinville."),
+        ],
+    },
+    {
+        "slug": "sky-light-playhub-como-funciona",
+        "title": "SKY+ Light e os Apps Inclusos: Como Funciona o PlayHub | MasterInfo",
+        "desc": "Entenda o PlayHub da MasterInfo: como funciona o SKY+ Light e os apps de TV e streaming inclusos no seu plano de internet fibra em Joinville.",
+        "h1": "SKY+ Light e os apps inclusos: como funciona o PlayHub",
+        "lead": "Seu plano de fibra pode vir com TV ao vivo e apps de streaming inclusos. Entenda como o PlayHub funciona e como escolher o seu app todo mês.",
+        "author": "equipe",
+        "date": DATE_DEFAULT,
+        "image": "/imgs/hero/banner-aplicativos.png",
+        "tags": ["Apps", "TV e Streaming"],
+        "body": """
+    <div class="tldr">
+      <strong>Resposta rápida:</strong> o <strong>PlayHub</strong> é o catálogo de apps de TV e streaming inclusos nos planos da MasterInfo. Cada plano libera uma <strong>categoria</strong> (Standard, Advanced, TOP ou Premium) e você <strong>escolhe 1 app por mês</strong> dentro dela, como o <a href="/aplicativos/sky-light/">SKY+ Light</a> (TV ao vivo). Veja tudo em <a href="/playhub/">PlayHub</a>.
+    </div>
+
+    <h2>O que é o SKY+ Light</h2>
+    <p>O <strong>SKY+ Light</strong> é TV ao vivo no celular, na smart TV ou no computador, sem antena e sem parabólica. Canais de esporte, jornalismo, novelas e mais, onde você estiver. É um dos apps que vêm inclusos no seu plano de fibra.</p>
+
+    <h2>Como funciona o PlayHub</h2>
+    <p>Em vez de um pacote fixo, a MasterInfo trabalha com o <strong>PlayHub</strong>: um conjunto de apps organizados em categorias. O seu plano libera uma categoria, e <strong>todo mês você escolhe 1 app</strong> dentro dela. Quer assistir TV ao vivo num mês e trocar por outro app no mês seguinte? Pode.</p>
+
+    <h2>As categorias</h2>
+    <ul>
+      <li><strong>Standard</strong>: apps de entrada (ex.: SKY+ Light).</li>
+      <li><strong>Advanced</strong>: catálogo maior, com mais opções.</li>
+      <li><strong>TOP</strong> e <strong>Premium</strong>: os pacotes mais completos, com os principais apps de streaming.</li>
+    </ul>
+    <p>Quanto mais alto o plano, mais completa a categoria liberada. Veja quais apps estão em cada uma na página do <a href="/playhub/">PlayHub</a>.</p>
+
+    <h2>Como escolher seu app</h2>
+    <p>Depois de contratar, você ativa o app da sua categoria pelos canais da MasterInfo. A troca mensal dá flexibilidade para acompanhar o que você mais quer assistir em cada época.</p>
+
+    <h2>Qual plano combina com você</h2>
+    <p>Se a casa consome muito streaming, vale um plano com categoria mais alta. Em dúvida sobre velocidade, veja <a href="/blog/quantos-mega-de-internet-voce-precisa/">quantos Mega você precisa</a> ou conheça os planos em <a href="/internet-joinville/">internet em Joinville</a>.</p>
+""",
+        "faq": [
+            ("O que é o PlayHub da MasterInfo?", "É o catálogo de apps de TV e streaming inclusos nos planos. Cada plano libera uma categoria (Standard, Advanced, TOP ou Premium) e você escolhe 1 app por mês dentro dela."),
+            ("O SKY+ Light está incluso no plano?", "Sim, o SKY+ Light faz parte do PlayHub. Dependendo da categoria do seu plano, ele é uma das opções que você pode escolher."),
+            ("Posso trocar de app todo mês?", "Sim. O PlayHub permite escolher 1 app por mês dentro da categoria do seu plano, dando flexibilidade para variar conforme o que você quer assistir."),
+            ("Preciso de antena para o SKY+ Light?", "Não. O SKY+ Light é TV ao vivo pela internet, no celular, smart TV ou computador, sem antena e sem parabólica."),
+        ],
+    },
+    {
+        "slug": "segunda-via-de-boleto-masterinfo",
+        "title": "2ª Via de Boleto da MasterInfo: Como Emitir e Pagar | MasterInfo",
+        "desc": "Precisa da 2ª via do boleto da MasterInfo? Veja como emitir a segunda via, consultar faturas e pagar por boleto, Pix ou cartão pela Central do Assinante.",
+        "h1": "2ª via de boleto da MasterInfo: como emitir e pagar",
+        "lead": "Perdeu o boleto ou quer adiantar o pagamento? Veja como acessar a 2ª via, consultar suas faturas e pagar do jeito que preferir.",
+        "author": "equipe",
+        "date": DATE_DEFAULT,
+        "image": "/imgs/historia/momento-atendimento.jpg",
+        "tags": ["Financeiro", "Suporte"],
+        "body": """
+    <div class="tldr">
+      <strong>Resposta rápida:</strong> a 2ª via do boleto é emitida na <strong>Central do Assinante</strong> com o seu login: você baixa o boleto, copia o código de barras e paga por <strong>boleto, Pix ou cartão</strong>. Precisa de ajuda na hora? Use o chat de boletos da <a href="/ajuda/boletos/">página de boletos</a>.
+    </div>
+
+    <h2>Como emitir a 2ª via</h2>
+    <ol>
+      <li>Acesse a <strong>Central do Assinante</strong> com o seu login.</li>
+      <li>Vá em <strong>faturas/boletos</strong> e localize a fatura em aberto.</li>
+      <li><strong>Baixe a 2ª via</strong> ou copie o <strong>código de barras / Pix</strong> para pagar na hora.</li>
+    </ol>
+    <p>Se preferir, o chat de boletos na <a href="/ajuda/boletos/">página de boletos</a> ajuda você a localizar a fatura rapidamente.</p>
+
+    <h2>Formas de pagamento</h2>
+    <p>Você paga como for melhor: <strong>boleto</strong>, <strong>Pix</strong> (na hora, sem espera de compensação) ou <strong>cartão</strong>. Pagando em dia, você garante o desconto do seu plano.</p>
+
+    <h2>Consultar faturas e vencimento</h2>
+    <p>Na Central do Assinante dá para ver faturas anteriores, datas de vencimento e os pagamentos já feitos, tudo num lugar só, quando você quiser.</p>
+
+    <h2>Dúvidas sobre a fatura</h2>
+    <p>Se algo não bater ou você tiver dúvida sobre uma cobrança, fale com a gente. Por sermos um provedor local de <a href="/internet-joinville/">Joinville</a>, o atendimento é com gente da região e resolve rápido.</p>
+""",
+        "faq": [
+            ("Como tiro a 2ª via do boleto da MasterInfo?", "Acesse a Central do Assinante com seu login, vá em faturas/boletos e baixe a 2ª via ou copie o código de barras/Pix. O chat de boletos no site também ajuda a localizar a fatura."),
+            ("Posso pagar por Pix?", "Sim. Você pode pagar por boleto, Pix ou cartão. O Pix cai na hora, sem espera de compensação."),
+            ("Onde consulto faturas anteriores?", "Na Central do Assinante, onde ficam as faturas, datas de vencimento e o histórico de pagamentos."),
+            ("Tenho desconto pagando em dia?", "Sim. Pagando em dia você garante o desconto do seu plano. Os valores aparecem na sua fatura."),
         ],
     },
 ]

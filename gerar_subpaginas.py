@@ -1129,6 +1129,14 @@ def page_playhub(depth=1):
 # syncs cirúrgicos) e registradas em MENU_PAGES + SEO_META. Flag: --content / --blog.
 BLOGCSS_VER = "20260618-b"
 BLOG_BY_REL = {f'blog/{_p["slug"]}/index.html': _p for _p in BLOG}
+# og:image por página (preview social correto): imagem do próprio pilar/post (rel; SITE_URL no sync_og).
+OG_IMG_BY_REL = {}
+for _op in PILARES:
+    if _op.get("hero_img"):
+        OG_IMG_BY_REL[f'{_op["slug"]}/index.html'] = _op["hero_img"]
+for _op in BLOG:
+    if _op.get("image"):
+        OG_IMG_BY_REL[f'blog/{_op["slug"]}/index.html'] = _op["image"]
 _MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
 
 
@@ -1138,6 +1146,12 @@ def format_date_br(iso):
         return f"{int(d)} {_MESES[int(m) - 1]} {y}"
     except Exception:
         return iso
+
+
+def reading_min(html):
+    """Estima minutos de leitura a partir do HTML do corpo (~200 palavras/min)."""
+    text = re.sub(r"<[^>]+>", " ", html or "")
+    return max(1, round(len(text.split()) / 200))
 
 
 def render_plan_cards(plan_ids):
@@ -1358,10 +1372,12 @@ def page_blog_post(post, depth=2):
             f'\n      <h1>{post["h1"]}</h1>'
             f'\n      <p class="blog-post-lead">{post["lead"]}</p>'
             f'\n    </div>\n  </section>')
+    rt = reading_min(post.get("body", ""))
+    a_url = (a.get("url") or "/#nossa-historia")
     byline = (f'\n      <div class="byline">'
               f'<img src="{a["img"]}" alt="{a["name"]}" class="byline-avatar" loading="lazy">'
-              f'<div class="byline-info"><span class="byline-name">{a["name"]}</span>'
-              f'<span class="byline-role">{a["role"]} · {format_date_br(post.get("date", DATE_DEFAULT))}</span></div></div>')
+              f'<div class="byline-info"><span class="byline-name"><a href="{a_url}">{a["name"]}</a></span>'
+              f'<span class="byline-role">{a["role"]} · {format_date_br(post.get("date", DATE_DEFAULT))} · {rt} min de leitura</span></div></div>')
     article = (f'\n  <main class="blog-main">\n    <div class="article-band">'
                f'\n      <article class="article">{byline}{post["body"]}\n      </article>'
                f'\n    </div>')
@@ -1369,6 +1385,33 @@ def page_blog_post(post, depth=2):
     related = build_related(post)
     return (head(short_title, depth, extra) + header(depth) + hero + article
             + faq_html + related + "\n  </main>" + faq_jsonld + footer(depth))
+
+
+def page_autor(depth=1):
+    """Página de autor (E-E-A-T): bio + lista de artigos + schema ProfilePage/Person."""
+    extra = f'<link rel="stylesheet" href="/blog.css?v={BLOGCSS_VER}">'
+    a = AUTHORS["philipe"]
+    posts = "".join(f'\n        <li><a href="/blog/{p["slug"]}/">{p["h1"]}</a></li>' for p in BLOG)
+    hero = ('\n  <section class="blog-post-hero" style="background:linear-gradient(135deg,#16111c 0%,#2e1e0e 70%,#7a3205 100%);">'
+            '\n    <div class="container">'
+            '\n      <nav class="blog-breadcrumb"><a href="/">Início</a> <span>/</span> <span>Autor</span></nav>'
+            '\n      <span class="blog-post-tag">Autor</span>'
+            f'\n      <h1>{a["name"]}</h1>'
+            f'\n      <p class="blog-post-lead">{a["role"]}</p>'
+            '\n    </div>\n  </section>')
+    body = ('\n  <main class="blog-main">\n    <div class="article-band">\n      <article class="article">'
+            f'\n      <div class="byline"><img src="{a["img"]}" alt="{a["name"]}" class="byline-avatar"><div class="byline-info"><span class="byline-name">{a["name"]}</span><span class="byline-role">{a["role"]}</span></div></div>'
+            f'\n      <p>{a["bio"]}</p>'
+            '\n      <p>Escrevo aqui sobre fibra óptica, Wi-Fi, velocidade e cobertura para ajudar você a aproveitar melhor a sua internet em Joinville, com a visão de quem constrói e opera a rede todos os dias.</p>'
+            f'\n      <h2>Artigos por {a["name"]}</h2>'
+            f'\n      <ul class="related-list">{posts}\n      </ul>'
+            '\n      </article>\n    </div>\n  </main>')
+    person = {"@context": "https://schema.org", "@type": "ProfilePage",
+              "mainEntity": {"@type": "Person", "name": a["name"], "jobTitle": a["role"],
+                             "worksFor": {"@type": "Organization", "name": "MasterInfo Internet", "url": SITE_URL + "/"},
+                             "url": SITE_URL + "/sobre/philipe/", "image": SITE_URL + a["img"]}}
+    schema = '\n  <script type="application/ld+json">\n' + json.dumps(person, ensure_ascii=False, indent=2) + '\n  </script>'
+    return head(a["name"], depth, extra) + header(depth) + hero + body + schema + footer(depth)
 
 
 def gerar_pilares():
@@ -1382,6 +1425,7 @@ def gerar_blog():
     write_file(os.path.join(BASE_DIR, "blog", "index.html"), page_blog_index(depth=1))
     for p in BLOG:
         write_file(os.path.join(BASE_DIR, "blog", p["slug"], "index.html"), page_blog_post(p, depth=2))
+    write_file(os.path.join(BASE_DIR, "sobre", "philipe", "index.html"), page_autor(depth=1))
 
 
 MENU_PAGES = (
@@ -1393,6 +1437,7 @@ MENU_PAGES = (
     + [(f'{p["slug"]}/index.html', 1) for p in PILARES]              # páginas-pilar
     + [('blog/index.html', 1)]                                       # índice do blog
     + [(f'blog/{p["slug"]}/index.html', 2) for p in BLOG]            # posts
+    + [('sobre/philipe/index.html', 1)]                              # página de autor
 )
 
 # Bloco <header>...</header> inteiro (nao aninha, entao non-greedy basta).
@@ -1508,6 +1553,9 @@ SEO_META["blog/index.html"] = (
     "Dicas e guias sobre internet fibra, Wi-Fi, velocidade e cobertura. Conteúdo da MasterInfo para você aproveitar melhor sua conexão em Joinville.")
 for _post in BLOG:
     SEO_META[f'blog/{_post["slug"]}/index.html'] = (_post["title"], _post["desc"])
+SEO_META["sobre/philipe/index.html"] = (
+    "Philipe Alves Medeiros, Fundador da MasterInfo Internet",
+    "Conheça Philipe Alves Medeiros, fundador da MasterInfo Internet em Joinville. Artigos sobre fibra óptica, Wi-Fi, velocidade e cobertura.")
 
 _TITLE_RE = re.compile(r'<title>.*?</title>', re.DOTALL)
 _DESC_RE = re.compile(r'<meta name="description" content="[^"]*">')
@@ -1605,6 +1653,7 @@ def sync_og():
             continue
         title, desc = SEO_META[rel]
         url = SITE_URL + "/" + rel.rsplit("/index.html", 1)[0] + "/"
+        img = (SITE_URL + OG_IMG_BY_REL[rel]) if rel in OG_IMG_BY_REL else (SITE_URL + "/og-image.jpg")
         path = os.path.join(BASE_DIR, *rel.split("/"))
         if not os.path.exists(path):
             skipped += 1
