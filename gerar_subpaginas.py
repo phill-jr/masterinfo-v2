@@ -1500,6 +1500,71 @@ def sync_phosphor():
     print(f"\n  Phosphor (CSS local) : {changed} trocada(s), {same} já em dia/sem script, {skipped} pulada(s).")
 
 
+_IMG_TAG_RE = re.compile(r'<img\b[^>]*?>', re.S)
+
+
+def sync_img_dims():
+    """Adiciona width/height (medidos via Pillow) nas <img> sem dimensões → reduz CLS.
+    Idempotente, CRLF-safe. Resolve src relativo (../) à pasta da página e root-absolute (/).
+    Se Pillow ausente (ex.: servidor de produção), PULA sem erro (não quebra o admin)."""
+    try:
+        from PIL import Image
+    except Exception:
+        print("\n  Img dims: Pillow ausente — pulado (HTML já versionado mantém as dimensões).")
+        return
+    cache = {}
+
+    def measure(page_path, src):
+        s = src.split('?')[0]
+        if not s or s.startswith('data:') or s.lower().endswith('.svg'):
+            return None
+        if s.startswith('/'):
+            fp = os.path.join(BASE_DIR, *s.lstrip('/').split('/'))
+        else:
+            fp = os.path.normpath(os.path.join(os.path.dirname(page_path), *s.split('/')))
+        if fp in cache:
+            return cache[fp]
+        d = None
+        if os.path.exists(fp):
+            try:
+                with Image.open(fp) as im:
+                    d = im.size
+            except Exception:
+                d = None
+        cache[fp] = d
+        return d
+
+    changed = total = 0
+    for rel in PHOSPHOR_PAGES:
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        cnt = [0]
+
+        def repl(m):
+            tag = m.group(0)
+            if re.search(r'\bwidth\s*=', tag) or re.search(r'\bheight\s*=', tag):
+                return tag
+            sm = re.search(r'\bsrc="([^"]+)"', tag)
+            if not sm:
+                return tag
+            d = measure(path, sm.group(1))
+            if not d:
+                return tag
+            cnt[0] += 1
+            return tag[:-1].rstrip() + ' width="%d" height="%d">' % (d[0], d[1])
+
+        new = _IMG_TAG_RE.sub(repl, orig)
+        if new != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(new)
+            changed += 1
+            total += cnt[0]
+    print(f"\n  Img dims (width/height) : {total} img em {changed} página(s).")
+
+
 def sync_configshim():
     """Injeta o shim window.miCfg() no <head> (após o viewport) p/ os consumidores
     compartilharem 1 fetch do config.json. Idempotente (pula se já tem), CRLF-safe.
@@ -2074,6 +2139,8 @@ if __name__ == "__main__":
     sync_phosphor()
     print("\nConfig shim (1 fetch do config.json) → páginas…")
     sync_configshim()
+    print("\nImg dims (width/height p/ CLS) → páginas…")
+    sync_img_dims()
     print("\nSEO meta (title + description únicos) → subpáginas…")
     sync_seo_meta()
     print("\nOpen Graph + Twitter Card → subpáginas…")
