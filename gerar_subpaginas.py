@@ -338,6 +338,9 @@ def head(title, depth, extra_head=""):
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/vendor/phosphor/phosphor.css?v=20260619">
   <link rel="icon" type="image/svg+xml" href="{base}favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="{base}favicon-96x96.png">
+  <link rel="icon" href="{base}favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="{base}apple-touch-icon.png">
   <link rel="stylesheet" href="{base}styles.css?v=20260531-e">
   <link rel="stylesheet" href="{base}modal.css?v=20260531-e">
   {extra_head}
