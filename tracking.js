@@ -140,34 +140,62 @@
     if (!_inited.fb)  { _inited.fb  = true; initFacebookPixel(cfg.facebookPixelId); }
   }
 
+  // ─── Carregamento ADIADO dos pixels (perf: ↓TBT/INP/LCP) ───
+  // Inicializa GTM/GA4/Ads/FB FORA da janela crítica de load: no 1º gesto do usuário
+  // (pointerdown/keydown/touchstart/scroll) OU em idle após o load — o que vier antes.
+  // Conversão NÃO se perde: ela exige clique, e no 1º gesto os stubs fbq/gtag já existem
+  // (o evento do clique fica enfileirado e é enviado quando o script async carrega).
+  // A jornada 1st-party (gclid/fbclid→Bitrix) e os links wa.me NÃO dependem disto e
+  // continuam IMEDIATOS mais abaixo. requestIdleCallback c/ timeout garante o disparo
+  // (page_view/remarketing) mesmo sem interação, ~3s após o load.
+  function oncePixelsReady(cb) {
+    var done = false;
+    var evs = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+    var opts = { passive: true, capture: true };
+    function go() {
+      if (done) return; done = true;
+      for (var i = 0; i < evs.length; i++) window.removeEventListener(evs[i], go, opts);
+      cb();
+    }
+    for (var j = 0; j < evs.length; j++) window.addEventListener(evs[j], go, opts);
+    var idle = function () {
+      if ('requestIdleCallback' in window) window.requestIdleCallback(go, { timeout: 3000 });
+      else setTimeout(go, 2500);
+    };
+    if (document.readyState === 'complete') idle();
+    else window.addEventListener('load', idle, { once: true });
+  }
+
   // ─── Bootstrap: carrega config e inicializa tudo ───
   (window.miCfg ? window.miCfg() : fetch('/config.json?v=' + Date.now()).then(function (r) { return r.json(); }))
     .then(function (data) {
       cfg = data.tracking || {};
-      // Pixels (GTM/GA4/Ads/FB) só com enableTracking ligado + IDs configurados
-      // E somente após o consentimento de cookies (cookie-consent.js).
+      // Pixels (GTM/GA4/Ads/FB) só com enableTracking ligado + IDs configurados,
+      // ADIADOS pra fora do load (oncePixelsReady) e respeitando o consentimento (LGPD).
       if (cfg.enableTracking) {
         // config tem prioridade; sem o campo, usa o padrão do código (REQUIRE_CONSENT_DEFAULT)
         var needConsent = (cfg.requireConsent === undefined || cfg.requireConsent === null)
           ? REQUIRE_CONSENT_DEFAULT : !!cfg.requireConsent;
-        if (!needConsent) {
-          // Sem gate de consentimento: pixels disparam JÁ no load. O banner
-          // (cookie-consent.js) continua aparecendo, mas como AVISO — clicar não muda.
-          console.info('[Tracking] consentimento dispensado → pixels disparam no load (banner é só aviso).');
-          initAll();
-        } else if (typeof window.miOnConsent === 'function') {
-          window.miOnConsent(initAllowed);              // dispara agora se já decidido; e a cada mudança
-        } else {
-          // cookie-consent.js ausente: sem consentimento explícito, NÃO dispara pixels.
-          console.info('[Tracking] cookie-consent.js ausente; pixels aguardam consentimento.');
-          window.addEventListener('mi:consent', initAllowed);
-        }
+        oncePixelsReady(function () {
+          if (!needConsent) {
+            // Sem gate de consentimento: dispara os pixels (banner segue como AVISO).
+            console.info('[Tracking] consentimento dispensado → pixels no 1º gesto/idle (banner é só aviso).');
+            initAll();
+          } else if (typeof window.miOnConsent === 'function') {
+            window.miOnConsent(initAllowed);            // dispara agora se já decidido; e a cada mudança
+          } else {
+            // cookie-consent.js ausente: sem consentimento explícito, NÃO dispara pixels.
+            console.info('[Tracking] cookie-consent.js ausente; pixels aguardam consentimento.');
+            window.addEventListener('mi:consent', initAllowed);
+          }
+          trackPageView();             // page_view (pixels) após o init — vai pro dataLayer/gtag/fbq
+        });
       } else {
         console.info('[Tracking] Pixels desabilitados; jornada 1st-party (p/ lead no Bitrix) continua ativa.');
+        trackPageView();               // sem pixels: registra só a jornada 1st-party
       }
-      // Handlers SEMPRE: alimentam a jornada do lead. Dentro do miTrack, os pixels
-      // só disparam se a tag correspondente foi inicializada (gate de consentimento).
-      trackPageView();
+      // Handlers SEMPRE imediatos: alimentam a jornada do lead + atribuição WhatsApp (gclid).
+      // Dentro do miTrack, os pixels só disparam se a tag já foi inicializada.
       trackWhatsAppClicks();
       tagAllWaLinks();                 // marca os links wa.me já presentes na página
       setTimeout(tagAllWaLinks, 1500); // e os injetados depois (widget Marina, rodapé, modais)

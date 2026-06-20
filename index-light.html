@@ -294,7 +294,7 @@
            Se a imagem nao existir/quebrar, o gradient bg do .hero-bg-* aparece como fallback. -->
 
       <a href="#planos" class="hero-slide is-active hero-bg-home" data-slide="0" aria-label="Copa do Mundo 2026">
-        <img class="hero-slide-img" src="imgs/hero/banner-copa.png" alt="" loading="eager" onerror="this.style.display='none'" width="1920" height="1080">
+        <img class="hero-slide-img" src="imgs/hero/banner-copa.png" alt="" loading="eager" fetchpriority="high" onerror="this.style.display='none'" width="1920" height="1080">
       </a>
       <a href="/aplicativos/sky-light/" class="hero-slide hero-bg-essencial" data-slide="1" aria-label="Lite Casa 600 Mega">
         <img class="hero-slide-img" src="imgs/hero/banner-aplicativos.png" alt="" loading="lazy" onerror="this.style.display='none'" width="1920" height="1080">
@@ -1466,7 +1466,7 @@
   <script src="script.js"></script>
   <script src="modal.js"></script>
   <script src="/cookie-consent.js?v=20260603-cc"></script>
-  <script src="tracking.js?v=20260616c" defer></script>
+  <script src="tracking.js?v=20260619a" defer></script>
   <!-- Marina: chat flutuante de boletos / 2a via (abre no proprio botao .boleto-float, sem trocar de pagina) -->
   <script src="marina-widget.js?v=20260617-a" defer></script>
   <!-- site-loader com cache-busting: garante sempre a versao mais recente (evita menu antigo em cache) -->

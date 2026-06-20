@@ -309,7 +309,7 @@
   </a>
   <script src="../../marina-widget.js?v=20260617-a" defer></script>
 
-  <script src="/tracking.js?v=20260616c" defer></script>
+  <script src="/tracking.js?v=20260619a" defer></script>
   <script src="/cookie-consent.js?v=20260603-cc"></script>
   <script data-mi-widgets>(function(){try{(window.miCfg?window.miCfg():fetch('/config.json?v='+Date.now()).then(function(r){return r.json();})).then(function(c){var w=(c&&c.widgets)||{},m={indicacao:'.indicar-float',boleto:'.boleto-float',whatsapp:'.whatsapp-float'};Object.keys(m).forEach(function(k){if(w[k]===false){var e=document.querySelector(m[k]);if(e)e.style.display='none';}});}).catch(function(){});}catch(e){}})();</script>
   <script data-mi-payment>(function(){try{var M=[['pix','PIX','ph-currency-circle-dollar'],['boleto','Boleto','ph-barcode'],['cartao','Cartão','ph-credit-card'],['debitoAutomatico','Débito automático','ph-bank']];var D={pix:true,boleto:true,cartao:true,debitoAutomatico:false};(window.miCfg?window.miCfg():fetch('/config.json?v='+Date.now()).then(function(r){return r.json();})).then(function(c){var fp=(c&&c.formasPagamento)||{},box=document.querySelector('.footer-payment-icons');if(!box)return;box.innerHTML=M.filter(function(m){var v=(m[0] in fp)?fp[m[0]]:D[m[0]];return v!==false;}).map(function(m){return '<span class="payment-icon"><i class="ph-fill '+m[2]+'"></i> '+m[1]+'</span>';}).join('');}).catch(function(){});}catch(e){}})();</script>
