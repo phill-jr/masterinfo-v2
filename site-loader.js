@@ -332,7 +332,7 @@
         var kids = (it.children || []).map(function (c) {
           var logo = c.logo ? '<img class="dropdown-logo dropdown-logo-real" src="' + esc(c.logo) + '" alt="' + esc(c.label) + '" loading="lazy">' : '';
           var tgt = c.target ? ' target="' + esc(c.target) + '" rel="noopener"' : '';
-          return '<li><a href="' + esc(c.href || '#') + '"' + tgt + ' class="dropdown-link">' + logo + esc(c.label) + '</a></li>';
+          return '<li><a href="' + esc(slashify(c.href || '#')) + '"' + tgt + ' class="dropdown-link">' + logo + esc(c.label) + '</a></li>';
         }).join('');
         return '<li class="nav-item has-mega">' +
           '<button class="nav-trigger" type="button">' + esc(it.label) + ' <i class="ph ph-caret-down nav-trigger-caret"></i></button>' +
@@ -340,7 +340,7 @@
           '</li>';
       }
       var tgt = it.target ? ' target="' + esc(it.target) + '" rel="noopener"' : '';
-      return '<li class="nav-item"><a href="' + esc(it.href || '#') + '"' + tgt + ' class="nav-link">' + esc(it.label) + '</a></li>';
+      return '<li class="nav-item"><a href="' + esc(slashify(it.href || '#')) + '"' + tgt + ' class="nav-link">' + esc(it.label) + '</a></li>';
     }).join('');
 
     // Divisor + lista da direita eram do layout antigo (2 grupos) — vira uma linha unica.
@@ -450,7 +450,7 @@
       var links = (col.links || []).map(function (l) {
         var icon = l.icone ? '<i class="' + esc(l.icone) + '"></i> ' : '';
         var tgt = l.target ? ' target="' + esc(l.target) + '" rel="noopener"' : '';
-        return '<a href="' + esc(l.href) + '"' + tgt + '>' + icon + esc(l.label) + '</a>';
+        return '<a href="' + esc(slashify(l.href)) + '"' + tgt + '>' + icon + esc(l.label) + '</a>';
       }).join('');
       return '<div class="footer-col"><h4>' + esc(col.titulo) + '</h4>' + links + '</div>';
     }).join('');
@@ -749,6 +749,14 @@
     var d = document.createElement('div');
     d.textContent = str;
     return d.innerHTML;
+  }
+  // Normaliza link interno de diretorio p/ terminar em "/" (evita o redirect 301
+  // que o nginx faz de /familia -> /familia/). Deixa intactos: externos, ancoras (#),
+  // com query (?), com extensao (.html/.php) e a raiz. Espelha o footer_href do gerador.
+  function slashify(href) {
+    if (!href || href.charAt(0) !== '/' || href.charAt(1) === '/') return href;
+    if (/[#?]/.test(href) || /\.[a-z0-9]+$/i.test(href)) return href;
+    return href.charAt(href.length - 1) === '/' ? href : href + '/';
   }
   function stripTags(html) {
     if (html == null) return '';

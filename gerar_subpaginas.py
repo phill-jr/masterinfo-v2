@@ -458,7 +458,7 @@ def footer(depth, boleto=True, extra_scripts=""):
     base = "../" * depth
     boleto_html = (f'''
   <!-- ========== BOLETO / 2ª VIA FLOAT ========== -->
-  <a href="/ajuda/boletos" class="boleto-float" aria-label="Boletos e 2ª via de fatura">
+  <a href="/ajuda/boletos/" class="boleto-float" aria-label="Boletos e 2ª via de fatura">
     <span class="boleto-tooltip">
       <span class="boleto-tooltip-text">2ª via de boleto</span>
       <span class="boleto-tooltip-sub">Chat na hora com a Marina</span>
