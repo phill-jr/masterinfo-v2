@@ -104,14 +104,17 @@ DirectoryIndex index-light.html index.html index.php
 # ========================================
 
 # --- Headers de seguranca ---
-# 'set' (tabela onsuccess), NAO 'always': no modo nginx->apache proxy (X-Accel) so a
-# tabela onsuccess atravessa pro cliente; 'always' fica preso no Apache. Cache abaixo
-# (Header set) confirmou isso funcionando.
+# Dentro de <FilesMatch>: no modo nginx->apache proxy (X-Accel) so headers em escopo
+# de ARQUIVO atravessam pro cliente (header global de diretorio fica preso no Apache —
+# confirmado: cache via FilesMatch/ExpiresByType passou, Header global nao). Cobre as
+# paginas (html/php) — onde X-Frame-Options/nosniff/etc. importam.
 <IfModule mod_headers.c>
-    Header set X-Frame-Options "SAMEORIGIN"
-    Header set X-Content-Type-Options "nosniff"
-    Header set Referrer-Policy "strict-origin-when-cross-origin"
-    Header set Strict-Transport-Security "max-age=31536000"
+    <FilesMatch "(\.(html?|php)$|^[^.]*$)">
+        Header set X-Frame-Options "SAMEORIGIN"
+        Header set X-Content-Type-Options "nosniff"
+        Header set Referrer-Policy "strict-origin-when-cross-origin"
+        Header set Strict-Transport-Security "max-age=31536000"
+    </FilesMatch>
 </IfModule>
 
 # --- Cache de estaticos ---
