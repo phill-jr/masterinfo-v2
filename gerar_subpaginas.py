@@ -484,9 +484,9 @@ def footer(depth, boleto=True, extra_scripts=""):
           <a href="{base}" class="logo"><img src="{base}imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img"></a>
           <p>Internet fibra óptica de verdade. Mais de 6 anos conectando famílias e empresas.</p>
           <div class="footer-social">
-            <a href="https://www.instagram.com/masterinfo.internet" target="_blank"><i class="ph ph-instagram-logo"></i></a>
-            <a href="https://www.facebook.com/masterinfointernet" target="_blank"><i class="ph ph-facebook-logo"></i></a>
-            <a href="https://wa.me/554734341734" target="_blank"><i class="ph ph-whatsapp-logo"></i></a>
+            <a href="https://www.instagram.com/masterinfo.internet" target="_blank" rel="noopener"><i class="ph ph-instagram-logo"></i></a>
+            <a href="https://www.facebook.com/masterinfointernet" target="_blank" rel="noopener"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://wa.me/554734341734" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i></a>
           </div>
         </div>
 {render_footer_cols(base)}
@@ -510,7 +510,7 @@ def footer(depth, boleto=True, extra_scripts=""):
     </div>
   </footer>
 
-  <a href="https://wa.me/5547989212991" class="whatsapp-float" target="_blank">
+  <a href="https://wa.me/5547989212991" class="whatsapp-float" target="_blank" rel="noopener">
     <span class="whatsapp-tooltip">
       <span class="whatsapp-tooltip-online"><span class="whatsapp-online-dot"></span> Online agora</span>
       <span class="whatsapp-tooltip-text">Fala com a gente!</span>
@@ -832,7 +832,7 @@ CHAT_BOLETOS_HTML = r'''
             <input type="tel" id="miCpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" autocomplete="off">
             <button type="button" id="miCpfBtn">Continuar <i class="ph ph-arrow-right"></i></button>
           </div>
-          <p class="mi-chat-note">Usamos seu CPF só pra localizar suas faturas. <a href="https://wa.me/554734341734" target="_blank">Prefere o WhatsApp?</a></p>
+          <p class="mi-chat-note">Usamos seu CPF só pra localizar suas faturas. <a href="https://wa.me/554734341734" target="_blank" rel="noopener">Prefere o WhatsApp?</a></p>
         </div>
         <div class="mi-chat-body" id="miChatBody" hidden></div>
         <div class="mi-chat-input" id="miChatInput" hidden>
@@ -965,7 +965,7 @@ CHAT_BOLETOS_HTML = r'''
       html += '<div class="mi-boleto-actions">';
       html += copyBtn('<i class="ph ph-barcode"></i> Copiar linha digitável', linha);
       html += copyBtn('<i class="ph ph-qr-code"></i> Copiar código PIX', b.pix_copia_cola);
-      if (b.url_pdf) html += '<a class="mi-boleto-btn" href="'+esc(b.url_pdf)+'" target="_blank"><i class="ph ph-file-pdf"></i> Baixar PDF</a>';
+      if (b.url_pdf) html += '<a class="mi-boleto-btn" href="'+esc(b.url_pdf)+'" target="_blank" rel="noopener"><i class="ph ph-file-pdf"></i> Baixar PDF</a>';
       html += '</div>';
       card.innerHTML = html;
       elBody.appendChild(card); scrollDown();
@@ -1040,7 +1040,7 @@ def page_ajuda(a, depth=2):
       <span class="sub-hero-tag">{a["tag"]}</span>
       <h1 class="sub-hero-title">{a["title"]}</h1>
       <p class="sub-hero-subtitle">{a["subtitle"]}</p>
-      <a href="{a["cta_href"]}" target="_blank" class="sub-hero-cta">{a["cta_label"]} <i class="ph ph-arrow-right"></i></a>
+      <a href="{a["cta_href"]}" target="_blank" class="sub-hero-cta" rel="noopener">{a["cta_label"]} <i class="ph ph-arrow-right"></i></a>
     </div>
   </section>
 
