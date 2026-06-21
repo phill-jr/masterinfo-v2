@@ -51,6 +51,9 @@
     RewriteRule ^auth/(?!login\.php|logout\.php|check\.php).*$ - [F,L]
 </IfModule>
 
+# Pagina 404 personalizada (branded) em vez do default do Apache
+ErrorDocument 404 /404.html
+
 # Impedir listagem de diretorios
 Options -Indexes
 
