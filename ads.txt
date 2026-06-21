@@ -1,0 +1,3 @@
+# MasterInfo Internet — masterinfointernet.com
+# Este site nao vende inventario de anuncios de terceiros (nao e publisher).
+# Arquivo presente para conformidade ads.txt (IAB). Sem sellers autorizados.
