@@ -491,7 +491,12 @@
       var bg = s.bgClass || (i === 0 ? 'hero-bg-home' : 'hero-bg-essencial');
       var active = i === 0 ? ' is-active' : '';
       var loading = i === 0 ? 'eager' : 'lazy';
-      var img = '<img class="hero-slide-img" src="' + esc(s.img) + '" alt="" loading="' + loading + '" onerror="this.style.display=\'none\'">';
+      var imgTag = '<img class="hero-slide-img" src="' + esc(s.img) + '" alt="" loading="' + loading + '"' + (i === 0 ? ' fetchpriority="high"' : '') + ' onerror="var p=this.parentNode,so=p&&p.querySelector&&p.querySelector(\'source\');if(so){so.parentNode.removeChild(so);var j=this.getAttribute(\'src\');this.src=\'\';this.src=j;}else{this.onerror=null;this.style.display=\'none\';}">';
+      // WebP (mesma img + .webp, convencao gen_webp.py) servido via <picture>; se o
+      // .webp faltar (404), o onerror remove o <source> e recarrega o jpg/png original.
+      var img = /\.(jpe?g|png)$/i.test(s.img)
+        ? '<picture><source type="image/webp" srcset="' + esc(s.img + '.webp') + '">' + imgTag + '</picture>'
+        : imgTag;
       var aria = esc(s.ariaLabel || s.title || ('Slide ' + (i + 1)));
 
       // Modo "páginas": slide com título/CTA vira <div> (não dá pra aninhar <a> em <a>),
