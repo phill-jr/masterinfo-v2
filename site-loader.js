@@ -17,7 +17,7 @@
 
       run('layout', function () { loadLayout(cfg.layout); });
       run('widgets', function () { loadWidgets(cfg.widgets); });
-      run('seo', function () { loadSeo(cfg.seo, cfg.empresa, cfg.planos); });
+      run('seo', function () { loadSeo(cfg.seo, cfg.empresa, cfg.planos, cfg.bairros); });
       run('footer', function () { loadFooter(cfg.empresa); });
       run('faq', function () { loadFaq(cfg.faq); });
       run('faqSchema', function () { loadFaqSchema(cfg.faq); });
@@ -77,7 +77,7 @@
   }
 
   // ─── SEO + Schema.org (metas por atributo + JSON-LD regenerado) ───
-  function loadSeo(seo, emp, planos) {
+  function loadSeo(seo, emp, planos, bairros) {
     if (!seo) return;
     emp = emp || {};
 
@@ -95,14 +95,38 @@
     var ld = document.getElementById('schema-org') || document.querySelector('script[type="application/ld+json"]');
     if (ld) {
       try {
-        ld.textContent = JSON.stringify(buildSchema(seo, emp, planos || []), null, 2);
+        ld.textContent = JSON.stringify(buildSchema(seo, emp, planos || [], bairros || []), null, 2);
       } catch (e) {
         console.warn('[SiteLoader] falha ao gerar JSON-LD:', e);
       }
     }
   }
 
-  function buildSchema(seo, emp, planos) {
+  // Geo da sede: usa as coords do bairro-sede (emp.bairroEndereco) se existir no
+  // config.bairros; senao cai no fallback fixo (Comasa, Rua Baltazar Buschler 628).
+  function buildGeo(emp, bairros) {
+    var lat = -26.2798, lng = -48.8016;
+    if (bairros && emp && emp.bairroEndereco) {
+      for (var i = 0; i < bairros.length; i++) {
+        if (bairros[i] && bairros[i].nome === emp.bairroEndereco && bairros[i].lat != null) {
+          lat = bairros[i].lat; lng = bairros[i].lng; break;
+        }
+      }
+    }
+    return { '@type': 'GeoCoordinates', 'latitude': lat, 'longitude': lng };
+  }
+
+  // areaServed = a cidade + cada bairro atendido (config.bairros) como Place. Os
+  // nomes dos bairros no JSON-LD ajudam IA/local pack a associar a entidade ao bairro.
+  function buildAreaServed(locality, bairros) {
+    var arr = [{ '@type': 'City', 'name': locality || 'Joinville' }];
+    (bairros || []).forEach(function (b) {
+      if (b && b.nome) arr.push({ '@type': 'Place', 'name': b.nome + ', ' + (locality || 'Joinville') });
+    });
+    return arr;
+  }
+
+  function buildSchema(seo, emp, planos, bairros) {
     var url = seo.ogUrl || 'https://masterinfointernet.com';
     var cidadeParts = (emp.cidade || '').split(',');
     var locality = (cidadeParts[0] || '').trim();
@@ -110,7 +134,7 @@
 
     var schema = {
       '@context': 'https://schema.org',
-      '@type': 'InternetServiceProvider',
+      '@type': ['InternetServiceProvider', 'LocalBusiness'],
       '@id': 'https://masterinfointernet.com/#provedor',
       'name': seo.ogSiteName || 'MasterInfo Internet',
       'image': 'https://masterinfointernet.com/og-image.jpg',
@@ -127,7 +151,12 @@
         'postalCode': emp.cep || '',
         'addressCountry': 'BR'
       },
-      'areaServed': { '@type': 'City', 'name': locality },
+      'geo': buildGeo(emp, bairros),
+      'areaServed': buildAreaServed(locality, bairros),
+      'openingHoursSpecification': [
+        { '@type': 'OpeningHoursSpecification', 'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], 'opens': '08:00', 'closes': '18:00' },
+        { '@type': 'OpeningHoursSpecification', 'dayOfWeek': 'Saturday', 'opens': '08:00', 'closes': '12:00' }
+      ],
       'priceRange': seo.priceRange || '',
       'sameAs': [emp.instagram, emp.facebook].filter(Boolean)
     };

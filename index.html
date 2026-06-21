@@ -66,7 +66,7 @@
   <script type="application/ld+json" id="schema-org">
   {
     "@context": "https://schema.org",
-    "@type": "InternetServiceProvider",
+    "@type": ["InternetServiceProvider", "LocalBusiness"],
     "@id": "https://masterinfointernet.com/#provedor",
     "name": "MasterInfo Internet",
     "image": "https://masterinfointernet.com/og-image.jpg",
@@ -83,10 +83,31 @@
       "postalCode": "89228-000",
       "addressCountry": "BR"
     },
-    "areaServed": {
-      "@type": "City",
-      "name": "Joinville"
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -26.2798,
+      "longitude": -48.8016
     },
+    "areaServed": [
+      { "@type": "City", "name": "Joinville" },
+      { "@type": "Place", "name": "Comasa, Joinville" },
+      { "@type": "Place", "name": "Boa Vista, Joinville" },
+      { "@type": "Place", "name": "Espinheiros, Joinville" },
+      { "@type": "Place", "name": "Aventureiro, Joinville" },
+      { "@type": "Place", "name": "Jardim Paraíso, Joinville" },
+      { "@type": "Place", "name": "Jardim Sofia, Joinville" },
+      { "@type": "Place", "name": "Cubatão, Joinville" },
+      { "@type": "Place", "name": "Itinga, Joinville" },
+      { "@type": "Place", "name": "Nova Brasília, Joinville" },
+      { "@type": "Place", "name": "Rio Bonito, Joinville" },
+      { "@type": "Place", "name": "Estrada Timbé, Joinville" },
+      { "@type": "Place", "name": "Paranaguamirim, Joinville" },
+      { "@type": "Place", "name": "Iririú, Joinville" }
+    ],
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "18:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "12:00" }
+    ],
     "priceRange": "R$ 99,90 - R$ 228,60/mês",
     "sameAs": [
       "https://www.instagram.com/masterinfo.internet",
@@ -739,8 +760,8 @@
             <div class="story-milestone-photo">
               <img src="imgs/historia/marco-4-time.jpg" alt="Time MasterInfo reunido" loading="lazy" decoding="async" width="1200" height="1600">
             </div>
-            <h4>Um time, 12 bairros</h4>
-            <p>2.382 avaliações no Google, 12 bairros atendidos e um time que veste a laranja todo dia.</p>
+            <h4>Um time, 13 bairros</h4>
+            <p>2.447 avaliações no Google, 13 bairros atendidos e um time que veste a laranja todo dia.</p>
           </div>
         </div>
       </div>
@@ -877,7 +898,7 @@
         <div class="sp-stats">
 
           <div class="sp-stat sp-stat-rating">
-            <div class="sp-stat-big" data-sp-target="4.9" data-sp-decimal="true">0.0</div>
+            <div class="sp-stat-big" data-sp-target="4.8" data-sp-decimal="true">0.0</div>
             <div class="sp-stat-stars">
               <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
             </div>
@@ -885,7 +906,7 @@
           </div>
 
           <div class="sp-stat">
-            <div class="sp-stat-big" data-sp-target="2382" data-sp-format="number">0</div>
+            <div class="sp-stat-big" data-sp-target="2447" data-sp-format="number">0</div>
             <div class="sp-stat-label">Avaliações <br>verificadas</div>
           </div>
 
@@ -1341,7 +1362,7 @@
   <footer class="footer" id="contato">
     <div class="footer-trust">
       <div class="container footer-trust-inner">
-        <div class="footer-trust-item"><i class="ph-fill ph-star"></i><div><strong>4,9 / 5</strong><span>2.382 avaliações no Google</span></div></div>
+        <div class="footer-trust-item"><i class="ph-fill ph-star"></i><div><strong>4,8 / 5</strong><span>2.447 avaliações no Google</span></div></div>
         <div class="footer-trust-item"><i class="ph-fill ph-lightning"></i><div><strong>100% Fibra Óptica</strong><span>Sem rádio, sem cabo compartilhado</span></div></div>
         <div class="footer-trust-item"><i class="ph-fill ph-map-pin"></i><div><strong>100% Joinville</strong><span>Atendimento local, equipe da região</span></div></div>
         <div class="footer-trust-item"><i class="ph-fill ph-handshake"></i><div><strong>Suporte que resolve</strong><span>Fala com gente de verdade</span></div></div>

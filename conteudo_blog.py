@@ -88,7 +88,7 @@ PILARES = [
     <p>Não sabe quantos Mega contratar? O guia <a href="/blog/quantos-mega-de-internet-voce-precisa/">quantos Mega você precisa</a> ajuda a decidir em 2 minutos.</p>
 
     <h2>O diferencial: suporte local em Joinville</h2>
-    <p>Tem provedor grande que atende metade do Brasil de um call center distante. A MasterInfo é diferente: somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Quando você fala com a gente, fala com alguém da região, que conhece a cidade e resolve rápido. É o motivo de termos <strong>4,9 de 5 estrelas</strong> com milhares de avaliações no Google.</p>
+    <p>Tem provedor grande que atende metade do Brasil de um call center distante. A MasterInfo é diferente: somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Quando você fala com a gente, fala com alguém da região, que conhece a cidade e resolve rápido. É o motivo de termos <strong>4,8 de 5 estrelas</strong> com milhares de avaliações no Google.</p>
 """,
         "faq": [
             ("A MasterInfo é de Joinville mesmo?", "Sim. Somos um provedor local, nascido e sediado em Joinville, há mais de 6 anos. Nossa equipe técnica e o suporte são todos da região."),
@@ -166,7 +166,7 @@ PILARES = [
         "plans": ["lite-premium", "ultra-familia", "ultra-home-office"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a melhor internet de Joinville é a que combina <strong>fibra óptica</strong>, <strong>estabilidade real</strong> (não só velocidade no papel), <strong>suporte local que resolve</strong> e <strong>boa reputação</strong>. Provedores regionais costumam ganhar no atendimento. A MasterInfo atende esses critérios com 4,9/5 no Google e equipe 100% de Joinville.
+      <strong>Resumo rápido:</strong> a melhor internet de Joinville é a que combina <strong>fibra óptica</strong>, <strong>estabilidade real</strong> (não só velocidade no papel), <strong>suporte local que resolve</strong> e <strong>boa reputação</strong>. Provedores regionais costumam ganhar no atendimento. A MasterInfo atende esses critérios com 4,8/5 no Google e equipe 100% de Joinville.
     </div>
 
     <p class="article-note">Transparência: a MasterInfo é um provedor de Joinville, então esta página tem o nosso ponto de vista. Em vez de um ranking "neutro" de concorrentes, listamos os <strong>critérios objetivos</strong> que você deve usar para decidir, seja qual for o provedor.</p>
@@ -181,21 +181,70 @@ PILARES = [
     <p>Esse é o critério que mais separa um bom provedor de um provedor qualquer. Quando a internet cai, você quer falar com alguém que entende e resolve, não esperar horas num call center. Provedores regionais como a MasterInfo têm <strong>equipe na cidade</strong>, técnicos que conhecem os bairros e tempo de resposta menor.</p>
 
     <h2>4. Reputação e avaliações reais</h2>
-    <p>Avaliações no Google e indicações de quem já é cliente valem mais que qualquer propaganda. A MasterInfo tem <strong>4,9 de 5 estrelas</strong> com milhares de avaliações, reflexo de mais de 6 anos conectando famílias e empresas em Joinville.</p>
+    <p>Avaliações no Google e indicações de quem já é cliente valem mais que qualquer propaganda. A MasterInfo tem <strong>4,8 de 5 estrelas</strong> com milhares de avaliações, reflexo de mais de 6 anos conectando famílias e empresas em Joinville.</p>
 
     <h2>5. Preço justo e sem letra miúda</h2>
     <p>O mais barato nem sempre é o melhor, e o mais caro também não. Procure um plano com <strong>preço claro</strong>, sem surpresas na fatura, com o que está incluso bem explicado (roteador, apps, suporte). Veja os planos da MasterInfo abaixo, com preço transparente e desconto por pagamento em dia.</p>
 
     <!--PLANS_GRID-->
 
+    <h2>Cobertura por bairro: onde a MasterInfo tem fibra em Joinville</h2>
+    <p>A "melhor internet" também depende do <strong>bairro</strong>: o que vale é ter fibra óptica (FTTH) chegando até o seu endereço. A MasterInfo tem <strong>rede própria de fibra em 13 bairros de Joinville</strong> e amplia a cobertura toda semana. Bairros atendidos hoje:</p>
+    <ul>
+      <li><strong>Comasa</strong> — bairro-sede da MasterInfo</li>
+      <li><strong>Boa Vista</strong></li>
+      <li><strong>Espinheiros</strong></li>
+      <li><strong>Aventureiro</strong></li>
+      <li><strong>Jardim Paraíso</strong></li>
+      <li><strong>Jardim Sofia</strong></li>
+      <li><strong>Cubatão</strong></li>
+      <li><strong>Itinga</strong></li>
+      <li><strong>Nova Brasília</strong></li>
+      <li><strong>Rio Bonito</strong></li>
+      <li><strong>Estrada Timbé</strong></li>
+      <li><strong>Paranaguamirim</strong></li>
+      <li><strong>Iririú</strong></li>
+    </ul>
+    <p>Não achou seu bairro na lista? A rede cresce toda semana — <a href="/#cobertura">consulte a cobertura pelo seu CEP</a> e confirme a disponibilidade no seu endereço em segundos. Veja também o <a href="/internet-joinville/">guia de internet em Joinville</a> por perfil de uso.</p>
+
     <h2>Como aplicar tudo isso na prática</h2>
     <p>Resumindo: priorize fibra óptica, confirme a estabilidade com quem mora perto, valorize o suporte local e cheque as avaliações. Se quiser ir direto ao ponto, veja o <a href="/internet-joinville/">guia de internet em Joinville</a> ou descubra <a href="/blog/quantos-mega-de-internet-voce-precisa/">quantos Mega você precisa</a>.</p>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["InternetServiceProvider", "LocalBusiness"],
+      "@id": "https://masterinfointernet.com/#provedor",
+      "name": "MasterInfo Internet",
+      "url": "https://masterinfointernet.com/",
+      "telephone": "+554734341734",
+      "image": "https://masterinfointernet.com/og-image.jpg",
+      "address": { "@type": "PostalAddress", "streetAddress": "Rua Baltazar Buschler, 628", "addressLocality": "Joinville", "addressRegion": "SC", "postalCode": "89228-000", "addressCountry": "BR" },
+      "geo": { "@type": "GeoCoordinates", "latitude": -26.2798, "longitude": -48.8016 },
+      "areaServed": [
+        { "@type": "City", "name": "Joinville" },
+        { "@type": "Place", "name": "Comasa, Joinville" },
+        { "@type": "Place", "name": "Boa Vista, Joinville" },
+        { "@type": "Place", "name": "Espinheiros, Joinville" },
+        { "@type": "Place", "name": "Aventureiro, Joinville" },
+        { "@type": "Place", "name": "Jardim Paraíso, Joinville" },
+        { "@type": "Place", "name": "Jardim Sofia, Joinville" },
+        { "@type": "Place", "name": "Cubatão, Joinville" },
+        { "@type": "Place", "name": "Itinga, Joinville" },
+        { "@type": "Place", "name": "Nova Brasília, Joinville" },
+        { "@type": "Place", "name": "Rio Bonito, Joinville" },
+        { "@type": "Place", "name": "Estrada Timbé, Joinville" },
+        { "@type": "Place", "name": "Paranaguamirim, Joinville" },
+        { "@type": "Place", "name": "Iririú, Joinville" }
+      ]
+    }
+    </script>
 """,
         "faq": [
-            ("Qual é a melhor internet de Joinville?", "Não há uma resposta única para todos, mas a melhor internet é a que reúne fibra óptica até a sua casa, estabilidade real no dia a dia, suporte local que resolve e boa reputação. A MasterInfo atende esses critérios com nota 4,9/5 no Google e equipe 100% de Joinville."),
+            ("Qual é a melhor internet de Joinville?", "Não há uma resposta única para todos, mas a melhor internet é a que reúne fibra óptica até a sua casa, estabilidade real no dia a dia, suporte local que resolve e boa reputação. A MasterInfo atende esses critérios com nota 4,8/5 no Google e equipe 100% de Joinville."),
             ("Provedor local é melhor que operadora grande?", "Em atendimento, quase sempre sim. Provedores regionais têm equipe na cidade, conhecem os bairros e respondem mais rápido. Em fibra óptica, a qualidade do sinal de um bom provedor local costuma igualar ou superar a das grandes."),
             ("Como confirmar a estabilidade antes de contratar?", "Pergunte a vizinhos que já usam o provedor, leia avaliações que falem de quedas e velocidade à noite (não só de preço) e confirme se a tecnologia é fibra óptica até o imóvel."),
-            ("A MasterInfo atende meu bairro?", "Atendemos boa parte de Joinville com fibra própria. Consulte a cobertura pelo seu CEP aqui no site para confirmar em segundos."),
+            ("A MasterInfo atende meu bairro?", "A MasterInfo atende 13 bairros de Joinville com fibra óptica própria: Comasa, Boa Vista, Espinheiros, Aventureiro, Jardim Paraíso, Jardim Sofia, Cubatão, Itinga, Nova Brasília, Rio Bonito, Estrada Timbé, Paranaguamirim e Iririú — e a cobertura cresce toda semana. Consulte pelo seu CEP aqui no site para confirmar em segundos."),
         ],
     },
 ]
