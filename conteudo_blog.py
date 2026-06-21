@@ -49,7 +49,7 @@ DATE_DEFAULT = "2026-06-18"
 PILARES = [
     {
         "slug": "internet-joinville",
-        "title": "Internet Fibra em Joinville | Planos e Cobertura | MasterInfo",
+        "title": "Internet Fibra em Joinville | Planos e Cobertura",
         "desc": "Internet fibra óptica em Joinville: planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura no seu bairro.",
         "tag": "INTERNET · JOINVILLE",
         "h1": "Internet fibra em Joinville, com suporte de gente da região",
@@ -99,7 +99,7 @@ PILARES = [
     },
     {
         "slug": "internet-empresarial",
-        "title": "Internet Empresarial em Joinville (Link Dedicado) | MasterInfo",
+        "title": "Internet Empresarial em Joinville (Link Dedicado)",
         "desc": "Internet empresarial em Joinville: link dedicado em fibra óptica, banda garantida, IP fixo, SLA e suporte local prioritário. Peça uma proposta.",
         "tag": "INTERNET · EMPRESAS",
         "h1": "Internet empresarial em Joinville, com banda garantida",
@@ -154,7 +154,7 @@ PILARES = [
     },
     {
         "slug": "melhor-internet-joinville",
-        "title": "Qual a Melhor Internet de Joinville? Critérios para Escolher | MasterInfo",
+        "title": "Qual a Melhor Internet de Joinville? Critérios para Escolher",
         "desc": "Como escolher a melhor internet de Joinville: estabilidade, fibra dedicada, suporte local e avaliações reais. Veja os critérios e os planos da MasterInfo.",
         "tag": "GUIA · MELHOR INTERNET",
         "h1": "Qual a melhor internet de Joinville? Os critérios que importam",
@@ -205,7 +205,7 @@ PILARES = [
 BLOG = [
     {
         "slug": "quantos-mega-de-internet-voce-precisa",
-        "title": "Quantos Mega de Internet Você Precisa? Guia por Perfil | MasterInfo",
+        "title": "Quantos Mega de Internet Você Precisa? Guia por Perfil",
         "desc": "Quantos Mega de internet contratar? Guia por perfil de uso (sozinho, casal, família, home office, gamer) com tabela por atividade e recomendação prática.",
         "h1": "Quantos Mega de internet você precisa? Guia por perfil",
         "lead": "Antes de contratar, descubra a velocidade ideal pra sua casa sem pagar a mais nem ficar travando. A conta é simples e depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo.",
@@ -260,7 +260,7 @@ BLOG = [
     },
     {
         "slug": "fibra-vs-radio-vs-cabo",
-        "title": "Fibra Óptica vs Rádio vs Cabo: Qual a Melhor Internet? | MasterInfo",
+        "title": "Fibra Óptica vs Rádio vs Cabo: Qual a Melhor Internet?",
         "desc": "Fibra óptica, internet via rádio ou cabo: entenda as diferenças de velocidade, estabilidade e cobertura, e descubra qual é a melhor internet pra você.",
         "h1": "Fibra óptica vs rádio vs cabo: qual a melhor internet?",
         "lead": "Os três tipos de conexão mais comuns no Brasil têm diferenças grandes de estabilidade e velocidade. Entenda cada um em linguagem simples e veja por que a fibra virou o padrão.",
@@ -308,7 +308,7 @@ BLOG = [
     },
     {
         "slug": "cobertura-fibra-cep-joinville",
-        "title": "Como Saber se Tem Fibra no Seu Endereço em Joinville | MasterInfo",
+        "title": "Como Saber se Tem Fibra no Seu Endereço em Joinville",
         "desc": "Veja como descobrir se tem internet fibra no seu endereço em Joinville: consulta de cobertura por CEP, passo a passo e o que fazer se ainda não chegou.",
         "h1": "Como saber se tem fibra no seu endereço em Joinville",
         "lead": "Antes de contratar, vale confirmar se a fibra já chegou na sua rua. Dá pra checar em segundos pelo CEP, sem precisar ligar pra ninguém. Veja o passo a passo.",
@@ -350,7 +350,7 @@ BLOG = [
     },
     {
         "slug": "como-melhorar-wifi-em-casa",
-        "title": "Wi-Fi Lento ou Caindo? Como Melhorar o Sinal em Casa | MasterInfo",
+        "title": "Wi-Fi Lento ou Caindo? Como Melhorar o Sinal em Casa",
         "desc": "Wi-Fi lento, travando ou com ponto cego? Veja dicas práticas para melhorar o sinal em casa: posição do roteador, canais, senha e quando usar mesh.",
         "h1": "Wi-Fi lento ou caindo? Como melhorar o sinal em casa",
         "lead": "Às vezes a internet é boa, mas o Wi-Fi não chega direito em todo canto da casa. A maioria dos problemas se resolve com ajustes simples. Veja o que fazer antes de chamar o suporte.",
@@ -394,7 +394,7 @@ BLOG = [
     # ─── ONDA 2 ───
     {
         "slug": "internet-caiu-o-que-fazer",
-        "title": "A Internet Caiu? Passo a Passo para Voltar a Conectar | MasterInfo",
+        "title": "A Internet Caiu? Passo a Passo para Voltar a Conectar",
         "desc": "Internet caiu ou sem conexão? Veja um passo a passo simples para resolver: checar luzes do roteador, reiniciar, testar por cabo e quando chamar o suporte.",
         "h1": "A internet caiu? Passo a passo para voltar a conectar",
         "lead": "Antes de achar que é problema grande, a maioria das quedas se resolve em minutos com alguns passos simples. Veja o que fazer na ordem certa e quando acionar o suporte.",
@@ -431,7 +431,7 @@ BLOG = [
     },
     {
         "slug": "como-funciona-instalacao-da-fibra",
-        "title": "Como Funciona a Instalação da Fibra (e Quanto Tempo Leva) | MasterInfo",
+        "title": "Como Funciona a Instalação da Fibra (e Quanto Tempo Leva)",
         "desc": "Vai contratar fibra? Veja como funciona a instalação passo a passo, quanto tempo leva, o que o técnico faz e como deixar tudo pronto para o dia.",
         "h1": "Como funciona a instalação da fibra (e quanto tempo leva)",
         "lead": "Contratou e ficou na dúvida sobre o dia da instalação? Veja o que acontece, quanto tempo costuma levar e como deixar tudo pronto para a equipe.",
@@ -477,7 +477,7 @@ BLOG = [
     },
     {
         "slug": "internet-para-empresas-o-que-considerar",
-        "title": "Internet para Empresas: o que Considerar Antes de Contratar | MasterInfo",
+        "title": "Internet para Empresas: o que Considerar Antes de Contratar",
         "desc": "Vai contratar internet para a sua empresa? Veja os pontos que importam: banda garantida, upload, IP fixo, SLA e suporte, e como escolher entre link dedicado e banda larga.",
         "h1": "Internet para empresas: o que considerar antes de contratar",
         "lead": "Internet de empresa não é igual à de casa. Antes de fechar, veja os critérios que evitam dor de cabeça e mantêm seu negócio sempre online.",
@@ -517,7 +517,7 @@ BLOG = [
     },
     {
         "slug": "sky-light-playhub-como-funciona",
-        "title": "SKY+ Light e os Apps Inclusos: Como Funciona o PlayHub | MasterInfo",
+        "title": "SKY+ Light e os Apps Inclusos: Como Funciona o PlayHub",
         "desc": "Entenda o PlayHub da MasterInfo: como funciona o SKY+ Light e os apps de TV e streaming inclusos no seu plano de internet fibra em Joinville.",
         "h1": "SKY+ Light e os apps inclusos: como funciona o PlayHub",
         "lead": "Seu plano de fibra pode vir com TV ao vivo e apps de streaming inclusos. Entenda como o PlayHub funciona e como escolher o seu app todo mês.",
@@ -559,7 +559,7 @@ BLOG = [
     },
     {
         "slug": "segunda-via-de-boleto-masterinfo",
-        "title": "2ª Via de Boleto da MasterInfo: Como Emitir e Pagar | MasterInfo",
+        "title": "2ª Via de Boleto da MasterInfo: Como Emitir e Pagar",
         "desc": "Precisa da 2ª via do boleto da MasterInfo? Veja como emitir a segunda via, consultar faturas e pagar por boleto, Pix ou cartão pela Central do Assinante.",
         "h1": "2ª via de boleto da MasterInfo: como emitir e pagar",
         "lead": "Perdeu o boleto ou quer adiantar o pagamento? Veja como acessar a 2ª via, consultar suas faturas e pagar do jeito que preferir.",
