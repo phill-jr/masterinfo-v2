@@ -96,3 +96,51 @@ DirectoryIndex index-light.html index.html index.php
     RedirectMatch 301 ^/quem-somos/?$               /
     RedirectMatch 301 ^/planos/?$                   /
 </IfModule>
+
+# ========================================
+# Performance: headers de seguranca, cache e WebP (20/06/2026)
+# Servido pelo Apache (modo nginx->apache proxy); .htaccess escopado a este dominio.
+# Resolve sitechecker: security headers, cache lifetimes, next-gen images.
+# ========================================
+
+# --- Headers de seguranca (todas as respostas) ---
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
+
+# --- Cache de estaticos ---
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 14 days"
+    ExpiresByType image/png "access plus 14 days"
+    ExpiresByType image/webp "access plus 14 days"
+    ExpiresByType image/svg+xml "access plus 14 days"
+    ExpiresByType image/gif "access plus 14 days"
+    ExpiresByType image/x-icon "access plus 14 days"
+</IfModule>
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|woff2)$">
+        Header set Cache-Control "public, immutable, max-age=31536000"
+    </FilesMatch>
+</IfModule>
+
+# --- WebP transparente: serve x.jpg.webp se o browser aceitar E o arquivo existir ---
+# (os .webp ja estao no servidor ao lado de cada imagem). Fallback automatico pro original.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_ACCEPT} image/webp
+    RewriteCond %{REQUEST_FILENAME}\.webp -f
+    RewriteRule (.+)\.(jpe?g|png)$ $1.$2.webp [T=image/webp,L]
+</IfModule>
+<IfModule mod_headers.c>
+    <FilesMatch "\.(jpe?g|png)$">
+        Header append Vary Accept
+    </FilesMatch>
+</IfModule>
