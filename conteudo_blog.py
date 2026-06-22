@@ -76,7 +76,7 @@ PILARES = [
     <h2>Cobertura: tem fibra no seu bairro?</h2>
     <p>Atendemos grande parte de Joinville com rede própria de fibra. A forma mais rápida de saber se já chegamos no seu endereço é <strong>consultar a cobertura pelo CEP</strong> aqui no site, em poucos segundos. Se preferir o passo a passo, leia <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
     <p>Já atendemos regiões como Centro, América, Glória, Bom Retiro, Boa Vista, Vila Nova, Costa e Silva, Iririú e muitos outros bairros, com expansão constante para novas áreas.</p>
-    <p>Páginas dedicadas por bairro: <a href="/internet-comasa-joinville/">internet no Comasa</a>, <a href="/internet-boa-vista-joinville/">internet na Boa Vista</a> e <a href="/internet-iririu-joinville/">internet no Iririú</a>.</p>
+    <p>Páginas dedicadas por bairro: <a href="/internet-comasa-joinville/">Comasa</a>, <a href="/internet-boa-vista-joinville/">Boa Vista</a>, <a href="/internet-iririu-joinville/">Iririú</a>, <a href="/internet-espinheiros-joinville/">Espinheiros</a>, <a href="/internet-aventureiro-joinville/">Aventureiro</a> e <a href="/internet-itinga-joinville/">Itinga</a>.</p>
 
     <h2>Internet para cada necessidade</h2>
     <p>Cada casa usa a internet de um jeito. Por isso, além do plano certo, vale escolher a página que combina com o seu perfil:</p>
@@ -211,6 +211,9 @@ PILARES = [
     <h2>Como aplicar tudo isso na prática</h2>
     <p>Resumindo: priorize fibra óptica, confirme a estabilidade com quem mora perto, valorize o suporte local e cheque as avaliações. Se quiser ir direto ao ponto, veja o <a href="/internet-joinville/">guia de internet em Joinville</a> ou descubra <a href="/blog/quantos-mega-de-internet-voce-precisa/">quantos Mega você precisa</a>.</p>
 
+    <h2>Internet fibra por bairro em Joinville</h2>
+    <p>Veja a página do seu bairro: <a href="/internet-comasa-joinville/">Comasa</a>, <a href="/internet-boa-vista-joinville/">Boa Vista</a>, <a href="/internet-iririu-joinville/">Iririú</a>, <a href="/internet-espinheiros-joinville/">Espinheiros</a>, <a href="/internet-aventureiro-joinville/">Aventureiro</a> e <a href="/internet-itinga-joinville/">Itinga</a>.</p>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -220,7 +223,7 @@ PILARES = [
       "url": "https://masterinfointernet.com/",
       "telephone": "+554734341734",
       "image": "https://masterinfointernet.com/og-image.jpg",
-      "address": { "@type": "PostalAddress", "streetAddress": "Rua Baltazar Buschler, 628", "addressLocality": "Joinville", "addressRegion": "SC", "postalCode": "89228-000", "addressCountry": "BR" },
+      "address": { "@type": "PostalAddress", "streetAddress": "Rua Prefeito Baltazar Buschle, 628", "addressLocality": "Joinville", "addressRegion": "SC", "postalCode": "89228-000", "addressCountry": "BR" },
       "geo": { "@type": "GeoCoordinates", "latitude": -26.2798, "longitude": -48.8016 },
       "areaServed": [
         { "@type": "City", "name": "Joinville" },
@@ -403,6 +406,138 @@ PILARES = [
             ("Quais as velocidades dos planos no Iririú?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar no Iririú?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
             ("O Wi-Fi cobre a casa toda no Iririú?", "Sim. Os planos com Mesh Wi-Fi 6 usam dois roteadores em rede mesh para cobrir todos os cômodos, sem ponto cego — ideal para casas maiores."),
+        ],
+    },
+    {
+        "slug": "internet-espinheiros-joinville",
+        "title": "Internet Fibra no Espinheiros, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica no Espinheiros (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · ESPINHEIROS",
+        "h1": "Internet fibra no Espinheiros, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) no Espinheiros, na região norte de Joinville — Wi-Fi 6, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Espinheiros, na região norte de Joinville — vizinho do Comasa, onde fica a nossa sede. Planos de 600 Mega a 1 Giga, Wi-Fi 6 e suporte local. Consulte a cobertura no seu endereço.
+    </div>
+
+    <h2>Internet fibra no Espinheiros, em Joinville</h2>
+    <p>O Espinheiros fica na região norte de Joinville, ao lado do Comasa — bairro que a MasterInfo conhece de perto, já que é onde fica a nossa sede. Com <strong>fibra óptica até a sua casa (FTTH)</strong>, você tem sinal estável de dia e de noite, sem a instabilidade do rádio ou dos cabos antigos. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para o Espinheiros</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra no Espinheiros</h2>
+    <p>Atendemos o Espinheiros com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, confirme se já chegamos no seu endereço <strong>consultando a cobertura pelo CEP</strong> aqui no site. Veja também <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Espinheiros%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa do bairro Espinheiros, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos, com sede no Comasa — bem ao lado do Espinheiros. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende o Espinheiros?", "Sim. O Espinheiros está na nossa área de cobertura de fibra óptica em Joinville e fica ao lado do Comasa, onde fica a nossa sede. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP."),
+            ("Quais as velocidades dos planos no Espinheiros?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quanto tempo leva para instalar no Espinheiros?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
+        ],
+    },
+    {
+        "slug": "internet-aventureiro-joinville",
+        "title": "Internet Fibra no Aventureiro, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica no Aventureiro (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · AVENTUREIRO",
+        "h1": "Internet fibra no Aventureiro, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) no Aventureiro, um dos bairros mais populosos de Joinville — Wi-Fi 6, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Aventureiro, um dos bairros mais populosos de Joinville. Planos de 600 Mega a 1 Giga, Wi-Fi 6 e suporte local. Consulte a cobertura no seu endereço.
+    </div>
+
+    <h2>Internet fibra no Aventureiro, em Joinville</h2>
+    <p>O Aventureiro é um dos bairros mais populosos de Joinville — muita gente e muitos aparelhos conectados ao mesmo tempo. A <strong>fibra óptica até a casa (FTTH)</strong> dá conta desse uso intenso, com sinal estável e Wi-Fi forte. Entenda as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para o Aventureiro</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra no Aventureiro</h2>
+    <p>Atendemos o Aventureiro com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, confirme se já chegamos no seu endereço <strong>consultando a cobertura pelo CEP</strong> aqui no site. Veja também <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Aventureiro%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa do bairro Aventureiro, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> e milhares de avaliações no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende o Aventureiro?", "Sim. O Aventureiro está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("Quais as velocidades dos planos no Aventureiro?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("A internet aguenta uma casa com muita gente usando?", "Sim. Os planos de 1 Giga com Mesh Wi-Fi 6 foram pensados para casas cheias, com vários aparelhos conectados ao mesmo tempo sem travar."),
+        ],
+    },
+    {
+        "slug": "internet-itinga-joinville",
+        "title": "Internet Fibra na Itinga, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica na Itinga (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · ITINGA",
+        "h1": "Internet fibra na Itinga, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) na Itinga, um grande bairro da região sul de Joinville — Wi-Fi 6 para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a Itinga, um grande bairro da região sul de Joinville. Planos de 600 Mega a 1 Giga, Wi-Fi 6 e suporte local. Consulte a cobertura no seu endereço.
+    </div>
+
+    <h2>Internet fibra na Itinga, em Joinville</h2>
+    <p>A Itinga é um grande bairro da região sul de Joinville, com muitas famílias e casas. É um perfil em que a internet precisa cobrir bem todos os cômodos — e a <strong>fibra óptica até a casa (FTTH)</strong> entrega isso com Wi-Fi forte e estável. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para a Itinga</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra na Itinga</h2>
+    <p>Atendemos a Itinga com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, confirme se já chegamos no seu endereço <strong>consultando a cobertura pelo CEP</strong> aqui no site. Veja também <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Itinga%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa do bairro Itinga, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> e milhares de avaliações no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende a Itinga?", "Sim. A Itinga está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("Quais as velocidades dos planos na Itinga?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("O Wi-Fi cobre a casa toda na Itinga?", "Sim. Os planos com Mesh Wi-Fi 6 usam dois roteadores em rede mesh para cobrir todos os cômodos, sem ponto cego — ideal para casas maiores."),
         ],
     },
 ]
