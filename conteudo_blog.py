@@ -76,6 +76,7 @@ PILARES = [
     <h2>Cobertura: tem fibra no seu bairro?</h2>
     <p>Atendemos grande parte de Joinville com rede própria de fibra. A forma mais rápida de saber se já chegamos no seu endereço é <strong>consultar a cobertura pelo CEP</strong> aqui no site, em poucos segundos. Se preferir o passo a passo, leia <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
     <p>Já atendemos regiões como Centro, América, Glória, Bom Retiro, Boa Vista, Vila Nova, Costa e Silva, Iririú e muitos outros bairros, com expansão constante para novas áreas.</p>
+    <p>Páginas dedicadas por bairro: <a href="/internet-comasa-joinville/">internet no Comasa</a>, <a href="/internet-boa-vista-joinville/">internet na Boa Vista</a> e <a href="/internet-iririu-joinville/">internet no Iririú</a>.</p>
 
     <h2>Internet para cada necessidade</h2>
     <p>Cada casa usa a internet de um jeito. Por isso, além do plano certo, vale escolher a página que combina com o seu perfil:</p>
@@ -298,6 +299,110 @@ PILARES = [
             ("Quais as velocidades dos planos no Comasa?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar no Comasa?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
             ("Por que escolher um provedor com sede no bairro?", "Porque o suporte é de quem é da região e está por perto: atendimento mais rápido, sem call center distante. Por isso temos 4,8 de 5 estrelas no Google."),
+        ],
+    },
+    {
+        "slug": "internet-boa-vista-joinville",
+        "title": "Internet Fibra na Boa Vista, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica na Boa Vista (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · BOA VISTA",
+        "h1": "Internet fibra na Boa Vista, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) na Boa Vista — um dos bairros mais movimentados de Joinville. Wi-Fi 6, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a Boa Vista, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 incluso e suporte local de verdade. Consulte a cobertura no seu endereço e contrate em minutos.
+    </div>
+
+    <h2>Internet fibra na Boa Vista, em Joinville</h2>
+    <p>A Boa Vista é um dos bairros mais populosos e movimentados de Joinville — muita gente, muitos dispositivos e uso intenso o dia todo. Para isso, a <strong>fibra óptica até a sua casa (FTTH)</strong> é a melhor opção: sinal estável de dia e de noite, sem a instabilidade do rádio ou dos cabos antigos. Entenda as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para a Boa Vista</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia, com muita gente conectada ao mesmo tempo). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra na Boa Vista</h2>
+    <p>Atendemos a Boa Vista com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, a forma mais rápida de confirmar se já chegamos no seu endereço é <strong>consultar a cobertura pelo CEP</strong> aqui no site. Se preferir, veja <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Boa%20Vista%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa do bairro Boa Vista, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Cada casa usa a internet de um jeito. Escolha a página que combina com o seu perfil:</p>
+    <ul>
+      <li><a href="/familia/">Internet para a família</a>: vários aparelhos ao mesmo tempo, sem travar.</li>
+      <li><a href="/home-office/">Internet para home office</a>: estabilidade para reuniões e upload rápido.</li>
+      <li><a href="/gamer/">Internet para gamer</a>: baixa latência e zero perda de pacote.</li>
+      <li><a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>: dois roteadores em mesh, sem ponto cego.</li>
+    </ul>
+    <p>Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Quando você fala com a gente, fala com alguém da região, que resolve rápido — por isso temos <strong>4,8 de 5 estrelas</strong> com milhares de avaliações no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende a Boa Vista?", "Sim. A Boa Vista está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("Quais as velocidades dos planos na Boa Vista?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quanto tempo leva para instalar na Boa Vista?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
+            ("A internet aguenta uma casa com muita gente usando?", "Sim. Os planos de 1 Giga com Mesh Wi-Fi 6 foram pensados justamente para casas cheias, com vários aparelhos conectados ao mesmo tempo sem travar."),
+        ],
+    },
+    {
+        "slug": "internet-iririu-joinville",
+        "title": "Internet Fibra no Iririú, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica no Iririú (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · IRIRIÚ",
+        "h1": "Internet fibra no Iririú, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) no Iririú — um grande bairro residencial de Joinville. Wi-Fi 6 para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Iririú, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 incluso e suporte local de verdade. Consulte a cobertura no seu endereço e contrate em minutos.
+    </div>
+
+    <h2>Internet fibra no Iririú, em Joinville</h2>
+    <p>O Iririú é um grande bairro residencial de Joinville, de famílias e casas — perfil em que a internet precisa cobrir bem todos os cômodos e aguentar vários aparelhos ao mesmo tempo. A <strong>fibra óptica até a casa (FTTH)</strong> entrega isso com sinal estável e Wi-Fi forte. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para o Iririú</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra no Iririú</h2>
+    <p>Atendemos o Iririú com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, a forma mais rápida de confirmar se já chegamos no seu endereço é <strong>consultar a cobertura pelo CEP</strong> aqui no site. Se preferir, veja <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Iririu%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa do bairro Iririú, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Cada casa usa a internet de um jeito. Escolha a página que combina com o seu perfil:</p>
+    <ul>
+      <li><a href="/familia/">Internet para a família</a>: vários aparelhos ao mesmo tempo, sem travar.</li>
+      <li><a href="/home-office/">Internet para home office</a>: estabilidade para reuniões e upload rápido.</li>
+      <li><a href="/gamer/">Internet para gamer</a>: baixa latência e zero perda de pacote.</li>
+      <li><a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>: dois roteadores em mesh, sem ponto cego.</li>
+    </ul>
+    <p>Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Quando você fala com a gente, fala com alguém da região, que resolve rápido — por isso temos <strong>4,8 de 5 estrelas</strong> com milhares de avaliações no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende o Iririú?", "Sim. O Iririú está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("Quais as velocidades dos planos no Iririú?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quanto tempo leva para instalar no Iririú?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
+            ("O Wi-Fi cobre a casa toda no Iririú?", "Sim. Os planos com Mesh Wi-Fi 6 usam dois roteadores em rede mesh para cobrir todos os cômodos, sem ponto cego — ideal para casas maiores."),
         ],
     },
 ]
