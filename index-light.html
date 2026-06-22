@@ -74,7 +74,7 @@
         "@id": "https://masterinfointernet.com/#org",
         "name": "MasterInfo Internet",
         "url": "https://masterinfointernet.com",
-        "logo": "https://masterinfointernet.com/logo-masterinfo.png",
+        "logo": { "@type": "ImageObject", "url": "https://masterinfointernet.com/logo-masterinfo.png" },
         "telephone": "+554734341734",
         "sameAs": [
           "https://www.instagram.com/masterinfo.internet",
@@ -102,7 +102,7 @@
     "@id": "https://masterinfointernet.com/#provedor",
     "name": "MasterInfo Internet",
     "image": "https://masterinfointernet.com/og-image.jpg",
-    "logo": "https://masterinfointernet.com/logo-masterinfo.png",
+    "logo": { "@type": "ImageObject", "url": "https://masterinfointernet.com/logo-masterinfo.png" },
     "description": "Provedor de internet fibra óptica em Joinville, SC",
     "url": "https://masterinfointernet.com",
     "telephone": "+554734341734",
@@ -176,7 +176,7 @@
   <noscript><link rel="stylesheet" href="playhub.css?v=20260617-playhub2"></noscript>
 </head>
 <body>
-  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Internet Fibra Óptica 100% em Joinville, Planos de 600 Mega a 1 Giga | MasterInfo Internet</h1>
+  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Internet fibra óptica 100% em Joinville, planos de 600 Mega a 1 Giga</h1>
 
   <!-- ========== POPUP COPA DO MUNDO 2026 ========== -->
   <div class="copa-popup" id="copaPopup" aria-hidden="true">
@@ -381,10 +381,10 @@
            Se a imagem nao existir/quebrar, o gradient bg do .hero-bg-* aparece como fallback. -->
 
       <a href="#planos" class="hero-slide is-active hero-bg-home" data-slide="0" aria-label="Copa do Mundo 2026">
-        <img class="hero-slide-img" src="imgs/hero/banner-copa.png" alt="Copa do Mundo 2026 com a MasterInfo, internet de 1000 Mega" loading="eager" fetchpriority="high" onerror="this.style.display='none'" width="1920" height="1080">
+        <picture><source type="image/webp" srcset="imgs/hero/banner-copa.webp"><img class="hero-slide-img" src="imgs/hero/banner-copa.png" alt="Copa do Mundo 2026 com a MasterInfo, internet de 1000 Mega" loading="eager" fetchpriority="high" onerror="this.style.display='none'" width="1920" height="1080"></picture>
       </a>
       <a href="/aplicativos/sky-light/" class="hero-slide hero-bg-essencial" data-slide="1" aria-label="Lite Casa 600 Mega">
-        <img class="hero-slide-img" src="imgs/hero/banner-aplicativos.png" alt="Combo SKY Light + internet de 600 Mega da MasterInfo" loading="lazy" onerror="this.style.display='none'" width="1920" height="1080">
+        <picture><source type="image/webp" srcset="imgs/hero/banner-aplicativos.webp"><img class="hero-slide-img" src="imgs/hero/banner-aplicativos.png" alt="Combo SKY Light + internet de 600 Mega da MasterInfo" loading="lazy" onerror="this.style.display='none'" width="1920" height="1080"></picture>
       </a>
 
       <!-- Setas suaves -->

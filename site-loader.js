@@ -138,7 +138,7 @@
       '@id': 'https://masterinfointernet.com/#provedor',
       'name': seo.ogSiteName || 'MasterInfo Internet',
       'image': 'https://masterinfointernet.com/og-image.jpg',
-      'logo': 'https://masterinfointernet.com/logo-masterinfo.png',
+      'logo': { '@type': 'ImageObject', 'url': 'https://masterinfointernet.com/logo-masterinfo.png' },
       'description': seo.schemaDescription || seo.description || '',
       'url': url,
       'telephone': emp.telefone ? '+55' + emp.telefone.replace(/\D/g, '') : '',

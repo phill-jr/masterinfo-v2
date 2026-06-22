@@ -1317,6 +1317,52 @@ def build_schema_data(rel, name, desc, url):
     ]}
 
 
+# Páginas de bairro → schema LocalBusiness/ISP próprio (areaServed do bairro). Espelha os
+# dados canônicos do provedor da home; @id por página p/ não colidir com o #provedor da home.
+BAIRRO_AREA = {
+    "internet-comasa-joinville": "Comasa",
+    "internet-boa-vista-joinville": "Boa Vista",
+    "internet-iririu-joinville": "Iririú",
+    "internet-espinheiros-joinville": "Espinheiros",
+    "internet-aventureiro-joinville": "Aventureiro",
+    "internet-itinga-joinville": "Itinga",
+    "internet-jardim-paraiso-joinville": "Jardim Paraíso",
+    "internet-jardim-sofia-joinville": "Jardim Sofia",
+    "internet-cubatao-joinville": "Cubatão",
+    "internet-nova-brasilia-joinville": "Nova Brasília",
+    "internet-rio-bonito-joinville": "Rio Bonito",
+    "internet-estrada-timbe-joinville": "Estrada Timbé",
+    "internet-paranaguamirim-joinville": "Paranaguamirim",
+}
+
+def local_business_jsonld(bairro_nome, page_url):
+    data = {
+        "@context": "https://schema.org",
+        "@type": ["InternetServiceProvider", "LocalBusiness"],
+        "@id": page_url + "#provedor",
+        "name": "MasterInfo Internet",
+        "image": SITE_URL + "/og-image.jpg",
+        "logo": {"@type": "ImageObject", "url": SITE_URL + "/logo-masterinfo.png"},
+        "description": f"Provedor de internet fibra óptica que atende o bairro {bairro_nome}, em Joinville, SC.",
+        "url": page_url,
+        "telephone": "+554734341734",
+        "email": "masterinfo@masterinfointernet.com",
+        "address": {"@type": "PostalAddress", "streetAddress": "Rua Prefeito Baltazar Buschle, 628",
+                    "addressLocality": "Joinville", "addressRegion": "SC", "postalCode": "89228-000", "addressCountry": "BR"},
+        "geo": {"@type": "GeoCoordinates", "latitude": -26.2798, "longitude": -48.8016},
+        "areaServed": {"@type": "Place", "name": f"{bairro_nome}, Joinville, SC"},
+        "openingHoursSpecification": [
+            {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "18:00"},
+            {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "12:00"}],
+        "priceRange": "R$ 99,90 - R$ 189,90",
+        "hasMap": "https://www.google.com/maps?cid=10673247961179135046",
+        "sameAs": ["https://www.instagram.com/masterinfo.internet",
+                   "https://www.facebook.com/masterinfointernet",
+                   "https://www.google.com/maps?cid=10673247961179135046"],
+    }
+    return '\n  <script type="application/ld+json">\n' + json.dumps(data, ensure_ascii=False, indent=2) + '\n  </script>'
+
+
 def page_pilar(p, depth=1):
     extra = f'<link rel="stylesheet" href="/blog.css?v={BLOGCSS_VER}">'
     short_title = p["title"].split(" | ")[0]
@@ -1357,8 +1403,9 @@ def page_pilar(p, depth=1):
                 f'\n      <a href="{band[3]}" class="cta-band-btn">{band[2]} <i class="ph ph-arrow-right"></i></a>'
                 f'\n    </div>\n  </section>')
     plans_script = ("\n" + PLANS_SYNC_SCRIPT) if p.get("plans") else ""
+    lb = local_business_jsonld(BAIRRO_AREA[p["slug"]], SITE_URL + "/" + p["slug"] + "/") if p["slug"] in BAIRRO_AREA else ""
     return (head(short_title, depth, extra) + header(depth) + hero + article
-            + plans_after + faq_html + cta_band + faq_jsonld + plans_script + footer(depth))
+            + plans_after + faq_html + cta_band + faq_jsonld + lb + plans_script + footer(depth))
 
 
 def page_blog_index(depth=1):

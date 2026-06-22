@@ -307,6 +307,70 @@
   ]
 }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": [
+    "InternetServiceProvider",
+    "LocalBusiness"
+  ],
+  "@id": "https://masterinfointernet.com/internet-jardim-paraiso-joinville/#provedor",
+  "name": "MasterInfo Internet",
+  "image": "https://masterinfointernet.com/og-image.jpg",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://masterinfointernet.com/logo-masterinfo.png"
+  },
+  "description": "Provedor de internet fibra óptica que atende o bairro Jardim Paraíso, em Joinville, SC.",
+  "url": "https://masterinfointernet.com/internet-jardim-paraiso-joinville/",
+  "telephone": "+554734341734",
+  "email": "masterinfo@masterinfointernet.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua Prefeito Baltazar Buschle, 628",
+    "addressLocality": "Joinville",
+    "addressRegion": "SC",
+    "postalCode": "89228-000",
+    "addressCountry": "BR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -26.2798,
+    "longitude": -48.8016
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Jardim Paraíso, Joinville, SC"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "08:00",
+      "closes": "12:00"
+    }
+  ],
+  "priceRange": "R$ 99,90 - R$ 189,90",
+  "hasMap": "https://www.google.com/maps?cid=10673247961179135046",
+  "sameAs": [
+    "https://www.instagram.com/masterinfo.internet",
+    "https://www.facebook.com/masterinfointernet",
+    "https://www.google.com/maps?cid=10673247961179135046"
+  ]
+}
+  </script>
   <script data-mi-plans>(function(){function brl(n){return Number(n).toFixed(2).replace('.',',');}function esc(s){var d=document.createElement('div');d.textContent=(s==null?'':s);return d.innerHTML;}var A={'600':'lite-casa','800':'lite-familia','1000':'lite-home-office','ultra-800':'ultra-familia','ultra-1000':'ultra-home-office'};try{(window.miCfg?window.miCfg():fetch('/config.json?v='+Date.now()).then(function(r){return r.json();})).then(function(c){var b={};(c.planos||[]).forEach(function(p){b[p.id]=p;});document.querySelectorAll('a.sub-plan-card[href*="checkout.html?plano="]').forEach(function(card){var m=card.getAttribute('href').match(/plano=([^&]+)/);if(!m)return;var p=b[A[m[1]]||m[1]];if(!p)return;var sp=card.querySelector('.sub-plan-speed');if(sp&&p.velocidade!=null)sp.innerHTML=esc(p.velocidade)+'<small> '+esc(p.unidade||'Mega')+'</small>';var nm=card.querySelector('.sub-plan-name');if(nm&&p.nome!=null)nm.textContent=p.nome;var po=card.querySelector('.sub-plan-price-original');if(po&&p.precoCheio!=null)po.innerHTML='de <s>R$ '+brl(p.precoCheio)+'</s> por';var pr=card.querySelector('.sub-plan-price');var pt=(p.precoPontual!=null?p.precoPontual:p.precoCheio);if(pr&&pt!=null)pr.innerHTML='R$ '+brl(pt)+' <em>/mês</em>';var ul=card.querySelector('.sub-plan-features');if(ul&&p.features&&p.features.length)ul.innerHTML=p.features.map(function(f){return '<li><i class="ph-fill ph-check-circle"></i> '+esc(f)+'</li>';}).join('');});}).catch(function(){});}catch(e){}})();</script>
   <!-- FOOTER -->
   <footer class="footer" id="contato">
