@@ -1470,7 +1470,7 @@ def gerar_blog():
     write_file(os.path.join(BASE_DIR, "blog", "index.html"), page_blog_index(depth=1))
     for p in BLOG:
         write_file(os.path.join(BASE_DIR, "blog", p["slug"], "index.html"), page_blog_post(p, depth=2))
-    write_file(os.path.join(BASE_DIR, "sobre", "philipe", "index.html"), page_autor(depth=1))
+    write_file(os.path.join(BASE_DIR, "sobre", "philipe", "index.html"), page_autor(depth=2))
 
 
 MENU_PAGES = (
@@ -1482,7 +1482,7 @@ MENU_PAGES = (
     + [(f'{p["slug"]}/index.html', 1) for p in PILARES]              # páginas-pilar
     + [('blog/index.html', 1)]                                       # índice do blog
     + [(f'blog/{p["slug"]}/index.html', 2) for p in BLOG]            # posts
-    + [('sobre/philipe/index.html', 1)]                              # página de autor
+    + [('sobre/philipe/index.html', 2)]                              # página de autor (sobre/philipe/ = profundidade 2)
 )
 
 # Bloco <header>...</header> inteiro (nao aninha, entao non-greedy basta).
