@@ -11,7 +11,7 @@ import re
 import sys
 import json
 
-# Conteúdo (páginas-pilar + blog) — fonte única do texto dessas páginas. Ver conteudo_blog.py.
+# Conteúdo (páginas-pilar + blog), fonte única do texto dessas páginas. Ver conteudo_blog.py.
 from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT, PERSONAS_CONTENT, BLOG_DEEP, BAIRROS_DEEP
 
 # Console do Windows e cp1252 por padrao e quebra em '✓'/acentos. Forca UTF-8.
@@ -32,7 +32,7 @@ FOOTER_MENUS = CONFIG.get("menus", {}).get("footer", [])
 # valor num <style> no <head>. Default 100 = 1 (sem mudanca; cai no default do CSS).
 SITE_SCALE = round((CONFIG.get("layout", {}).get("siteScale", 100) or 100) / 100, 3)
 
-# Planos do config.json indexados por id — fonte unica dos campos de texto dos
+# Planos do config.json indexados por id, fonte unica dos campos de texto dos
 # cards das subpaginas (nome/velocidade/unidade/precos/features). A faixa de apps
 # inclusos continua curada no PLANS_MAP. Em runtime o <script data-mi-plans>
 # (PLANS_SYNC_SCRIPT) refaz a mesma sincronizacao, entao editar no admin reflete
@@ -57,7 +57,7 @@ INTERNET = [
         "ico": "ph-briefcase",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "highlights": [
-            ("📞", "Reunião sem queda", "Conexão estável pra Zoom, Teams, Meet — chovendo ou fazendo sol."),
+            ("📞", "Reunião sem queda", "Conexão estável pra Zoom, Teams, Meet, chovendo ou fazendo sol."),
             ("☁️", "Upload turbinado", "Mandar arquivo grande, fazer backup em nuvem, sem espera."),
             ("⚡", "Latência baixa", "Resposta rápida em ferramentas em tempo real."),
         ],
@@ -83,11 +83,11 @@ INTERNET = [
         "slug": "familia",
         "tag": "INTERNET · PRA FAMÍLIA",
         "title": "Internet pra família toda usar ao mesmo tempo",
-        "subtitle": "Vários celulares, TV no streaming, criança no tablet, jogo do filho online — tudo junto, sem travar. Wi-Fi com força pra casa cheia.",
+        "subtitle": "Vários celulares, TV no streaming, criança no tablet, jogo do filho online, tudo junto, sem travar. Wi-Fi com força pra casa cheia.",
         "ico": "ph-users-three",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "highlights": [
-            ("👨‍👩‍👧‍👦", "Tudo rodando junto", "Mãe na novela, pai no jogo, filhos no TikTok — tudo ao mesmo tempo, sem trava."),
+            ("👨‍👩‍👧‍👦", "Tudo rodando junto", "Mãe na novela, pai no jogo, filhos no TikTok, tudo ao mesmo tempo, sem trava."),
             ("📺", "Streaming em 4K", "Netflix, Disney+, Globoplay e SKY+ rodando em qualquer TV da casa."),
             ("🛡️", "Wi-Fi seguro pra criança", "Suporte pra controle parental e antivírus Kaspersky opcional."),
         ],
@@ -118,7 +118,7 @@ INTERNET = [
         "gradient": "linear-gradient(135deg, #6b3d00 0%, #c19000 50%, #fcc305 100%)",
         "highlights": [
             ("🏠", "Ideal pra apartamento", "Cobertura Wi-Fi suficiente em até 80m²."),
-            ("💸", "Preço justo", "A partir de R$ 99,90/mês — sem letra miúda."),
+            ("💸", "Preço justo", "A partir de R$ 99,90/mês, sem letra miúda."),
             ("⚡", "Fibra óptica real", "Mesmo plano de entrada, mesma fibra dos planos premium."),
         ],
         "plans": ["lite-casa", "lite-premium", "lite-basic"],
@@ -199,7 +199,7 @@ APLICATIVOS = [
 
 def compute_escolher_em(app_cats):
     """Cruza as categorias PlayHub do app com os planos do config.json e
-    retorna lista [(nome_plano, categoria_nome), ...] dos planos que liberam
+    retorna lista [(nome_plano, categoria_nome)...] dos planos que liberam
     pelo menos uma das categorias do app. Ex.: app SKY+ Light tem cats=[standard,
     advanced, top] -> retorna [(Lite Casa, Standard), (Lite Premium, Advanced),
     (Ultra Home Office, Standard), (Ultra Gamer, TOP)] etc."""
@@ -220,12 +220,12 @@ AJUDA = [
         "slug": "wifi",
         "tag": "AJUDA · WI-FI",
         "title": "Como configurar seu Wi-Fi",
-        "subtitle": "Trocar o nome da rede, mudar a senha e deixar o sinal forte em toda a casa — passo a passo, sem complicação.",
+        "subtitle": "Trocar o nome da rede, mudar a senha e deixar o sinal forte em toda a casa, passo a passo, sem complicação.",
         "gradient": "linear-gradient(135deg, #6b3d00 0%, #c19000 50%, #fcc305 100%)",
         "steps": [
             ("🔑", "Trocar a senha do Wi-Fi", "Acesse o painel do roteador (geralmente 192.168.0.1 ou 192.168.1.1) com o login do aparelho e altere o campo de senha da rede."),
             ("📶", "Deixar o sinal mais forte", "Posicione o roteador num ponto central e alto, longe de paredes grossas, micro-ondas e espelhos. Casa grande pede o plano com 2 roteadores (mesh)."),
-            ("🔄", "Reiniciar quando travar", "Tire o roteador da tomada por 30 segundos e ligue de novo — resolve a maioria das lentidões momentâneas."),
+            ("🔄", "Reiniciar quando travar", "Tire o roteador da tomada por 30 segundos e ligue de novo, resolve a maioria das lentidões momentâneas."),
         ],
         "cta_label": "Falar com o suporte no WhatsApp",
         "cta_href": "https://wa.me/554734341734?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20para%20configurar%20meu%20Wi-Fi.",
@@ -239,7 +239,7 @@ AJUDA = [
         "steps": [
             ("🚫", "Sem conexão", "Confira se as luzes do roteador estão acesas e tente reiniciá-lo. Se continuar sem internet, fale com a gente."),
             ("🐢", "Internet lenta", "Faça um teste de velocidade pelo Speedtest conectado por cabo, anote o resultado e mande pra gente avaliar."),
-            ("📡", "Quedas constantes", "Anote os horários em que cai — isso ajuda nossa equipe a identificar a causa mais rápido."),
+            ("📡", "Quedas constantes", "Anote os horários em que cai, isso ajuda nossa equipe a identificar a causa mais rápido."),
         ],
         "cta_label": "Abrir chamado no WhatsApp",
         "cta_href": "https://wa.me/554734341734?text=Ol%C3%A1!%20Quero%20reportar%20um%20problema%20na%20minha%20internet.",
@@ -248,7 +248,7 @@ AJUDA = [
         "slug": "boletos",
         "tag": "AJUDA · FINANCEIRO",
         "title": "Boletos e faturas",
-        "subtitle": "Segunda via, vencimento e formas de pagamento — tudo na Central do Assinante, quando você quiser.",
+        "subtitle": "Segunda via, vencimento e formas de pagamento, tudo na Central do Assinante, quando você quiser.",
         "gradient": "linear-gradient(135deg, #06402b 0%, #0a7d4f 50%, #18b368 100%)",
         "steps": [
             ("🧾", "Segunda via do boleto", "Acesse a Central do Assinante com seu login para baixar a 2ª via e copiar o código de barras na hora."),
@@ -262,7 +262,7 @@ AJUDA = [
 ]
 
 PLANS_MAP = {
-    # ─── LINHA LITE — 1 Roteador Wi-Fi 6 ───
+    # ─── LINHA LITE, 1 Roteador Wi-Fi 6 ───
     "lite-casa": {
         "nome": "Lite Casa", "linha": "LITE",
         "speed": "600", "unit": "Mega",
@@ -296,7 +296,7 @@ PLANS_MAP = {
             "1 Giga pra trabalho remoto",
         ],
     },
-    # ─── LINHA ULTRA — Mesh Wi-Fi 6 ───
+    # ─── LINHA ULTRA, Mesh Wi-Fi 6 ───
     "ultra-familia": {
         "nome": "Ultra Família", "linha": "ULTRA",
         "speed": "1", "unit": "Giga",
@@ -336,7 +336,7 @@ PLANS_MAP = {
         "features": [
             "Mesh Wi-Fi 6 (cobertura total)",
             "2 apps de TV / mês (TOP + Premium)",
-            "ExitLag — ping mínimo no online",
+            "ExitLag, ping mínimo no online",
         ],
     },
 }
@@ -357,7 +357,7 @@ def head(title, depth, extra_head=""):
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {CFG_SHIM}
   <title>{title} | MasterInfo Internet</title>
-  <meta name="description" content="MasterInfo Internet — fibra óptica 100% em Joinville.">
+  <meta name="description" content="MasterInfo Internet, fibra óptica 100% em Joinville.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -378,7 +378,7 @@ def head(title, depth, extra_head=""):
 
 
 def build_header(depth):
-    """Monta o <header> a partir de config.menuHeader — o MESMO resultado que o
+    """Monta o <header> a partir de config.menuHeader, o MESMO resultado que o
     site-loader.loadMenuHeader produz na home: UMA lista (.nav-list-sales) na
     ordem do config, itens com on=False OMITIDOS (ex.: TV e Streaming), dropdowns
     (com logos/filhos) e botao do cliente do config. hrefs traduzidos por
@@ -435,7 +435,7 @@ def build_header(depth):
 
 
 def header(depth):
-    # O <header> sai do config.menuHeader (build_header) — igual à home.
+    # O <header> sai do config.menuHeader (build_header), igual à home.
     return f'''
   <!-- HEADER -->
   {build_header(depth)}'''
@@ -632,7 +632,7 @@ def find_imgs(slug, base_path):
 
 
 # Patcher de runtime das subpaginas: le config.json e atualiza os .sub-plan-card
-# (nome/velocidade/unidade/precos/features) ao vivo — mesma ideia do data-mi-widgets.
+# (nome/velocidade/unidade/precos/features) ao vivo, mesma ideia do data-mi-widgets.
 # Assim, editar um plano no admin reflete nas subpaginas sem precisar re-gerar. A
 # faixa de apps inclusos (curada) nao e tocada.
 PLANS_SYNC_SCRIPT = """<script data-mi-plans>(function(){function brl(n){return Number(n).toFixed(2).replace('.',',');}function esc(s){var d=document.createElement('div');d.textContent=(s==null?'':s);return d.innerHTML;}var A={'600':'lite-casa','800':'lite-familia','1000':'lite-home-office','ultra-800':'ultra-familia','ultra-1000':'ultra-home-office'};try{(window.miCfg?window.miCfg():fetch('/config.json?v='+Date.now()).then(function(r){return r.json();})).then(function(c){var b={};(c.planos||[]).forEach(function(p){b[p.id]=p;});document.querySelectorAll('a.sub-plan-card[href*="checkout.html?plano="]').forEach(function(card){var m=card.getAttribute('href').match(/plano=([^&]+)/);if(!m)return;var p=b[A[m[1]]||m[1]];if(!p)return;var sp=card.querySelector('.sub-plan-speed');if(sp&&p.velocidade!=null)sp.innerHTML=esc(p.velocidade)+'<small> '+esc(p.unidade||'Mega')+'</small>';var nm=card.querySelector('.sub-plan-name');if(nm&&p.nome!=null)nm.textContent=p.nome;var po=card.querySelector('.sub-plan-price-original');if(po&&p.precoCheio!=null)po.innerHTML='de <s>R$ '+brl(p.precoCheio)+'</s> por';var pr=card.querySelector('.sub-plan-price');var pt=(p.precoPontual!=null?p.precoPontual:p.precoCheio);if(pr&&pt!=null)pr.innerHTML='R$ '+brl(pt)+' <em>/mês</em>';var ul=card.querySelector('.sub-plan-features');if(ul&&p.features&&p.features.length)ul.innerHTML=p.features.map(function(f){return '<li><i class="ph-fill ph-check-circle"></i> '+esc(f)+'</li>';}).join('');});}).catch(function(){});}catch(e){}})();</script>"""
@@ -1103,9 +1103,9 @@ def page_playhub(depth=1):
     extra_scripts = f'  <script src="{base}playhub.js?v=20260617-playhub-b" defer></script>'
 
     passos = [
-        ("📺", "Escolha seu plano", "Todo plano com app de TV já vem com uma categoria PlayHub liberada — sem custo extra."),
+        ("📺", "Escolha seu plano", "Todo plano com app de TV já vem com uma categoria PlayHub liberada, sem custo extra."),
         ("🎯", "Escolha 1 app por mês", "Dentro da sua categoria você troca de app quando quiser: 1 por mês, na hora que preferir."),
-        ("✨", "Aproveite tudo", "Streaming, música, leitura, educação e segurança — direto no seu plano de internet."),
+        ("✨", "Aproveite tudo", "Streaming, música, leitura, educação e segurança, direto no seu plano de internet."),
     ]
     passos_html = ""
     for emoji, titulo, desc in passos:
@@ -1116,7 +1116,7 @@ def page_playhub(depth=1):
           <p>{desc}</p>
         </div>'''
 
-    return f'''{head("PlayHub — Catálogo de apps incluso no seu plano", depth, extra_head=extra_head)}
+    return f'''{head("PlayHub, Catálogo de apps incluso no seu plano", depth, extra_head=extra_head)}
 {header(depth)}
 
   <!-- HERO PlayHub -->
@@ -1147,7 +1147,7 @@ def page_playhub(depth=1):
         <div class="ph-head-text">
           <span class="ph-eyebrow">Catálogos</span>
           <h2 class="ph-title">Escolha o seu <span class="title-fire">catálogo</span></h2>
-          <p class="ph-subtitle">Cada plano libera uma categoria. Clique pra ver tudo que tem em cada uma — Standard, Advanced, TOP e Premium.</p>
+          <p class="ph-subtitle">Cada plano libera uma categoria. Clique pra ver tudo que tem em cada uma, Standard, Advanced, TOP e Premium.</p>
         </div>
         <a href="#playhub-howto" class="ph-aux-btn">Como funciona <i class="ph ph-info"></i></a>
       </div>
@@ -1248,7 +1248,7 @@ def build_plans_section(plan_ids):
 
 
 def render_faq(faqs):
-    """(html_section, jsonld_script) para [(pergunta, resposta), ...]. Usa <details>/<summary>
+    """(html_section, jsonld_script) para [(pergunta, resposta)...]. Usa <details>/<summary>
     (funciona sem JS, pois as subpáginas não carregam o site-loader) + JSON-LD FAQPage."""
     if not faqs:
         return "", ""
@@ -1375,7 +1375,7 @@ def page_blog_index(depth=1):
                   f'\n            <p class="blog-card-excerpt">{p["lead"]}</p>'
                   f'\n            <span class="blog-card-meta">{a["name"]} · {format_date_br(p.get("date", DATE_DEFAULT))}</span>'
                   f'\n          </div>\n        </a>')
-    hero = ('\n  <section class="blog-hero" style="background-image: linear-gradient(rgba(16,17,28,.82), rgba(46,30,14,.66)), url(\'/imgs/blog/blog-banner.jpg\'); background-size:cover; background-position:center;">\n    <div class="container">'
+    hero = ('\n  <section class="blog-hero" style="background-image: linear-gradient(rgba(16,17,28.82), rgba(46,30,14.66)), url(\'/imgs/blog/blog-banner.jpg\'); background-size:cover; background-position:center;">\n    <div class="container">'
             '\n      <span class="blog-hero-eyebrow">BLOG MASTERINFO</span>'
             '\n      <h1>Dicas de internet pra aproveitar melhor sua conexão</h1>'
             '\n      <p>Guias diretos sobre fibra, Wi-Fi, velocidade e cobertura, feitos pela equipe da MasterInfo em Joinville.</p>'
@@ -1403,7 +1403,7 @@ def page_blog_post(post, depth=2):
     short_title = post["title"].split(" | ")[0]
     img = post.get("image", "")
     if img and not img.endswith(".svg"):
-        hero_style = (f"background-image: linear-gradient(rgba(12,12,24,.62), rgba(12,12,24,.62)), "
+        hero_style = (f"background-image: linear-gradient(rgba(12,12,24.62), rgba(12,12,24.62)), "
                       f"url('{img}'); background-size:cover; background-position:center;")
     else:
         hero_style = "background:linear-gradient(135deg,#0a1f44 0%,#14366b 55%,#1f5fa8 100%);"
@@ -1443,9 +1443,9 @@ def page_autor(depth=1):
             '\n    </div>\n  </section>')
     body = ('\n  <main class="blog-main">\n    <div class="article-band">\n      <article class="article">'
             f'\n      <div class="byline"><img src="{a["img"]}" alt="{a["name"]}" class="byline-avatar"><div class="byline-info"><span class="byline-name">{a["name"]}</span><span class="byline-role">{a["role"]}</span></div></div>'
-            '\n      <p>Philipe Alves Medeiros começou na informática aos 16 anos, na época da gravação de CDs. Passou pela manutenção das escolas de informática RTI, formou-se em <strong>Sistemas de Informação</strong> e atuou por anos como <strong>arquiteto de redes</strong> em diversas empresas — experiência que hoje está por trás da operação de fibra da MasterInfo.</p>'
-            '\n      <p>É essa bagagem, de quem projeta e mantém rede de verdade, que sustenta a MasterInfo Internet: <strong>fibra óptica até a casa do cliente (FTTH)</strong>, com engenharia e suporte feitos por gente da própria região.</p>'
-            '\n      <p>Joinvilense, é casado com <strong>Tatiane Lemos</strong>, cofundadora da MasterInfo, e pai de três filhos. Escreve aqui sobre fibra, Wi-Fi, velocidade e cobertura com a visão de quem constrói e opera a rede todos os dias.</p>'
+            '\n      <p>Philipe Alves Medeiros começou na informática aos 16 anos, na época da gravação de CDs. Passou pela manutenção das escolas de informática RTI, formou-se em <strong>Sistemas de Informação</strong> e atuou por anos como <strong>arquiteto de redes</strong> em diversas empresas, experiência que hoje está por trás da operação de fibra da MasterInfo.</p>'
+            '\n      <p>É essa bagagem, de quem projeta e mantém rede de verdade, que sustenta a MasterInfo Internet: <strong>fibra óptica até a casa do cliente (FTTH)</strong>com engenharia e suporte feitos por gente da própria região.</p>'
+            '\n      <p>Joinvilense, é casado com <strong>Tatiane Lemos</strong>cofundadora da MasterInfo, e pai de três filhos. Escreve aqui sobre fibra, Wi-Fi, velocidade e cobertura com a visão de quem constrói e opera a rede todos os dias.</p>'
             f'\n      <h2>Artigos por {a["name"]}</h2>'
             f'\n      <ul class="related-list">{posts}\n      </ul>'
             '\n      </article>\n    </div>\n  </main>')
@@ -1498,7 +1498,7 @@ _FOOTER_COLS_RE = re.compile(
 # <style> que carrega a escala do site nas subpaginas (a home usa site-loader.js).
 _SITE_SCALE_RE = re.compile(r'<style>:root\{--site-scale:[^}]*\}</style>')
 
-# URL canonica do site (sem barra final) — base do <link rel="canonical"> self-referente.
+# URL canonica do site (sem barra final), base do <link rel="canonical"> self-referente.
 SITE_URL = "https://masterinfointernet.com"
 _CANONICAL_RE = re.compile(r'[ \t]*<link rel="canonical"[^>]*>')
 
@@ -1549,7 +1549,7 @@ def sync_img_dims():
     try:
         from PIL import Image
     except Exception:
-        print("\n  Img dims: Pillow ausente — pulado (HTML já versionado mantém as dimensões).")
+        print("\n  Img dims: Pillow ausente, pulado (HTML já versionado mantém as dimensões).")
         return
     cache = {}
 
@@ -1768,7 +1768,7 @@ _SCHEMA_RE = re.compile(r'[ \t]*<!-- schema:auto -->.*?<!-- /schema:auto -->\r?\
 
 def sync_schema():
     """Injeta JSON-LD (BreadcrumbList + WebPage ligada ao Organization) no <head> de
-    cada subpágina — elas não tinham schema nenhum (só a home tinha). Nome do breadcrumb
+    cada subpágina, elas não tinham schema nenhum (só a home tinha). Nome do breadcrumb
     derivado do SEO_META title (antes do ' | '). Bloco marcado, idempotente, CRLF-safe."""
     changed = same = skipped = 0
     for rel, depth in MENU_PAGES:
@@ -1817,8 +1817,7 @@ def sync_schema():
 def sync_og():
     """Injeta Open Graph + Twitter Card no <head> de cada subpágina (head() do gerador
     NÃO emite OG → links no WhatsApp/Facebook ficavam sem preview). Usa SEO_META p/
-    title/desc + URL canônica + og-image.jpg (1200x630). Bloco marcado <!-- og:auto -->,
-    idempotente, CRLF-safe."""
+    title/desc + URL canônica + og-image.jpg (1200x630). Bloco marcado <!-- og:auto -->idempotente, CRLF-safe."""
     img = SITE_URL + "/og-image.jpg"
     changed = same = skipped = 0
     for rel, depth in MENU_PAGES:
@@ -1947,7 +1946,7 @@ def sync_site_scale():
 # Widgets flutuantes: script inline (marcado) injetado antes do </body> das subpaginas.
 # Le config.json -> widgets em RUNTIME e esconde os FABs desligados no admin. Imune a
 # adblock (sem nome 'tracking'); como le o config ao vivo, NAO precisa regenerar a cada
-# toggle — basta existir uma vez nas paginas.
+# toggle, basta existir uma vez nas paginas.
 _WIDGETS_RE = re.compile(r'[ \t]*<script data-mi-widgets>.*?</script>', re.DOTALL)
 _WIDGETS_SCRIPT = "<script data-mi-widgets>(function(){try{(window.miCfg?window.miCfg():fetch('/config.json?v='+Date.now()).then(function(r){return r.json();})).then(function(c){var w=(c&&c.widgets)||{},m={indicacao:'.indicar-float',boleto:'.boleto-float',whatsapp:'.whatsapp-float'};Object.keys(m).forEach(function(k){if(w[k]===false){var e=document.querySelector(m[k]);if(e)e.style.display='none';}});}).catch(function(){});}catch(e){}})();</script>"
 
@@ -2078,8 +2077,7 @@ def write_file(path, content):
 def sync_subpage_ctas():
     """Aponta os CTAs das paginas Internet (hero + cada card de plano) DIRETO pro
     checkout com o plano (hero = plano principal; cada card = o seu plano, na ordem
-    de p["plans"]). CIRURGICO: troca SO os hrefs dos CTAs, nao toca corpo/footer —
-    por isso NAO reverte o DRIFT dos templates de corpo. Idempotente."""
+    de p["plans"]). CIRURGICO: troca SO os hrefs dos CTAs, nao toca corpo/footer, por isso NAO reverte o DRIFT dos templates de corpo. Idempotente."""
     changed = 0
     for p in INTERNET:
         path = os.path.join(BASE_DIR, p["slug"], "index.html")
@@ -2115,7 +2113,7 @@ def gerar_bodies():
     ATENCAO: os templates de corpo aqui estao DEFASADOS em relacao ao HTML
     versionado (brand/social/chat foram editados direto no HTML e nao retro-
     portados pro template). Use --full so quando for INTENCIONALMENTE regenerar
-    conteudo — senao ele reverte essas melhorias."""
+    conteudo, senao ele reverte essas melhorias."""
     print("Internet (5 páginas)…")
     for p in INTERNET:
         write_file(os.path.join(BASE_DIR, p["slug"], "index.html"), page_internet(p, depth=1))
@@ -2138,7 +2136,7 @@ def gerar_internet_hero():
     for p in INTERNET:
         imgs = find_imgs(IMG_BG.get(p["slug"], ""), BASE_DIR)
         if not imgs:
-            print(f"  ! '{p['slug']}' sem imagem em imgs/hero/sub — pulando")
+            print(f"  ! '{p['slug']}' sem imagem em imgs/hero/sub, pulando")
             continue
         out.append({
             "slug": p["slug"],
@@ -2159,7 +2157,7 @@ if __name__ == "__main__":
     modo = sys.argv[1] if len(sys.argv) > 1 else "--menus"
     if modo in ("--full", "--tudo", "--bodies"):
         print(">> Modo FULL: regenera corpos + sincroniza menus (header + rodapé).")
-        print("   (templates de corpo podem estar defasados — ver docstring de gerar_bodies)\n")
+        print("   (templates de corpo podem estar defasados, ver docstring de gerar_bodies)\n")
         gerar_bodies()
         print("\nSincronizando header + rodapé com o config.json…")
         sync_menus()

@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="/vendor/phosphor/phosphor.css?v=20260619" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="/vendor/phosphor/phosphor.css?v=20260619"></noscript>
 
-  <!-- Leaflet (mapa de cobertura) — carregado ON-DEMAND no fim do body (IntersectionObserver), NAO no head (C2 perf) -->
+  <!-- Leaflet (mapa de cobertura), carregado ON-DEMAND no fim do body (IntersectionObserver), NAO no head (C2 perf) -->
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -154,11 +154,11 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {"@type": "Question", "name": "Vocês são de Joinville?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Nossa empresa nasceu aqui — são mais de 6 anos levando internet pra Joinville. Equipe local, técnicos da região."}},
+      {"@type": "Question", "name": "Vocês são de Joinville?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Nossa empresa nasceu aqui, são mais de 6 anos levando internet pra Joinville. Equipe local, técnicos da região."}},
       {"@type": "Question", "name": "Quanto tempo demora a instalação?", "acceptedAnswer": {"@type": "Answer", "text": "Na maioria dos casos, instalamos em até 3 dias após a contratação. Sem aquela história de 7 a 15 dias úteis."}},
       {"@type": "Question", "name": "Tem fidelidade?", "acceptedAnswer": {"@type": "Answer", "text": "Sim, 12 meses. É o padrão pra garantir o investimento da instalação. Depois disso, você fica porque quer."}},
-      {"@type": "Question", "name": "A internet é boa pra gamer?", "acceptedAnswer": {"@type": "Answer", "text": "Muito. Ping baixo e latência estável — fibra óptica direto até sua casa, sem cabo compartilhado. Ideal pra jogar online, streamar e fazer live sem travamento."}},
-      {"@type": "Question", "name": "O Wi-Fi pega em toda a casa?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Trabalhamos com metodologia de Wi-Fi premium — temos planos que já vêm com 2 roteadores pra cobrir cada canto da casa, sem ponto cego."}}
+      {"@type": "Question", "name": "A internet é boa pra gamer?", "acceptedAnswer": {"@type": "Answer", "text": "Muito. Ping baixo e latência estável, fibra óptica direto até sua casa, sem cabo compartilhado. Ideal pra jogar online, streamar e fazer live sem travamento."}},
+      {"@type": "Question", "name": "O Wi-Fi pega em toda a casa?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Trabalhamos com metodologia de Wi-Fi premium, temos planos que já vêm com 2 roteadores pra cobrir cada canto da casa, sem ponto cego."}}
     ]
   }
   </script>
@@ -168,7 +168,7 @@
   <link rel="stylesheet" href="playhub.css?v=20260617-playhub2">
 </head>
 <body>
-  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Internet Fibra Óptica 100% em Joinville — Planos de 600 Mega a 1 Giga | MasterInfo Internet</h1>
+  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Internet Fibra Óptica 100% em Joinville, Planos de 600 Mega a 1 Giga | MasterInfo Internet</h1>
 
   <!-- ========== POPUP COPA DO MUNDO 2026 ========== -->
   <div class="copa-popup" id="copaPopup" aria-hidden="true">
@@ -201,7 +201,7 @@
           <span class="copa-popup-currency">R$</span>
           <strong class="copa-popup-amount">119</strong>
           <span class="copa-popup-side">
-            <sup>,90</sup>
+            <sup>90</sup>
             <em>/mês</em>
           </span>
         </div>
@@ -360,7 +360,7 @@
 
   </header>
 
-  <!-- Backdrop do mega menu — FORA do <header> de proposito: o backdrop-filter do header
+  <!-- Backdrop do mega menu, FORA do <header> de proposito: o backdrop-filter do header
        cria um containing block para position:fixed, prendendo o backdrop dentro do header
        (escurecia os rotulos do menu no hover). Como filho do body, cobre a viewport toda. -->
   <div class="mega-backdrop" id="megaBackdrop"></div>
@@ -380,7 +380,7 @@
     </div>
   </section>
 
-  <!-- ========== PLANOS (Com 1 Roteador — preto) ========== -->
+  <!-- ========== PLANOS (Com 1 Roteador, preto) ========== -->
   <section class="plans plans-dark" id="planos">
     <div class="container">
       <span class="plans-tab plans-tab-above">Linha LITE · 1 Roteador Wi-Fi 6</span>
@@ -389,7 +389,7 @@
         <div class="plans-wifi6"><i class="ph-fill ph-wifi-high"></i> <span>Todos os planos já vêm com <strong>Wi-Fi 6</strong></span></div>
       </div>
 
-      <!-- ── LITE — 3 cards ── -->
+      <!-- ── LITE, 3 cards ── -->
       <div class="plans-group">
         <div class="plans-grid plans-grid-3">
 
@@ -408,7 +408,7 @@
                 <span class="plan-currency">R$</span>
                 <span class="plan-value">99</span>
                 <div class="plan-price-side">
-                  <span class="plan-cents">,99</span>
+                  <span class="plan-cents">99</span>
                   <span class="plan-period">/mês</span>
                 </div>
               </div>
@@ -433,7 +433,7 @@
             </div>
           </div>
 
-          <!-- Lite Premium · 800 Mega — HERÓI -->
+          <!-- Lite Premium · 800 Mega, HERÓI -->
           <div class="plan-card plan-featured">
             <div class="plan-badge plan-badge-bestseller"><i class="ph-fill ph-fire"></i> Mais procurado</div>
             <div class="plan-header">
@@ -449,7 +449,7 @@
                 <span class="plan-currency">R$</span>
                 <span class="plan-value">119</span>
                 <div class="plan-price-side">
-                  <span class="plan-cents">,90</span>
+                  <span class="plan-cents">90</span>
                   <span class="plan-period">/mês</span>
                 </div>
               </div>
@@ -489,7 +489,7 @@
                 <span class="plan-currency">R$</span>
                 <span class="plan-value">129</span>
                 <div class="plan-price-side">
-                  <span class="plan-cents">,00</span>
+                  <span class="plan-cents">00</span>
                   <span class="plan-period">/mês</span>
                 </div>
               </div>
@@ -518,7 +518,7 @@
     </div>
   </section>
 
-  <!-- ========== PLANOS (Linha ULTRA — branco) ========== -->
+  <!-- ========== PLANOS (Linha ULTRA, branco) ========== -->
   <section class="plans plans-light">
     <div class="container">
       <span class="plans-tab plans-tab-above">Linha ULTRA · Mesh Wi-Fi 6</span>
@@ -526,7 +526,7 @@
         <h2 class="section-title">Wi-Fi em <span class="title-fire">toda a casa</span></h2>
       </div>
 
-      <!-- ── ULTRA — 3 cards ── -->
+      <!-- ── ULTRA, 3 cards ── -->
       <div class="plans-group">
         <div class="plans-grid plans-grid-3">
 
@@ -546,7 +546,7 @@
                 <span class="plan-currency">R$</span>
                 <span class="plan-value">149</span>
                 <div class="plan-price-side">
-                  <span class="plan-cents">,90</span>
+                  <span class="plan-cents">90</span>
                   <span class="plan-period">/mês</span>
                 </div>
               </div>
@@ -571,7 +571,7 @@
             </div>
           </div>
 
-          <!-- Ultra Home Office · 1 Giga — TOP -->
+          <!-- Ultra Home Office · 1 Giga, TOP -->
           <div class="plan-card plan-ultra-card plan-premium">
             <div class="plan-badge plan-badge-premium"><i class="ph-fill ph-rocket-launch"></i> Tudo incluso</div>
             <div class="plan-header">
@@ -587,7 +587,7 @@
                 <span class="plan-currency">R$</span>
                 <span class="plan-value">179</span>
                 <div class="plan-price-side">
-                  <span class="plan-cents">,90</span>
+                  <span class="plan-cents">90</span>
                   <span class="plan-period">/mês</span>
                 </div>
               </div>
@@ -630,7 +630,7 @@
                 <span class="plan-currency">R$</span>
                 <span class="plan-value">189</span>
                 <div class="plan-price-side">
-                  <span class="plan-cents">,90</span>
+                  <span class="plan-cents">90</span>
                   <span class="plan-period">/mês</span>
                 </div>
               </div>
@@ -649,7 +649,7 @@
               <ul class="plan-features">
                 <li><i class="ph-fill ph-check-circle"></i> Mesh Wi-Fi 6 (cobertura total)</li>
                 <li><i class="ph-fill ph-check-circle"></i> 2 apps de TV / mês (TOP + Premium)</li>
-                <li><i class="ph-fill ph-check-circle"></i> ExitLag — ping mínimo no online</li>
+                <li><i class="ph-fill ph-check-circle"></i> ExitLag, ping mínimo no online</li>
               </ul>
               <a href="checkout.html?plano=ultra-gamer" data-plano="ultra-gamer" class="btn btn-plan">
                 Contratar <i class="ph ph-arrow-right"></i>
@@ -672,7 +672,7 @@
         <span class="story-eyebrow">Quem somos</span>
         <h2 class="story-title">
           A gente começou
-          <span class="story-title-script">aqui mesmo,</span>
+          <span class="story-title-script">aqui mesmo</span>
           no bairro do lado.
         </h2>
       </div>
@@ -700,8 +700,7 @@
             com o desejo de mudar a própria realidade.
           </p>
           <p>
-            Hoje, a gente transforma a realidade de quem faz parte do time —
-            <strong>+40 famílias</strong> trabalham aqui dentro e <strong>+20 mil pessoas</strong>
+            Hoje, a gente transforma a realidade de quem faz parte do time, <strong>+40 famílias</strong> trabalham aqui dentro e <strong>+20 mil pessoas</strong>
             estão conectadas em Joinville pela gente.
           </p>
         </div>
@@ -729,7 +728,7 @@
               <img src="imgs/historia/marco-2-reforma.jpg" alt="Reforma da sede nova" style="object-position: center 28%;" loading="lazy" decoding="async" width="738" height="1600">
             </div>
             <h4>A sede nova</h4>
-            <p>Mão na massa, literalmente. A gente mesmo levantou a parede da sede nova — porque casa da gente é a gente que constrói.</p>
+            <p>Mão na massa, literalmente. A gente mesmo levantou a parede da sede nova, porque casa da gente é a gente que constrói.</p>
           </div>
 
           <div class="story-milestone">
@@ -761,7 +760,7 @@
         <div class="story-quote-authors">
           <div class="story-author">
             <div class="story-author-avatar">
-              <img src="imgs/historia/fundador-philipe.jpg" alt="Philipe A. — Fundador da MasterInfo" loading="lazy" decoding="async" width="400" height="400">
+              <img src="imgs/historia/fundador-philipe.jpg" alt="Philipe A., Fundador da MasterInfo" loading="lazy" decoding="async" width="400" height="400">
             </div>
             <div class="story-author-info">
               <strong>Philipe A.</strong>
@@ -770,7 +769,7 @@
           </div>
           <div class="story-author">
             <div class="story-author-avatar">
-              <img src="imgs/historia/fundadora-tatiane.jpg" alt="Tatiane Lemos — Fundadora da MasterInfo" loading="lazy" decoding="async" width="400" height="400">
+              <img src="imgs/historia/fundadora-tatiane.jpg" alt="Tatiane Lemos, Fundadora da MasterInfo" loading="lazy" decoding="async" width="400" height="400">
             </div>
             <div class="story-author-info">
               <strong>Tatiane Lemos</strong>
@@ -795,11 +794,11 @@
           <div class="story-gallery-item">
             <img src="imgs/historia/momento-frota.jpg" alt="Frota MasterInfo em frente à sede" class="story-gallery-img" loading="lazy" decoding="async" width="1400" height="1400">
           </div>
-          <!-- Col 2 row 2: Meninas Páscoa (laranja) — abaixo da Frota neutra -->
+          <!-- Col 2 row 2: Meninas Páscoa (laranja), abaixo da Frota neutra -->
           <div class="story-gallery-item">
             <img src="imgs/historia/momento-pascoa-meninas.jpg" alt="Time comercial na Páscoa" class="story-gallery-img" loading="lazy" decoding="async" width="1200" height="1600">
           </div>
-          <!-- Col 1 row 3: Atendimento (cara com headphones) — embaixo da Fachada escura -->
+          <!-- Col 1 row 3: Atendimento (cara com headphones), embaixo da Fachada escura -->
           <div class="story-gallery-item">
             <img src="imgs/historia/momento-atendimento.jpg" alt="Atendimento técnico no suporte" class="story-gallery-img" loading="lazy" decoding="async" width="1400" height="1400">
           </div>
@@ -837,7 +836,7 @@
             <span class="neighborhood-tag" data-bairro="Iririu">Iririú</span>
             <span class="neighborhood-tag neighborhood-new">+ Novos bairros em breve</span>
           </div>
-          <p style="margin-top:16px;font-size:0.95rem;">Páginas por bairro: <a style="color:#e06800;font-weight:600" href="/internet-comasa-joinville/">Comasa</a>, <a style="color:#e06800;font-weight:600" href="/internet-boa-vista-joinville/">Boa Vista</a>, <a style="color:#e06800;font-weight:600" href="/internet-iririu-joinville/">Iririú</a>, <a style="color:#e06800;font-weight:600" href="/internet-espinheiros-joinville/">Espinheiros</a>, <a style="color:#e06800;font-weight:600" href="/internet-aventureiro-joinville/">Aventureiro</a>, <a style="color:#e06800;font-weight:600" href="/internet-itinga-joinville/">Itinga</a>, <a style="color:#e06800;font-weight:600" href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a>, <a style="color:#e06800;font-weight:600" href="/internet-jardim-sofia-joinville/">Jardim Sofia</a>, <a style="color:#e06800;font-weight:600" href="/internet-cubatao-joinville/">Cubatão</a>, <a style="color:#e06800;font-weight:600" href="/internet-nova-brasilia-joinville/">Nova Brasília</a>, <a style="color:#e06800;font-weight:600" href="/internet-rio-bonito-joinville/">Rio Bonito</a>, <a style="color:#e06800;font-weight:600" href="/internet-estrada-timbe-joinville/">Estrada Timbé</a> e <a style="color:#e06800;font-weight:600" href="/internet-paranaguamirim-joinville/">Paranaguamirim</a>.</p>
+          <p style="margin-top:16px;font-size:0.95rem;">Páginas por bairro: <a style="color:#e06800;font-weight:600" href="/internet-comasa-joinville/">Comasa</a><a style="color:#e06800;font-weight:600" href="/internet-boa-vista-joinville/">Boa Vista</a><a style="color:#e06800;font-weight:600" href="/internet-iririu-joinville/">Iririú</a><a style="color:#e06800;font-weight:600" href="/internet-espinheiros-joinville/">Espinheiros</a><a style="color:#e06800;font-weight:600" href="/internet-aventureiro-joinville/">Aventureiro</a><a style="color:#e06800;font-weight:600" href="/internet-itinga-joinville/">Itinga</a><a style="color:#e06800;font-weight:600" href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a><a style="color:#e06800;font-weight:600" href="/internet-jardim-sofia-joinville/">Jardim Sofia</a><a style="color:#e06800;font-weight:600" href="/internet-cubatao-joinville/">Cubatão</a><a style="color:#e06800;font-weight:600" href="/internet-nova-brasilia-joinville/">Nova Brasília</a><a style="color:#e06800;font-weight:600" href="/internet-rio-bonito-joinville/">Rio Bonito</a><a style="color:#e06800;font-weight:600" href="/internet-estrada-timbe-joinville/">Estrada Timbé</a> e <a style="color:#e06800;font-weight:600" href="/internet-paranaguamirim-joinville/">Paranaguamirim</a>.</p>
           <a href="#" onclick="openLeadModal(); return false;" class="btn btn-primary btn-lg">
             <i class="ph ph-map-pin"></i> Consultar meu endereço
           </a>
@@ -923,7 +922,7 @@
 
           <article class="sp-mini">
             <div class="sp-mini-stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
-            <p>"Mudei de provedor e me arrependi de não ter trocado antes. <strong>Velocidade real</strong>, suporte que atende de verdade."</p>
+            <p>"Mudei de provedor e me arrependi de não ter trocado antes. <strong>Velocidade real</strong>suporte que atende de verdade."</p>
             <span class="sp-mini-author"><strong>Marcelo F.</strong> · Comasa</span>
           </article>
 
@@ -953,7 +952,7 @@
 
           <article class="sp-mini">
             <div class="sp-mini-stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
-            <p>"Atendimento humano! <strong>Falo com gente de verdade</strong>, não com robô. Faz toda diferença."</p>
+            <p>"Atendimento humano! <strong>Falo com gente de verdade</strong>não com robô. Faz toda diferença."</p>
             <span class="sp-mini-author"><strong>Camila T.</strong> · Itinga</span>
           </article>
 
@@ -983,7 +982,7 @@
           <div class="sp-card-stars">
             <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
           </div>
-          <p class="sp-card-text">"Troquei da Vivo pra MasterInfo e a diferença é <strong>absurda</strong>. Nunca mais caiu a internet no meio do home office. <strong>Suporte local</strong> faz toda diferença — eles entendem o bairro, conhecem a rua. Recomendo sem pensar duas vezes."</p>
+          <p class="sp-card-text">"Troquei da Vivo pra MasterInfo e a diferença é <strong>absurda</strong>. Nunca mais caiu a internet no meio do home office. <strong>Suporte local</strong> faz toda diferença, eles entendem o bairro, conhecem a rua. Recomendo sem pensar duas vezes."</p>
           <div class="sp-card-author">
             <img src="imgs/depoimentos/rodrigo-machado.jpg" alt="Rodrigo Machado" class="sp-card-avatar" loading="lazy" decoding="async" width="128" height="128">
             <div>
@@ -1151,7 +1150,7 @@
 
           <article class="sp-mini">
             <div class="sp-mini-stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
-            <p>"Recomendo de olhos fechados. <strong>Provedor honesto</strong>, transparente, sem letra miúda."</p>
+            <p>"Recomendo de olhos fechados. <strong>Provedor honesto</strong>transparente, sem letra miúda."</p>
             <span class="sp-mini-author"><strong>Mariane W.</strong> · Boa Vista</span>
           </article>
 
@@ -1187,7 +1186,7 @@
 
           <article class="sp-mini">
             <div class="sp-mini-stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
-            <p>"Plano <strong>cabe no bolso</strong>, velocidade entrega o que promete. Combinação perfeita."</p>
+            <p>"Plano <strong>cabe no bolso</strong>velocidade entrega o que promete. Combinação perfeita."</p>
             <span class="sp-mini-author"><strong>Henrique L.</strong> · Iririú</span>
           </article>
 
@@ -1207,7 +1206,7 @@
         <div class="referral-content">
           <span class="referral-eyebrow"><i class="ph-fill ph-gift"></i> Já é cliente MasterInfo?</span>
           <h2 class="referral-title">Indique a MasterInfo e ganhe <span class="referral-highlight">mensalidades grátis</span></h2>
-          <p class="referral-desc">Cada amigo que você indicar e que fechar plano vira <strong>um mês grátis</strong> na sua fatura. Sem limite — quanto mais gente você conecta, mais você economiza.</p>
+          <p class="referral-desc">Cada amigo que você indicar e que fechar plano vira <strong>um mês grátis</strong> na sua fatura. Sem limite, quanto mais gente você conecta, mais você economiza.</p>
 
           <ol class="referral-steps">
             <li class="referral-step">
@@ -1302,7 +1301,7 @@
             <i class="ph ph-caret-down"></i>
           </button>
           <div class="faq-answer">
-            <p><strong>Sim.</strong> Nossa empresa nasceu aqui — são <strong>mais de 6 anos</strong> levando internet pra Joinville. Equipe local, técnicos da região.</p>
+            <p><strong>Sim.</strong> Nossa empresa nasceu aqui, são <strong>mais de 6 anos</strong> levando internet pra Joinville. Equipe local, técnicos da região.</p>
           </div>
         </div>
         <div class="faq-item">
@@ -1329,7 +1328,7 @@
             <i class="ph ph-caret-down"></i>
           </button>
           <div class="faq-answer">
-            <p>Muito. <strong>Ping baixo e latência estável</strong> — fibra óptica direto até sua casa, sem cabo compartilhado. Ideal pra jogar online, streamar e fazer live sem travamento.</p>
+            <p>Muito. <strong>Ping baixo e latência estável</strong>fibra óptica direto até sua casa, sem cabo compartilhado. Ideal pra jogar online, streamar e fazer live sem travamento.</p>
           </div>
         </div>
         <div class="faq-item">
@@ -1338,7 +1337,7 @@
             <i class="ph ph-caret-down"></i>
           </button>
           <div class="faq-answer">
-            <p>Sim. Trabalhamos com <strong>metodologia de Wi-Fi premium</strong> — temos planos que já vêm com <strong>2 roteadores</strong> pra cobrir cada canto da casa, sem ponto cego.</p>
+            <p>Sim. Trabalhamos com <strong>metodologia de Wi-Fi premium</strong>temos planos que já vêm com <strong>2 roteadores</strong> pra cobrir cada canto da casa, sem ponto cego.</p>
           </div>
         </div>
       </div>
@@ -1524,7 +1523,7 @@
             </svg>
           </div>
           <h3>Recebemos seu pré-pedido!</h3>
-          <p class="mi-success-desc">Seus dados já foram pra nossa equipe — em breve a gente te chama. Quer adiantar? Fale agora no WhatsApp 👇</p>
+          <p class="mi-success-desc">Seus dados já foram pra nossa equipe, em breve a gente te chama. Quer adiantar? Fale agora no WhatsApp 👇</p>
           <a href="#" id="miWhatsappLink" class="mi-modal-btn mi-btn-whatsapp" target="_blank" rel="noopener">
             <i class="ph-fill ph-whatsapp-logo"></i> Adiantar pelo WhatsApp
           </a>
@@ -1767,7 +1766,7 @@
 
   }
 
-  // C2: carrega Leaflet ON-DEMAND (IntersectionObserver) — fora do caminho de render.
+  // C2: carrega Leaflet ON-DEMAND (IntersectionObserver), fora do caminho de render.
   (function () {
     var el = document.getElementById('coverageMap');
     if (!el) return;
@@ -1844,7 +1843,7 @@
   })();
   </script>
 
-  <!-- Social Proof — Counter, Marquee Clone, Tilt 3D -->
+  <!-- Social Proof, Counter, Marquee Clone, Tilt 3D -->
   <script>
   (function() {
     // ── COUNTER GIGANTE (4.9, 2382, 97%, 6+) ──
@@ -2045,7 +2044,7 @@
   })();
   </script>
 
-  <!-- POPUP COPA DO MUNDO — abre ao carregar a página -->
+  <!-- POPUP COPA DO MUNDO, abre ao carregar a página -->
   <script>
   function closeCopaPopup() {
     var p = document.getElementById('copaPopup');
@@ -2063,9 +2062,9 @@
   });
   </script>
 
-  <!-- HERO SLIDESHOW — navegação agora vive em site-loader.js (loadHeroSlides) -->
+  <!-- HERO SLIDESHOW, navegação agora vive em site-loader.js (loadHeroSlides) -->
 
-  <!-- Scroll Reveal — fade/slide automático em todas as seções -->
+  <!-- Scroll Reveal, fade/slide automático em todas as seções -->
   <script>
   (function() {
     if (!('IntersectionObserver' in window)) return;
@@ -2117,7 +2116,7 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale, .reveal-stagger').forEach(function(el) {
+    document.querySelectorAll('.reveal-up.reveal-left.reveal-right.reveal-scale.reveal-stagger').forEach(function(el) {
       revealObserver.observe(el);
     });
   })();
