@@ -12,7 +12,7 @@ import sys
 import json
 
 # Conteúdo (páginas-pilar + blog) — fonte única do texto dessas páginas. Ver conteudo_blog.py.
-from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT, PERSONAS_CONTENT
+from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT, PERSONAS_CONTENT, BLOG_DEEP
 
 # Console do Windows e cp1252 por padrao e quebra em '✓'/acentos. Forca UTF-8.
 try:
@@ -132,6 +132,13 @@ for _it in INTERNET:
     if _pc:
         _it["body"] = _pc["body"]
         _it["faq"] = [(x["q"], x["a"]) for x in _pc["faq"]]
+
+# Mescla os corpos aprofundados dos posts do blog (BLOG_DEEP).
+for _b in BLOG:
+    _bd = BLOG_DEEP.get(_b["slug"])
+    if _bd:
+        _b["body"] = _bd["body"]
+        _b["faq"] = [(x["q"], x["a"]) for x in _bd["faq"]]
 
 APLICATIVOS = [
     # cats: em quais categorias do PlayHub esse app aparece (cruzado em compute_escolher_em)

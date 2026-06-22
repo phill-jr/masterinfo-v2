@@ -181,36 +181,112 @@
   <main class="blog-main">
     <div class="article-band">
       <article class="article">
-      <div class="byline"><img src="/imgs/historia/fundador-philipe.jpg" alt="Philipe Alves Medeiros" class="byline-avatar" loading="lazy" width="400" height="400"><div class="byline-info"><span class="byline-name"><a href="/sobre/philipe/">Philipe Alves Medeiros</a></span><span class="byline-role">Fundador da MasterInfo · 18 jun 2026 · 2 min de leitura</span></div></div>
+      <div class="byline"><img src="/imgs/historia/fundador-philipe.jpg" alt="Philipe Alves Medeiros" class="byline-avatar" loading="lazy" width="400" height="400"><div class="byline-info"><span class="byline-name"><a href="/sobre/philipe/">Philipe Alves Medeiros</a></span><span class="byline-role">Fundador da MasterInfo · 18 jun 2026 · 7 min de leitura</span></div></div>
     <div class="tldr">
-      <strong>Resposta rápida:</strong> a <strong>fibra óptica</strong> é a melhor tecnologia de internet disponível hoje: mais rápida, mais estável e imune a chuva e interferência. A internet <strong>via rádio</strong> serve para áreas rurais sem cabeamento, mas oscila e divide banda. O <strong>cabo</strong> (par metálico) é antigo e perde para a fibra em quase tudo. Se há fibra no seu endereço, ela é a escolha certa.
+      <strong>Resposta rápida:</strong> a <strong>fibra óptica</strong> é a melhor tecnologia de internet disponível hoje: mais rápida, mais estável e imune a chuva e interferência. A internet <strong>via rádio</strong> serve para áreas rurais sem cabeamento, mas oscila e divide banda com os vizinhos. O <strong>cabo metálico</strong> (par de cobre ou coaxial) é legado e perde para a fibra em praticamente tudo. Se há fibra disponível no seu endereço, ela é a escolha certa.
     </div>
 
-    <h2>O que é cada tecnologia</h2>
-    <p><strong>Fibra óptica:</strong> os dados viajam como luz dentro de um cabo de vidro finíssimo. É a tecnologia mais moderna, com altíssima capacidade e pouquíssima perda de sinal por distância.</p>
-    <p><strong>Internet via rádio:</strong> o sinal chega por ondas de rádio, de uma antena/torre até um receptor no seu telhado. Não precisa de cabo até a casa, o que ajuda em áreas remotas.</p>
-    <p><strong>Cabo (par metálico/coaxial):</strong> usa fios de cobre para transmitir sinal elétrico. Foi muito comum no passado, mas tem capacidade e estabilidade menores que a fibra.</p>
+    <h2>O que é cada tecnologia — e como funciona de verdade</h2>
+
+    <h3>Fibra óptica (FTTH)</h3>
+    <p>Os dados viajam na forma de pulsos de luz dentro de um cabo de vidro finíssimo. A perda de sinal por distância é mínima — quem mora a 2 km da central recebe essencialmente o mesmo sinal de quem mora a 200 metros. FTTH significa <em>Fiber To The Home</em>: o cabo de fibra chega fisicamente até dentro do imóvel e se conecta a um equipamento chamado ONU (ou ONT). A partir daí, o roteador distribui o sinal por Wi-Fi ou cabo de rede.</p>
+    <p>A fibra não conduz eletricidade, então não sofre com raios, surtos elétricos nem interferência de outros equipamentos. É por isso que ela não cai em tempestades — ao contrário do que muita gente imagina, a chuva em si nunca é o problema quando a conexão é fibra pura.</p>
+
+    <h3>Internet via rádio (wireless)</h3>
+    <p>O sinal chega por ondas de rádio, de uma torre ou antena do provedor até um receptor instalado no telhado ou parede do imóvel. Não exige que um cabo passe pela rua até a sua casa, o que foi — e ainda é — a grande vantagem em áreas rurais sem infraestrutura de cabeamento.</p>
+    <p>A desvantagem está na física do rádio: o sinal precisa de linha de visada razoável com a torre e é sensível a obstáculos (prédios, árvores, relevo) e condições climáticas. Além disso, a antena da torre divide a banda disponível entre todos os clientes conectados a ela. Quando muita gente usa ao mesmo tempo — no horário nobre, por exemplo — a velocidade de cada um cai.</p>
+
+    <h3>Cabo metálico (par trançado e coaxial)</h3>
+    <p>Usa condutores de cobre para transmitir sinal elétrico ou de radiofrequência. O par trançado (ADSL, VDSL) foi o padrão de banda larga no Brasil por anos, aproveitando a infraestrutura de telefonia. O coaxial chegou depois com tecnologias como o DOCSIS, usado por empresas de TV a cabo. Ambos têm capacidade e estabilidade muito inferiores à fibra: a velocidade degrada com a distância, o par de cobre capta interferência eletromagnética e a manutenção da rede física é cara. Hoje quem ainda usa essas tecnologias geralmente é porque não tem fibra disponível no endereço.</p>
 
     <h2>Comparativo direto</h2>
     <table class="article-table">
-      <thead><tr><th>Critério</th><th>Fibra óptica</th><th>Via rádio</th><th>Cabo metálico</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Critério</th>
+          <th>Fibra óptica (FTTH)</th>
+          <th>Via rádio</th>
+          <th>Cabo metálico</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td>Velocidade</td><td>Muito alta (até 1 Giga+)</td><td>Baixa a média</td><td>Média</td></tr>
-        <tr><td>Estabilidade</td><td>Excelente</td><td>Oscila (clima, obstáculos)</td><td>Boa, mas inferior à fibra</td></tr>
-        <tr><td>Afeta com chuva?</td><td>Não</td><td>Sim</td><td>Pouco</td></tr>
-        <tr><td>Banda compartilhada</td><td>Dedicada por casa (FTTH)</td><td>Compartilhada na torre</td><td>Compartilhada</td></tr>
-        <tr><td>Melhor para</td><td>Casa e empresa na cidade</td><td>Zona rural sem fibra</td><td>Legado</td></tr>
+        <tr>
+          <td>Velocidade máxima</td>
+          <td>Alta (600 Mega a 1 Giga+)</td>
+          <td>Baixa a média</td>
+          <td>Média (cai com distância)</td>
+        </tr>
+        <tr>
+          <td>Estabilidade</td>
+          <td>Excelente</td>
+          <td>Oscila (clima, congestionamento)</td>
+          <td>Boa, mas inferior à fibra</td>
+        </tr>
+        <tr>
+          <td>Latência (ping)</td>
+          <td>Tipicamente baixa</td>
+          <td>Tipicamente média a alta</td>
+          <td>Tipicamente média</td>
+        </tr>
+        <tr>
+          <td>Afeta com chuva?</td>
+          <td>Não</td>
+          <td>Sim (especialmente granizo/tempestade)</td>
+          <td>Pouco</td>
+        </tr>
+        <tr>
+          <td>Banda compartilhada?</td>
+          <td>Dedicada por casa</td>
+          <td>Compartilhada na torre</td>
+          <td>Compartilhada no nó</td>
+        </tr>
+        <tr>
+          <td>Interferência elétrica</td>
+          <td>Nenhuma</td>
+          <td>Ruído de rádio</td>
+          <td>Sujeita a surtos e ruído</td>
+        </tr>
+        <tr>
+          <td>Melhor para</td>
+          <td>Casa e empresa na cidade</td>
+          <td>Zona rural sem cabeamento</td>
+          <td>Legado (sem alternativa disponível)</td>
+        </tr>
       </tbody>
     </table>
 
-    <h2>Por que a fibra virou o padrão</h2>
-    <p>A fibra não sofre interferência eletromagnética, não perde sinal com a chuva e mantém a mesma velocidade independentemente da distância (dentro do projeto da rede). Para quem mora na cidade, como em <a href="/internet-joinville/">Joinville</a>, é disparado a melhor opção: estável de dia e de noite, com latência baixa para chamadas e jogos.</p>
+    <h2>Por que a latência importa tanto quanto a velocidade</h2>
+    <p>Velocidade (Mega) é quanto dado passa por segundo. Latência (ping, medida em milissegundos) é quanto tempo leva para um pacote ir e voltar. Para streaming de vídeo, o que mais importa é a velocidade. Para jogos online, chamadas de vídeo e trabalho remoto, a latência costuma ser tão decisiva quanto — ou mais.</p>
+    <p>A fibra tende a ter latência bem baixa em condições normais. A internet via rádio costuma ter latência mais alta, especialmente quando a antena está congestionada ou há obstáculos no caminho do sinal. Essa diferença não aparece no teste de velocidade, mas você sente no jogo que "engasga" sem motivo aparente e na chamada onde todo mundo fala ao mesmo tempo sem que ninguém perceba na hora. Quem joga online ou trabalha com reuniões frequentes tem razão em priorizar fibra pelo ping, não só pelos Mega. Para saber o que faz sentido para o seu uso, veja o post sobre <a href="/gamer/">internet para gamer</a>.</p>
+
+    <h2>Por que a fibra virou o padrão nas cidades</h2>
+    <p>A fibra não sofre interferência eletromagnética, não degrada com a distância (dentro do projeto de rede), não cai em tempestade e mantém a velocidade estável no horário de pico. Para quem mora em Joinville — onde a rede de fibra já cobre grande parte da cidade — a escolha é bastante direta. Veja a cobertura disponível nos bairros em <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Outro ponto relevante é a banda dedicada: em FTTH, o cabo de fibra que chega na sua casa é seu. Diferente de tecnologias em que vários clientes dividem a mesma capacidade na última milha, na fibra a velocidade contratada não depende de quantas casas da sua rua estão usando a rede ao mesmo tempo.</p>
 
     <h2>E a internet via rádio, quando faz sentido?</h2>
-    <p>A internet via rádio tem o seu lugar: em áreas rurais ou afastadas, onde ainda não chegou cabeamento de fibra, ela conecta onde nada mais conecta. A desvantagem é depender de linha de visada com a torre e sofrer com clima e congestionamento quando muita gente usa a mesma antena.</p>
+    <p>A internet via rádio tem o seu lugar e não deve ser descartada sem contexto. Em sítios, chácaras, zonas rurais e bairros onde o cabeamento de fibra ainda não chegou, ela conecta onde nada mais conecta. É melhor ter rádio do que não ter internet.</p>
+    <p>O que não faz sentido é escolher rádio quando a fibra está disponível no mesmo endereço — e isso ainda acontece por desinformação ou porque a oferta do provedor de rádio chegou primeiro. Se você mora numa área urbana de Joinville e nunca verificou se tem fibra disponível, vale a pena <a href="/blog/cobertura-fibra-cep-joinville/">consultar a cobertura pelo CEP</a> antes de renovar um plano de rádio.</p>
 
-    <h2>Como saber qual você tem (ou pode ter)</h2>
-    <p>Se o provedor instala um equipamento ligado a um cabo de fibra que entra na sua casa, é FTTH (fibra até a casa), o ideal. Para descobrir se já existe fibra no seu endereço, veja <a href="/blog/cobertura-fibra-cep-joinville/">como consultar a cobertura pelo CEP</a> ou compare as opções no guia <a href="/melhor-internet-joinville/">qual a melhor internet de Joinville</a>.</p>
+    <h2>Como identificar o que você tem hoje</h2>
+    <p>Não tem certeza do tipo de conexão que chega na sua casa? Veja alguns sinais práticos:</p>
+    <ul>
+      <li><strong>Fibra (FTTH):</strong> há um cabo fino e transparente (ou com capa colorida, geralmente amarela ou laranja) que entra na casa e se conecta a um equipamento pequeno chamado ONU ou ONT — diferente do roteador Wi-Fi. O equipamento tem uma luz indicadora chamada PON (verde e estável quando tudo está bem).</li>
+      <li><strong>Via rádio:</strong> há uma antena ou receptor externo fixado no telhado, parede ou janela, com um cabo descendo até o roteador dentro de casa. Se chover forte e a internet cair junto, é um sinal clássico.</li>
+      <li><strong>Cabo metálico:</strong> a conexão chega por um fio de cobre pela fiação de telefone ou pelo mesmo cabo da TV a cabo. Geralmente você tem um modem com porta de linha telefônica (DSL) ou entrada coaxial.</li>
+    </ul>
+    <p>Se ainda tiver dúvida, a equipe de suporte consegue confirmar rapidamente o tipo de tecnologia do seu ponto.</p>
+
+    <h2>Como decidir: um guia rápido</h2>
+    <p>Na maioria dos casos, a resposta depende do que está disponível no seu endereço:</p>
+    <ul>
+      <li><strong>Tem fibra disponível no seu endereço?</strong> Contrate fibra. A diferença de experiência em relação às outras tecnologias é perceptível no dia a dia.</li>
+      <li><strong>Mora em área rural ou bairro sem fibra?</strong> A internet via rádio é a alternativa viável; escolha um provedor com boa reputação local e antena próxima.</li>
+      <li><strong>Ainda tem cabo metálico?</strong> Verifique se a fibra já chegou na rua. Se chegou, a migração costuma ser sem custo de instalação e a diferença de experiência é imediata.</li>
+    </ul>
+    <p>Para quem mora em Joinville e quer entender qual plano de fibra faz sentido para o seu perfil de uso — família, home office, jogos ou streaming — o guia <a href="/blog/quantos-mega-de-internet-voce-precisa/">quantos Mega você precisa</a> ajuda a decidir antes de contratar. E se a dúvida for sobre sinal dentro de casa após a instalação, o post sobre <a href="/blog/como-melhorar-wifi-em-casa/">como melhorar o Wi-Fi</a> cobre os ajustes de roteador e posicionamento.</p>
+
+    <h2>Consulte a cobertura no seu endereço</h2>
+    <p>A MasterInfo opera com fibra óptica 100% FTTH em Joinville. Para confirmar se a rede já chega na sua rua e ver os planos disponíveis, verifique a cobertura pelo CEP aqui no site ou fale com a equipe pelo WhatsApp. A instalação é feita por técnicos locais e agendada em até 3 dias úteis após a confirmação. Veja também o comparativo de provedores no guia <a href="/melhor-internet-joinville/">melhor internet de Joinville</a>.</p>
 
       </article>
     </div>
@@ -218,10 +294,12 @@
     <div class="container article-narrow">
       <div class="section-header section-header-tight"><h2 class="section-title">Perguntas frequentes</h2></div>
       <div class="faq-block">
-        <details class="faq-q"><summary>Fibra óptica é melhor que internet via rádio?</summary><div class="faq-a"><p>Na cidade, sim. A fibra é mais rápida, mais estável e não sofre com chuva nem interferência. A internet via rádio é uma boa alternativa em áreas rurais onde ainda não há cabeamento de fibra.</p></div></details>
-        <details class="faq-q"><summary>A fibra óptica cai com chuva?</summary><div class="faq-a"><p>Não. Como os dados viajam por luz dentro de um cabo de vidro, a fibra não é afetada por chuva nem por interferência eletromagnética, ao contrário da internet via rádio.</p></div></details>
-        <details class="faq-q"><summary>Qual a diferença de fibra para cabo?</summary><div class="faq-a"><p>A fibra usa luz em cabo de vidro, com altíssima capacidade e estabilidade. O cabo metálico (cobre) usa sinal elétrico, com capacidade e estabilidade menores. A fibra supera o cabo em praticamente tudo.</p></div></details>
-        <details class="faq-q"><summary>Como sei se tenho fibra até minha casa?</summary><div class="faq-a"><p>Se a conexão chega por um cabo de fibra ligado a um equipamento (ONU/ONT) dentro do imóvel, é FTTH (fibra até a casa). Consulte a cobertura pelo CEP para confirmar a disponibilidade no seu endereço.</p></div></details>
+        <details class="faq-q"><summary>Fibra óptica é melhor que internet via rádio?</summary><div class="faq-a"><p>Na cidade, sim. A fibra é mais rápida, mais estável, tem latência menor e não sofre com chuva nem com congestionamento de outros usuários na mesma antena. A internet via rádio é uma alternativa válida em áreas rurais onde ainda não há cabeamento de fibra.</p></div></details>
+        <details class="faq-q"><summary>A fibra óptica cai com chuva?</summary><div class="faq-a"><p>Não. Os dados viajam como luz dentro de um cabo de vidro, sem nenhum componente elétrico exposto. A fibra não é afetada por chuva, raios nem interferência eletromagnética. Se a internet cai em tempestade, quase sempre é sinal de internet via rádio, não fibra.</p></div></details>
+        <details class="faq-q"><summary>Qual a diferença entre fibra e cabo metálico?</summary><div class="faq-a"><p>A fibra usa pulsos de luz em cabo de vidro: altíssima capacidade, sem degradação por distância e sem interferência elétrica. O cabo metálico (cobre) usa sinal elétrico: a velocidade cai com a distância, é suscetível a surtos e tem capacidade menor. A fibra supera o cabo em velocidade, estabilidade e latência.</p></div></details>
+        <details class="faq-q"><summary>Como sei se tenho fibra (FTTH) na minha casa?</summary><div class="faq-a"><p>Se houver um equipamento chamado ONU ou ONT dentro do imóvel, conectado por um cabo fino de fibra (geralmente transparente ou com capa amarela/laranja), é FTTH. Esse equipamento tem uma luz indicadora (PON) diferente do roteador Wi-Fi. Caso haja uma antena no telhado com cabo descendo para o roteador, é internet via rádio.</p></div></details>
+        <details class="faq-q"><summary>Por que a internet via rádio oscila no horário de pico?</summary><div class="faq-a"><p>Porque a banda de uma antena de rádio é compartilhada entre todos os clientes conectados a ela. Quando muita gente usa ao mesmo tempo — especialmente à noite —, a velocidade disponível para cada um diminui. Na fibra FTTH, o cabo que chega na sua casa é dedicado, então esse problema não ocorre.</p></div></details>
+        <details class="faq-q"><summary>Latência (ping) faz diferença no dia a dia?</summary><div class="faq-a"><p>Sim, dependendo do uso. Para streaming de vídeo, a latência não é muito perceptível. Para jogos online, chamadas de vídeo e home office com reuniões frequentes, latência alta causa travamentos, atraso de áudio e 'lag'. A fibra tende a ter latência bem menor do que a internet via rádio, especialmente em horários de pico.</p></div></details>
       </div>
     </div>
   </section>
@@ -250,7 +328,7 @@
       "name": "Fibra óptica é melhor que internet via rádio?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Na cidade, sim. A fibra é mais rápida, mais estável e não sofre com chuva nem interferência. A internet via rádio é uma boa alternativa em áreas rurais onde ainda não há cabeamento de fibra."
+        "text": "Na cidade, sim. A fibra é mais rápida, mais estável, tem latência menor e não sofre com chuva nem com congestionamento de outros usuários na mesma antena. A internet via rádio é uma alternativa válida em áreas rurais onde ainda não há cabeamento de fibra."
       }
     },
     {
@@ -258,23 +336,39 @@
       "name": "A fibra óptica cai com chuva?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Não. Como os dados viajam por luz dentro de um cabo de vidro, a fibra não é afetada por chuva nem por interferência eletromagnética, ao contrário da internet via rádio."
+        "text": "Não. Os dados viajam como luz dentro de um cabo de vidro, sem nenhum componente elétrico exposto. A fibra não é afetada por chuva, raios nem interferência eletromagnética. Se a internet cai em tempestade, quase sempre é sinal de internet via rádio, não fibra."
       }
     },
     {
       "@type": "Question",
-      "name": "Qual a diferença de fibra para cabo?",
+      "name": "Qual a diferença entre fibra e cabo metálico?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A fibra usa luz em cabo de vidro, com altíssima capacidade e estabilidade. O cabo metálico (cobre) usa sinal elétrico, com capacidade e estabilidade menores. A fibra supera o cabo em praticamente tudo."
+        "text": "A fibra usa pulsos de luz em cabo de vidro: altíssima capacidade, sem degradação por distância e sem interferência elétrica. O cabo metálico (cobre) usa sinal elétrico: a velocidade cai com a distância, é suscetível a surtos e tem capacidade menor. A fibra supera o cabo em velocidade, estabilidade e latência."
       }
     },
     {
       "@type": "Question",
-      "name": "Como sei se tenho fibra até minha casa?",
+      "name": "Como sei se tenho fibra (FTTH) na minha casa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Se a conexão chega por um cabo de fibra ligado a um equipamento (ONU/ONT) dentro do imóvel, é FTTH (fibra até a casa). Consulte a cobertura pelo CEP para confirmar a disponibilidade no seu endereço."
+        "text": "Se houver um equipamento chamado ONU ou ONT dentro do imóvel, conectado por um cabo fino de fibra (geralmente transparente ou com capa amarela/laranja), é FTTH. Esse equipamento tem uma luz indicadora (PON) diferente do roteador Wi-Fi. Caso haja uma antena no telhado com cabo descendo para o roteador, é internet via rádio."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Por que a internet via rádio oscila no horário de pico?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Porque a banda de uma antena de rádio é compartilhada entre todos os clientes conectados a ela. Quando muita gente usa ao mesmo tempo — especialmente à noite —, a velocidade disponível para cada um diminui. Na fibra FTTH, o cabo que chega na sua casa é dedicado, então esse problema não ocorre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Latência (ping) faz diferença no dia a dia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim, dependendo do uso. Para streaming de vídeo, a latência não é muito perceptível. Para jogos online, chamadas de vídeo e home office com reuniões frequentes, latência alta causa travamentos, atraso de áudio e 'lag'. A fibra tende a ter latência bem menor do que a internet via rádio, especialmente em horários de pico."
       }
     }
   ]
