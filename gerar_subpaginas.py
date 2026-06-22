@@ -118,7 +118,7 @@ INTERNET = [
         "gradient": "linear-gradient(135deg, #6b3d00 0%, #c19000 50%, #fcc305 100%)",
         "highlights": [
             ("🏠", "Ideal pra apartamento", "Cobertura Wi-Fi suficiente em até 80m²."),
-            ("💸", "Preço justo", "A partir de R$ 79,90/mês — sem letra miúda."),
+            ("💸", "Preço justo", "A partir de R$ 99,90/mês — sem letra miúda."),
             ("⚡", "Fibra óptica real", "Mesmo plano de entrada, mesma fibra dos planos premium."),
         ],
         "plans": ["lite-casa", "lite-premium", "lite-basic"],
@@ -366,7 +366,7 @@ def build_header(depth):
         if it.get("tipo") == "drop":
             kids = []
             for c in (it.get("children") or []):
-                tgt = f' target="{c["target"]}"' if c.get("target") else ''
+                tgt = f' target="{c["target"]}" rel="noopener"' if c.get("target") else ''
                 logo = (f'<img class="dropdown-logo dropdown-logo-real" src="{footer_href(c["logo"], base)}" alt="{c.get("label", "")}" loading="lazy">'
                         if c.get("logo") else '')
                 kids.append(f'                  <li><a href="{footer_href(c.get("href", "#"), base)}"{tgt} class="dropdown-link">{logo}{c.get("label", "")}</a></li>')
@@ -383,7 +383,7 @@ def build_header(depth):
                 '          </li>',
             ]))
         else:                                 # tipo "link"
-            tgt = f' target="{it["target"]}"' if it.get("target") else ''
+            tgt = f' target="{it["target"]}" rel="noopener"' if it.get("target") else ''
             lis.append(f'          <li class="nav-item"><a href="{footer_href(it.get("href", "#"), base)}"{tgt} class="nav-link">{it.get("label", "")}</a></li>')
 
     cb = mh.get("clientButton") or {}
@@ -397,7 +397,7 @@ def build_header(depth):
         '        <ul class="nav-list nav-list-sales">',
         *lis,
         '        </ul>',
-        f'        <a href="{cb.get("href", "#")}" target="{cb.get("target", "_blank")}" class="header-client-btn">',
+        f'        <a href="{cb.get("href", "#")}" target="{cb.get("target", "_blank")}" rel="noopener" class="header-client-btn">',
         f'          <i class="ph-fill ph-user-circle"></i><span>{cb.get("label", "Área do Cliente")}</span>',
         '        </a>',
         '      </nav>',
@@ -1801,16 +1801,18 @@ def sync_og():
         with open(path, encoding="utf-8", newline="") as f:
             orig = f.read()
         nl = "\r\n" if "\r\n" in orig else "\n"
+        # og:title/twitter:title sempre terminam com "| MasterInfo" (sem dobrar nos que ja tem).
+        og_title = title if "MasterInfo" in title else title + " | MasterInfo"
         block = nl.join([
             '  <!-- og:auto -->',
             '  <meta property="og:type" content="website">',
             '  <meta property="og:site_name" content="MasterInfo Internet">',
-            '  <meta property="og:title" content="' + title + '">',
+            '  <meta property="og:title" content="' + og_title + '">',
             '  <meta property="og:description" content="' + desc + '">',
             '  <meta property="og:url" content="' + url + '">',
             '  <meta property="og:image" content="' + img + '">',
             '  <meta name="twitter:card" content="summary_large_image">',
-            '  <meta name="twitter:title" content="' + title + '">',
+            '  <meta name="twitter:title" content="' + og_title + '">',
             '  <meta name="twitter:description" content="' + desc + '">',
             '  <meta name="twitter:image" content="' + img + '">',
             '  <!-- /og:auto -->',
