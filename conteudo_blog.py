@@ -76,7 +76,7 @@ PILARES = [
     <h2>Cobertura: tem fibra no seu bairro?</h2>
     <p>Atendemos grande parte de Joinville com rede própria de fibra. A forma mais rápida de saber se já chegamos no seu endereço é <strong>consultar a cobertura pelo CEP</strong> aqui no site, em poucos segundos. Se preferir o passo a passo, leia <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
     <p>Já atendemos regiões como Centro, América, Glória, Bom Retiro, Boa Vista, Vila Nova, Costa e Silva, Iririú e muitos outros bairros, com expansão constante para novas áreas.</p>
-    <p>Páginas dedicadas por bairro: <a href="/internet-comasa-joinville/">Comasa</a>, <a href="/internet-boa-vista-joinville/">Boa Vista</a>, <a href="/internet-iririu-joinville/">Iririú</a>, <a href="/internet-espinheiros-joinville/">Espinheiros</a>, <a href="/internet-aventureiro-joinville/">Aventureiro</a> e <a href="/internet-itinga-joinville/">Itinga</a>.</p>
+    <p>Páginas dedicadas por bairro: <a href="/internet-comasa-joinville/">Comasa</a>, <a href="/internet-boa-vista-joinville/">Boa Vista</a>, <a href="/internet-iririu-joinville/">Iririú</a>, <a href="/internet-espinheiros-joinville/">Espinheiros</a>, <a href="/internet-aventureiro-joinville/">Aventureiro</a>, <a href="/internet-itinga-joinville/">Itinga</a>, <a href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a>, <a href="/internet-jardim-sofia-joinville/">Jardim Sofia</a>, <a href="/internet-cubatao-joinville/">Cubatão</a>, <a href="/internet-nova-brasilia-joinville/">Nova Brasília</a>, <a href="/internet-rio-bonito-joinville/">Rio Bonito</a>, <a href="/internet-estrada-timbe-joinville/">Estrada Timbé</a> e <a href="/internet-paranaguamirim-joinville/">Paranaguamirim</a>.</p>
 
     <h2>Internet para cada necessidade</h2>
     <p>Cada casa usa a internet de um jeito. Por isso, além do plano certo, vale escolher a página que combina com o seu perfil:</p>
@@ -212,7 +212,7 @@ PILARES = [
     <p>Resumindo: priorize fibra óptica, confirme a estabilidade com quem mora perto, valorize o suporte local e cheque as avaliações. Se quiser ir direto ao ponto, veja o <a href="/internet-joinville/">guia de internet em Joinville</a> ou descubra <a href="/blog/quantos-mega-de-internet-voce-precisa/">quantos Mega você precisa</a>.</p>
 
     <h2>Internet fibra por bairro em Joinville</h2>
-    <p>Veja a página do seu bairro: <a href="/internet-comasa-joinville/">Comasa</a>, <a href="/internet-boa-vista-joinville/">Boa Vista</a>, <a href="/internet-iririu-joinville/">Iririú</a>, <a href="/internet-espinheiros-joinville/">Espinheiros</a>, <a href="/internet-aventureiro-joinville/">Aventureiro</a> e <a href="/internet-itinga-joinville/">Itinga</a>.</p>
+    <p>Veja a página do seu bairro: <a href="/internet-comasa-joinville/">Comasa</a>, <a href="/internet-boa-vista-joinville/">Boa Vista</a>, <a href="/internet-iririu-joinville/">Iririú</a>, <a href="/internet-espinheiros-joinville/">Espinheiros</a>, <a href="/internet-aventureiro-joinville/">Aventureiro</a>, <a href="/internet-itinga-joinville/">Itinga</a>, <a href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a>, <a href="/internet-jardim-sofia-joinville/">Jardim Sofia</a>, <a href="/internet-cubatao-joinville/">Cubatão</a>, <a href="/internet-nova-brasilia-joinville/">Nova Brasília</a>, <a href="/internet-rio-bonito-joinville/">Rio Bonito</a>, <a href="/internet-estrada-timbe-joinville/">Estrada Timbé</a> e <a href="/internet-paranaguamirim-joinville/">Paranaguamirim</a>.</p>
 
     <script type="application/ld+json">
     {
@@ -538,6 +538,314 @@ PILARES = [
             ("A MasterInfo atende a Itinga?", "Sim. A Itinga está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
             ("Quais as velocidades dos planos na Itinga?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("O Wi-Fi cobre a casa toda na Itinga?", "Sim. Os planos com Mesh Wi-Fi 6 usam dois roteadores em rede mesh para cobrir todos os cômodos, sem ponto cego — ideal para casas maiores."),
+        ],
+    },
+    {
+        "slug": "internet-jardim-paraiso-joinville",
+        "title": "Internet Fibra no Jardim Paraíso, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica no Jardim Paraíso (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · JARDIM PARAÍSO",
+        "h1": "Internet fibra no Jardim Paraíso, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) no Jardim Paraíso, em Joinville — Wi-Fi 6 para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Jardim Paraíso, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 incluso e suporte local. Consulte a cobertura no seu endereço.
+    </div>
+
+    <h2>Internet fibra no Jardim Paraíso, em Joinville</h2>
+    <p>No Jardim Paraíso, a <strong>fibra óptica até a sua casa (FTTH)</strong> garante sinal estável de dia e de noite, com Wi-Fi forte para a família toda — sem a instabilidade do rádio ou dos cabos antigos. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para o Jardim Paraíso</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra no Jardim Paraíso</h2>
+    <p>Atendemos o Jardim Paraíso com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, confirme se já chegamos no seu endereço <strong>consultando a cobertura pelo CEP</strong> aqui no site. Veja também <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Jardim%20Paraiso%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa do bairro Jardim Paraíso, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende o Jardim Paraíso?", "Sim. O Jardim Paraíso está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("Quais as velocidades dos planos no Jardim Paraíso?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quanto tempo leva para instalar no Jardim Paraíso?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
+        ],
+    },
+    {
+        "slug": "internet-jardim-sofia-joinville",
+        "title": "Internet Fibra no Jardim Sofia, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica no Jardim Sofia (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · JARDIM SOFIA",
+        "h1": "Internet fibra no Jardim Sofia, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) no Jardim Sofia, em Joinville — estabilidade para trabalho remoto, Wi-Fi 6 e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Jardim Sofia, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 incluso e suporte local. Consulte a cobertura no seu endereço.
+    </div>
+
+    <h2>Internet fibra no Jardim Sofia, em Joinville</h2>
+    <p>Para quem trabalha ou estuda de casa no Jardim Sofia, estabilidade é tudo. A <strong>fibra óptica até a casa (FTTH)</strong> entrega conexão constante para reuniões em vídeo e upload rápido, sem quedas. Entenda as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para o Jardim Sofia</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra no Jardim Sofia</h2>
+    <p>Atendemos o Jardim Sofia com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, confirme se já chegamos no seu endereço <strong>consultando a cobertura pelo CEP</strong> aqui no site. Veja também <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Jardim%20Sofia%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa do bairro Jardim Sofia, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende o Jardim Sofia?", "Sim. O Jardim Sofia está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("A internet é boa para trabalhar de casa no Jardim Sofia?", "Sim. A fibra óptica oferece estabilidade e upload rápido, ideais para reuniões em vídeo e home office. Os planos de 1 Giga com Wi-Fi 6 dão folga até com a casa toda conectada."),
+            ("Quanto tempo leva para instalar no Jardim Sofia?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
+        ],
+    },
+    {
+        "slug": "internet-cubatao-joinville",
+        "title": "Internet Fibra no Cubatão, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica no Cubatão (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · CUBATÃO",
+        "h1": "Internet fibra no Cubatão, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) no Cubatão, em Joinville — Wi-Fi 6, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Cubatão, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 incluso e suporte local. Consulte a cobertura no seu endereço.
+    </div>
+
+    <h2>Internet fibra no Cubatão, em Joinville</h2>
+    <p>No Cubatão, a <strong>fibra óptica até a casa (FTTH)</strong> entrega sinal estável e Wi-Fi forte para streaming, estudo e trabalho — a mesma velocidade chova ou faça sol. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para o Cubatão</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra no Cubatão</h2>
+    <p>Atendemos o Cubatão com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, confirme se já chegamos no seu endereço <strong>consultando a cobertura pelo CEP</strong> aqui no site. Veja também <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Cubatao%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa do bairro Cubatão, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende o Cubatão?", "Sim. O Cubatão está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("Quais as velocidades dos planos no Cubatão?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quanto tempo leva para instalar no Cubatão?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
+        ],
+    },
+    {
+        "slug": "internet-nova-brasilia-joinville",
+        "title": "Internet Fibra na Nova Brasília, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica na Nova Brasília (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · NOVA BRASÍLIA",
+        "h1": "Internet fibra na Nova Brasília, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) na Nova Brasília, em Joinville — Wi-Fi 6 para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a Nova Brasília, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 incluso e suporte local. Consulte a cobertura no seu endereço.
+    </div>
+
+    <h2>Internet fibra na Nova Brasília, em Joinville</h2>
+    <p>Na Nova Brasília, a <strong>fibra óptica até a casa (FTTH)</strong> garante Wi-Fi forte em todos os cômodos e sinal estável para a família toda usar ao mesmo tempo. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para a Nova Brasília</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra na Nova Brasília</h2>
+    <p>Atendemos a Nova Brasília com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, confirme se já chegamos no seu endereço <strong>consultando a cobertura pelo CEP</strong> aqui no site. Veja também <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Nova%20Brasilia%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa do bairro Nova Brasília, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende a Nova Brasília?", "Sim. A Nova Brasília está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("Quais as velocidades dos planos na Nova Brasília?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quanto tempo leva para instalar na Nova Brasília?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
+        ],
+    },
+    {
+        "slug": "internet-rio-bonito-joinville",
+        "title": "Internet Fibra no Rio Bonito, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica no Rio Bonito (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · RIO BONITO",
+        "h1": "Internet fibra no Rio Bonito, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) no Rio Bonito, em Joinville — fibra de verdade até a sua casa, Wi-Fi 6 e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Rio Bonito, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 incluso e suporte local. Consulte a cobertura no seu endereço.
+    </div>
+
+    <h2>Internet fibra no Rio Bonito, em Joinville</h2>
+    <p>No Rio Bonito, a <strong>fibra óptica até a casa (FTTH)</strong> faz diferença: leva conexão estável e Wi-Fi forte, com a mesma velocidade de dia e de noite, sem a instabilidade do rádio. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para o Rio Bonito</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra no Rio Bonito</h2>
+    <p>Atendemos o Rio Bonito com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, confirme se já chegamos no seu endereço <strong>consultando a cobertura pelo CEP</strong> aqui no site. Veja também <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Rio%20Bonito%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da região do Rio Bonito, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende o Rio Bonito?", "Sim. O Rio Bonito está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("Quais as velocidades dos planos no Rio Bonito?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quanto tempo leva para instalar no Rio Bonito?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
+        ],
+    },
+    {
+        "slug": "internet-estrada-timbe-joinville",
+        "title": "Internet Fibra na Estrada Timbé, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica na Estrada Timbé (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · ESTRADA TIMBÉ",
+        "h1": "Internet fibra na Estrada Timbé, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) na região da Estrada Timbé, em Joinville — fibra de verdade até a sua casa, Wi-Fi 6 e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a região da Estrada Timbé, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 incluso e suporte local. Consulte a cobertura no seu endereço.
+    </div>
+
+    <h2>Internet fibra na Estrada Timbé, em Joinville</h2>
+    <p>Na região da Estrada Timbé, ter <strong>fibra óptica de verdade até a casa (FTTH)</strong> faz toda a diferença frente às alternativas instáveis: sinal constante e Wi-Fi forte, chova ou faça sol. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para a Estrada Timbé</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra na Estrada Timbé</h2>
+    <p>Atendemos a região da Estrada Timbé com rede própria de fibra óptica. Como a disponibilidade varia de trecho para trecho, confirme se já chegamos no seu endereço <strong>consultando a cobertura pelo CEP</strong> aqui no site. Veja também <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Estrada%20Timbe%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da região da Estrada Timbé, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende a Estrada Timbé?", "Sim. A região da Estrada Timbé está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de trecho para trecho, confirme no seu endereço pelo CEP aqui no site."),
+            ("Quais as velocidades dos planos na Estrada Timbé?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quanto tempo leva para instalar na Estrada Timbé?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
+        ],
+    },
+    {
+        "slug": "internet-paranaguamirim-joinville",
+        "title": "Internet Fibra no Paranaguamirim, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica no Paranaguamirim (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · PARANAGUAMIRIM",
+        "h1": "Internet fibra no Paranaguamirim, em Joinville",
+        "lead": "Fibra óptica de verdade (FTTH) no Paranaguamirim, um grande bairro da região sul de Joinville — Wi-Fi 6, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Paranaguamirim, um grande bairro da região sul de Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 incluso e suporte local. Consulte a cobertura no seu endereço.
+    </div>
+
+    <h2>Internet fibra no Paranaguamirim, em Joinville</h2>
+    <p>O Paranaguamirim é um grande bairro da região sul de Joinville, com muitas famílias. A <strong>fibra óptica até a casa (FTTH)</strong> entrega Wi-Fi forte para todos os cômodos e aguenta vários aparelhos ao mesmo tempo. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+
+    <h2>Planos de internet para o Paranaguamirim</h2>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra no Paranaguamirim</h2>
+    <p>Atendemos o Paranaguamirim com rede própria de fibra óptica. Como a disponibilidade varia de rua para rua, confirme se já chegamos no seu endereço <strong>consultando a cobertura pelo CEP</strong> aqui no site. Veja também <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <div style="margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);line-height:0;">
+      <iframe src="https://www.google.com/maps?q=Paranaguamirim%2C%20Joinville%20-%20SC&output=embed" width="100%" height="360" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa do bairro Paranaguamirim, em Joinville — área de cobertura da MasterInfo"></iframe>
+    </div>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: suporte local</h2>
+    <p>Somos <strong>de Joinville, para Joinville</strong>, há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> e milhares de avaliações no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende o Paranaguamirim?", "Sim. O Paranaguamirim está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("A internet aguenta uma casa com muita gente no Paranaguamirim?", "Sim. Os planos de 1 Giga com Mesh Wi-Fi 6 foram pensados para casas cheias, com vários aparelhos conectados ao mesmo tempo sem travar."),
+            ("Quanto tempo leva para instalar no Paranaguamirim?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
         ],
     },
 ]
