@@ -10,7 +10,7 @@
   <!-- Tema do site (black|light): redireciona entre index.html e index-light.html conforme config.tema -->
   <script>
     (function () {
-      var here = /index-light/.test(location.pathname) ? 'light' : 'black';
+      var here = /index\.html$/.test(location.pathname) ? 'black' : 'light'; // raiz "/" serve index-light (DirectoryIndex) => tratar como light evita double-load
       function go(theme) {
         if (theme !== here) location.replace((theme === 'light' ? 'index-light.html' : 'index.html') + location.search + location.hash);
       }
@@ -24,7 +24,7 @@
   </script>
 
   <title>MasterInfo Internet | Fibra Óptica 100% em Joinville</title>
-  <meta name="description" content="Internet fibra óptica 100% em Joinville. Planos de 400Mega a 1Giga. Atendimento local, instalação rápida nos bairros Comasa, Boa Vista, Espinheiros e região.">
+  <meta name="description" content="Internet fibra óptica 100% em Joinville. Planos de 600 Mega a 1 Giga. Atendimento local, instalação rápida nos bairros Comasa, Boa Vista, Espinheiros e região.">
 
   <!-- Canonical: consolida index.html (dark) e index-light.html (claro) na raiz -->
   <link rel="canonical" href="https://masterinfointernet.com/">
@@ -50,7 +50,7 @@
   <!-- Open Graph / WhatsApp / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="MasterInfo Internet | Fibra Óptica 100% em Joinville">
-  <meta property="og:description" content="Internet fibra óptica de verdade em Joinville. Planos de 400 Mega a 1 Giga, instalação em até 3 dias.">
+  <meta property="og:description" content="Internet fibra óptica de verdade em Joinville. Planos de 600 Mega a 1 Giga, instalação em até 3 dias.">
   <meta property="og:url" content="https://masterinfointernet.com">
   <meta property="og:image" content="https://masterinfointernet.com/og-image.jpg">
   <meta property="og:locale" content="pt_BR">
@@ -61,6 +61,35 @@
   <meta name="twitter:title" content="MasterInfo Internet | Fibra Óptica em Joinville">
   <meta name="twitter:description" content="Internet fibra óptica de verdade. Planos a partir de R$99,90/mês em Joinville.">
   <meta name="twitter:image" content="https://masterinfointernet.com/og-image.jpg">
+
+  <!-- Schema.org: Organization + WebSite (consolida a marca na raiz; FAQPage fica nas subpaginas) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://masterinfointernet.com/#org",
+        "name": "MasterInfo Internet",
+        "url": "https://masterinfointernet.com",
+        "logo": "https://masterinfointernet.com/logo-masterinfo.png",
+        "telephone": "+554734341734",
+        "sameAs": [
+          "https://www.instagram.com/masterinfo.internet",
+          "https://www.facebook.com/masterinfointernet"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://masterinfointernet.com/#website",
+        "url": "https://masterinfointernet.com",
+        "name": "MasterInfo Internet",
+        "inLanguage": "pt-BR",
+        "publisher": { "@id": "https://masterinfointernet.com/#org" }
+      }
+    ]
+  }
+  </script>
 
   <!-- Schema.org JSON-LD (InternetServiceProvider + Offers) -->
   <script type="application/ld+json" id="schema-org">
@@ -108,7 +137,7 @@
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "18:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "12:00" }
     ],
-    "priceRange": "R$ 99,90 - R$ 228,60/mês",
+    "priceRange": "R$ 99,90 - R$ 189,90",
     "sameAs": [
       "https://www.instagram.com/masterinfo.internet",
       "https://www.facebook.com/masterinfointernet"
@@ -182,7 +211,7 @@
   <link rel="stylesheet" href="playhub.css?v=20260617-playhub2">
 </head>
 <body>
-  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Internet Fibra Óptica 100% em Joinville — Planos de 400 Mega a 1 Giga | MasterInfo Internet</h1>
+  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Internet Fibra Óptica 100% em Joinville — Planos de 600 Mega a 1 Giga | MasterInfo Internet</h1>
 
   <!-- ========== POPUP COPA DO MUNDO 2026 ========== -->
   <div class="copa-popup" id="copaPopup" aria-hidden="true">

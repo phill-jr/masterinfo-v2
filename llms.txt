@@ -1,22 +1,23 @@
 # MasterInfo Internet
 
-> Provedor de internet por fibra óptica (FTTH) 100% em Joinville, Santa Catarina, com mais de 6 anos de atuação. Planos residenciais de 600 Mega a 1 Giga, a partir de R$ 99,90/mês, com TV/streaming inclusos e instalação em até 3 dias. CNPJ 08.990.505.0001/52.
+> Provedor de internet por fibra óptica (FTTH) 100% em Joinville, Santa Catarina, com mais de 6 anos de atuação. Planos residenciais de 600 Mega a 1 Giga, a partir de R$ 99,90/mês, com TV/streaming inclusos e instalação em até 3 dias. CNPJ 08.990.505/0001-52.
 
 A MasterInfo é um provedor local de Joinville (SC). Atendimento e suporte técnico são feitos por equipe da própria cidade, principalmente via WhatsApp. Toda a rede é fibra óptica até a casa do cliente (FTTH) — não usa rádio nem cabo coaxial compartilhado. Mais de 10 mil clientes conectados e nota 4,8 no Google (2.447 avaliações).
 
 ## Planos residenciais
 Os planos seguem duas linhas (Lite e Ultra) e são organizados por perfil de uso. O "preço pontual" é o valor com desconto por pagamento em dia; o "preço cheio" é o valor sem o desconto. Todos incluem fibra óptica, Wi-Fi e instalação em até 3 dias.
 
-- **Lite Casa — 600 Mega — R$ 99,90/mês** (cheio R$ 109,90): para casal ou casa pequena. SKY+ Light grátis (TV).
-- **Lite Família — 800 Mega — R$ 109,00/mês** (cheio R$ 119,00): para família média com vários dispositivos. SKY+ Light grátis (TV).
-- **Lite Home Office — 1 Giga — R$ 119,90/mês** (cheio R$ 129,90): plano mais procurado, para trabalho remoto e reuniões. SKY+ Light ou Deezer (à escolha).
-- **Ultra Família — 800 Mega — R$ 139,90/mês** (cheio R$ 159,90): para família grande com streaming completo. GloboPlay incluso e roteador Mesh (Wi-Fi em toda a casa).
-- **Ultra Home Office — 1 Giga — R$ 218,60/mês** (cheio R$ 228,60): plano topo, tudo incluso. SKY+ Light + Disney+ e roteador Mesh premium.
+- **Lite Casa — 600 Mega — R$ 99,90/mês** (cheio R$ 109,90): para casal ou casa pequena. 1 app de TV/mês (categoria Standard). Instalação em até 3 dias.
+- **Lite Premium — 800 Mega — R$ 119,90/mês** (cheio R$ 129,90): plano mais procurado, para família com vários dispositivos. 1 app de TV/mês (categoria Advanced).
+- **Lite Basic — 1 Giga (1000 Mega) — R$ 119,00/mês** (cheio R$ 129,00): 1 Giga "puro" para trabalho remoto, sem app de TV incluso.
+- **Ultra Família — 1 Giga (1000 Mega) — R$ 149,90/mês** (cheio R$ 159,90): Mesh Wi-Fi 6 (cobertura total), 1 app de TV/mês (categoria Premium); acesso a Disney+, HBO Max e GloboPlay.
+- **Ultra Home Office — 1 Giga (1000 Mega) — R$ 179,90/mês** (cheio R$ 189,90): tudo incluso — Mesh Wi-Fi 6, 3 apps de TV/mês e Kaspersky (segurança).
+- **Ultra Gamer — 1 Giga (1000 Mega) — R$ 189,90/mês** (cheio R$ 199,90): Mesh Wi-Fi 6, 2 apps de TV/mês e ExitLag (ping mínimo para jogos online).
 
 Planos empresariais sob consulta pelo WhatsApp.
 
 ## Campanha Copa do Mundo 2026
-Pré-venda do plano da Copa a partir de R$ 59,90 nos 3 primeiros meses, para assistir aos jogos já conectado. Detalhes e inscrição em https://masterinfointernet.com/copa/
+Pré-venda do plano da Copa a partir de R$ 59,90 nos 3 primeiros meses, para assistir aos jogos já conectado. Promoção por tempo limitado, vinculada à Copa do Mundo de 2026. Detalhes e inscrição em https://masterinfointernet.com/copa/
 
 ## Adicionais (opcionais)
 - TV e streaming: SKY+ Light (R$ 19,90/mês), SKY+ Light + Amazon Prime Video (R$ 39,90/mês), Disney+ (R$ 24,90 com anúncios / R$ 35,90 sem anúncios), GloboPlay (R$ 24,90 com anúncios / R$ 35,90 sem anúncios), HBO Max (R$ 34,90/mês), Deezer música (R$ 19,90/mês).
@@ -56,5 +57,5 @@ Bairros atendidos em Joinville: Comasa, Boa Vista, Espinheiros, Aventureiro, Jar
 - E-mail: masterinfo@masterinfointernet.com
 - Endereço: Rua Baltazar Buschler, 628 — bairro Comasa, Joinville/SC, CEP 89228-000
 - CNPJ: 08.990.505.0001/52
-- Instagram: https://www.instagram.com/masterinfointernet
+- Instagram: https://www.instagram.com/masterinfo.internet
 - Facebook: https://www.facebook.com/masterinfointernet
