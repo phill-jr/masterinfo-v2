@@ -301,6 +301,9 @@
         var centsEl = card.querySelector('.plan-cents');
         if (valEl) valEl.textContent = String(intPart);
         if (centsEl) centsEl.textContent = ',' + ('0' + cents).slice(-2);
+        // Preço legível para crawlers/leitores de tela (o visual fica fracionado em spans).
+        var priceWrap = card.querySelector('.plan-price');
+        if (priceWrap) priceWrap.setAttribute('aria-label', 'R$ ' + intPart + ',' + ('0' + cents).slice(-2) + ' por mês');
       }
       // Preço cheio (de R$ X por apenas)
       if (p.precoCheio != null) {
