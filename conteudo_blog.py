@@ -247,6 +247,55 @@ PILARES = [
             ("A MasterInfo atende meu bairro?", "A MasterInfo atende 13 bairros de Joinville com fibra óptica própria: Comasa, Boa Vista, Espinheiros, Aventureiro, Jardim Paraíso, Jardim Sofia, Cubatão, Itinga, Nova Brasília, Rio Bonito, Estrada Timbé, Paranaguamirim e Iririú — e a cobertura cresce toda semana. Consulte pelo seu CEP aqui no site para confirmar em segundos."),
         ],
     },
+    {
+        "slug": "internet-comasa-joinville",
+        "title": "Internet Fibra no Comasa, Joinville | MasterInfo",
+        "desc": "Internet fibra óptica no Comasa (Joinville): provedor com sede no próprio bairro, planos de 600 Mega a 1 Giga, Wi-Fi 6 e instalação rápida. Veja a cobertura pelo seu CEP.",
+        "tag": "INTERNET · COMASA",
+        "h1": "Internet fibra no Comasa: o provedor que fica no seu bairro",
+        "lead": "A MasterInfo tem sede no Comasa, em Joinville — fibra óptica de verdade (FTTH) até a sua casa, Wi-Fi 6 e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
+        "hero_img": "/imgs/hero/sub/familia-1.jpg",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "cta": "Ver planos e cobertura",
+        "cta_plano": "lite-premium",
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "body": """
+    <div class="tldr">
+      <strong>Resumo rápido:</strong> a MasterInfo é um provedor de <strong>internet 100% fibra óptica</strong> com <strong>sede no próprio Comasa</strong>, em Joinville (Rua Prefeito Baltazar Buschle, 628). Planos de 600 Mega a 1 Giga, Wi-Fi 6 incluso e suporte local de verdade. Consulte a cobertura no seu endereço e contrate em minutos.
+    </div>
+
+    <h2>Internet fibra no Comasa, em Joinville</h2>
+    <p>O Comasa é um dos bairros que a MasterInfo conhece melhor — afinal, é onde fica a nossa sede. Isso significa <strong>fibra óptica até a sua casa (FTTH)</strong>, com sinal estável de dia e de noite, sem a instabilidade do rádio ou dos cabos antigos. Para entender as diferenças entre as tecnologias, leia <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
+    <p>Por estarmos no bairro, o atendimento é próximo e rápido: quando precisar, você fala com quem é da região e conhece o Comasa de perto.</p>
+
+    <h2>Planos de internet para o Comasa</h2>
+    <p>Os planos vão de 600 Mega (ideal para apartamento e casa pequena) até 1 Giga (para casa cheia, com muita gente conectada ao mesmo tempo). Todos incluem <strong>roteador Wi-Fi 6</strong> e pelo menos 1 app de TV ou streaming por mês:</p>
+
+    <!--PLANS_GRID-->
+
+    <h2>Cobertura de fibra no Comasa</h2>
+    <p>Atendemos o Comasa com rede própria de fibra óptica. Como a expansão é constante e a disponibilidade varia de rua para rua, a forma mais rápida e segura de confirmar se já chegamos no seu endereço é <strong>consultar a cobertura pelo CEP</strong> aqui no site, em poucos segundos. Se preferir o passo a passo, veja <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>.</p>
+
+    <h2>Internet para cada necessidade</h2>
+    <p>Cada casa usa a internet de um jeito. Além do plano certo, vale escolher a página que combina com o seu perfil:</p>
+    <ul>
+      <li><a href="/familia/">Internet para a família</a>: vários aparelhos ligados ao mesmo tempo, sem travar.</li>
+      <li><a href="/home-office/">Internet para home office</a>: estabilidade para reuniões e upload rápido.</li>
+      <li><a href="/gamer/">Internet para gamer</a>: baixa latência e zero perda de pacote.</li>
+      <li><a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>: dois roteadores em mesh, sem ponto cego.</li>
+    </ul>
+    <p>Quer ver a cidade toda? Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+
+    <h2>O diferencial: um provedor que é do Comasa</h2>
+    <p>Tem provedor grande que atende metade do Brasil de um call center distante. A MasterInfo é diferente: somos <strong>de Joinville, com sede no Comasa</strong>, há mais de 6 anos. Quando você fala com a gente, fala com alguém da região, que resolve rápido. É o motivo de termos <strong>4,8 de 5 estrelas</strong> com milhares de avaliações no Google.</p>
+""",
+        "faq": [
+            ("A MasterInfo atende o Comasa?", "Sim. Nossa sede fica no próprio Comasa (Rua Prefeito Baltazar Buschle, 628) e atendemos o bairro com fibra óptica até a sua casa (FTTH). Como a cobertura varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
+            ("Quais as velocidades dos planos no Comasa?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica com Wi-Fi 6 incluso. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quanto tempo leva para instalar no Comasa?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
+            ("Por que escolher um provedor com sede no bairro?", "Porque o suporte é de quem é da região e está por perto: atendimento mais rápido, sem call center distante. Por isso temos 4,8 de 5 estrelas no Google."),
+        ],
+    },
 ]
 
 # ─── BLOG (posts informacionais) ──────────────────────────────────────────
