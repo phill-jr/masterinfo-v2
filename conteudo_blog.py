@@ -1591,3 +1591,99 @@ BLOG_DEEP.update({
 })
 # Exclui do BLOG_DEEP os 2 posts do lote 2 que não passaram limpos (sky-light tem [DADO], segunda-via reprovado) — mantêm o corpo original até retrabalho.
 for _k in ('sky-light-playhub-como-funciona','segunda-via-de-boleto-masterinfo'): BLOG_DEEP.pop(_k, None)
+
+
+# Seções 'Sobre o bairro' (workflow pesquisa+verificação de fontes, 2026-06-22). Inseridas antes de 'Internet para cada necessidade' no gerador.
+BAIRROS_DEEP = {
+ "internet-jardim-paraiso-joinville": {
+  "section": "<h2>Sobre o bairro Jardim Paraíso</h2>\n<p>O Jardim Paraíso é um dos bairros mais distantes do Centro de Joinville, a cerca de 10 quilômetros, e tem uma história que começa antes mesmo de ele fazer parte da cidade. A área surgiu de uma antiga ocupação na região do Cubatão e, na prática, o bairro foi desmembrado dali. O próprio nome não veio da paisagem: é a denominação que a imobiliária deu aos loteamentos Jardim Paraíso I, II, III e IV, que deram origem ao bairro.</p>\n<p>Até 6 de abril de 1992, essas terras pertenciam ao município vizinho de São Francisco do Sul. Foi a Lei estadual nº 8.563 que anexou a região a Joinville. Como bairro oficial da cidade, o Jardim Paraíso só foi formalizado depois, pela Lei nº 3.508, de 25 de junho de 1997. Hoje é um bairro grande e populoso: o censo municipal de 2014 apontou 18.072 moradores numa área de 3,22 km².</p>\n<p>É num bairro com esse tamanho e essa história de crescimento que a MasterInfo leva fibra óptica até a casa do cliente, com instalação FTTH e atendimento local de Joinville.</p>",
+  "faq_extra": [
+   {
+    "q": "O Jardim Paraíso sempre fez parte de Joinville?",
+    "a": "Não. Até 6 de abril de 1992 a região pertencia ao município vizinho de São Francisco do Sul, sendo anexada a Joinville pela Lei estadual nº 8.563. O Jardim Paraíso só foi oficializado como bairro de Joinville depois, pela Lei nº 3.508, de 25 de junho de 1997."
+   },
+   {
+    "q": "De onde vem o nome do bairro Jardim Paraíso?",
+    "a": "O nome vem da denominação que a imobiliária responsável deu aos loteamentos Jardim Paraíso I, II, III e IV, que deram origem ao bairro. A área, por sua vez, surgiu de uma antiga ocupação na região do Cubatão."
+   }
+  ]
+ },
+ "internet-jardim-sofia-joinville": {
+  "section": "<h2>Sobre o bairro Jardim Sofia</h2>\n<p>O Jardim Sofia fica na zona Norte de Joinville, a mesma região do Bom Retiro, do Costa e Silva e do Dona Francisca. É um bairro relativamente novo: foi criado em 1990 e, até então, fazia parte da antiga Zona Industrial. Antes da urbanização, as terras por ali eram bastante férteis, com plantações de verduras, feijão, aipim e cana-de-açúcar, origem agrícola que ajuda a explicar o ritmo mais tranquilo de algumas ruas em comparação com o miolo da cidade.</p>\n<p>Hoje o bairro é majoritariamente residencial e tem cerca de 46 ruas e vias, entre elas a Rua Cuba e a Rua Brusque. A vizinhança conta com equipamentos públicos como o CEI Jardim Sofia, centro de educação infantil mantido pela Prefeitura de Joinville, na Rua Cuba, 85.</p>\n<p>É nesse bairro que a MasterInfo leva a fibra óptica até a casa do cliente (FTTH), com conexão pensada para o dia a dia de quem mora no Jardim Sofia.</p>",
+  "faq_extra": [
+   {
+    "q": "Em que zona de Joinville fica o bairro Jardim Sofia?",
+    "a": "O Jardim Sofia fica na zona Norte de Joinville, na mesma região dos bairros Bom Retiro, Costa e Silva e Dona Francisca."
+   },
+   {
+    "q": "Quando o bairro Jardim Sofia foi criado?",
+    "a": "O Jardim Sofia foi criado em 1990 e, até então, fazia parte da Zona Industrial de Joinville; antes da urbanização, a área tinha origem ligada à agricultura."
+   }
+  ]
+ },
+ "internet-cubatao-joinville": {
+  "section": "<h2>Sobre o bairro Cubatão</h2>\n<p>A Vila Cubatão, também chamada simplesmente de Cubatão, fica na região do aeroporto de Joinville e é um dos bairros da cidade. O nome vem do rio Cubatão, que corta essa parte do município. Um ponto conhecido do bairro é a Vigorelli, localidade às margens do rio que já foi ponto de lazer da região. O rio Cubatão do Norte nasce na serra Queimada, nos contrafortes da Serra do Mar, na porção noroeste de Joinville, e percorre cerca de 88 quilômetros até desaguar no canal do Palmital, uma ramificação da baía da Babitonga.</p>\n<p>O rio sempre fez parte da história da região. Para conter as cheias, foi construído entre 1958 e 1967 um canal de derivação retificado, paralelo ao leito original, que ajuda a desviar parte da vazão nos períodos de água alta. Hoje a bacia do Cubatão, com cerca de 492 km², segue importante para o abastecimento de água de boa parte de Joinville, com captação que abastece parcela da população da cidade.</p>\n<p>É nessa região, entre o aeroporto e o vale do rio Cubatão, que a MasterInfo leva fibra óptica até a casa do cliente, com conexão por cabo de ponta a ponta (FTTH).</p>",
+  "faq_extra": [
+   {
+    "q": "De onde vem o nome do bairro Cubatão, em Joinville?",
+    "a": "O bairro leva o nome do rio Cubatão, que corta essa parte de Joinville."
+   },
+   {
+    "q": "Onde fica a Vila Cubatão em Joinville?",
+    "a": "A Vila Cubatão fica na região do aeroporto de Joinville, próxima ao vale do rio Cubatão, e é um dos bairros da cidade."
+   }
+  ]
+ },
+ "internet-nova-brasilia-joinville": {
+  "section": "<h2>Sobre o bairro Nova Brasília</h2>\n<p>A região que hoje forma o Nova Brasília foi uma das primeiras a ser loteada em Joinville, principalmente em terras das famílias Mathies, Tilp, Roos e Welter. O primeiro loteamento, chamado \"Galho da Sorte\", surgiu no fim da década de 1950 e era de propriedade da família Welter. Foi a partir dele que a região começou a se transformar e a atrair moradores de várias partes da cidade.</p>\n<p>O nome veio de um acontecimento nacional: com a construção da nova capital, Brasília, o núcleo habitacional acabou ganhando o nome em homenagem a ela. O bairro foi oficializado pela Lei nº 1.526, de 5 de julho de 1977, que denominou os bairros de Joinville. Fica na zona Oeste da cidade, separado do restante de Joinville pela BR-101.</p>\n<p>É nesse bairro de origem antiga que a MasterInfo leva fibra óptica até a casa do assinante, com conexão FTTH para quem mora na região.</p>",
+  "faq_extra": [
+   {
+    "q": "De onde vem o nome do bairro Nova Brasília, em Joinville?",
+    "a": "O nome é uma homenagem à nova capital do país, Brasília. Com a construção de Brasília e o crescimento da região na época, o núcleo habitacional acabou recebendo o nome em referência ao acontecimento nacional. Fontes: publicação Joinville Bairro a Bairro (joinville.sc.gov.br) e registros sobre a história dos bairros."
+   },
+   {
+    "q": "Qual foi o primeiro loteamento do bairro Nova Brasília?",
+    "a": "Foi o loteamento 'Galho da Sorte', que surgiu no fim da década de 1950 e era de propriedade da família Welter. A partir dele a região passou a atrair moradores de várias partes de Joinville. Fonte: Joinville Bairro a Bairro (joinville.sc.gov.br)."
+   }
+  ]
+ },
+ "internet-rio-bonito-joinville": {
+  "section": "<h2>Sobre o bairro Rio Bonito</h2>\n<p>O Rio Bonito é uma das ocupações germânicas mais antigas da antiga Colônia Dona Francisca, que deu origem a Joinville. Fica na zona norte da cidade, à esquerda da BR-101, e o nome vem justamente do rio que corta a região e da paisagem ao redor. Por ali, os moradores se dedicaram durante muito tempo à agricultura e à pesca, já que há rios que banham a localidade, o que ajudou a manter o tom mais rural do bairro.</p>\n<p>A história do Rio Bonito também tem a marca do trabalho dos primeiros colonos. Foram instalados na região olarias, engenhos e alambiques, o que chegou a transformar o lugar em um grande produtor de cachaça. A chegada da infraestrutura, porém, demorou: a energia elétrica só apareceu por aqui na década de 1960, e a água tratada veio depois, ao longo dos anos 1980.</p>\n<p>É nesse bairro de raízes coloniais e perfil mais tranquilo que a MasterInfo leva fibra óptica até a sua casa, com internet estável para quem vive e trabalha na região.</p>",
+  "faq_extra": [
+   {
+    "q": "Em que zona de Joinville fica o bairro Rio Bonito?",
+    "a": "O Rio Bonito fica na zona norte de Joinville, à esquerda da BR-101, na mesma região de bairros como Pirabeiraba, Dona Francisca e Costa e Silva."
+   },
+   {
+    "q": "Por que o bairro se chama Rio Bonito?",
+    "a": "O nome vem do rio que corta a região e da paisagem ao redor. O Rio Bonito é também uma das ocupações germânicas mais antigas da antiga Colônia Dona Francisca, que deu origem a Joinville."
+   }
+  ]
+ },
+ "internet-estrada-timbe-joinville": {
+  "section": "<h2>Sobre a Estrada Timbé (Jardim Paraíso, Joinville)</h2>\n<p>Vale uma observação logo de início, por honestidade: a Estrada Timbé não é um bairro próprio, e sim uma via que corta o bairro <strong>Jardim Paraíso</strong>, em Joinville. Quem mora por ali tem endereço com CEP 89226-499 (lado ímpar) ou 89226-500 (lado par), ambos no Jardim Paraíso. É uma região mais afastada do centro, ligada à parte da cidade onde ficam as marinas e a economia náutica de Joinville.</p>\n<p>É também uma área que vem recebendo obras de infraestrutura nos últimos anos. Em 2022, a Prefeitura de Joinville entregou a ordem de serviço para pavimentar 870 metros da Estrada Timbé, um investimento de cerca de R$ 1,9 milhão que incluiu drenagem, calçadas, meios-fios e bocas de lobo — na época, a própria Prefeitura destacou que o entorno já tinha várias casas e bastante fluxo de veículos. Em novembro de 2025, uma nova ordem de serviço liberou mais cerca de 1 km de pavimentação, com calçadas, drenagem e sinalização (cerca de R$ 2,2 milhões, majoritariamente do Ministério do Turismo), trecho que chega até as marinas. No conjunto, o Jardim Paraíso já recebeu 18 km de pavimentação asfáltica e drenagem pluvial.</p>\n<p>É justamente nessa região em crescimento, com casas espalhadas ao longo da estrada, que a MasterInfo leva fibra óptica até a residência, para quem mora num ponto mais afastado da cidade não precisar abrir mão de uma conexão estável.</p>",
+  "faq_extra": [
+   {
+    "q": "A Estrada Timbé é um bairro de Joinville?",
+    "a": "Não. A Estrada Timbé é uma via (logradouro) que fica dentro do bairro Jardim Paraíso, em Joinville. Os endereços ao longo dela usam os CEPs 89226-499 (lado ímpar) e 89226-500 (lado par)."
+   },
+   {
+    "q": "A Estrada Timbé é pavimentada?",
+    "a": "Trechos foram e estão sendo pavimentados pela Prefeitura de Joinville. Em 2022 foi autorizada a pavimentação de 870 metros (cerca de R$ 1,9 milhão) e, em novembro de 2025, mais cerca de 1 km de pavimentação com calçadas, drenagem e sinalização (cerca de R$ 2,2 milhões), em trecho que chega até as marinas."
+   }
+  ]
+ },
+ "internet-paranaguamirim-joinville": {
+  "section": "<h2>Sobre o bairro Paranaguamirim</h2>\n<p>O Paranaguamirim fica na zona Sul de Joinville e é um dos maiores bairros da cidade. Pelo Censo 2022 do IBGE, é o terceiro mais populoso do município, com 33.545 moradores, atrás apenas de Aventureiro e Costa e Silva. Em área também está entre os maiores: são 11,51 km², segundo o levantamento \"Joinville Bairro a Bairro\" da Prefeitura, que registra ainda uma distância de cerca de 7,75 km até o Centro. O bairro foi oficializado pela Lei nº 3.436, de 17 de março de 1997, e integra a Subprefeitura da Região Sudeste.</p>\n<p>O nome vem do tupi-guarani: o trecho que começa no Rio Velho forma a localidade de Paranaguá-mirim, que quer dizer \"boca de rio pequeno e enseada do mar\". A história do bairro se mistura com a do vizinho Jarivatuba — moradores antigos até têm dúvida sobre onde um termina e o outro começa. A região é drenada pelo Rio Velho, que fazia a ligação com a Baía da Babitonga e com o centro da cidade e ajudou no desenvolvimento da área; até a década de 1970 boa parte das casas dependia de poços, e a rede de abastecimento de água chegou aos poucos. A ocupação humana, porém, é bem mais antiga: o entorno guarda sambaquis pré-coloniais, sítios arqueológicos registrados pela própria Prefeitura.</p>\n<p>É nesse bairro, do Jardim Edilene ao Estevão de Matos, que a MasterInfo leva fibra óptica até dentro de casa, com instalação e suporte de quem é de Joinville.</p>",
+  "faq_extra": [
+   {
+    "q": "O que significa o nome do bairro Paranaguamirim em Joinville?",
+    "a": "O nome vem do tupi-guarani. O trecho que começa no Rio Velho forma a localidade de Paranaguá-mirim, que quer dizer \"boca de rio pequeno e enseada do mar\", segundo o levantamento Joinville Bairro a Bairro da Prefeitura."
+   },
+   {
+    "q": "O Paranaguamirim é um dos maiores bairros de Joinville?",
+    "a": "Sim. Pelo Censo 2022 do IBGE, é o terceiro bairro mais populoso de Joinville, com 33.545 moradores, e também está entre os maiores em área, com 11,51 km²."
+   }
+  ]
+ }
+}

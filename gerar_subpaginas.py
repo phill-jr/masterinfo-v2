@@ -12,7 +12,7 @@ import sys
 import json
 
 # Conteúdo (páginas-pilar + blog) — fonte única do texto dessas páginas. Ver conteudo_blog.py.
-from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT, PERSONAS_CONTENT, BLOG_DEEP
+from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT, PERSONAS_CONTENT, BLOG_DEEP, BAIRROS_DEEP
 
 # Console do Windows e cp1252 por padrao e quebra em '✓'/acentos. Forca UTF-8.
 try:
@@ -139,6 +139,18 @@ for _b in BLOG:
     if _bd:
         _b["body"] = _bd["body"]
         _b["faq"] = [(x["q"], x["a"]) for x in _bd["faq"]]
+
+# Insere a seção "Sobre o bairro" (BAIRROS_DEEP, fatos pesquisados/verificados) nas páginas de bairro,
+# antes de "Internet para cada necessidade", preservando o resto (mapa etc.) + amplia a FAQ.
+for _p in PILARES:
+    _sd = BAIRROS_DEEP.get(_p["slug"])
+    if _sd:
+        _anchor = '<h2>Internet para cada necessidade</h2>'
+        if _anchor in _p["body"]:
+            _p["body"] = _p["body"].replace(_anchor, _sd["section"] + '\n\n    ' + _anchor, 1)
+        else:
+            _p["body"] = _p["body"] + '\n\n    ' + _sd["section"]
+        _p["faq"] = list(_p.get("faq", [])) + [(x["q"], x["a"]) for x in _sd["faq_extra"]]
 
 APLICATIVOS = [
     # cats: em quais categorias do PlayHub esse app aparece (cruzado em compute_escolher_em)
