@@ -12,7 +12,7 @@ import sys
 import json
 
 # Conteúdo (páginas-pilar + blog) — fonte única do texto dessas páginas. Ver conteudo_blog.py.
-from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT
+from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT, PERSONAS_CONTENT
 
 # Console do Windows e cp1252 por padrao e quebra em '✓'/acentos. Forca UTF-8.
 try:
@@ -125,6 +125,13 @@ INTERNET = [
         "cta": "Quero plano com 1 roteador",
     },
 ]
+
+# Mescla o conteúdo aprofundado (corpo editorial + FAQ) revisado nas personas correspondentes.
+for _it in INTERNET:
+    _pc = PERSONAS_CONTENT.get(_it["slug"])
+    if _pc:
+        _it["body"] = _pc["body"]
+        _it["faq"] = [(x["q"], x["a"]) for x in _pc["faq"]]
 
 APLICATIVOS = [
     # cats: em quais categorias do PlayHub esse app aparece (cruzado em compute_escolher_em)
@@ -687,7 +694,11 @@ def page_internet(p, depth=1):
     else:
         hero_open = f'<section class="sub-hero" style="background: {p["gradient"]};">'
 
-    return f'''{head(p["title"], depth)}
+    # Conteúdo editorial aprofundado + FAQ (opcionais; mesma estrutura/estilo das pilares).
+    extra = f'<link rel="stylesheet" href="/blog.css?v={BLOGCSS_VER}">' if (p.get("body") or p.get("faq")) else ""
+    article = f'\n  <div class="article-band">\n    <div class="article">{p["body"]}\n    </div>\n  </div>' if p.get("body") else ""
+    faq_html, faq_jsonld = render_faq(p.get("faq", []))
+    return f'''{head(p["title"], depth, extra)}
 {header(depth)}
 
   <!-- HERO da subpágina -->
@@ -721,8 +732,9 @@ def page_internet(p, depth=1):
       </div>
     </div>
   </section>
+{article}{faq_html}
 {PLANS_SYNC_SCRIPT}
-{footer(depth)}'''
+{faq_jsonld}{footer(depth)}'''
 
 
 def page_app(a, depth=2):
