@@ -24,6 +24,9 @@
   </script>
 
   <title>MasterInfo Internet | Fibra Óptica 100% em Joinville</title>
+  <!-- Fix menu mobile: o backdrop-filter do header cria um containing block que prendia o
+       nav (position:fixed) DENTRO do header de 72px -> drawer colapsado. Removido no mobile. -->
+  <style>@media(max-width:768px){.header{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(10,10,11,0.98)!important}.mega-menu{padding:0!important;min-height:0!important}.nav-item:not(.is-open) .mega-menu{border:0!important}}</style>
   <meta name="description" content="Internet fibra óptica em Joinville a partir de R$ 99,90/mês: 600 Mega a 1 Giga, instalação em até 3 dias, suporte local e nota 4,8 no Google.">
 
   <!-- Canonical: consolida index.html (dark) e index-light.html (claro) na raiz -->
