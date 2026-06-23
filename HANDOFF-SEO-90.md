@@ -48,8 +48,10 @@
 
 ## 3. Tarefas priorizadas (P0 = maior impacto)
 
-### P0 — Headers de segurança + cache no nginx (DESTRAVA Técnico e Performance) 🔴
-**Problema:** nas respostas **GET** dos HTML (200) NÃO chegam `Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Cache-Control`; o `Strict-Transport-Security` só aparece nas 404. O `.htaccess` já tem regras, mas o **nginx (reverse proxy do DirectAdmin) não as repassa no GET**.
+### P0 — Headers de segurança + cache no nginx (DESTRAVA Técnico e Performance) ✅ FEITO 2026-06-22
+**✅ RESOLVIDO E NO AR (2026-06-22):** 5/5 security headers (X-Frame, X-Content-Type, Referrer, Permissions-Policy, HSTS) agora chegam no GET de TODO HTML estático (home, subpáginas, blog, bairros, checkout). Verificado por curl em 13 páginas + smoke test verde. **Mecanismo:** bloco `add_header ... always` condicional `|*if DOMAIN="masterinfointernet.com"|` no template custom do DA `/usr/local/directadmin/data/templates/custom/nginx_server_secure.conf` (antes do `|CUSTOM4|`, nível server), valores alinhados ao `security-headers.php` do app. Detalhes/rollback na memória `p0-security-headers-nginx`. **Causa-raiz** (diferente da hipótese abaixo): DA é reverse-proxy e serve estático via **X-Accel**, que DESCARTA os headers do Apache/.htaccess no GET; os `*.cust_nginx*.conf` da sessão anterior nunca eram incluídos. **Falta (deferido, não-bloqueante):** CSP nas estáticas (Report-Only primeiro; snippet pronto em `deploy/nginx-security.conf.example`) e Cache-Control no HTML (menor).
+
+**Problema (histórico, já resolvido acima):** nas respostas **GET** dos HTML (200) NÃO chegavam `Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Cache-Control`; o `Strict-Transport-Security` só aparecia nas 404. O `.htaccess` já tem regras, mas o **nginx (reverse proxy do DirectAdmin) não as repassa no GET**.
 
 **Verificar (mostra o problema):**
 ```bash

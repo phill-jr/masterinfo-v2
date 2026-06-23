@@ -1,0 +1,4 @@
+/* MasterInfo - fontes auto-hospedadas (variaveis, subset latin). Mata CLS de font-swap. */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:500 900;font-display:optional;src:url('/vendor/fonts/archivo.woff2') format('woff2')}
+@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:400 800;font-display:optional;src:url('/vendor/fonts/hanken-grotesk.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500 700;font-display:optional;src:url('/vendor/fonts/jetbrains-mono.woff2') format('woff2')}
