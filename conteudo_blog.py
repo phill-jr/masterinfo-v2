@@ -49,8 +49,8 @@ DATE_DEFAULT = "2026-06-18"
 PILARES = [
     {
         "slug": "internet-joinville",
-        "title": "Internet Fibra em Joinville | Planos e Cobertura",
-        "desc": "Internet fibra óptica em Joinville: planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura no seu bairro.",
+        "title": "Internet Fibra em Joinville: Planos, Preços e Cobertura",
+        "desc": "Internet fibra óptica em Joinville de 600 Mega a 1 Giga, Wi-Fi 6 e instalação em até 3 dias. Suporte local de verdade. Veja planos e cobertura no seu bairro.",
         "tag": "INTERNET · JOINVILLE",
         "h1": "Internet fibra em Joinville, com suporte de gente da região",
         "lead": "Fibra óptica de verdade na sua casa, do Centro ao Vila Nova, passando por Bom Retiro, América, Glória e Boa Vista. Planos de 600 Mega a 1 Giga, Wi-Fi 6 e atendimento local que resolve.",
@@ -155,8 +155,8 @@ PILARES = [
     },
     {
         "slug": "melhor-internet-joinville",
-        "title": "Qual a Melhor Internet de Joinville? Critérios para Escolher",
-        "desc": "Como escolher a melhor internet de Joinville: estabilidade, fibra dedicada, suporte local e avaliações reais. Veja os critérios e os planos da MasterInfo.",
+        "title": "Qual a Melhor Internet de Joinville? Guia 2026",
+        "desc": "Como escolher a melhor internet de Joinville em 2026: fibra de verdade, estabilidade, suporte local e avaliações reais. Veja os critérios e compare.",
         "tag": "GUIA · MELHOR INTERNET",
         "h1": "Qual a melhor internet de Joinville? Os critérios que importam",
         "lead": "Não existe uma resposta única, mas existem critérios objetivos para escolher bem: tecnologia, estabilidade real, suporte local e reputação. Veja como avaliar e onde a MasterInfo se encaixa.",
@@ -855,8 +855,8 @@ PILARES = [
 BLOG = [
     {
         "slug": "quantos-mega-de-internet-voce-precisa",
-        "title": "Quantos Mega de Internet Você Precisa? Guia por Perfil",
-        "desc": "Quantos Mega de internet contratar? Guia por perfil de uso (sozinho, casal, família, home office, gamer) com tabela por atividade e recomendação prática.",
+        "title": "Quantos Mega de Internet Você Precisa? Tabela por Uso",
+        "desc": "Quantos Mega contratar? Veja a tabela por perfil — 1 pessoa, família, home office e gamer — e descubra a velocidade ideal sem pagar a mais nem travar.",
         "h1": "Quantos Mega de internet você precisa? Guia por perfil",
         "lead": "Antes de contratar, descubra a velocidade ideal pra sua casa sem pagar a mais nem ficar travando. A conta é simples e depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo.",
         "author": "tecnica",
@@ -911,7 +911,7 @@ BLOG = [
     {
         "slug": "fibra-vs-radio-vs-cabo",
         "title": "Fibra Óptica vs Rádio vs Cabo: Qual a Melhor Internet?",
-        "desc": "Fibra óptica, internet via rádio ou cabo: entenda as diferenças de velocidade, estabilidade e cobertura, e descubra qual é a melhor internet pra você.",
+        "desc": "Fibra óptica, rádio ou cabo: veja as diferenças de velocidade, estabilidade e cobertura — e descubra qual é a melhor internet pra sua casa em Joinville.",
         "h1": "Fibra óptica vs rádio vs cabo: qual a melhor internet?",
         "lead": "Os três tipos de conexão mais comuns no Brasil têm diferenças grandes de estabilidade e velocidade. Entenda cada um em linguagem simples e veja por que a fibra virou o padrão.",
         "author": "tecnica",
