@@ -146,8 +146,15 @@ try {
             $dealFields['TITLE'] = mb_substr($title, 0, 250, 'UTF-8');
         }
         if (empty($dealFields['TITLE'])) $dealFields['TITLE'] = $cfg['label'];
-        $dealFields['CATEGORY_ID'] = $cfg['category_id'];
-        $dealFields['STAGE_ID']    = $cfg['stage_id'];
+        // Categoria/etapa do deal — DEFAULT EXPLÍCITO no funil Comercial (0) / etapa NEW quando
+        // o form não tiver categoria mapeada. Sem isso o CATEGORY_ID ia vazio e o Bitrix "flutuava"
+        // — uma categoria recém-criada chegou a capturar um checkout do site (incidente 2026-06-25,
+        // deal foi parar na categoria 68 nova). Nunca deixar o Bitrix escolher sozinho.
+        $catId = (isset($cfg['category_id']) && $cfg['category_id'] !== '') ? (int) $cfg['category_id'] : 0;
+        $dealFields['CATEGORY_ID'] = $catId;
+        // Se a categoria caiu no default Comercial (0), força a etapa NEW dela — não reaproveita
+        // uma stage de outro funil (evita CATEGORY/STAGE incompatíveis).
+        $dealFields['STAGE_ID'] = ($catId !== 0 && !empty($cfg['stage_id'])) ? $cfg['stage_id'] : 'NEW';
         $dealFields['SOURCE_ID']   = $sourceId;
         $dealFields['CURRENCY_ID'] = 'BRL';
         $dealFields['OPENED']      = 'Y';
