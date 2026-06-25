@@ -76,7 +76,7 @@ DirectoryIndex index-light.html index.html index.php
 # ========================================
 <IfModule mod_alias.c>
     RedirectMatch 301 ^/planos-residenciais/?$   /familia/
-    RedirectMatch 301 ^/planos-empresariais/?$   /
+    RedirectMatch 301 ^/planos-empresariais/?$   /internet-empresarial/
     RedirectMatch 301 ^/fale-conosco/?$          /contato/
     RedirectMatch 301 ^/trabalheconosco/?$       /contato/
     RedirectMatch 301 ^/formulario-bitrix/?$     /contato/
