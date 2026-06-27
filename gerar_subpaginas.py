@@ -1363,6 +1363,28 @@ def local_business_jsonld(bairro_nome, page_url):
     return '\n  <script type="application/ld+json">\n' + json.dumps(data, ensure_ascii=False, indent=2) + '\n  </script>'
 
 
+# Interlink spoke-to-spoke entre as paginas de bairro (hub-and-spoke). Cada bairro linka
+# pros outros 12, fechando o internal linking (antes os bairros so linkavam pro hub).
+def bairros_vizinhos_section(current_slug):
+    outros = [(s, n) for s, n in BAIRRO_AREA.items() if s != current_slug]
+    chips = "".join(f'<a href="/{s}/" class="bv-link">Internet {n}</a>' for s, n in outros)
+    css = ('<style>.bairros-vizinhos{padding:52px 0;background:rgba(255,122,5,0.04)}'
+           '.bairros-vizinhos h2{font-size:clamp(1.3rem,3vw,1.75rem);font-weight:800;color:var(--text-primary);margin-bottom:8px}'
+           '.bairros-vizinhos p{color:var(--text-muted);margin-bottom:22px}'
+           '.bv-grid{display:flex;flex-wrap:wrap;gap:10px}'
+           '.bv-link{display:inline-flex;align-items:center;padding:8px 16px;font-size:0.9rem;font-weight:600;color:var(--orange-dark);'
+           'background:rgba(255,122,5,0.07);border:1px solid rgba(255,122,5,0.22);border-radius:999px;'
+           'transition:transform .16s cubic-bezier(.23,1,.32,1),background-color .16s ease,border-color .16s ease}'
+           '.bv-link:active{transform:scale(.96)}'
+           '@media(hover:hover) and (pointer:fine){.bv-link:hover{background:rgba(255,122,5,.14);border-color:rgba(255,122,5,.5)}}</style>')
+    return ('\n  ' + css +
+            '\n  <section class="bairros-vizinhos">\n    <div class="container">'
+            '\n      <h2>Internet fibra óptica em outros bairros de Joinville</h2>'
+            '\n      <p>A MasterInfo também leva fibra óptica de verdade para:</p>'
+            f'\n      <div class="bv-grid">{chips}</div>'
+            '\n    </div>\n  </section>')
+
+
 def page_pilar(p, depth=1):
     extra = f'<link rel="stylesheet" href="/blog.css?v={BLOGCSS_VER}">'
     short_title = p["title"].split(" | ")[0]
@@ -1404,8 +1426,9 @@ def page_pilar(p, depth=1):
                 f'\n    </div>\n  </section>')
     plans_script = ("\n" + PLANS_SYNC_SCRIPT) if p.get("plans") else ""
     lb = local_business_jsonld(BAIRRO_AREA[p["slug"]], SITE_URL + "/" + p["slug"] + "/") if p["slug"] in BAIRRO_AREA else ""
+    vizinhos = bairros_vizinhos_section(p["slug"]) if p["slug"] in BAIRRO_AREA else ""
     return (head(short_title, depth, extra) + header(depth) + hero + article
-            + plans_after + faq_html + cta_band + faq_jsonld + lb + plans_script + footer(depth))
+            + plans_after + faq_html + vizinhos + cta_band + faq_jsonld + lb + plans_script + footer(depth))
 
 
 def page_blog_index(depth=1):
