@@ -258,11 +258,15 @@
   // ─── Google Ads (remarketing + conversoes) ───
   function initGoogleAds(id) {
     if (!id) return;
-    // Carrega o loader do gtag.js usando o proprio ID do Google Ads quando ele ainda nao
-    // foi injetado (ex.: sem GA4 configurado). Antes deste fix so o initGA4() injetava o
-    // loader; sem GA4 o gtag.js nunca carregava e o config abaixo ficava preso na fila do
-    // dataLayer -> nenhuma conversao/remarketing client-side era transmitida ao Google.
-    if (!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
+    // Carrega o gtag.js do PROPRIO ID do Google Ads, checando o ID ESPECIFICO (nao "qualquer
+    // gtag.js"). Quando ha um GA4 configurado (ga4Id), o initGA4 ja carregou gtag.js?id=<GA4>;
+    // o guard antigo ("existe algum gtag.js?") fazia o initGoogleAds PULAR, e o tag do Ads
+    // ficava so como config secundario -> NAO ativa se o AW nao estiver linkado como destino do
+    // GA4, e a conversao do form era chamada mas NUNCA transmitida (FORMULARIO 01 = 0). Carregar
+    // o gtag.js?id=<AW> garante o tag do Ads ativo (multi-tag e suportado: cada gtag/js?id=X
+    // registra o destino X). Sem GA4 (ga4Id vazio) continua igual ao comportamento anterior.
+    // Bug diagnosticado 27/06/2026 (form chamava a conversao, mas o Ads nao transmitia).
+    if (!document.querySelector('script[src*="gtag/js?id=' + id + '"]')) {
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
