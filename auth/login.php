@@ -38,7 +38,13 @@ $input = json_decode(file_get_contents('php://input'), true);
 $user = trim($input['usuario'] ?? '');
 $pass = $input['senha'] ?? '';
 
-if ($user !== ADMIN_USER || !password_verify($pass, ADMIN_PASS_HASH)) {
+// Hash do usuario informado (null se nao existir). Usamos um hash dummy quando
+// nao existe para que password_verify rode sempre e o tempo de resposta nao
+// vaze quais usuarios sao validos (mitiga user enumeration por timing).
+$storedHash = ADMIN_USERS[$user] ?? null;
+$verifyHash = $storedHash ?? '$2y$12$0000000000000000000000000000000000000000000000000000u';
+
+if ($storedHash === null || !password_verify($pass, $verifyHash)) {
     $rateData['count']++;
     file_put_contents($rateFile, json_encode($rateData), LOCK_EX);
 
