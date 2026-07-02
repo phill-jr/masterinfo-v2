@@ -135,6 +135,13 @@ DirectoryIndex index-light.html index.html index.php
     <FilesMatch "\.(css|js|woff2)$">
         Header set Cache-Control "public, immutable, max-age=31536000"
     </FilesMatch>
+    # HTML: cache curto com revalidacao. O nginx (reverse-proxy do DA) DESCARTA os
+    # headers do Apache no GET, MENOS Cache-Control/Expires, que ele preserva -- por
+    # isso este Cache-Control sobrevive no GET publico (ao contrario dos security
+    # headers, que precisaram do template nginx). max-age baixo pra propagar deploy rapido.
+    <FilesMatch "\.html?$">
+        Header set Cache-Control "public, max-age=600, stale-while-revalidate=86400"
+    </FilesMatch>
 </IfModule>
 
 # --- WebP transparente: serve x.jpg.webp se o browser aceitar E o arquivo existir ---
