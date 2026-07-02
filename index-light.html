@@ -38,10 +38,11 @@
   <!-- Fontes auto-hospedadas (variaveis, subset latin) + preload das criticas. Mata CLS de font-swap (display:optional). -->
   <link rel="preload" href="/vendor/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/vendor/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-  <!-- Preload do hero (LCP): o WebP baixa em ~190ms mas o browser demorava 2,17s pra INICIAR o fetch
-       (contencao com 55 requests). Preload + fetchpriority fura a fila. Se trocar o banner do slide 1,
-       atualizar este href junto. -->
-  <link rel="preload" href="imgs/hero/banner-copa.webp" as="image" type="image/webp" fetchpriority="high">
+  <!-- Preload do hero (LCP): o browser demorava ~2,3s pra INICIAR o fetch da imagem do hero
+       (descoberta tardia: com homeHero.usarPaginas ligado o hero e reescrito via JS). Este href e
+       SINCRONIZADO pelo gerar_subpaginas.py (sync_hero_preload): usarPaginas ON -> 1o slide do
+       internet-hero.json; OFF -> banner estatico. NAO editar a mao. -->
+  <link id="hero-preload" rel="preload" href="imgs/hero/sub/home-office-1.jpg.webp" as="image" type="image/webp" fetchpriority="high">
   <style>@font-face{font-family:'Archivo';font-style:normal;font-weight:500 900;font-display:optional;src:url('/vendor/fonts/archivo.woff2') format('woff2')}@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:400 800;font-display:optional;src:url('/vendor/fonts/hanken-grotesk.woff2') format('woff2')}@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500 700;font-display:optional;src:url('/vendor/fonts/jetbrains-mono.woff2') format('woff2')}</style>
 
   <!-- Phosphor Icons -->
@@ -790,6 +791,7 @@
             <span class="neighborhood-tag neighborhood-new">+ Novos bairros em breve</span>
           </div>
           <p class="coverage-pages"><span class="coverage-pages-label">Páginas por bairro:</span> <a class="coverage-page-link" href="/internet-comasa-joinville/">Comasa</a>, <a class="coverage-page-link" href="/internet-boa-vista-joinville/">Boa Vista</a>, <a class="coverage-page-link" href="/internet-iririu-joinville/">Iririú</a>, <a class="coverage-page-link" href="/internet-espinheiros-joinville/">Espinheiros</a>, <a class="coverage-page-link" href="/internet-aventureiro-joinville/">Aventureiro</a>, <a class="coverage-page-link" href="/internet-itinga-joinville/">Itinga</a>, <a class="coverage-page-link" href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a>, <a class="coverage-page-link" href="/internet-jardim-sofia-joinville/">Jardim Sofia</a>, <a class="coverage-page-link" href="/internet-cubatao-joinville/">Cubatão</a>, <a class="coverage-page-link" href="/internet-nova-brasilia-joinville/">Nova Brasília</a>, <a class="coverage-page-link" href="/internet-rio-bonito-joinville/">Rio Bonito</a>, <a class="coverage-page-link" href="/internet-estrada-timbe-joinville/">Estrada Timbé</a> e <a class="coverage-page-link" href="/internet-paranaguamirim-joinville/">Paranaguamirim</a>.</p>
+          <p class="coverage-pages"><span class="coverage-pages-label">Guias:</span> <a class="coverage-page-link" href="/internet-joinville/">Internet fibra em Joinville</a>, <a class="coverage-page-link" href="/melhor-internet-joinville/">Qual a melhor internet de Joinville</a> e <a class="coverage-page-link" href="/blog/">Blog da MasterInfo</a>.</p>
           <a href="#" onclick="openLeadModal(); return false;" class="btn btn-primary btn-lg">
             <i class="ph ph-map-pin"></i> Consultar meu endereço
           </a>

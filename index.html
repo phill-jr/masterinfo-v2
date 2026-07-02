@@ -32,6 +32,10 @@
   <!-- Canonical: consolida index.html (dark) e index-light.html (claro) na raiz -->
   <link rel="canonical" href="https://masterinfointernet.com/">
 
+  <!-- Preload do hero (LCP): href sincronizado pelo gerar_subpaginas.py (sync_hero_preload),
+       segue o 1o slide real (usarPaginas ON -> internet-hero.json; OFF -> banner estatico). NAO editar a mao. -->
+  <link id="hero-preload" rel="preload" href="imgs/hero/sub/home-office-1.jpg.webp" as="image" type="image/webp" fetchpriority="high">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -840,6 +844,7 @@
             <span class="neighborhood-tag neighborhood-new">+ Novos bairros em breve</span>
           </div>
           <p style="margin-top:16px;font-size:0.95rem;">Páginas por bairro: <a style="color:#e06800;font-weight:600" href="/internet-comasa-joinville/">Comasa</a>, <a style="color:#e06800;font-weight:600" href="/internet-boa-vista-joinville/">Boa Vista</a>, <a style="color:#e06800;font-weight:600" href="/internet-iririu-joinville/">Iririú</a>, <a style="color:#e06800;font-weight:600" href="/internet-espinheiros-joinville/">Espinheiros</a>, <a style="color:#e06800;font-weight:600" href="/internet-aventureiro-joinville/">Aventureiro</a>, <a style="color:#e06800;font-weight:600" href="/internet-itinga-joinville/">Itinga</a>, <a style="color:#e06800;font-weight:600" href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a>, <a style="color:#e06800;font-weight:600" href="/internet-jardim-sofia-joinville/">Jardim Sofia</a>, <a style="color:#e06800;font-weight:600" href="/internet-cubatao-joinville/">Cubatão</a>, <a style="color:#e06800;font-weight:600" href="/internet-nova-brasilia-joinville/">Nova Brasília</a>, <a style="color:#e06800;font-weight:600" href="/internet-rio-bonito-joinville/">Rio Bonito</a>, <a style="color:#e06800;font-weight:600" href="/internet-estrada-timbe-joinville/">Estrada Timbé</a> e <a style="color:#e06800;font-weight:600" href="/internet-paranaguamirim-joinville/">Paranaguamirim</a>.</p>
+          <p style="margin-top:10px;font-size:0.95rem;">Guias: <a style="color:#e06800;font-weight:600" href="/internet-joinville/">Internet fibra em Joinville</a>, <a style="color:#e06800;font-weight:600" href="/melhor-internet-joinville/">Qual a melhor internet de Joinville</a> e <a style="color:#e06800;font-weight:600" href="/blog/">Blog da MasterInfo</a>.</p>
           <a href="#" onclick="openLeadModal(); return false;" class="btn btn-primary btn-lg">
             <i class="ph ph-map-pin"></i> Consultar meu endereço
           </a>

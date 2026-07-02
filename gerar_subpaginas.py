@@ -2231,6 +2231,35 @@ def gerar_internet_hero():
     print(f"  internet-hero.json: {len(out)} pagina(s).")
 
 
+def sync_hero_preload():
+    """Aponta o <link id="hero-preload"> das 2 homes pra imagem REAL do 1o slide do hero.
+    Bug 01/07: com config.homeHero.usarPaginas LIGADO, o renderHero (site-loader) reescreve o
+    hero via JS a partir do internet-hero.json, e o LCP vira o 1o slide de la; o preload
+    estatico apontava pro banner-copa (nunca pintado) -> resource load delay de ~2,3s e
+    download desperdicado. Este sync le o toggle do config e escolhe o alvo certo a cada
+    regen. Se o Philipe trocar o toggle/hero no admin, basta rodar o gerador + deploy."""
+    cfg = json.load(open(os.path.join(BASE_DIR, "config.json"), encoding="utf-8"))
+    usar = bool((cfg.get("homeHero") or {}).get("usarPaginas"))
+    target = "imgs/hero/banner-copa.webp"
+    if usar:
+        try:
+            items = json.load(open(os.path.join(BASE_DIR, "internet-hero.json"), encoding="utf-8"))
+            if items and items[0].get("img"):
+                target = items[0]["img"] + ".webp"  # renderHero usa <source srcset="img+.webp">
+        except Exception as e:
+            print(f"  ! sync_hero_preload: falha lendo internet-hero.json ({e}), mantendo banner estatico")
+    pat = re.compile(r'(<link id="hero-preload" rel="preload" href=")[^"]*(")')
+    n = 0
+    for fn in ("index.html", "index-light.html"):
+        p = os.path.join(BASE_DIR, fn)
+        s = open(p, encoding="utf-8", newline="").read()
+        s2, c = pat.subn(lambda m: m.group(1) + target + m.group(2), s)
+        if c and s2 != s:
+            open(p, "w", encoding="utf-8", newline="").write(s2)
+            n += 1
+    print(f"  hero-preload -> {target} (usarPaginas={'ON' if usar else 'OFF'}, {n} home(s) reescritas)")
+
+
 if __name__ == "__main__":
     modo = sys.argv[1] if len(sys.argv) > 1 else "--menus"
     if modo in ("--full", "--tudo", "--bodies"):
@@ -2274,4 +2303,6 @@ if __name__ == "__main__":
     sync_subpage_ctas()
     print("\nHero da home por páginas (internet-hero.json)…")
     gerar_internet_hero()
+    print("\nPreload do hero (LCP) → homes…")
+    sync_hero_preload()
     print("\n✓ Concluído.")
