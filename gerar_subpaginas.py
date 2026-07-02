@@ -1517,7 +1517,7 @@ def page_autor(depth=1):
             f'\n      <p class="blog-post-lead">{a["role"]}</p>'
             '\n    </div>\n  </section>')
     body = ('\n  <main class="blog-main">\n    <div class="article-band">\n      <article class="article">'
-            f'\n      <div class="byline"><img src="{a["img"]}" alt="{a["name"]}" class="byline-avatar"><div class="byline-info"><span class="byline-name">{a["name"]}</span><span class="byline-role">{a["role"]}</span></div></div>'
+            f'\n      <div class="byline"><img src="{a["img"]}" alt="{a["name"]}" class="byline-avatar"><div class="byline-info"><span class="byline-name">{a["name"]}</span><span class="byline-role">{a["role"]}</span><a href="https://www.linkedin.com/in/philipe-alves-85687aa2/" target="_blank" rel="noopener me" class="byline-link" style="display:inline-flex;align-items:center;gap:5px;font-size:0.85rem;font-weight:600;color:var(--orange-dark);margin-top:3px"><i class="ph ph-linkedin-logo"></i> LinkedIn</a></div></div>'
             '\n      <p>Philipe Alves Medeiros começou na informática aos 16 anos, na época da gravação de CDs. Passou pela manutenção das escolas de informática RTI, formou-se em <strong>Sistemas de Informação</strong> e atuou por anos como <strong>arquiteto de redes</strong> em diversas empresas, experiência que hoje está por trás da operação de fibra da MasterInfo.</p>'
             '\n      <p>É essa bagagem, de quem projeta e mantém rede de verdade, que sustenta a MasterInfo Internet: <strong>fibra óptica até a casa do cliente (FTTH)</strong> com engenharia e suporte feitos por gente da própria região.</p>'
             '\n      <p>Joinvilense, é casado com <strong>Tatiane Lemos</strong> cofundadora da MasterInfo, e pai de três filhos. Escreve aqui sobre fibra, Wi-Fi, velocidade e cobertura com a visão de quem constrói e opera a rede todos os dias.</p>'
@@ -1531,6 +1531,7 @@ def page_autor(depth=1):
                              "description": "Fundador da MasterInfo Internet. Formado em Sistemas de Informação e arquiteto de redes, atua com fibra óptica (FTTH) em Joinville há mais de 6 anos.",
                              "knowsAbout": ["Redes de computadores", "Fibra óptica", "FTTH", "Wi-Fi", "Provedores de internet"],
                              "worksFor": {"@type": "Organization", "@id": SITE_URL + "/#org", "name": "MasterInfo Internet", "url": SITE_URL + "/"},
+                             "sameAs": ["https://www.linkedin.com/in/philipe-alves-85687aa2/"],
                              "url": SITE_URL + "/sobre/philipe/", "image": SITE_URL + a["img"]}}
     schema = '\n  <script type="application/ld+json">\n' + json.dumps(person, ensure_ascii=False, indent=2) + '\n  </script>'
     return head(a["name"], depth, extra) + header(depth) + hero + body + schema + footer(depth)
