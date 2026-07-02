@@ -38,8 +38,12 @@ AUTHORS = {
     },
 }
 
-PUBLISHER = {"name": "MasterInfo Internet", "logo": "/imgs/logo-masterinfo.png"}
+PUBLISHER = {"name": "MasterInfo Internet", "logo": "/logo-masterinfo.png"}
 DATE_DEFAULT = "2026-06-18"
+# dateModified do schema WebPage (hub/autoridade/bairros/pilares, paginas sem "date" proprio).
+# Atualizar a mao so quando o CONTEUDO dessas paginas mudar de verdade (mesma logica do
+# DATE_DEFAULT acima) -- nao e pra virar timestamp automatico de toda rodada do gerador.
+CONTENT_LAST_UPDATED = "2026-07-01"
 
 # ─── PÁGINAS-PILAR (landing comercial) ────────────────────────────────────
 # slug → /slug/ (depth 1). hero_img = imagem de fundo (root-absolute). plans =
@@ -856,7 +860,7 @@ BLOG = [
     {
         "slug": "quantos-mega-de-internet-voce-precisa",
         "title": "Quantos Mega de Internet Você Precisa? Tabela por Uso",
-        "desc": "Quantos Mega contratar? Veja a tabela por perfil — 1 pessoa, família, home office e gamer — e descubra a velocidade ideal sem pagar a mais nem travar.",
+        "desc": "Quantos Mega contratar? Veja a tabela por perfil (1 pessoa, família, home office e gamer) e descubra a velocidade ideal sem pagar a mais nem travar.",
         "h1": "Quantos Mega de internet você precisa? Guia por perfil",
         "lead": "Antes de contratar, descubra a velocidade ideal pra sua casa sem pagar a mais nem ficar travando. A conta é simples e depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo.",
         "author": "tecnica",
@@ -911,7 +915,7 @@ BLOG = [
     {
         "slug": "fibra-vs-radio-vs-cabo",
         "title": "Fibra Óptica vs Rádio vs Cabo: Qual a Melhor Internet?",
-        "desc": "Fibra óptica, rádio ou cabo: veja as diferenças de velocidade, estabilidade e cobertura — e descubra qual é a melhor internet pra sua casa em Joinville.",
+        "desc": "Fibra óptica, rádio ou cabo: veja as diferenças de velocidade, estabilidade e cobertura, e descubra qual é a melhor internet pra sua casa em Joinville.",
         "h1": "Fibra óptica vs rádio vs cabo: qual a melhor internet?",
         "lead": "Os três tipos de conexão mais comuns no Brasil têm diferenças grandes de estabilidade e velocidade. Entenda cada um em linguagem simples e veja por que a fibra virou o padrão.",
         "author": "tecnica",
@@ -947,7 +951,7 @@ BLOG = [
     <p>A internet via rádio tem o seu lugar: em áreas rurais ou afastadas, onde ainda não chegou cabeamento de fibra, ela conecta onde nada mais conecta. A desvantagem é depender de linha de visada com a torre e sofrer com clima e congestionamento quando muita gente usa a mesma antena.</p>
 
     <h2>Como saber qual você tem (ou pode ter)</h2>
-    <p>Se o provedor instala um equipamento ligado a um cabo de fibra que entra na sua casa, é FTTH (fibra até a casa), o ideal. Para descobrir se já existe fibra no seu endereço, veja <a href="/blog/cobertura-fibra-cep-joinville/">como consultar a cobertura pelo CEP</a> ou compare as opções no guia <a href="/melhor-internet-joinville/">qual a melhor internet de Joinville</a>.</p>
+    <p>Se o provedor instala um equipamento ligado a um cabo de fibra que entra na sua casa, é FTTH (fibra até a casa), o ideal. Para descobrir se já existe fibra no seu endereço, veja <a href="/blog/cobertura-fibra-cep-joinville/">como consultar a cobertura pelo CEP</a>, confira a cobertura em bairros como <a href="/internet-iririu-joinville/">Iririú</a> e <a href="/internet-itinga-joinville/">Itinga</a>, ou compare as opções no guia <a href="/melhor-internet-joinville/">qual a melhor internet de Joinville</a>.</p>
 """,
         "faq": [
             ("Fibra óptica é melhor que internet via rádio?", "Na cidade, sim. A fibra é mais rápida, mais estável e não sofre com chuva nem interferência. A internet via rádio é uma boa alternativa em áreas rurais onde ainda não há cabeamento de fibra."),
@@ -989,7 +993,7 @@ BLOG = [
     <p>A rede da MasterInfo cresce constantemente em Joinville. Se o seu endereço ainda não estiver coberto, vale registrar seu interesse: assim você é avisado assim que a fibra expandir para a sua região. Enquanto isso, fale com a gente pelo <a href="/contato/">contato</a> para entender a previsão para o seu bairro.</p>
 
     <h2>Bairros atendidos</h2>
-    <p>Já levamos fibra para boa parte da cidade, incluindo Centro, América, Glória, Bom Retiro, Boa Vista, Vila Nova, Costa e Silva e Iririú, entre outros. Veja todas as opções no guia de <a href="/internet-joinville/">internet em Joinville</a>.</p>
+    <p>Já levamos fibra para boa parte da cidade, incluindo Centro, América, Glória, Bom Retiro, <a href="/internet-boa-vista-joinville/">Boa Vista</a>, Vila Nova, Costa e Silva e <a href="/internet-iririu-joinville/">Iririú</a>, entre outros, com páginas próprias de cobertura para bairros como <a href="/internet-comasa-joinville/">Comasa</a> e <a href="/internet-paranaguamirim-joinville/">Paranaguamirim</a>. Veja todas as opções no guia de <a href="/internet-joinville/">internet em Joinville</a>.</p>
 """,
         "faq": [
             ("Como sei se tem fibra no meu endereço?", "Consulte a cobertura pelo CEP aqui no site: informe o CEP e o número do imóvel e o sistema confirma na hora se a rede de fibra já atende o local."),
@@ -1095,7 +1099,7 @@ BLOG = [
     </div>
 
     <h2>Antes da instalação: confirme a cobertura</h2>
-    <p>O primeiro passo é confirmar que a fibra já atende o seu endereço. Dá para checar em segundos pelo CEP (veja <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>). Com a viabilidade confirmada e o plano escolhido, a instalação é agendada para os próximos dias úteis.</p>
+    <p>O primeiro passo é confirmar que a fibra já atende o seu endereço, seja no <a href="/internet-comasa-joinville/">Comasa</a>, na <a href="/internet-boa-vista-joinville/">Boa Vista</a> ou em qualquer outro bairro atendido. Dá para checar em segundos pelo CEP (veja <a href="/blog/cobertura-fibra-cep-joinville/">como saber se tem fibra no seu endereço</a>). Com a viabilidade confirmada e o plano escolhido, a instalação é agendada para os próximos dias úteis.</p>
 
     <h2>O que o técnico faz no dia</h2>
     <ol>
@@ -1601,6 +1605,71 @@ BLOG_DEEP.update({"sky-light-playhub-como-funciona": {"body": "<p>Se você está
 
 # Seções 'Sobre o bairro' (workflow pesquisa+verificação de fontes, 2026-06-22). Inseridas antes de 'Internet para cada necessidade' no gerador.
 BAIRROS_DEEP = {
+ "internet-boa-vista-joinville": {
+  "section": "<h2>Sobre o bairro Boa Vista</h2>\n<p>O nome do bairro é bem antigo: já aparecia no primeiro mapa de demarcação de Joinville, feito pelo engenheiro Jerônimo Coelho em 1846, numa referência à floresta densa e bonita que cobria a região (o morro local chegou a ser chamado de \"Morro da Cachoeira\"). A ocupação também é uma das mais antigas da cidade: em 1851, Eduardo Schroeder, filho do senador Christian Mathias Schroeder, visitou a região a caminho de verificar a Colônia Dona Francisca e já encontrou fazendas instaladas por ali, no que é considerado, junto com o Itaum e o Bucarein, um dos núcleos populacionais mais antigos de Joinville.</p>\n<p>Administrativamente, o Boa Vista virou distrito de Joinville em 1959, pela Lei estadual nº 393, e seguiu assim até 1976, quando passou a ser um bairro comum da cidade; a oficialização definitiva como bairro veio pela Lei municipal nº 1.526, de 5 de julho de 1977 (a mesma que denominou vários bairros de Joinville na mesma data). Fica na zona Leste, ao lado de Comasa, Espinheiros e Iririú, região que cresceu bastante a partir da década de 1940 com a instalação da Fundição Tupy às margens da Lagoa Saguaçu, o que trouxe energia elétrica e água tratada para o bairro no início dos anos 1950.</p>\n<p>Hoje o Morro da Boa Vista guarda uma área de mata atlântica preservada, com mirantes que dão vista da cidade e da Serra do Mar, além do Museu Casa Fritz Alt. É nesse bairro de história longa que a MasterInfo leva fibra óptica até a casa do cliente, com instalação FTTH e suporte de quem é de Joinville.</p>",
+  "faq_extra": [
+   {
+    "q": "De onde vem o nome do bairro Boa Vista, em Joinville?",
+    "a": "O nome já aparecia em 1846, no primeiro mapa de demarcação de Joinville, feito pelo engenheiro Jerônimo Coelho, numa referência à floresta densa e bonita que cobria a região. O morro local era conhecido antigamente como Morro da Cachoeira."
+   },
+   {
+    "q": "O bairro Boa Vista já foi um distrito de Joinville?",
+    "a": "Sim. Virou distrito em 1959, pela Lei estadual nº 393, e seguiu assim até 1976, quando passou a ser um bairro comum da cidade. A oficialização definitiva como bairro veio pela Lei municipal nº 1.526, de 5 de julho de 1977."
+   }
+  ]
+ },
+ "internet-iririu-joinville": {
+  "section": "<h2>Sobre o bairro Iririú</h2>\n<p>O nome Iririú vem do tupi-guarani: a junção de \"iriri\" (ostra) e \"u\" (rio) forma \"rio da ostra\", numa referência ao rio Iririú-mirim, que corta a região até desaguar na baía da Babitonga. Antes de receber esse nome, a área era conhecida como \"Guaxanduva\", em função da guaxuma, planta rica em fibra têxtil que era abundante por ali. O bairro foi oficializado pela Lei municipal nº 1.526, de 5 de julho de 1977 (a mesma que denominou vários outros bairros de Joinville na mesma data), e teve os limites redefinidos depois pela Lei nº 2.376, de 12 de janeiro de 1990.</p>\n<p>Um dos loteamentos que marcou a expansão da região foi o Jardim Iririú, implantado ainda na década de 1970; com o tempo, essa área cresceu tanto que hoje é registrada pela Prefeitura como um bairro próprio e separado, vizinho do Iririú.</p>\n<p>É nesse bairro grande e residencial, na zona leste de Joinville, que a MasterInfo leva fibra óptica até a casa do cliente (FTTH), com Wi-Fi forte para cobrir todos os cômodos e suporte de quem é da região.</p>",
+  "faq_extra": [
+   {
+    "q": "O que significa o nome do bairro Iririú, em Joinville?",
+    "a": "Vem do tupi-guarani: a junção de \"iriri\" (ostra) e \"u\" (rio) forma \"rio da ostra\", em referência ao rio Iririú-mirim que corta a região. Antes desse nome, a área era conhecida como \"Guaxanduva\", por causa de uma planta rica em fibra têxtil abundante no local."
+   },
+   {
+    "q": "Quando o Iririú foi oficializado como bairro de Joinville?",
+    "a": "Pela Lei municipal nº 1.526, de 5 de julho de 1977, a mesma lei que denominou vários outros bairros da cidade na mesma data. Os limites do bairro foram redefinidos depois pela Lei nº 2.376, de 12 de janeiro de 1990."
+   }
+  ]
+ },
+ "internet-espinheiros-joinville": {
+  "section": "<h2>Sobre o bairro Espinheiros</h2>\n<p>O nome do bairro vem da \"Tarjuva\", um arbusto espinhoso que era abundante na região. O Espinheiros foi oficializado como bairro em 18 de dezembro de 1997, pela Lei Complementar nº 54, a mesma lei que também criou os bairros Comasa e Cubatão e redefiniu o perímetro dos bairros de Joinville. Fica na zona Leste da cidade, ao lado do Comasa, do Jardim Iririú e da Vila Cubatão.</p>\n<p>A ocupação da região foi puxada pela Fundição Tupy e por loteamentos como Vila Paranaense, Novos Horizontes e Moinho dos Ventos, perto da Lagoa Saguaçu e do Joinville Iate Clube; no passado, o barco era o meio de transporte mais comum por ali. O bairro chegou a funcionar como uma espécie de ilha na Baía de São Francisco do Sul, e o acesso a partir do vizinho Boa Vista só era possível de canoa; a energia elétrica e a água tratada só chegaram na década de 1970. Até 1997, quando o bairro foi criado oficialmente, a ponte pênsil que liga as duas margens sobre o rio Comprido ainda não existia, e os moradores precisavam contornar cerca de dez quarteirões para chegar ao outro lado do Espinheiros.</p>\n<p>É nessa região de história marcada pela água e pelo trabalho na indústria que a MasterInfo leva fibra óptica até a casa do cliente, com conexão estável de ponta a ponta (FTTH).</p>",
+  "faq_extra": [
+   {
+    "q": "De onde vem o nome do bairro Espinheiros, em Joinville?",
+    "a": "Vem da \"Tarjuva\", um arbusto espinhoso que era abundante na região. O bairro foi oficializado em 18 de dezembro de 1997, pela Lei Complementar nº 54, que também criou os bairros Comasa e Cubatão."
+   },
+   {
+    "q": "É verdade que o Espinheiros já foi uma espécie de ilha?",
+    "a": "Sim. O bairro chegou a funcionar como uma espécie de ilha na Baía de São Francisco do Sul, e o acesso a partir do bairro vizinho Boa Vista só era possível de canoa; a energia elétrica e a água tratada só chegaram na região na década de 1970."
+   }
+  ]
+ },
+ "internet-aventureiro-joinville": {
+  "section": "<h2>Sobre o bairro Aventureiro</h2>\n<p>O nome do bairro nasceu do futebol: o Aventureiro Esporte Clube funciona desde 1º de dezembro de 1951, e o hábito de dizer \"vamos ao campo do Aventureiro\" (especialmente entre os times adversários) acabou batizando toda a região. Antes da urbanização, quem morava por ali vivia de lavoura, banana, aipim, cana de açúcar e milho, e de pesca no rio Cubatão e no mar, na área do antigo Portinho.</p>\n<p>A ocupação se intensificou a partir de 1981, com a chegada do Conjunto Habitacional Castello Branco (a Cohab do Aventureiro), e o bairro foi se formando aos poucos pela junção de vários loteamentos ao longo das décadas de 1970 e 1980, como o Jardim Franciele e o Rio do Ferro. Os limites atuais foram definidos pela Lei municipal nº 2.376, de 12 de janeiro de 1990, e o bairro é hoje administrado pela Subprefeitura da Região Nordeste.</p>\n<p>É também o bairro mais populoso de Joinville: são mais de 42 mil habitantes segundo o Censo mais recente, além de ser o quarto maior em área da cidade e o quarto em número de estabelecimentos comerciais. Nesse bairro grande e cheio de gente, a MasterInfo leva fibra óptica até a casa do cliente (FTTH), com Wi-Fi forte para cobrir toda a casa.</p>",
+  "faq_extra": [
+   {
+    "q": "De onde vem o nome do bairro Aventureiro, em Joinville?",
+    "a": "Vem do futebol: o Aventureiro Esporte Clube funciona desde 1º de dezembro de 1951, e o hábito de dizer \"vamos ao campo do Aventureiro\" acabou batizando toda a região ao redor do clube."
+   },
+   {
+    "q": "O Aventureiro é o bairro mais populoso de Joinville?",
+    "a": "Sim. Segundo o Censo mais recente, o Aventureiro tem mais de 42 mil habitantes, sendo o bairro mais populoso da cidade, além de ser o quarto maior em área e o quarto em número de estabelecimentos comerciais."
+   }
+  ]
+ },
+ "internet-itinga-joinville": {
+  "section": "<h2>Sobre o bairro Itinga</h2>\n<p>O nome Itinga vem do tupi-guarani: a junção de \"y\" (água) com \"tinga\" (branco) forma \"água branca\", numa referência à cor leitosa que os rios da região ganham pela dissolução de argila branca, o caulim, nas suas águas. O bairro foi oficializado pela Lei municipal nº 1.526, de 5 de julho de 1977, e é o mais ao sul de Joinville, fazendo divisa com o município de Araquari, no caminho para as praias de São Francisco do Sul e Balneário Barra do Sul. Em 2004, parte do território do Itinga, junto com o bairro João Costa, deu origem ao bairro Parque Guarani, por desmembramento.</p>\n<p>O crescimento populacional foi rápido: o bairro, recém-criado, tinha cerca de 2,5 mil moradores na década de 1980 e já passava de 6,8 mil em 2008, segundo levantamento do Ippuj. A infraestrutura básica demorou a chegar: a energia elétrica só veio em 1971, depois de mobilização dos próprios moradores, e o transporte coletivo chegou de forma gradual. Boa parte de quem colonizou a região veio do Paraná, atraída pelos terrenos mais baratos.</p>\n<p>É nesse bairro de crescimento acelerado, na região sul de Joinville, que a MasterInfo leva fibra óptica até a casa do cliente (FTTH), com instalação rápida e suporte de gente da região.</p>",
+  "faq_extra": [
+   {
+    "q": "O que significa o nome do bairro Itinga, em Joinville?",
+    "a": "Vem do tupi-guarani: a junção de \"y\" (água) com \"tinga\" (branco) forma \"água branca\", em referência à cor leitosa que os rios da região ganham pela dissolução de argila branca (caulim) nas suas águas."
+   },
+   {
+    "q": "Quando a energia elétrica chegou ao Itinga?",
+    "a": "Só em 1971, depois de mobilização dos próprios moradores. O bairro cresceu rápido nas décadas seguintes: tinha cerca de 2,5 mil moradores nos anos 1980 e já passava de 6,8 mil em 2008, segundo levantamento do Ippuj."
+   }
+  ]
+ },
  "internet-jardim-paraiso-joinville": {
   "section": "<h2>Sobre o bairro Jardim Paraíso</h2>\n<p>O Jardim Paraíso é um dos bairros mais distantes do Centro de Joinville, a cerca de 10 quilômetros, e tem uma história que começa antes mesmo de ele fazer parte da cidade. A área surgiu de uma antiga ocupação na região do Cubatão e, na prática, o bairro foi desmembrado dali. O próprio nome não veio da paisagem: é a denominação que a imobiliária deu aos loteamentos Jardim Paraíso I, II, III e IV, que deram origem ao bairro.</p>\n<p>Até 6 de abril de 1992, essas terras pertenciam ao município vizinho de São Francisco do Sul. Foi a Lei estadual nº 8.563 que anexou a região a Joinville. Como bairro oficial da cidade, o Jardim Paraíso só foi formalizado depois, pela Lei nº 3.508, de 25 de junho de 1997. Hoje é um bairro grande e populoso: o censo municipal de 2014 apontou 18.072 moradores numa área de 3,22 km².</p>\n<p>É num bairro com esse tamanho e essa história de crescimento que a MasterInfo leva fibra óptica até a casa do cliente, com instalação FTTH e atendimento local de Joinville.</p>",
   "faq_extra": [

@@ -12,7 +12,7 @@ import sys
 import json
 
 # Conteúdo (páginas-pilar + blog), fonte única do texto dessas páginas. Ver conteudo_blog.py.
-from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT, PERSONAS_CONTENT, BLOG_DEEP, BAIRROS_DEEP
+from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT, CONTENT_LAST_UPDATED, PERSONAS_CONTENT, BLOG_DEEP, BAIRROS_DEEP
 
 # Console do Windows e cp1252 por padrao e quebra em '✓'/acentos. Forca UTF-8.
 try:
@@ -267,7 +267,7 @@ PLANS_MAP = {
         "nome": "Lite Casa", "linha": "LITE",
         "speed": "600", "unit": "Mega",
         "preco": "99,99", "preco_cheio": "109,99",
-        "apps": [{"logo": "sky.jpg", "nome": "App Master Standard"}],
+        "apps": [{"logo": "sky.jpg", "nome": "SKY+ Light"}],
         "features": [
             "Wi-Fi 6 em 1 ambiente",
             "1 app de TV / mês (categoria Standard)",
@@ -278,7 +278,7 @@ PLANS_MAP = {
         "nome": "Lite Premium", "linha": "LITE",
         "speed": "800", "unit": "Mega",
         "preco": "119,90", "preco_cheio": "129,90",
-        "apps": [{"logo": "sky.jpg", "nome": "App Master Advanced"}],
+        "apps": [{"logo": "sky.jpg", "nome": "SKY+ Light com Globo"}],
         "features": [
             "Wi-Fi 6 em 1 ambiente",
             "1 app de TV / mês (categoria Advanced)",
@@ -301,7 +301,7 @@ PLANS_MAP = {
         "nome": "Ultra Família", "linha": "ULTRA",
         "speed": "1", "unit": "Giga",
         "preco": "149,90", "preco_cheio": "159,90",
-        "apps": [{"logo": "disney-plus.png", "nome": "App Master Premium"}],
+        "apps": [{"logo": "disney-plus.png", "nome": "Disney+, HBO Max e GloboPlay"}],
         "features": [
             "Mesh Wi-Fi 6 (cobertura total)",
             "1 app de TV / mês (categoria Premium)",
@@ -313,8 +313,8 @@ PLANS_MAP = {
         "speed": "1", "unit": "Giga",
         "preco": "179,90", "preco_cheio": "189,90",
         "apps": [
-            {"logo": "globoplay.png", "nome": "App Master TOP"},
-            {"logo": "sky.jpg", "nome": "App Master Advanced"},
+            {"logo": "globoplay.png", "nome": "GloboPlay"},
+            {"logo": "sky.jpg", "nome": "SKY+ Light com Globo"},
             {"logo": "kaspersky.webp", "nome": "Kaspersky"},
         ],
         "apps_sep": "+",
@@ -330,7 +330,7 @@ PLANS_MAP = {
         "preco": "189,90", "preco_cheio": "199,90",
         "apps": [
             {"logo": "exitlag.png", "nome": "ExitLag"},
-            {"logo": "globoplay.png", "nome": "App Master TOP"},
+            {"logo": "globoplay.png", "nome": "GloboPlay"},
         ],
         "apps_sep": "+",
         "features": [
@@ -1290,7 +1290,7 @@ def build_schema_data(rel, name, desc, url):
              "url": url, "datePublished": post.get("date", DATE_DEFAULT),
              "dateModified": post.get("date", DATE_DEFAULT), "image": img_abs, "inLanguage": "pt-BR",
              "author": author_node,
-             "publisher": {"@type": "Organization", "name": PUBLISHER["name"],
+             "publisher": {"@type": "Organization", "@id": SITE_URL + "/#org", "name": PUBLISHER["name"],
                            "logo": {"@type": "ImageObject", "url": SITE_URL + PUBLISHER["logo"]}},
              "mainEntityOfPage": {"@type": "WebPage", "@id": url},
              "isPartOf": {"@type": "Blog", "name": "Blog MasterInfo", "url": SITE_URL + "/blog/"}},
@@ -1302,7 +1302,7 @@ def build_schema_data(rel, name, desc, url):
                 {"@type": "ListItem", "position": 2, "name": "Blog", "item": url},
             ]},
             {"@type": "Blog", "name": "Blog MasterInfo", "description": desc, "url": url, "inLanguage": "pt-BR",
-             "publisher": {"@type": "Organization", "name": PUBLISHER["name"],
+             "publisher": {"@type": "Organization", "@id": SITE_URL + "/#org", "name": PUBLISHER["name"],
                            "logo": {"@type": "ImageObject", "url": SITE_URL + PUBLISHER["logo"]}},
              "blogPost": [{"@type": "BlogPosting", "headline": _p.get("h1"),
                            "url": SITE_URL + "/blog/" + _p["slug"] + "/",
@@ -1314,8 +1314,9 @@ def build_schema_data(rel, name, desc, url):
             {"@type": "ListItem", "position": 2, "name": name, "item": url},
         ]},
         {"@type": "WebPage", "name": name, "description": desc, "url": url, "inLanguage": "pt-BR",
+         "dateModified": CONTENT_LAST_UPDATED,
          "isPartOf": {"@type": "WebSite", "name": "MasterInfo Internet", "url": SITE_URL + "/"},
-         "about": {"@type": "Organization", "name": "MasterInfo Internet", "url": SITE_URL + "/"}},
+         "about": {"@type": "Organization", "@id": SITE_URL + "/#org", "name": "MasterInfo Internet", "url": SITE_URL + "/"}},
     ]}
 
 
@@ -1384,6 +1385,8 @@ def bairros_vizinhos_section(current_slug):
             '\n      <h2>Internet fibra óptica em outros bairros de Joinville</h2>'
             '\n      <p>A MasterInfo também leva fibra óptica de verdade para:</p>'
             f'\n      <div class="bv-grid">{chips}</div>'
+            '\n      <p style="margin-top:18px;margin-bottom:0">Quer comparar antes de decidir? Veja o guia '
+            '<a href="/melhor-internet-joinville/">qual a melhor internet de Joinville</a>.</p>'
             '\n    </div>\n  </section>')
 
 
