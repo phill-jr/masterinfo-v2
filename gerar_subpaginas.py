@@ -118,7 +118,7 @@ INTERNET = [
         "gradient": "linear-gradient(135deg, #6b3d00 0%, #c19000 50%, #fcc305 100%)",
         "highlights": [
             ("🏠", "Ideal pra apartamento", "Cobertura Wi-Fi suficiente em até 80m²."),
-            ("💸", "Preço justo", "A partir de R$ 99,90/mês, sem letra miúda."),
+            ("💸", "Preço justo", "A partir de R$ 99,99/mês, sem letra miúda."),
             ("⚡", "Fibra óptica real", "Mesmo plano de entrada, mesma fibra dos planos premium."),
         ],
         "plans": ["lite-casa", "lite-premium", "lite-basic"],
@@ -588,7 +588,7 @@ def footer(depth, boleto=True, extra_scripts=""):
   </script>
 {boleto_html}
 {extra_scripts}
-  <script src="/tracking.js?v=20260619a" defer></script>
+  <script src="/tracking.js?v=20260627a" defer></script>
   <script src="/cookie-consent.js?v=20260603-cc"></script>
 </body>
 </html>'''
@@ -1356,7 +1356,7 @@ def local_business_jsonld(bairro_nome, page_url):
         "openingHoursSpecification": [
             {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "18:00"},
             {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "12:00"}],
-        "priceRange": "R$ 99,90 - R$ 189,90",
+        "priceRange": "R$ 99,99 - R$ 189,90",
         "hasMap": "https://www.google.com/maps?cid=10673247961179135046",
         "sameAs": ["https://www.instagram.com/masterinfo.internet",
                    "https://www.facebook.com/masterinfointernet",
