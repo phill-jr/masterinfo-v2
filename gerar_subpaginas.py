@@ -2258,6 +2258,57 @@ def sync_hero_preload():
             open(p, "w", encoding="utf-8", newline="").write(s2)
             n += 1
     print(f"  hero-preload -> {target} (usarPaginas={'ON' if usar else 'OFF'}, {n} home(s) reescritas)")
+    sync_hero_static_slide(usar)
+
+
+# Slide 0 canonico do modo BANNER (copia fiel do estatico original da home light).
+_HERO_SLIDE1_BANNER = '''<a href="#planos" class="hero-slide is-active hero-bg-home" data-slide="0" aria-label="Copa do Mundo 2026">
+        <picture><source type="image/webp" srcset="imgs/hero/banner-copa.webp"><img class="hero-slide-img" src="imgs/hero/banner-copa.png" alt="Copa do Mundo 2026 com a MasterInfo, internet de 1000 Mega" loading="eager" fetchpriority="high" onerror="this.style.display='none'" width="1920" height="1080"></picture>
+      </a>'''
+
+
+def sync_hero_static_slide(usar_paginas):
+    """Mantem o slide 0 ESTATICO da home light igual ao 1o slide que o renderHero vai
+    montar em runtime. Motivo (LCP): com usarPaginas ON o hero e reescrito via JS, e sem
+    slide estatico correspondente o elemento LCP so existe depois de site-loader + 2
+    fetches (~5,5s no lab). Com o slide 0 pre-renderizado, o LCP pinta do HTML (~1s) e o
+    re-render do JS usa a MESMA imagem (mesmo tamanho -> nao vira novo LCP). Marcadores
+    <!-- hero-slide1-sync --> ... <!-- /hero-slide1-sync --> no index-light.html."""
+    slide = _HERO_SLIDE1_BANNER
+    if usar_paginas:
+        try:
+            items = json.load(open(os.path.join(BASE_DIR, "internet-hero.json"), encoding="utf-8"))
+            s0 = items[0]
+            img, title = s0["img"], s0.get("title", "")
+            tag, cta = s0.get("tag", ""), s0.get("cta", "")
+            plano = s0.get("plano") or ""
+            cta_href = ("checkout.html?plano=" + plano) if plano else s0.get("href", "#planos")
+            # espelho do renderHero (site-loader.js) p/ i=0 no modo paginas + width/height (CLS)
+            slide = (
+                f'<div class="hero-slide is-active hero-bg-home" data-slide="0" aria-label="{title}">'
+                f'\n        <picture><source type="image/webp" srcset="{img}.webp">'
+                f'<img class="hero-slide-img" src="{img}" alt="" loading="eager" fetchpriority="high" width="1600" height="1067"></picture>'
+                f'\n        <div class="hero-slide-shade"></div>'
+                f'\n        <div class="hero-slide-content">'
+                + (f'<span class="hero-slide-tag hero-slide-tag-fire">{tag}</span>' if tag else '')
+                + (f'<h2 class="hero-slide-title">{title}</h2>' if title else '')
+                + (f'<a class="hero-slide-cta" href="{cta_href}"' + (f' data-plano="{plano}"' if plano else '') + f'>{cta} <i class="ph ph-arrow-right"></i></a>' if cta else '')
+                + '</div>\n      </div>'
+            )
+        except Exception as e:
+            print(f"  ! sync_hero_static_slide: falha lendo internet-hero.json ({e}), usando banner")
+    # \s* nas bordas (nao \n literal): o arquivo e CRLF e '\n' puro nao casa '\r\n'
+    pat = re.compile(r'(<!-- hero-slide1-sync.*?-->)\s*(.*?)\s*(<!-- /hero-slide1-sync -->)', re.S)
+    p = os.path.join(BASE_DIR, "index-light.html")
+    s = open(p, encoding="utf-8", newline="").read()
+    s2, c = pat.subn(lambda m: m.group(1) + "\n      " + slide + "\n      " + m.group(3), s)
+    if c and s2 != s:
+        open(p, "w", encoding="utf-8", newline="").write(s2)
+        print(f"  hero-slide1 estatico -> {'paginas (' + slide[slide.find('src=')+5:slide.find('src=')+50] + '...)' if usar_paginas else 'banner-copa'}")
+    elif c:
+        print("  hero-slide1 estatico: ja em dia")
+    else:
+        print("  ! hero-slide1: marcadores nao encontrados no index-light.html")
 
 
 if __name__ == "__main__":
