@@ -457,12 +457,6 @@
             "lng": -48.8257
         },
         {
-            "nome": "Nova Brasília",
-            "dataBairro": "Nova Brasilia",
-            "lat": -26.3418,
-            "lng": -48.871
-        },
-        {
             "nome": "Rio Bonito",
             "dataBairro": "Rio Bonito",
             "lat": -26.1682,
@@ -953,15 +947,15 @@
     },
     "copaPopup": {
         "on": false,
-        "selo": "PLANO COPA DO MUNDO 2026",
-        "titulo": "Vai vibrar com a Seleção?",
-        "destaque": "Vibra com 1000 Mega.",
-        "velocidade": "1000",
-        "unidade": "Mega",
-        "precoDe": "129,90",
-        "precoPor": "119",
-        "precoCentavos": ",90",
-        "descontoTag": "R$ 10 OFF pagando em dia",
+        "selo": "",
+        "titulo": "",
+        "destaque": "",
+        "velocidade": "",
+        "unidade": "",
+        "precoDe": "",
+        "precoPor": "",
+        "precoCentavos": "",
+        "descontoTag": "",
         "apps": [
             {
                 "logo": "imgs\/sky.jpg",
