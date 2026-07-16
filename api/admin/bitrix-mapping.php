@@ -96,6 +96,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
             }
+            // Landing da campanha (opcional) — alimenta /promo/<slug>/. Só grava se veio
+            // no POST; form sem landing (checkout-site etc.) segue sem a chave.
+            if (is_array($cfg['landing'] ?? null)) {
+                $clean['forms'][$slugClean]['landing'] = bx_clean_landing($cfg['landing']);
+            }
         }
     }
 

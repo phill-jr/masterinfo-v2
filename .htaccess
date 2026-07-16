@@ -44,6 +44,12 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # Landing de campanha: /promo/<slug>/ -> promo/index.php?c=<slug>
+    # QSA e OBRIGATORIO: o link do Instagram chega com ?fbclid=... e e isso que
+    # alimenta o recordSource() do tracking.js -> atribuicao do lead ao Meta.
+    # O padrao nao aceita ponto, entao nao captura o proprio promo/index.php.
+    RewriteRule ^promo/([a-z0-9_-]+)/?$ promo/index.php?c=$1 [L,QSA]
+
     # Bloquear secrets/
     RewriteRule ^secrets/.*$ - [F,L]
 

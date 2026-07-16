@@ -200,6 +200,45 @@ function bx_timeline_comment(int $entityId, string $entityType, string $comment)
     }
 }
 
+/**
+ * Campos de texto da landing de campanha (forms[slug].landing) => limite de cada um.
+ * WHITELIST: o sanitizador do admin reconstrói o array do zero, então chave que não
+ * estiver aqui é descartada de propósito. Pra adicionar campo novo na landing, é aqui.
+ */
+function bx_landing_fields(): array {
+    return [
+        'titulo'       => 120,
+        'badge'        => 60,
+        'subtitulo'    => 200,
+        'velocidade'   => 40,
+        'preco'        => 20,
+        'precoDetalhe' => 90,
+        'planoNome'    => 120,
+        'cta'          => 60,
+        'whatsappMsg'  => 400,
+        'letraMiuda'   => 600,
+        'ogTitulo'     => 120,
+        'ogDescricao'  => 200,
+    ];
+}
+
+/**
+ * Sanitiza o bloco 'landing' vindo do admin. Texto passa por bx_sanitize_text
+ * (strip_tags + control chars + limite); a imagem só aceita caminho interno.
+ */
+function bx_clean_landing(array $in): array {
+    $out = ['ativa' => !empty($in['ativa'])];
+    foreach (bx_landing_fields() as $key => $max) {
+        $v = $in[$key] ?? '';
+        $out[$key] = is_scalar($v) ? bx_sanitize_text((string) $v, $max) : '';
+    }
+    // og:image só pode ser caminho interno (ex: /imgs/hero/x.png). Sem isso o preview
+    // do link no Instagram/WhatsApp poderia ser apontado pra host externo pelo admin.
+    $img = trim((string) ($in['ogImagem'] ?? ''));
+    $out['ogImagem'] = preg_match('#^/[\w\-./]{1,180}$#', $img) && strpos($img, '..') === false ? $img : '';
+    return $out;
+}
+
 /** Caminho do JSON de mapeamento. */
 function bx_mapping_path(): string {
     return __DIR__ . '/../../secrets/bitrix-mapping.json';

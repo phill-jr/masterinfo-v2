@@ -1286,6 +1286,19 @@
         .bx-map-arrow { color:var(--text-muted); flex-shrink:0; }
         .bx-map-rm { cursor:pointer; color:#dc2626; background:none; border:none; font-size:1.2rem; line-height:1; padding:0 4px; flex-shrink:0; }
         .bx-form-actions { display:flex; gap:10px; align-items:center; margin-top:14px; flex-wrap:wrap; }
+        .bx-form-rm { margin-left:auto; color:#dc2626; border-color:rgba(220,38,38,0.35); }
+        /* Landing page da campanha */
+        .bx-lp { margin-top:16px; border-top:1px solid rgba(0,0,0,0.08); padding-top:14px; }
+        .bx-lp-head { display:flex; align-items:center; gap:10px; font-size:0.86rem; font-weight:700; cursor:pointer; user-select:none; }
+        .bx-lp-head input { width:16px; height:16px; accent-color:var(--orange); cursor:pointer; }
+        .bx-lp-body { margin-top:14px; }
+        .bx-lp-body[hidden] { display:none; }
+        .bx-fld textarea { width:100%; padding:8px 10px; border:1px solid rgba(0,0,0,0.12); border-radius:7px; font-size:0.87rem; font-family:inherit; background:#fff; resize:vertical; }
+        .bx-fld textarea:focus { border-color:var(--orange); outline:none; }
+        .bx-lp-link { display:flex; gap:8px; align-items:center; margin-top:12px; padding:10px 12px; background:rgba(255,122,5,0.06); border:1px solid rgba(255,122,5,0.25); border-radius:8px; flex-wrap:wrap; }
+        .bx-lp-link code { font-size:0.82rem; color:var(--text-secondary); word-break:break-all; flex:1; min-width:180px; }
+        .bx-lp-link .btn { font-size:0.78rem; padding:5px 10px; }
+        .bx-lp-warn { font-size:0.76rem; color:#b45309; margin-top:8px; display:flex; gap:6px; align-items:flex-start; }
       </style>
 
       <div class="card">
@@ -1315,10 +1328,15 @@
       </div>
 
       <div class="card">
-        <div class="card-title"><i class="ph-fill ph-faders"></i> Formulários do site</div>
-        <div class="section-help">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div class="card-title" style="margin:0;"><i class="ph-fill ph-faders"></i> Formulários do site</div>
+          <button type="button" class="btn btn-primary" onclick="bxCreateForm()"><i class="ph ph-plus"></i> Criar formulário</button>
+        </div>
+        <div class="section-help" style="margin-top:14px;">
           <i class="ph ph-info"></i>
           Configure pra onde cada formulário do site envia os dados: tipo (Lead/Negócio/Contato), funil, etapa inicial e o mapeamento campo a campo. Use "Testar" pra criar um registro de teste no Bitrix.
+          <br><br>
+          Pra uma <b>campanha</b> (Instagram, etc.): crie o formulário e ligue a <b>Landing page</b> dentro dele — sai um link pronto pra divulgar, e o lead cai no funil escolhido aqui.
         </div>
         <div id="bxFormsList">
           <div class="bx-empty">Carregando formulários…</div>
@@ -1885,12 +1903,119 @@
       '<div class="bx-maps-label">Mapeamento: campo do formulário → campo do Bitrix</div>' +
       '<div class="bxf-maps">' + mapRows + '</div>' +
       '<button type="button" class="btn btn-secondary" style="font-size:0.8rem;padding:6px 12px;margin-top:4px;" onclick="bxAddMapRow(this)"><i class="ph ph-plus"></i> Adicionar campo</button>' +
+      bxLandingBlock(slug, cfg) +
       '<div class="bx-form-actions">' +
         '<button type="button" class="btn btn-secondary" onclick="bxSaveForm(this,\'' + bxEsc(slug) + '\')"><i class="ph ph-floppy-disk"></i> Salvar formulário</button>' +
         '<button type="button" class="btn btn-secondary" onclick="bxTestForm(this,\'' + bxEsc(slug) + '\')"><i class="ph ph-flask"></i> Testar com dados fake</button>' +
         '<span class="bx-count bxf-status"></span>' +
+        (bxIsSystemSlug(slug) ? '' :
+          '<button type="button" class="btn btn-secondary bx-form-rm" onclick="bxDeleteForm(this,\'' + bxEsc(slug) + '\')"><i class="ph ph-trash"></i> Remover</button>') +
       '</div>' +
     '</div>';
+  }
+
+  // ─── Landing page da campanha (forms[slug].landing → /promo/<slug>/) ───
+
+  // Slugs que o CÓDIGO do site usa. Remover um deles quebraria o envio de lead em
+  // silêncio (o fetch do site é .catch(){}), então não ganham botão de remover.
+  // checkout.js:266/972 · modal.js · copa/index.html:473
+  var BX_SYSTEM_SLUGS = ['checkout-site', 'lista-espera-site', 'pre-pedido-site', 'pre-venda-copa'];
+  function bxIsSystemSlug(slug) { return BX_SYSTEM_SLUGS.indexOf(slug) !== -1; }
+
+  // Ordem = ordem dos campos na tela. Espelha bx_landing_fields() do _bitrix-helper.php.
+  var BX_LP_KEYS = ['titulo','badge','subtitulo','velocidade','preco','precoDetalhe','planoNome','cta','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
+
+  function bxLpInput(k, label, val, ph, flex) {
+    return '<div class="bx-fld"' + (flex ? ' style="flex:' + flex + ';"' : '') + '>' +
+      '<label>' + bxEsc(label) + '</label>' +
+      '<input type="text" class="bxlp-' + k + '" value="' + bxEsc(val || '') + '" placeholder="' + bxEsc(ph || '') + '">' +
+    '</div>';
+  }
+  function bxLpArea(k, label, val, ph) {
+    return '<div class="bx-fld" style="flex:1 0 100%;">' +
+      '<label>' + bxEsc(label) + '</label>' +
+      '<textarea class="bxlp-' + k + '" rows="2" placeholder="' + bxEsc(ph || '') + '">' + bxEsc(val || '') + '</textarea>' +
+    '</div>';
+  }
+
+  function bxPromoUrl(slug) { return location.origin + '/promo/' + slug + '/'; }
+
+  function bxLandingBlock(slug, cfg) {
+    var lp = cfg.landing || {};
+    var on = !!lp.ativa;
+    var url = bxPromoUrl(slug);
+    return '<div class="bx-lp">' +
+      '<label class="bx-lp-head">' +
+        '<input type="checkbox" class="bxlp-ativa"' + (on ? ' checked' : '') + ' onchange="bxToggleLanding(this)">' +
+        '<i class="ph-fill ph-megaphone"></i> Landing page — página com link pra divulgar' +
+      '</label>' +
+      '<div class="bx-lp-body"' + (on ? '' : ' hidden') + '>' +
+        '<div class="bx-grid" style="margin-top:12px;">' +
+          bxLpInput('titulo', 'Título principal', lp.titulo, 'Internet 600 Mega por R$ 89,90', 2) +
+          bxLpInput('badge', 'Selo', lp.badge, 'Oferta do Instagram') +
+        '</div>' +
+        '<div class="bx-grid">' +
+          bxLpInput('subtitulo', 'Linha de apoio', lp.subtitulo, 'Fibra 100%, instalação em até 3 dias.', 2) +
+          bxLpInput('cta', 'Texto do botão', lp.cta, 'Quero contratar') +
+        '</div>' +
+        '<div class="bx-grid">' +
+          bxLpInput('velocidade', 'Velocidade', lp.velocidade, '600 Mega') +
+          bxLpInput('preco', 'Preço (R$)', lp.preco, '89,90') +
+          bxLpInput('precoDetalhe', 'Detalhe do preço', lp.precoDetalhe, 'nos 3 primeiros meses', 2) +
+        '</div>' +
+        '<div class="bx-grid">' +
+          bxLpInput('planoNome', 'Nome do plano (vai pro Bitrix e pro WhatsApp)', lp.planoNome, 'Plano 600 Mega — Campanha Instagram', 2) +
+        '</div>' +
+        '<div class="bx-grid">' + bxLpArea('whatsappMsg', 'Primeira mensagem do WhatsApp', lp.whatsappMsg, 'Olá! Quero a oferta de 600 Mega por R$ 89,90.') + '</div>' +
+        '<div class="bx-grid">' + bxLpArea('letraMiuda', 'Letra miúda', lp.letraMiuda, 'Sujeito a análise de crédito. Valor promocional válido nos 3 primeiros meses.') + '</div>' +
+        '<div class="bx-maps-label" style="margin-top:14px;">Preview do link (o que aparece no Instagram e no WhatsApp)</div>' +
+        '<div class="bx-grid">' +
+          bxLpInput('ogTitulo', 'Título do preview', lp.ogTitulo, 'vazio = usa o título principal', 2) +
+          bxLpInput('ogImagem', 'Imagem do preview', lp.ogImagem, '/imgs/hero/banner-copa.png') +
+        '</div>' +
+        '<div class="bx-grid">' +
+          bxLpInput('ogDescricao', 'Descrição do preview', lp.ogDescricao, 'vazio = usa a linha de apoio', 2) +
+        '</div>' +
+        '<div class="bx-lp-link">' +
+          '<i class="ph ph-link"></i>' +
+          '<code>' + bxEsc(url) + '</code>' +
+          '<button type="button" class="btn btn-secondary" onclick="bxCopyLink(this,\'' + bxEsc(url) + '\')"><i class="ph ph-copy"></i> Copiar</button>' +
+          '<a class="btn btn-secondary" href="' + bxEsc(url) + '" target="_blank" rel="noopener"><i class="ph ph-arrow-square-out"></i> Abrir</a>' +
+        '</div>' +
+        '<div class="bx-lp-warn"><i class="ph ph-warning"></i> <span>O link só entra no ar depois de <b>Salvar formulário</b>. A imagem do preview tem que ser um caminho do próprio site (ex.: <code>/imgs/hero/banner.png</code>) — precisa ter no mínimo 600×315px pra aparecer grande.</span></div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  window.bxToggleLanding = function(cb) {
+    var body = cb.closest('.bx-lp').querySelector('.bx-lp-body');
+    if (body) body.hidden = !cb.checked;
+  };
+
+  window.bxCopyLink = function(btn, url) {
+    function feedback() {
+      var old = btn.innerHTML;
+      btn.innerHTML = '<i class="ph ph-check"></i> Copiado';
+      setTimeout(function() { btn.innerHTML = old; }, 1500);
+    }
+    // clipboard API exige HTTPS/localhost — no resto cai no prompt manual.
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(feedback).catch(function() { window.prompt('Copie o link:', url); });
+    } else {
+      window.prompt('Copie o link:', url);
+    }
+  };
+
+  function bxCollectLanding(block) {
+    var lp = block.querySelector('.bx-lp');
+    if (!lp) return null;
+    var ativa = lp.querySelector('.bxlp-ativa');
+    var out = { ativa: !!(ativa && ativa.checked) };
+    BX_LP_KEYS.forEach(function(k) {
+      var el = lp.querySelector('.bxlp-' + k);
+      out[k] = el ? el.value.trim() : '';
+    });
+    return out;
   }
 
   window.bxRenderForms = function() {
@@ -1898,9 +2023,113 @@
     if (!box) return;
     var forms = bxMapping.forms || {};
     var slugs = Object.keys(forms);
-    if (!slugs.length) { box.innerHTML = '<div class="bx-empty">Nenhum formulário configurado.</div>'; return; }
+    if (!slugs.length) { box.innerHTML = '<div class="bx-empty">Nenhum formulário configurado. Clique em <b>Criar formulário</b> pra começar.</div>'; return; }
     box.innerHTML = slugs.map(function(slug) { return bxFormBlock(slug, forms[slug]); }).join('');
     slugs.forEach(function(slug) { var f = forms[slug]; bxLoadStages(slug, f.category_id || 0, f.stage_id, null, f.entity || 'deal'); });
+  };
+
+  // ─── Criar / remover formulário ───
+
+  // O slug vira URL pública (/promo/<slug>/), então tira acento antes: o slugify()
+  // global não normaliza NFD e transformaria "Promoção" em "promo-o".
+  function bxSlugify(str) {
+    return String(str || '')
+      .normalize('NFD').replace(new RegExp('[\\u0300-\\u036f]', 'g'), '') // tira acento
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 60);
+  }
+
+  function bxPostMapping() {
+    return fetch('api/admin/bitrix-mapping.php', {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF_TOKEN },
+      body: JSON.stringify({
+        field_labels: bxMapping.field_labels || {},
+        forms: bxMapping.forms || {},
+        source_rules: bxMapping.source_rules || {}
+      })
+    }).then(function(r) { return r.json(); });
+  }
+
+  window.bxCreateForm = function() {
+    var label = window.prompt('Nome da campanha / formulário:\n(ex: Campanha Instagram Julho)');
+    if (label === null) return;
+    label = label.trim();
+    if (!label) return;
+
+    var sug = bxSlugify(label);
+    if (!sug) { alert('Não consegui montar um endereço com esse nome. Use letras ou números.'); return; }
+
+    var slug = window.prompt('Endereço do link — só letras, números e hífen.\n\nO link da campanha vai ser:\n' + location.origin + '/promo/ENDERECO/', sug);
+    if (slug === null) return;
+    slug = bxSlugify(slug);
+    if (!slug) { alert('Endereço inválido.'); return; }
+    if (bxMapping.forms[slug]) { alert('Já existe um formulário no endereço "' + slug + '". Escolha outro.'); return; }
+
+    // Default = o mesmo mapeamento do pre-venda-copa, que é o que a landing /promo/ envia.
+    bxMapping.forms[slug] = {
+      label: label,
+      entity: 'deal',
+      category_id: 0,
+      stage_id: 'NEW',
+      source_id: 'WEB',
+      dedupe_by: ['phone'],
+      mappings: {
+        nome: 'CONTACT.NAME',
+        bairro: 'DEAL.COMMENTS',
+        telefone: 'CONTACT.PHONE',
+        origem: 'DEAL.SOURCE_DESCRIPTION'
+      },
+      deal_title_template: label + ' — {nome} ({bairro})',
+      // Nasce despublicada de propósito: publicar aqui colocaria no ar uma página
+      // sem preço nem texto. O usuário preenche e liga.
+      landing: { ativa: false, titulo: label, cta: 'Quero contratar' }
+    };
+
+    // Persiste já, pra não perder o formulário se a aba fechar antes do Salvar.
+    bxPostMapping().then(function(d) {
+      if (!d || !d.ok) {
+        delete bxMapping.forms[slug];
+        alert('Erro ao criar: ' + ((d && d.error) || 'falha'));
+        return;
+      }
+      bxRenderForms();
+      var el = document.querySelector('.bx-form-block[data-slug="' + slug + '"]');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var st = el.querySelector('.bxf-status');
+        if (st) st.textContent = '✓ criado — escolha o funil, ligue a Landing page e salve';
+      }
+    }).catch(function() {
+      delete bxMapping.forms[slug];
+      alert('Erro de conexão ao criar o formulário.');
+    });
+  };
+
+  window.bxDeleteForm = function(btn, slug) {
+    if (bxIsSystemSlug(slug)) { alert('Este formulário é usado pelo código do site e não pode ser removido aqui.'); return; }
+    var cfg = bxMapping.forms[slug];
+    if (!cfg) return;
+    var msg = 'Remover o formulário "' + (cfg.label || slug) + '"?\n\n' +
+      (cfg.landing ? 'A página ' + bxPromoUrl(slug) + ' sai do ar.\n' : '') +
+      'Os leads já enviados pro Bitrix não são afetados.';
+    if (!confirm(msg)) return;
+
+    var backup = cfg;
+    delete bxMapping.forms[slug];
+    btn.disabled = true;
+    bxPostMapping().then(function(d) {
+      if (d && d.ok) { bxRenderForms(); return; }
+      bxMapping.forms[slug] = backup; // rollback: o servidor recusou
+      btn.disabled = false;
+      alert('Erro ao remover: ' + ((d && d.error) || 'falha'));
+    }).catch(function() {
+      bxMapping.forms[slug] = backup;
+      btn.disabled = false;
+      alert('Erro de conexão ao remover.');
+    });
   };
 
   // ─── Origem por fonte de trafego (gclid/fbclid -> SOURCE_ID) ───
@@ -2025,6 +2254,10 @@
     var srcSel = block.querySelector('.bxf-source');
     cfg.source_id = (srcSel && srcSel.value) ? srcSel.value : (cfg.source_id || 'WEB');
     if (!cfg.dedupe_by) cfg.dedupe_by = ['phone'];
+    // Só grava 'landing' se a campanha foi ligada alguma vez — assim os formulários
+    // do site (checkout-site etc.) não ganham a chave à toa. Desligar mantém o texto.
+    var lp = bxCollectLanding(block);
+    if (lp && (lp.ativa || cfg.landing)) cfg.landing = lp;
     bxMapping.forms[slug] = cfg;
     status.textContent = 'Salvando…';
     btn.disabled = true;
