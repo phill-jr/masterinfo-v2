@@ -213,6 +213,8 @@ function bx_landing_fields(): array {
         'velocidade'   => 40,
         'preco'        => 20,
         'precoDetalhe' => 90,
+        'ofertaLabel'  => 40,
+        'ofertaValor'  => 20,
         'planoNome'    => 120,
         'appTexto'     => 70,
         'cta'          => 60,

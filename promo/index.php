@@ -55,6 +55,8 @@ $subtitulo = promo_val($L, 'subtitulo');
 $velocidade= promo_val($L, 'velocidade');
 $preco     = promo_val($L, 'preco');
 $precoDet  = promo_val($L, 'precoDetalhe');
+$ofertaLbl = promo_val($L, 'ofertaLabel');
+$ofertaVal = promo_val($L, 'ofertaValor');
 $cta       = promo_val($L, 'cta', 'Quero contratar');
 $letraMiuda= promo_val($L, 'letraMiuda');
 $planoNome = promo_val($L, 'planoNome', $titulo);
@@ -233,6 +235,35 @@ if (is_readable($cfgPath)) {
       line-height: 1;
     }
     .preco-cents { font-size: 1.4rem; font-weight: 800; color: #fff; align-self: flex-start; margin-top: 8px; }
+    /* Pílula da oferta (2ª mensalidade etc.): é o gancho da promoção, então ganha
+       destaque próprio — mas SEMPRE abaixo do preço cheio. O 159,90 continua sendo
+       o número-herói de propósito: inverter viraria propaganda enganosa (o valor
+       promocional vale só uma fatura). */
+    .preco-oferta {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 12px auto 4px;
+      padding: 8px 20px;
+      background: rgba(252,195,5,0.1);
+      border: 1px solid rgba(252,195,5,0.5);
+      border-radius: 999px;
+    }
+    .preco-oferta .lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+    .preco-oferta .val {
+      font-size: 1.45rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #fff;
+      line-height: 1;
+    }
     .preco-cond {
       font-size: 0.95rem;
       color: rgba(255,255,255,0.8);
@@ -402,6 +433,14 @@ if (is_readable($cfgPath)) {
           <span class="preco-cents"><?= promo_e($precoCents) ?></span>
 <?php endif; ?>
         </div>
+<?php if ($ofertaVal !== ''): ?>
+        <div class="preco-oferta">
+<?php if ($ofertaLbl !== ''): ?>
+          <span class="lbl"><?= promo_e($ofertaLbl) ?></span>
+<?php endif; ?>
+          <span class="val"><?= promo_e($ofertaVal) ?></span>
+        </div>
+<?php endif; ?>
 <?php if ($precoDet !== ''): ?>
         <div class="preco-cond"><?= promo_e($precoDet) ?></div>
 <?php endif; ?>

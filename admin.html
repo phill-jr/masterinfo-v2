@@ -1926,7 +1926,7 @@
   function bxIsSystemSlug(slug) { return BX_SYSTEM_SLUGS.indexOf(slug) !== -1; }
 
   // Ordem = ordem dos campos na tela. Espelha bx_landing_fields() do _bitrix-helper.php.
-  var BX_LP_KEYS = ['titulo','badge','subtitulo','velocidade','preco','precoDetalhe','planoNome','appLogo','appTexto','cta','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
+  var BX_LP_KEYS = ['titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','planoNome','appLogo','appTexto','cta','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
 
   function bxLpInput(k, label, val, ph, flex) {
     return '<div class="bx-fld"' + (flex ? ' style="flex:' + flex + ';"' : '') + '>' +
@@ -1971,6 +1971,10 @@
           bxLpInput('velocidade', 'Velocidade', lp.velocidade, '600 Mega') +
           bxLpInput('preco', 'Preço (R$)', lp.preco, '89,90') +
           bxLpInput('precoDetalhe', 'Detalhe do preço', lp.precoDetalhe, 'nos 3 primeiros meses', 2) +
+        '</div>' +
+        '<div class="bx-grid">' +
+          bxLpInput('ofertaLabel', 'Destaque da oferta — rótulo', lp.ofertaLabel, '2ª mensalidade') +
+          bxLpInput('ofertaValor', 'Destaque da oferta — valor', lp.ofertaValor, 'R$ 79,95') +
         '</div>' +
         '<div class="bx-grid">' +
           bxLpInput('planoNome', 'Nome do plano (vai pro Bitrix e pro WhatsApp)', lp.planoNome, 'Plano 600 Mega — Campanha Instagram', 2) +
