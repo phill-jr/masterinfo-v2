@@ -69,12 +69,18 @@ $precoCents = '';
 if (strpos($preco, ',') !== false) [$precoNum, $precoCents] = explode(',', $preco, 2);
 $precoValor = (float) str_replace(',', '.', preg_replace('/[^\d,.]/', '', $preco)); // p/ o pixel
 
-// Host fixo: HTTP_HOST é controlado pelo cliente e não pode definir og:url/canonical.
-$base = defined('ALLOWED_ORIGIN') ? rtrim(ALLOWED_ORIGIN, '/') : 'https://masterinfointernet.com';
-// O site canoniza em non-www (.htaccess:37-41 manda www → raiz), mas o ALLOWED_ORIGIN
-// do secrets pode vir com www (é assim no config.example.php). og:image em www tomaria
-// 301 e há scraper de preview que não segue redirect de imagem → preview vazio no post.
-$base    = preg_replace('#^(https?://)www\.#i', '$1', $base);
+// URL absoluta pro og:url/og:image/canonical — é o que o crawler do Instagram/WhatsApp
+// busca, então precisa ser o domínio público, sempre.
+//   - NÃO usa HTTP_HOST cru: o cliente controla esse header (og:image apontando pra fora).
+//   - NÃO usa ALLOWED_ORIGIN: aquilo é config de CORS e em PRODUÇÃO está valendo
+//     'http://localhost:8091' (constatado 16/07/2026) — o preview sairia apontando pro
+//     localhost de quem abrisse o link. Host canônico fica fixo aqui.
+// non-www porque o site canoniza assim (.htaccess:37-41); og:image em www tomaria 301
+// e há scraper de preview que não segue redirect de imagem.
+define('PROMO_HOST_CANONICO', 'https://masterinfointernet.com');
+$host    = (string) ($_SERVER['HTTP_HOST'] ?? '');
+$ehLocal = (bool) preg_match('/^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/i', $host);
+$base    = $ehLocal ? 'http://' . $host : PROMO_HOST_CANONICO; // dev vê preview local
 $pageUrl = $base . '/promo/' . $slug . '/';
 
 // WhatsApp comercial (vendas) — do config.json, não chumbado como na copa.
