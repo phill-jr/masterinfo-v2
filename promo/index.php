@@ -135,6 +135,8 @@ if (is_readable($cfgPath)) {
       --red: #e63946;
       --dark: #0f0f14;
       --fire: linear-gradient(135deg, #ff7a05, #fcc305);
+      /* Curvas fortes: as nativas do CSS são fracas demais e a animação some. */
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -268,7 +270,7 @@ if (is_readable($cfgPath)) {
       border: 2px solid #e5e1d8;
       border-radius: 12px;
       background: #faf8f4;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color 200ms ease, background 200ms ease;
     }
     .field input:focus { outline: none; border-color: var(--orange); background: #fff; }
     .field input::placeholder { color: #aaa; }
@@ -291,12 +293,23 @@ if (is_readable($cfgPath)) {
       justify-content: center;
       gap: 8px;
       box-shadow: 0 12px 28px rgba(255,122,5,0.4);
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
       margin-top: 6px;
     }
-    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(255,122,5,0.5); }
-    .submit-btn:active { transform: translateY(0); }
+    /* Hover só onde existe ponteiro de verdade: no touch o tap dispara :hover e o
+       botão FICA preso no estado elevado depois do toque — e essa página é quase
+       toda tráfego de celular vindo do Instagram. */
+    @media (hover: hover) and (pointer: fine) {
+      .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(255,122,5,0.5); }
+    }
+    /* Feedback de aperto: confirma que a interface ouviu o toque. */
+    .submit-btn:active { transform: scale(0.97); }
     .submit-btn:disabled { opacity: 0.7; cursor: default; transform: none; }
+    /* O Phosphor não gira sozinho. Sem isto o "Enviando…" mostra um ícone PARADO
+       bem no momento em que o lead está sendo gravado — parece travado.
+       Rápido (0.6s) de propósito: spinner veloz faz o envio parecer mais rápido. */
+    @keyframes promo-spin { to { transform: rotate(360deg); } }
+    .submit-btn .ph-spinner { display: inline-block; animation: promo-spin 0.6s linear infinite; }
     .form-trust {
       display: flex;
       align-items: center;
@@ -325,6 +338,15 @@ if (is_readable($cfgPath)) {
     .proof-item { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.7); }
     .proof-item strong { display: block; font-size: 1.1rem; color: #fff; font-weight: 800; }
     .proof-item i { color: var(--yellow); }
+
+    /* Movimento reduzido = menos movimento, não nenhum: tira o deslocamento
+       decorativo e mantém o spinner (é ele que diz que o envio está rolando). */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .submit-btn { transition: box-shadow 160ms ease; }
+      .submit-btn:hover, .submit-btn:active { transform: none; }
+      .submit-btn .ph-spinner { animation-duration: 1.2s; }
+    }
   </style>
 </head>
 <body>
