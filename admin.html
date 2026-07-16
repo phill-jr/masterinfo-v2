@@ -1291,6 +1291,9 @@
         .bx-lp { margin-top:16px; border-top:1px solid rgba(0,0,0,0.08); padding-top:14px; }
         .bx-lp-head { display:flex; align-items:center; gap:10px; font-size:0.86rem; font-weight:700; cursor:pointer; user-select:none; }
         .bx-lp-head input { width:16px; height:16px; accent-color:var(--orange); cursor:pointer; }
+        .bxlp-estado { font-size:0.7rem; font-weight:600; padding:2px 9px; border-radius:999px; text-transform:none; letter-spacing:0; }
+        .bxlp-estado.on { background:rgba(34,197,94,0.12); color:#16a34a; }
+        .bxlp-estado.off { background:rgba(0,0,0,0.06); color:var(--text-muted); }
         .bx-lp-body { margin-top:14px; }
         .bx-lp-body[hidden] { display:none; }
         .bx-fld textarea { width:100%; padding:8px 10px; border:1px solid rgba(0,0,0,0.12); border-radius:7px; font-size:0.87rem; font-family:inherit; background:#fff; resize:vertical; }
@@ -1943,13 +1946,19 @@
   function bxLandingBlock(slug, cfg) {
     var lp = cfg.landing || {};
     var on = !!lp.ativa;
+    // O corpo abre pra qualquer formulario que JA seja campanha (tem bloco landing),
+    // publicado ou nao. Antes o mesmo checkbox publicava E revelava os campos: quem
+    // criava a campanha via so o checkbox e achava que nao tinha nada ali.
+    // Formulario comum do site (sem landing) segue fechado ate marcar.
+    var aberto = on || !!cfg.landing;
     var url = bxPromoUrl(slug);
     return '<div class="bx-lp">' +
       '<label class="bx-lp-head">' +
         '<input type="checkbox" class="bxlp-ativa"' + (on ? ' checked' : '') + ' onchange="bxToggleLanding(this)">' +
-        '<i class="ph-fill ph-megaphone"></i> Landing page — página com link pra divulgar' +
+        '<i class="ph-fill ph-megaphone"></i> Publicar landing page' +
+        '<span class="bxlp-estado ' + (on ? 'on' : 'off') + '">' + (on ? 'no ar' : 'rascunho — fora do ar') + '</span>' +
       '</label>' +
-      '<div class="bx-lp-body"' + (on ? '' : ' hidden') + '>' +
+      '<div class="bx-lp-body"' + (aberto ? '' : ' hidden') + '>' +
         '<div class="bx-grid" style="margin-top:12px;">' +
           bxLpInput('titulo', 'Título principal', lp.titulo, 'Internet 600 Mega por R$ 89,90', 2) +
           bxLpInput('badge', 'Selo', lp.badge, 'Oferta do Instagram') +
@@ -1988,8 +1997,16 @@
   }
 
   window.bxToggleLanding = function(cb) {
-    var body = cb.closest('.bx-lp').querySelector('.bx-lp-body');
-    if (body) body.hidden = !cb.checked;
+    var lp = cb.closest('.bx-lp');
+    // Abre e NAO fecha mais: desmarcar = despublicar, nao "sumir com os campos"
+    // (esconder o texto que a pessoa acabou de escrever parece que ele foi perdido).
+    var body = lp.querySelector('.bx-lp-body');
+    if (body) body.hidden = false;
+    var tag = lp.querySelector('.bxlp-estado');
+    if (tag) {
+      tag.className = 'bxlp-estado ' + (cb.checked ? 'on' : 'off');
+      tag.textContent = cb.checked ? 'no ar depois de salvar' : 'rascunho — fora do ar';
+    }
   };
 
   window.bxCopyLink = function(btn, url) {
