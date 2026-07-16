@@ -214,6 +214,7 @@ function bx_landing_fields(): array {
         'preco'        => 20,
         'precoDetalhe' => 90,
         'planoNome'    => 120,
+        'appTexto'     => 70,
         'cta'          => 60,
         'whatsappMsg'  => 400,
         'letraMiuda'   => 600,
@@ -232,10 +233,12 @@ function bx_clean_landing(array $in): array {
         $v = $in[$key] ?? '';
         $out[$key] = is_scalar($v) ? bx_sanitize_text((string) $v, $max) : '';
     }
-    // og:image só pode ser caminho interno (ex: /imgs/hero/x.png). Sem isso o preview
+    // Imagens só podem ser caminho interno (ex: /imgs/hero/x.png). Sem isso o preview
     // do link no Instagram/WhatsApp poderia ser apontado pra host externo pelo admin.
-    $img = trim((string) ($in['ogImagem'] ?? ''));
-    $out['ogImagem'] = preg_match('#^/[\w\-./]{1,180}$#', $img) && strpos($img, '..') === false ? $img : '';
+    foreach (['ogImagem', 'appLogo'] as $k) {
+        $img = trim((string) ($in[$k] ?? ''));
+        $out[$k] = preg_match('#^/[\w\-./]{1,180}$#', $img) && strpos($img, '..') === false ? $img : '';
+    }
     return $out;
 }
 

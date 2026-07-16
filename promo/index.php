@@ -61,6 +61,8 @@ $planoNome = promo_val($L, 'planoNome', $titulo);
 $ogTitulo  = promo_val($L, 'ogTitulo', $titulo);
 $ogDesc    = promo_val($L, 'ogDescricao', $subtitulo);
 $ogImagem  = promo_val($L, 'ogImagem');
+$appLogo   = promo_val($L, 'appLogo');
+$appTexto  = promo_val($L, 'appTexto');
 $waMsg     = promo_val($L, 'whatsappMsg', 'Olá! Quero a oferta: ' . $planoNome);
 
 // R$ 89,90 → "89" grande + "90" sobrescrito (mesmo tratamento visual da copa).
@@ -236,6 +238,27 @@ if (is_readable($cfgPath)) {
       color: rgba(255,255,255,0.8);
       font-weight: 600;
     }
+    /* Faixa do app incluso (Disney+ etc.): o logo faz o benefício ser reconhecido
+       antes de ser lido — ninguém "lê" a Disney, a pessoa VÊ. */
+    .preco-app {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+    }
+    .preco-app img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      background: #fff;
+    }
     .form-card {
       background: #fff;
       color: #1a1a1a;
@@ -381,6 +404,18 @@ if (is_readable($cfgPath)) {
         </div>
 <?php if ($precoDet !== ''): ?>
         <div class="preco-cond"><?= promo_e($precoDet) ?></div>
+<?php endif; ?>
+<?php if ($appTexto !== '' || $appLogo !== ''): ?>
+        <div class="preco-app">
+<?php if ($appLogo !== ''): ?>
+<?php /* eager: o card de preço cai dentro da 1ª dobra no celular — lazy aqui só atrasaria
+         uma imagem que o visitante já está vendo. width/height fixos p/ não causar CLS. */ ?>
+          <img src="<?= promo_e($appLogo) ?>" alt="" width="34" height="34" decoding="async">
+<?php endif; ?>
+<?php if ($appTexto !== ''): ?>
+          <span><?= promo_e($appTexto) ?></span>
+<?php endif; ?>
+        </div>
 <?php endif; ?>
       </div>
 <?php endif; ?>

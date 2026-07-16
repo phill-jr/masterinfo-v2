@@ -1926,7 +1926,7 @@
   function bxIsSystemSlug(slug) { return BX_SYSTEM_SLUGS.indexOf(slug) !== -1; }
 
   // Ordem = ordem dos campos na tela. Espelha bx_landing_fields() do _bitrix-helper.php.
-  var BX_LP_KEYS = ['titulo','badge','subtitulo','velocidade','preco','precoDetalhe','planoNome','cta','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
+  var BX_LP_KEYS = ['titulo','badge','subtitulo','velocidade','preco','precoDetalhe','planoNome','appLogo','appTexto','cta','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
 
   function bxLpInput(k, label, val, ph, flex) {
     return '<div class="bx-fld"' + (flex ? ' style="flex:' + flex + ';"' : '') + '>' +
@@ -1974,6 +1974,10 @@
         '</div>' +
         '<div class="bx-grid">' +
           bxLpInput('planoNome', 'Nome do plano (vai pro Bitrix e pro WhatsApp)', lp.planoNome, 'Plano 600 Mega — Campanha Instagram', 2) +
+        '</div>' +
+        '<div class="bx-grid">' +
+          bxLpInput('appLogo', 'Logo do app incluso', lp.appLogo, '/imgs/disney-plus.png') +
+          bxLpInput('appTexto', 'Texto ao lado do logo', lp.appTexto, 'Disney+ incluso no plano', 2) +
         '</div>' +
         '<div class="bx-grid">' + bxLpArea('whatsappMsg', 'Primeira mensagem do WhatsApp', lp.whatsappMsg, 'Olá! Quero a oferta de 600 Mega por R$ 89,90.') + '</div>' +
         '<div class="bx-grid">' + bxLpArea('letraMiuda', 'Letra miúda', lp.letraMiuda, 'Sujeito a análise de crédito. Valor promocional válido nos 3 primeiros meses.') + '</div>' +
