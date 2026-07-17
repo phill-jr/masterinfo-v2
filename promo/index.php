@@ -225,14 +225,14 @@ if (is_readable($cfgPath)) {
       margin: 8px 0 2px;
     }
     .preco-cur { font-size: 1.4rem; font-weight: 700; color: #fff; }
+    /* Cor sólida, não gradiente com background-clip:text. Aquilo exige
+       color:transparent — se o clip falhar em algum browser, o número mais
+       importante da campanha simplesmente some da tela. Não vale o efeito. */
     .preco-num {
       font-size: clamp(3.4rem, 16vw, 4.6rem);
       font-weight: 900;
       letter-spacing: -0.04em;
-      background: var(--fire);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--yellow);
       line-height: 1;
     }
     .preco-cents { font-size: 1.4rem; font-weight: 800; color: #fff; align-self: flex-start; margin-top: 8px; }
@@ -420,7 +420,23 @@ if (is_readable($cfgPath)) {
       transition: transform 220ms var(--ease-out);
     }
     .cta-fixo[data-visivel] { transform: translateY(0); }
-    .cta-fixo-preco { line-height: 1.15; flex-shrink: 0; }
+    /* O preço só entra na barra quando o card de preço saiu de vista. Com o card
+       na tela, repetir "R$ 159,90 · 2ª mensalidade R$ 79,95" logo abaixo dele é
+       eco, não reforço: a barra existe pra dar o CTA que sumiu, não o preço que
+       já está lá. Sem o preço, o botão toma a barra inteira. */
+    .cta-fixo-preco {
+      line-height: 1.15;
+      flex-shrink: 0;
+      overflow: hidden;
+      max-width: 160px;
+      opacity: 1;
+      transition: max-width 220ms var(--ease-out), opacity 160ms var(--ease-out), margin 220ms var(--ease-out);
+    }
+    .cta-fixo[data-preco-oculto] .cta-fixo-preco {
+      max-width: 0;
+      opacity: 0;
+      margin-left: -14px; /* absorve o gap do flex */
+    }
     .cta-fixo-preco strong { display: block; font-size: 1.15rem; font-weight: 900; color: #fff; }
     .cta-fixo-preco strong span { font-size: 0.8rem; font-weight: 700; }
     .cta-fixo-preco small { font-size: 0.68rem; color: rgba(255,255,255,0.6); }
@@ -493,7 +509,7 @@ if (is_readable($cfgPath)) {
     .badge { background: rgba(0,99,229,0.18); border-color: rgba(41,205,255,0.5); color: #9ad2ff; }
     .preco-card { border-color: rgba(41,205,255,0.35); }
     .preco-card .speed { color: #9ad2ff; }
-    .preco-num { background: linear-gradient(135deg, #29cdff, #bfe9ff); -webkit-background-clip: text; background-clip: text; }
+    .preco-num { color: #5cd4ff; } /* sólido, mesmo motivo do tema padrão */
     .preco-oferta { background: rgba(41,205,255,0.1); border-color: rgba(41,205,255,0.5); }
     .preco-oferta .lbl { color: #9ad2ff; }
     .proof-item i { color: #9ad2ff; }
@@ -649,14 +665,33 @@ if (is_readable($cfgPath)) {
       // escondida justo em quem abre o link e não rola.
       window.promoAtualizarBarra(botaoEstaNaTela());
 
+      // O preço da barra só entra quando o card de preço sai de vista (anti-eco).
+      var card = document.querySelector('.preco-card');
+      window.promoAtualizarPreco = function(cardNaTela) {
+        if (cardNaTela) barra.setAttribute('data-preco-oculto', '');
+        else barra.removeAttribute('data-preco-oculto');
+      };
+      function cardEstaNaTela() {
+        if (!card) return false;
+        var c = card.getBoundingClientRect();
+        return c.top < window.innerHeight && c.bottom > 0;
+      }
+      window.promoAtualizarPreco(cardEstaNaTela());
+
       if ('IntersectionObserver' in window) {
         new IntersectionObserver(function(entradas) {
           window.promoAtualizarBarra(entradas[0].isIntersecting);
         }, { threshold: 0.6 }).observe(btn);
+        if (card) {
+          new IntersectionObserver(function(entradas) {
+            window.promoAtualizarPreco(entradas[0].isIntersecting);
+          }, { threshold: 0.25 }).observe(card);
+        }
       } else {
         // Sem IO (browser velho): scroll passivo é suficiente e não trava a rolagem.
         window.addEventListener('scroll', function() {
           window.promoAtualizarBarra(botaoEstaNaTela());
+          window.promoAtualizarPreco(cardEstaNaTela());
         }, { passive: true });
       }
 
