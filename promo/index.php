@@ -394,9 +394,62 @@ if (is_readable($cfgPath)) {
     .proof-item strong { display: block; font-size: 1.1rem; color: #fff; font-weight: 800; }
     .proof-item i { color: var(--yellow); }
 
+    /* ── Barra de ação fixa (mobile) ──
+       Medido em 390x844: o botão do formulário nasce em 1004px, 216px ABAIXO da
+       dobra — e no celular real a barra do navegador come mais ~100px. O visitante
+       via a oferta e não via como contratar. A barra põe o CTA sempre ao alcance
+       do polegar; some sozinha quando o botão de verdade entra em cena, pra não
+       existirem dois CTAs na mesma tela. */
+    .cta-fixo {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      /* Acompanha a coluna do conteúdo (560px) em vez de esticar na tela toda:
+         no desktop uma barra full-width sob uma página estreita fica deslocada. */
+      max-width: 560px;
+      margin: 0 auto;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+      background: rgba(10,12,22,0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      transform: translateY(110%);
+      transition: transform 220ms var(--ease-out);
+    }
+    .cta-fixo[data-visivel] { transform: translateY(0); }
+    .cta-fixo-preco { line-height: 1.15; flex-shrink: 0; }
+    .cta-fixo-preco strong { display: block; font-size: 1.15rem; font-weight: 900; color: #fff; }
+    .cta-fixo-preco strong span { font-size: 0.8rem; font-weight: 700; }
+    .cta-fixo-preco small { font-size: 0.68rem; color: rgba(255,255,255,0.6); }
+    .cta-fixo-btn {
+      flex: 1;
+      padding: 14px 18px;
+      font-family: inherit;
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #fff;
+      background: var(--fire);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(255,122,5,0.4);
+      transition: transform 160ms var(--ease-out);
+    }
+    .cta-fixo-btn:active { transform: scale(0.97); }
+    /* Reserva o espaço da barra: sem isto ela cobre a letra miúda no fim da página.
+       Nada de gate por (pointer: fine): a barra só aparece quando o botão real está
+       fora de vista, então em tela grande — onde ele quase sempre está visível —
+       ela naturalmente não incomoda. Gatear por ponteiro cortaria laptop touch e
+       tornaria o comportamento impossível de testar. */
+    body { padding-bottom: 84px; }
+
     /* Movimento reduzido = menos movimento, não nenhum: tira o deslocamento
        decorativo e mantém o spinner (é ele que diz que o envio está rolando). */
     @media (prefers-reduced-motion: reduce) {
+      .cta-fixo { transition: none; }
       html { scroll-behavior: auto; }
       .submit-btn { transition: box-shadow 160ms ease; }
       .submit-btn:hover, .submit-btn:active { transform: none; }
@@ -548,6 +601,18 @@ if (is_readable($cfgPath)) {
     </div>
   </div>
 
+<?php if ($preco !== ''): ?>
+  <div class="cta-fixo" id="ctaFixo" aria-hidden="true">
+    <div class="cta-fixo-preco">
+      <strong>R$ <?= promo_e($precoNum) ?><?php if ($precoCents !== ''): ?><span>,<?= promo_e($precoCents) ?></span><?php endif; ?></strong>
+<?php if ($ofertaVal !== ''): ?>
+      <small><?= promo_e($ofertaLbl !== '' ? $ofertaLbl : 'depois') ?> <?= promo_e($ofertaVal) ?></small>
+<?php endif; ?>
+    </div>
+    <button type="button" class="cta-fixo-btn" id="ctaFixoBtn">Quero contratar</button>
+  </div>
+<?php endif; ?>
+
   <script>
   (function() {
     var SLUG     = <?= promo_js($slug) ?>;
@@ -560,6 +625,51 @@ if (is_readable($cfgPath)) {
     var tel  = document.getElementById('telefone');
     var hp   = document.getElementById('_hp');
     var btn  = form.querySelector('.submit-btn');
+
+    // ── Barra de ação fixa ──
+    // Aparece enquanto o botão real está fora de vista e some quando ele entra:
+    // dois CTAs iguais na mesma tela confundem em vez de ajudar.
+    var barra = document.getElementById('ctaFixo');
+    if (barra) {
+      window.promoAtualizarBarra = function(botaoNaTela) {
+        if (botaoNaTela) {
+          barra.removeAttribute('data-visivel');
+          barra.setAttribute('aria-hidden', 'true');
+        } else {
+          barra.setAttribute('data-visivel', '');
+          barra.setAttribute('aria-hidden', 'false');
+        }
+      };
+      function botaoEstaNaTela() {
+        var b = btn.getBoundingClientRect();
+        return b.top < window.innerHeight && b.bottom > 0;
+      }
+      // Estado no 1º frame, sem esperar callback: o IntersectionObserver pode
+      // atrasar a 1ª entrega (aba em background/prerender) e a barra ficaria
+      // escondida justo em quem abre o link e não rola.
+      window.promoAtualizarBarra(botaoEstaNaTela());
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function(entradas) {
+          window.promoAtualizarBarra(entradas[0].isIntersecting);
+        }, { threshold: 0.6 }).observe(btn);
+      } else {
+        // Sem IO (browser velho): scroll passivo é suficiente e não trava a rolagem.
+        window.addEventListener('scroll', function() {
+          window.promoAtualizarBarra(botaoEstaNaTela());
+        }, { passive: true });
+      }
+
+      document.getElementById('ctaFixoBtn').addEventListener('click', function() {
+        if (typeof window.miTrack === 'function') { try { window.miTrack('cta_click', { label: 'barra fixa promo' }); } catch (e) {} }
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Foca depois da rolagem: focar antes cancela o scroll suave e o browser
+        // dá um salto seco até o campo. preventScroll pelo mesmo motivo.
+        setTimeout(function() {
+          try { document.getElementById('nome').focus({ preventScroll: true }); } catch (e) {}
+        }, 450);
+      });
+    }
 
     // Máscara (47) 9XXXX-XXXX
     tel.addEventListener('input', function() {
