@@ -66,6 +66,7 @@ $ogImagem  = promo_val($L, 'ogImagem');
 $appLogo   = promo_val($L, 'appLogo');
 $appTexto  = promo_val($L, 'appTexto');
 $tema      = promo_val($L, 'tema');
+$bgImagem  = promo_val($L, 'bgImagem');
 $waMsg     = promo_val($L, 'whatsappMsg', 'Olá! Quero a oferta: ' . $planoNome);
 
 // R$ 89,90 → "89" grande + "90" sobrescrito (mesmo tratamento visual da copa).
@@ -547,6 +548,28 @@ if (is_readable($cfgPath)) {
     .preco-oferta .lbl { color: #9ad2ff; }
     .proof-item i { color: #9ad2ff; }
     @media (prefers-reduced-motion: reduce) { .page::after { animation: none; } }
+  </style>
+<?php endif; ?>
+<?php if ($bgImagem !== ''): ?>
+  <style>
+    /* ── Imagem de fundo da campanha (campo bgImagem no admin) ──
+       A arte entra no TOPO da página com um véu escuro progressivo por cima:
+       visível atrás do título/badge, quase opaca na altura do card de preço e
+       sólida onde o formulário senta — qualquer arte fica legível sem editar
+       a imagem. Precisa vir DEPOIS do bloco de tema na cascata (mesmo seletor,
+       mesma especificidade — o último ganha). O véu termina na cor do tema
+       ativo pra fusão ser invisível. bgImagem é sempre caminho interno
+       (whitelist no bx_clean_landing) — seguro dentro de url(). */
+    .page::before {
+      background:
+        linear-gradient(180deg,
+          rgba(7,11,22,0.28) 0%,
+          rgba(7,11,22,0.62) 30%,
+          rgba(7,11,22,0.9) 52%,
+          <?= $tema === 'disney' ? '#070d1e' : '#0f0f14' ?> 72%),
+        url('<?= promo_e($bgImagem) ?>') top center / cover no-repeat,
+        linear-gradient(180deg, <?= $tema === 'disney' ? '#0a1633 0%, #070d1e' : '#1a0d05 0%, #0f0f14' ?> 100%);
+    }
   </style>
 <?php endif; ?>
 </head>

@@ -240,7 +240,9 @@ function bx_clean_landing(array $in): array {
     $out['tema'] = in_array($tema, ['disney'], true) ? $tema : '';
     // Imagens só podem ser caminho interno (ex: /imgs/hero/x.png). Sem isso o preview
     // do link no Instagram/WhatsApp poderia ser apontado pra host externo pelo admin.
-    foreach (['ogImagem', 'appLogo'] as $k) {
+    // bgImagem também vira url() em <style> na landing — caminho interno elimina
+    // qualquer injeção de CSS/exfiltração via URL externa.
+    foreach (['ogImagem', 'appLogo', 'bgImagem'] as $k) {
         $img = trim((string) ($in[$k] ?? ''));
         $out[$k] = preg_match('#^/[\w\-./]{1,180}$#', $img) && strpos($img, '..') === false ? $img : '';
     }
