@@ -403,21 +403,32 @@ if (is_readable($cfgPath)) {
     @media (min-width: 900px) {
       .wrap { max-width: 1080px; }
       .page { padding: 40px 0 64px; }
+      /* stretch, não start: as duas colunas assumem a altura da linha — é isso que
+         dá o "chão" comum onde as bases dos dois cards se encontram. */
       .grade {
         display: grid;
         grid-template-columns: minmax(0, 1fr) 400px;
         gap: 56px;
-        align-items: start;
+        align-items: stretch;
       }
+      .col-oferta, .col-acao { display: flex; flex-direction: column; }
       /* Centralizado é gesto de celular; em duas colunas o texto ancora à esquerda. */
-      .center { text-align: left; }
+      .center { text-align: left; margin-bottom: 28px; }
       h1 { font-size: clamp(2.1rem, 3.2vw, 3rem); margin-top: 20px; }
       .lead { margin-bottom: 0; }
-      .preco-card { margin-bottom: 0; margin-top: 28px; }
+      /* ── Bases dos dois cards alinhadas ──
+         O card de preço DESCE até o fim da coluna (margin-top:auto — desloca, não
+         deforma) e o formulário ESTICA até o mesmo fim (flex:1). Antes as bases
+         eram acidente do conteúdo: em 1280 o card parava 46px ACIMA do form; em
+         1920 o h1 quebra em 3 linhas (font-size tem 3.2vw), empurrava o card e ele
+         passava 21px ABAIXO. Como o título é editável no admin, cada campanha caía
+         num lugar — não existia valor de margem que resolvesse. */
+      .preco-card { margin-top: auto; margin-bottom: 0; }
+      .form-card { flex: 1; }
       .proof { justify-content: flex-start; }
       .fine { text-align: left; }
-      /* O formulário acompanha a rolagem: a coluna da esquerda é mais alta. */
-      .col-acao { position: sticky; top: 32px; }
+      /* (sticky removido do .col-acao: com as colunas em stretch o item já ocupa a
+         linha inteira e não sobra folga pra deslizar — a regra não fazia nada.) */
       body { padding-bottom: 0; }
       /* (a barra fixa é desligada mais abaixo, depois da regra que a define —
          media query não muda especificidade, então ordem é o que decide) */
@@ -640,7 +651,13 @@ if (is_readable($cfgPath)) {
           <i class="ph-fill ph-whatsapp-logo"></i> Você vai falar direto com nosso time
         </div>
       </form>
+      </div><!-- /col-acao -->
+      </div><!-- /grade -->
 
+      <!-- Selos e letra miúda ficam FORA da grade de propósito: dentro da coluna do
+           formulário eles entravam na conta da altura da coluna, e aí a base do form
+           media junto com eles — nunca casava com a do card de preço. No celular a
+           ordem na tela não muda (a grade só existe em ≥900px; aqui é fluxo normal). -->
       <div class="proof">
         <div class="proof-item"><strong><i class="ph-fill ph-star"></i> 4,8</strong> 2.450 avaliações</div>
         <div class="proof-item"><strong>100%</strong> Fibra Óptica</div>
@@ -650,8 +667,6 @@ if (is_readable($cfgPath)) {
 <?php if ($letraMiuda !== ''): ?>
       <p class="fine"><?= promo_e($letraMiuda) ?></p>
 <?php endif; ?>
-      </div><!-- /col-acao -->
-      </div><!-- /grade -->
 
     </div>
   </div>
