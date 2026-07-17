@@ -569,12 +569,15 @@ if (is_readable($cfgPath)) {
       animation: promo-twinkle 6s ease-in-out infinite alternate;
     }
     @keyframes promo-twinkle { from { opacity: 0.5; } to { opacity: 1; } }
-    /* Acentos = o ciano da arte (#00bcc7). Contraste medido sobre o fundo do
-       tema: 7,8:1 no preço e 6,4:1 no badge — folga sobre o mínimo AA (4,5:1). */
-    .badge { background: rgba(0,188,199,0.15); border-color: rgba(0,188,199,0.5); color: #2fd3dd; }
+    /* Hierarquia igual à da arte: o CIANO (#00bcc7) é ambiente — fundo, bordas,
+       rótulos; quem precisa SALTAR usa o gelo #caecff (a mesma cor que a peça
+       usa no "TODO ESSE UNIVERSO"). Com o fundo agora teal, preço e badge em
+       ciano caíam na família do próprio fundo e perdiam força — o gelo resolve
+       sem sair da paleta oficial. */
+    .badge { background: rgba(0,188,199,0.18); border-color: rgba(0,188,199,0.55); color: #caecff; }
     .preco-card { border-color: rgba(0,188,199,0.35); }
     .preco-card .speed { color: #2fd3dd; }
-    .preco-num { color: #00bcc7; } /* sólido, mesmo motivo do tema padrão */
+    .preco-num { color: #caecff; } /* sólido, mesmo motivo do tema padrão */
     .preco-oferta { background: rgba(0,188,199,0.1); border-color: rgba(0,188,199,0.5); }
     .preco-oferta .lbl { color: #2fd3dd; }
     .proof-item i { color: #2fd3dd; }
