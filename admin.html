@@ -1926,7 +1926,7 @@
   function bxIsSystemSlug(slug) { return BX_SYSTEM_SLUGS.indexOf(slug) !== -1; }
 
   // Ordem = ordem dos campos na tela. Espelha bx_landing_fields() do _bitrix-helper.php.
-  var BX_LP_KEYS = ['tema','bgImagem','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','planoNome','appLogo','appTexto','cta','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
+  var BX_LP_KEYS = ['tema','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','planoNome','appLogo','appTexto','cta','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
 
   function bxLpInput(k, label, val, ph, flex) {
     return '<div class="bx-fld"' + (flex ? ' style="flex:' + flex + ';"' : '') + '>' +
@@ -1965,7 +1965,6 @@
               '<option value=""' + (lp.tema === 'disney' ? '' : ' selected') + '>MasterInfo (laranja)</option>' +
               '<option value="disney"' + (lp.tema === 'disney' ? ' selected' : '') + '>Noite Disney (azul)</option>' +
             '</select></div>' +
-          bxLpInput('bgImagem', 'Imagem de fundo do topo (opcional, caminho do site)', lp.bgImagem, '/imgs/promo/disney-universo-bg.webp', 2) +
         '</div>' +
         '<div class="bx-grid">' +
           bxLpInput('titulo', 'Título principal', lp.titulo, 'Internet 600 Mega por R$ 89,90', 2) +

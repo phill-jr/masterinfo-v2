@@ -66,7 +66,6 @@ $ogImagem  = promo_val($L, 'ogImagem');
 $appLogo   = promo_val($L, 'appLogo');
 $appTexto  = promo_val($L, 'appTexto');
 $tema      = promo_val($L, 'tema');
-$bgImagem  = promo_val($L, 'bgImagem');
 $waMsg     = promo_val($L, 'whatsappMsg', 'Olá! Quero a oferta: ' . $planoNome);
 
 // R$ 89,90 → "89" grande + "90" sobrescrito (mesmo tratamento visual da copa).
@@ -550,68 +549,9 @@ if (is_readable($cfgPath)) {
     @media (prefers-reduced-motion: reduce) { .page::after { animation: none; } }
   </style>
 <?php endif; ?>
-<?php if ($bgImagem !== ''):
-    // Cores do véu acompanham o tema ativo pra fusão com o fundo ser invisível.
-    $veuRgb = $tema === 'disney' ? '7,13,30' : '15,15,20';
-    $veuCor = $tema === 'disney' ? '#070d1e' : '#0f0f14';
-?>
-  <style>
-    /* ── Imagem de fundo da campanha (campo bgImagem no admin) ──
-       Faixa de TOPO com altura limitada (não é fundo de página inteira): a arte
-       fica em escala sã e o véu escuro progressivo termina SÓLIDO na cor do
-       tema — qualquer arte fica legível sem editar a imagem.
-       - Mobile: arte nítida (tela ≤ largura do asset, sem upscale).
-       - Desktop: blur ambiente + escurecida. Esticar 1080px numa tela de 1920
-         vira borrão constrangedor; borrado DE PROPÓSITO vira backdrop de
-         cinema — o scale(1.08) esconde o halo claro da borda do blur.
-       Fica ACIMA do ::before (mesmo z-index -1, mas elemento real entra depois
-       do pseudo na pintura) e ABAIXO das estrelas do tema disney (::after). */
-    .promo-bg {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: clamp(430px, 74vh, 780px);
-      overflow: hidden;
-      z-index: -1;
-      pointer-events: none;
-    }
-    .promo-bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-    }
-    .promo-bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg,
-        rgba(<?= $veuRgb ?>,0.22) 0%,
-        rgba(<?= $veuRgb ?>,0.5) 40%,
-        rgba(<?= $veuRgb ?>,0.8) 68%,
-        <?= $veuCor ?> 97%);
-    }
-    @media (min-width: 900px) {
-      .promo-bg { height: min(80vh, 820px); }
-      .promo-bg img {
-        filter: blur(14px) brightness(0.62) saturate(1.15);
-        transform: scale(1.08);
-      }
-      .promo-bg::after {
-        background: linear-gradient(180deg,
-          rgba(<?= $veuRgb ?>,0.1) 0%,
-          rgba(<?= $veuRgb ?>,0.38) 46%,
-          rgba(<?= $veuRgb ?>,0.72) 72%,
-          <?= $veuCor ?> 97%);
-      }
-    }
-  </style>
-<?php endif; ?>
 </head>
 <body>
   <div class="page">
-<?php if ($bgImagem !== ''): ?>
-    <div class="promo-bg" aria-hidden="true"><img src="<?= promo_e($bgImagem) ?>" alt="" decoding="async"></div>
-<?php endif; ?>
     <div class="wrap">
 
       <div class="topo">
