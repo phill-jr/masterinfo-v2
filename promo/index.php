@@ -550,31 +550,68 @@ if (is_readable($cfgPath)) {
     @media (prefers-reduced-motion: reduce) { .page::after { animation: none; } }
   </style>
 <?php endif; ?>
-<?php if ($bgImagem !== ''): ?>
+<?php if ($bgImagem !== ''):
+    // Cores do véu acompanham o tema ativo pra fusão com o fundo ser invisível.
+    $veuRgb = $tema === 'disney' ? '7,13,30' : '15,15,20';
+    $veuCor = $tema === 'disney' ? '#070d1e' : '#0f0f14';
+?>
   <style>
     /* ── Imagem de fundo da campanha (campo bgImagem no admin) ──
-       A arte entra no TOPO da página com um véu escuro progressivo por cima:
-       visível atrás do título/badge, quase opaca na altura do card de preço e
-       sólida onde o formulário senta — qualquer arte fica legível sem editar
-       a imagem. Precisa vir DEPOIS do bloco de tema na cascata (mesmo seletor,
-       mesma especificidade — o último ganha). O véu termina na cor do tema
-       ativo pra fusão ser invisível. bgImagem é sempre caminho interno
-       (whitelist no bx_clean_landing) — seguro dentro de url(). */
-    .page::before {
-      background:
-        linear-gradient(180deg,
-          rgba(7,11,22,0.28) 0%,
-          rgba(7,11,22,0.62) 30%,
-          rgba(7,11,22,0.9) 52%,
-          <?= $tema === 'disney' ? '#070d1e' : '#0f0f14' ?> 72%),
-        url('<?= promo_e($bgImagem) ?>') top center / cover no-repeat,
-        linear-gradient(180deg, <?= $tema === 'disney' ? '#0a1633 0%, #070d1e' : '#1a0d05 0%, #0f0f14' ?> 100%);
+       Faixa de TOPO com altura limitada (não é fundo de página inteira): a arte
+       fica em escala sã e o véu escuro progressivo termina SÓLIDO na cor do
+       tema — qualquer arte fica legível sem editar a imagem.
+       - Mobile: arte nítida (tela ≤ largura do asset, sem upscale).
+       - Desktop: blur ambiente + escurecida. Esticar 1080px numa tela de 1920
+         vira borrão constrangedor; borrado DE PROPÓSITO vira backdrop de
+         cinema — o scale(1.08) esconde o halo claro da borda do blur.
+       Fica ACIMA do ::before (mesmo z-index -1, mas elemento real entra depois
+       do pseudo na pintura) e ABAIXO das estrelas do tema disney (::after). */
+    .promo-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: clamp(430px, 74vh, 780px);
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .promo-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .promo-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(<?= $veuRgb ?>,0.22) 0%,
+        rgba(<?= $veuRgb ?>,0.5) 40%,
+        rgba(<?= $veuRgb ?>,0.8) 68%,
+        <?= $veuCor ?> 97%);
+    }
+    @media (min-width: 900px) {
+      .promo-bg { height: min(80vh, 820px); }
+      .promo-bg img {
+        filter: blur(14px) brightness(0.62) saturate(1.15);
+        transform: scale(1.08);
+      }
+      .promo-bg::after {
+        background: linear-gradient(180deg,
+          rgba(<?= $veuRgb ?>,0.1) 0%,
+          rgba(<?= $veuRgb ?>,0.38) 46%,
+          rgba(<?= $veuRgb ?>,0.72) 72%,
+          <?= $veuCor ?> 97%);
+      }
     }
   </style>
 <?php endif; ?>
 </head>
 <body>
   <div class="page">
+<?php if ($bgImagem !== ''): ?>
+    <div class="promo-bg" aria-hidden="true"><img src="<?= promo_e($bgImagem) ?>" alt="" decoding="async"></div>
+<?php endif; ?>
     <div class="wrap">
 
       <div class="topo">
