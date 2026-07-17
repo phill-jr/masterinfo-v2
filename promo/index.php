@@ -394,6 +394,35 @@ if (is_readable($cfgPath)) {
     .proof-item strong { display: block; font-size: 1.1rem; color: #fff; font-weight: 800; }
     .proof-item i { color: var(--yellow); }
 
+    /* ── Desktop: duas colunas ──
+       Empilhado, o desktop herdava o problema do celular só que pior: hero alto +
+       card de 327px e o formulário caía fora da tela, com metade da largura vazia
+       dos lados. Com o espaço horizontal que existe, a oferta fica à esquerda e o
+       formulário à direita — os dois na primeira tela, sem rolagem e sem barra
+       flutuante. Mobile continua no fluxo natural (a grade só liga em ≥900px). */
+    @media (min-width: 900px) {
+      .wrap { max-width: 1080px; }
+      .page { padding: 40px 0 64px; }
+      .grade {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 400px;
+        gap: 56px;
+        align-items: start;
+      }
+      /* Centralizado é gesto de celular; em duas colunas o texto ancora à esquerda. */
+      .center { text-align: left; }
+      h1 { font-size: clamp(2.1rem, 3.2vw, 3rem); margin-top: 20px; }
+      .lead { margin-bottom: 0; }
+      .preco-card { margin-bottom: 0; margin-top: 28px; }
+      .proof { justify-content: flex-start; }
+      .fine { text-align: left; }
+      /* O formulário acompanha a rolagem: a coluna da esquerda é mais alta. */
+      .col-acao { position: sticky; top: 32px; }
+      body { padding-bottom: 0; }
+      /* (a barra fixa é desligada mais abaixo, depois da regra que a define —
+         media query não muda especificidade, então ordem é o que decide) */
+    }
+
     /* ── Barra de ação fixa (mobile) ──
        Medido em 390x844: o botão do formulário nasce em 1004px, 216px ABAIXO da
        dobra — e no celular real a barra do navegador come mais ~100px. O visitante
@@ -455,12 +484,16 @@ if (is_readable($cfgPath)) {
       transition: transform 160ms var(--ease-out);
     }
     .cta-fixo-btn:active { transform: scale(0.97); }
-    /* Reserva o espaço da barra: sem isto ela cobre a letra miúda no fim da página.
-       Nada de gate por (pointer: fine): a barra só aparece quando o botão real está
-       fora de vista, então em tela grande — onde ele quase sempre está visível —
-       ela naturalmente não incomoda. Gatear por ponteiro cortaria laptop touch e
-       tornaria o comportamento impossível de testar. */
+    /* Reserva o espaço da barra: sem isto ela cobre a letra miúda no fim da página. */
     body { padding-bottom: 84px; }
+    /* Desliga a barra no desktop. Precisa vir DEPOIS da regra acima: media query não
+       altera especificidade, então quem estiver por último na cascata ganha — foi
+       exatamente por isso que a barra apareceu flutuando no meio da tela grande.
+       Critério é largura, não (pointer: fine): ponteiro cortaria laptop touch e
+       deixaria o comportamento impossível de testar em navegador emulando celular. */
+    @media (min-width: 900px) {
+      .cta-fixo { display: none; }
+    }
 
     /* Movimento reduzido = menos movimento, não nenhum: tira o deslocamento
        decorativo e mantém o spinner (é ele que diz que o envio está rolando). */
@@ -525,6 +558,8 @@ if (is_readable($cfgPath)) {
         <a href="/"><img src="/imgs/logo-masterinfo.png" alt="MasterInfo Internet" width="140" height="38"></a>
       </div>
 
+      <div class="grade">
+      <div class="col-oferta">
       <div class="center">
 <?php if ($badge !== ''): ?>
         <span class="badge"><i class="ph-fill ph-fire"></i> <?= promo_e($badge) ?></span>
@@ -572,7 +607,9 @@ if (is_readable($cfgPath)) {
 <?php endif; ?>
       </div>
 <?php endif; ?>
+      </div><!-- /col-oferta -->
 
+      <div class="col-acao">
       <form class="form-card" id="leadForm">
         <h2>Garanta sua vaga</h2>
         <p class="sub">Preencha e fale com a gente no WhatsApp pra fechar.</p>
@@ -613,6 +650,8 @@ if (is_readable($cfgPath)) {
 <?php if ($letraMiuda !== ''): ?>
       <p class="fine"><?= promo_e($letraMiuda) ?></p>
 <?php endif; ?>
+      </div><!-- /col-acao -->
+      </div><!-- /grade -->
 
     </div>
   </div>
