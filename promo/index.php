@@ -519,15 +519,34 @@ if (is_readable($cfgPath)) {
 <?php if ($tema === 'disney'): ?>
   <style>
     /* ── Tema "noite Disney" (campo tema=disney no admin) ──
-       Azul-meia-noite + estrelas em CSS puro. Só ambiente muda: o CTA continua
-       laranja MasterInfo de propósito — laranja sobre azul-noite é o contraste
-       máximo (é o botão que converte) e mantém a marca da casa na página. */
-    body { background: #070d1e; }
+       Cores AMOSTRADAS da arte oficial Disney+ (Canva DAHPmr0pTHI), não
+       inventadas: o gradiente da peça é diagonal 225deg com ciano #00bcc7 no
+       canto superior direito caindo até petróleo #001530 no inferior esquerdo;
+       fundo da peça #011622; texto-destaque #caecff.
+       Antes o tema usava azul-royal (#0a1633/#0063e5/#5cd4ff) — família de cor
+       errada: a arte é TEAL/petróleo, não azul.
+       Só o ambiente muda: o CTA continua laranja MasterInfo de propósito —
+       laranja sobre teal-noite é o contraste máximo (é o botão que converte) e
+       mantém a marca da casa na página. */
+    body { background: #001530; }
     .page::before {
       background:
-        radial-gradient(circle at 50% 0%, rgba(0,99,229,0.38) 0%, transparent 55%),
-        radial-gradient(circle at 82% 88%, rgba(41,205,255,0.14) 0%, transparent 50%),
-        linear-gradient(180deg, #0a1633 0%, #070d1e 100%);
+        /* 'to bottom left', NÃO um ângulo fixo: na arte os cantos sup-esq
+           (#003e4f) e inf-dir (#003547) têm quase a mesma cor — assinatura de
+           gradiente canto-a-canto, onde esses dois caem no meio da linha. Com
+           225deg fixo o canto inf-dir saía #005161 (claro demais). A keyword
+           também se adapta sozinha a qualquer proporção de tela.
+           Stops intermediários porque o gradiente da arte NÃO é interpolação
+           linear entre as pontas: medido ponto a ponto, o ciano só abre nos
+           ~20% finais (o meio da diagonal é #003e4f, não o #00687b que uma
+           interpolação de 2 stops produziria). */
+        linear-gradient(to bottom left,
+          #00bcc7 0%,
+          #0095a9 10%,
+          #006070 25%,
+          #003e4f 50%,
+          #00243a 75%,
+          #001530 100%);
     }
     /* Céu estrelado: pontinhos via radial-gradient, piscando devagar. Uma camada
        só (opacity num pseudo-elemento) — custa quase nada de GPU. */
@@ -550,13 +569,17 @@ if (is_readable($cfgPath)) {
       animation: promo-twinkle 6s ease-in-out infinite alternate;
     }
     @keyframes promo-twinkle { from { opacity: 0.5; } to { opacity: 1; } }
-    .badge { background: rgba(0,99,229,0.18); border-color: rgba(41,205,255,0.5); color: #9ad2ff; }
-    .preco-card { border-color: rgba(41,205,255,0.35); }
-    .preco-card .speed { color: #9ad2ff; }
-    .preco-num { color: #5cd4ff; } /* sólido, mesmo motivo do tema padrão */
-    .preco-oferta { background: rgba(41,205,255,0.1); border-color: rgba(41,205,255,0.5); }
-    .preco-oferta .lbl { color: #9ad2ff; }
-    .proof-item i { color: #9ad2ff; }
+    /* Acentos = o ciano da arte (#00bcc7). Contraste medido sobre o fundo do
+       tema: 7,8:1 no preço e 6,4:1 no badge — folga sobre o mínimo AA (4,5:1). */
+    .badge { background: rgba(0,188,199,0.15); border-color: rgba(0,188,199,0.5); color: #2fd3dd; }
+    .preco-card { border-color: rgba(0,188,199,0.35); }
+    .preco-card .speed { color: #2fd3dd; }
+    .preco-num { color: #00bcc7; } /* sólido, mesmo motivo do tema padrão */
+    .preco-oferta { background: rgba(0,188,199,0.1); border-color: rgba(0,188,199,0.5); }
+    .preco-oferta .lbl { color: #2fd3dd; }
+    .proof-item i { color: #2fd3dd; }
+    /* Barra fixa do mobile no petróleo do tema (era azul-royal do tema antigo). */
+    .cta-fixo { background: rgba(0,21,48,0.85); border-top-color: rgba(0,188,199,0.22); }
     @media (prefers-reduced-motion: reduce) { .page::after { animation: none; } }
   </style>
 <?php endif; ?>
