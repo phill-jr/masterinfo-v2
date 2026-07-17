@@ -235,6 +235,9 @@ function bx_clean_landing(array $in): array {
         $v = $in[$key] ?? '';
         $out[$key] = is_scalar($v) ? bx_sanitize_text((string) $v, $max) : '';
     }
+    // Tema visual da landing — enum fechado, não texto livre (vira seletor de CSS).
+    $tema = strtolower(trim((string) ($in['tema'] ?? '')));
+    $out['tema'] = in_array($tema, ['disney'], true) ? $tema : '';
     // Imagens só podem ser caminho interno (ex: /imgs/hero/x.png). Sem isso o preview
     // do link no Instagram/WhatsApp poderia ser apontado pra host externo pelo admin.
     foreach (['ogImagem', 'appLogo'] as $k) {

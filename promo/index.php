@@ -65,6 +65,7 @@ $ogDesc    = promo_val($L, 'ogDescricao', $subtitulo);
 $ogImagem  = promo_val($L, 'ogImagem');
 $appLogo   = promo_val($L, 'appLogo');
 $appTexto  = promo_val($L, 'appTexto');
+$tema      = promo_val($L, 'tema');
 $waMsg     = promo_val($L, 'whatsappMsg', 'Olá! Quero a oferta: ' . $planoNome);
 
 // R$ 89,90 → "89" grande + "90" sobrescrito (mesmo tratamento visual da copa).
@@ -402,6 +403,50 @@ if (is_readable($cfgPath)) {
       .submit-btn .ph-spinner { animation-duration: 1.2s; }
     }
   </style>
+<?php if ($tema === 'disney'): ?>
+  <style>
+    /* ── Tema "noite Disney" (campo tema=disney no admin) ──
+       Azul-meia-noite + estrelas em CSS puro. Só ambiente muda: o CTA continua
+       laranja MasterInfo de propósito — laranja sobre azul-noite é o contraste
+       máximo (é o botão que converte) e mantém a marca da casa na página. */
+    body { background: #070d1e; }
+    .page::before {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0,99,229,0.38) 0%, transparent 55%),
+        radial-gradient(circle at 82% 88%, rgba(41,205,255,0.14) 0%, transparent 50%),
+        linear-gradient(180deg, #0a1633 0%, #070d1e 100%);
+    }
+    /* Céu estrelado: pontinhos via radial-gradient, piscando devagar. Uma camada
+       só (opacity num pseudo-elemento) — custa quase nada de GPU. */
+    .page::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,255,255,0.9), transparent 50%),
+        radial-gradient(1px 1px at 73% 9%, rgba(255,255,255,0.7), transparent 50%),
+        radial-gradient(1.5px 1.5px at 52% 6%, rgba(255,255,255,0.8), transparent 50%),
+        radial-gradient(1px 1px at 31% 42%, rgba(255,255,255,0.5), transparent 50%),
+        radial-gradient(1px 1px at 89% 33%, rgba(255,255,255,0.6), transparent 50%),
+        radial-gradient(1.5px 1.5px at 7% 61%, rgba(255,255,255,0.45), transparent 50%),
+        radial-gradient(1px 1px at 64% 74%, rgba(255,255,255,0.4), transparent 50%),
+        radial-gradient(1px 1px at 43% 27%, rgba(255,255,255,0.65), transparent 50%),
+        radial-gradient(1px 1px at 22% 84%, rgba(255,255,255,0.35), transparent 50%);
+      animation: promo-twinkle 6s ease-in-out infinite alternate;
+    }
+    @keyframes promo-twinkle { from { opacity: 0.5; } to { opacity: 1; } }
+    .badge { background: rgba(0,99,229,0.18); border-color: rgba(41,205,255,0.5); color: #9ad2ff; }
+    .preco-card { border-color: rgba(41,205,255,0.35); }
+    .preco-card .speed { color: #9ad2ff; }
+    .preco-num { background: linear-gradient(135deg, #29cdff, #bfe9ff); -webkit-background-clip: text; background-clip: text; }
+    .preco-oferta { background: rgba(41,205,255,0.1); border-color: rgba(41,205,255,0.5); }
+    .preco-oferta .lbl { color: #9ad2ff; }
+    .proof-item i { color: #9ad2ff; }
+    @media (prefers-reduced-motion: reduce) { .page::after { animation: none; } }
+  </style>
+<?php endif; ?>
 </head>
 <body>
   <div class="page">

@@ -1926,7 +1926,7 @@
   function bxIsSystemSlug(slug) { return BX_SYSTEM_SLUGS.indexOf(slug) !== -1; }
 
   // Ordem = ordem dos campos na tela. Espelha bx_landing_fields() do _bitrix-helper.php.
-  var BX_LP_KEYS = ['titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','planoNome','appLogo','appTexto','cta','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
+  var BX_LP_KEYS = ['tema','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','planoNome','appLogo','appTexto','cta','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
 
   function bxLpInput(k, label, val, ph, flex) {
     return '<div class="bx-fld"' + (flex ? ' style="flex:' + flex + ';"' : '') + '>' +
@@ -1960,6 +1960,13 @@
       '</label>' +
       '<div class="bx-lp-body"' + (aberto ? '' : ' hidden') + '>' +
         '<div class="bx-grid" style="margin-top:12px;">' +
+          '<div class="bx-fld" style="max-width:260px;"><label>Tema visual</label>' +
+            '<select class="bxlp-tema">' +
+              '<option value=""' + (lp.tema === 'disney' ? '' : ' selected') + '>MasterInfo (laranja)</option>' +
+              '<option value="disney"' + (lp.tema === 'disney' ? ' selected' : '') + '>Noite Disney (azul)</option>' +
+            '</select></div>' +
+        '</div>' +
+        '<div class="bx-grid">' +
           bxLpInput('titulo', 'Título principal', lp.titulo, 'Internet 600 Mega por R$ 89,90', 2) +
           bxLpInput('badge', 'Selo', lp.badge, 'Oferta do Instagram') +
         '</div>' +
