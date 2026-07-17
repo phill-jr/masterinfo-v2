@@ -326,7 +326,49 @@
         var icon = badgeEl.querySelector('i');
         badgeEl.innerHTML = (icon ? icon.outerHTML + ' ' : '') + esc(p.badge);
       }
+
+      // Selo Wi-Fi 6 do card (toggle do admin): false remove, true garante o selo.
+      // Campo AUSENTE no config = não mexe (o HTML estático manda) — evita recriar
+      // selo errado em produção antes do primeiro save do admin com o campo novo.
+      var wifiEl = card.querySelector('.plan-wifi6');
+      if (p.wifi6 === false) {
+        if (wifiEl) wifiEl.parentNode.removeChild(wifiEl);
+      } else if (p.wifi6 === true && !wifiEl) {
+        var appsLabel = card.querySelector('.plan-apps .plan-apps-label');
+        if (appsLabel) appsLabel.insertAdjacentHTML('afterend',
+          '<img src="imgs/wifi6.svg" class="plan-wifi6" alt="Wi-Fi 6 incluso" width="132" height="34">');
+      }
     });
+
+    // Pílula "Wi-Fi 6" acima dos planos: reflete o estado real dos toggles.
+    // Todos com selo → "Todos os planos..."; parcial → "a partir de <menor velocidade>";
+    // nenhum → esconde a pílula. Se NENHUM plano define wifi6 (config antigo),
+    // deixa o texto estático como está.
+    var pill = document.querySelector('.plans-wifi6');
+    var algumDefinido = planos.some(function (p) { return typeof p.wifi6 === 'boolean'; });
+    if (pill && algumDefinido) {
+      var span = pill.querySelector('span');
+      var comWifi = planos.filter(function (p) { return p.wifi6 !== false; });
+      if (!comWifi.length) {
+        pill.style.display = 'none';
+      } else if (span) {
+        pill.style.display = '';
+        if (comWifi.length === planos.length) {
+          span.innerHTML = 'Todos os planos já vêm com <strong>Wi-Fi 6</strong>';
+        } else {
+          var min = null;
+          comWifi.forEach(function (p) {
+            var v = parseFloat(p.velocidade);
+            if (isNaN(v)) return;
+            var mega = /giga/i.test(p.unidade || '') ? v * 1000 : v;
+            if (!min || mega < min.mega) min = { mega: mega, label: p.velocidade + ' ' + (p.unidade || 'Mega') };
+          });
+          span.innerHTML = min
+            ? '<strong>Wi-Fi 6</strong> incluso nos planos a partir de ' + esc(min.label)
+            : '<strong>Wi-Fi 6</strong> incluso nos planos com o selo';
+        }
+      }
+    }
   }
 
   function formatBRL(n) {

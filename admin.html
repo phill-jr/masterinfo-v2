@@ -2908,6 +2908,13 @@
               '<option value="true"' + (p.incluiTV ? ' selected' : '') + '>Sim</option>' +
             '</select>' +
           '</div>' +
+          '<div class="form-group">' +
+            '<label>Selo Wi-Fi 6 no card</label>' +
+            '<select onchange="updatePlano(' + i + ',\'wifi6\',this.value===\'true\')">' +
+              '<option value="true"' + (p.wifi6 !== false ? ' selected' : '') + '>Sim (mostra o selo)</option>' +
+              '<option value="false"' + (p.wifi6 === false ? ' selected' : '') + '>Nao (sem selo)</option>' +
+            '</select>' +
+          '</div>' +
         '</div>' +
         '<div class="form-group">' +
           '<label>Categorias PlayHub liberadas (marca quais este plano dá acesso)</label>' +
@@ -2989,6 +2996,7 @@
       preco: 99,
       features: [],
       incluiTV: false,
+      wifi6: true,
       badge: null
     });
     renderPlanos();

@@ -508,7 +508,7 @@
         },
         {
             "pergunta": "Quanto tempo demora a instalação?",
-            "resposta": "Na maioria dos casos, a instalação acontece em <strong>até 3 dias<\/strong> após a contratação. Você consulta a cobertura pelo seu endereço, escolhe o plano e agenda. O técnico leva a fibra até dentro da sua casa (FTTH), instala o roteador Wi-Fi 6 e só sai com tudo funcionando e testado."
+            "resposta": "Na maioria dos casos, a instalação acontece em <strong>até 3 dias<\/strong> após a contratação. Você consulta a cobertura pelo seu endereço, escolhe o plano e agenda. O técnico leva a fibra até dentro da sua casa (FTTH), instala o roteador Wi-Fi e só sai com tudo funcionando e testado."
         },
         {
             "pergunta": "Tem fidelidade?",
@@ -520,7 +520,7 @@
         },
         {
             "pergunta": "O Wi-Fi pega em toda a casa?",
-            "resposta": "<strong>Sim.<\/strong> Todos os planos vêm com <strong>Wi-Fi 6<\/strong>, e temos opções com Mesh e com 2 roteadores pra cobrir cada canto da casa, sem ponto cego. Se ainda faltar sinal em algum cômodo, dá pra adicionar pontos extras de fibra a partir de <strong>R$ 10 por mês<\/strong>."
+            "resposta": "<strong>Sim.<\/strong> A partir de 800 Mega, os planos já vêm com <strong>Wi-Fi 6<\/strong>, e temos opções com Mesh e com 2 roteadores pra cobrir cada canto da casa, sem ponto cego. Se ainda faltar sinal em algum cômodo, dá pra adicionar pontos extras de fibra a partir de <strong>R$ 10 por mês<\/strong>."
         }
     ],
     "planos": [
@@ -528,6 +528,7 @@
             "id": "lite-casa",
             "linha": "LITE",
             "nome": "Lite Casa",
+            "wifi6": false,
             "tagline": "Casal \/ casa pequena",
             "velocidade": "600",
             "unidade": "Mega",
@@ -547,6 +548,7 @@
             "id": "lite-premium",
             "linha": "LITE",
             "nome": "Lite Premium",
+            "wifi6": true,
             "tagline": "Família média \/ vários devices",
             "velocidade": "800",
             "unidade": "Mega",
@@ -567,6 +569,7 @@
             "id": "lite-basic",
             "linha": "LITE",
             "nome": "Lite Basic",
+            "wifi6": true,
             "tagline": "1000 Mega sem TV — velocidade pura",
             "velocidade": "1000",
             "unidade": "Mega",
@@ -584,6 +587,7 @@
             "id": "ultra-familia",
             "linha": "ULTRA",
             "nome": "Ultra Família",
+            "wifi6": true,
             "tagline": "Família grande + streaming premium",
             "velocidade": "1000",
             "unidade": "Mega",
@@ -603,6 +607,7 @@
             "id": "ultra-home-office",
             "linha": "ULTRA",
             "nome": "Ultra Home Office",
+            "wifi6": true,
             "tagline": "Profissional \/ empresa em casa",
             "velocidade": "1000",
             "unidade": "Mega",
@@ -625,6 +630,7 @@
             "id": "ultra-gamer",
             "linha": "ULTRA",
             "nome": "Ultra Gamer",
+            "wifi6": true,
             "tagline": "Pra gamer — ping mínimo",
             "velocidade": "1000",
             "unidade": "Mega",

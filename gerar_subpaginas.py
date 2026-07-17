@@ -262,14 +262,14 @@ AJUDA = [
 ]
 
 PLANS_MAP = {
-    # ─── LINHA LITE, 1 Roteador Wi-Fi 6 ───
+    # ─── LINHA LITE, 1 Roteador (Wi-Fi 6 a partir do lite-premium) ───
     "lite-casa": {
         "nome": "Lite Casa", "linha": "LITE",
         "speed": "600", "unit": "Mega",
         "preco": "99,99", "preco_cheio": "109,99",
         "apps": [{"logo": "sky.jpg", "nome": "SKY+ Light"}],
         "features": [
-            "Wi-Fi 6 em 1 ambiente",
+            "Wi-Fi em 1 ambiente",
             "1 app de TV / mês (categoria Standard)",
             "Suporte Sábado e Domingo",
         ],
@@ -1759,7 +1759,7 @@ SEO_META = {
     "com-2-roteadores/index.html": ("Wi-Fi em Toda a Casa em Joinville (2 Roteadores) | MasterInfo",
         "Wi-Fi sem ponto cego em Joinville: kit com 2 roteadores Wi-Fi 6 para sinal forte em todos os cômodos. Cobertura total da casa. Veja os planos."),
     "com-1-roteador/index.html": ("Internet Fibra para Apartamento em Joinville | MasterInfo",
-        "Internet fibra óptica para apartamento e casa pequena em Joinville, com roteador Wi-Fi 6. Planos a partir de 600 Mega. Confira a cobertura."),
+        "Internet fibra óptica para apartamento e casa pequena em Joinville, com roteador Wi-Fi incluso. Planos a partir de 600 Mega. Confira a cobertura."),
     "contato/index.html": ("Fale com a MasterInfo, Contato em Joinville | MasterInfo",
         "Entre em contato com a MasterInfo Internet em Joinville: WhatsApp, telefone e atendimento local. Tire dúvidas sobre planos, cobertura e suporte."),
     "tv-streaming/index.html": ("Internet com TV e Streaming em Joinville | MasterInfo",
