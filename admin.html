@@ -1926,7 +1926,7 @@
   function bxIsSystemSlug(slug) { return BX_SYSTEM_SLUGS.indexOf(slug) !== -1; }
 
   // Ordem = ordem dos campos na tela. Espelha bx_landing_fields() do _bitrix-helper.php.
-  var BX_LP_KEYS = ['tema','campoExtra','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','planoNome','appLogo','appTexto','cta','formTitulo','formSub','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
+  var BX_LP_KEYS = ['tema','campoExtra','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','vagasTotal','vagasRestantes','planoNome','appLogo','appTexto','cta','formTitulo','formSub','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
 
   function bxLpInput(k, label, val, ph, flex) {
     return '<div class="bx-fld"' + (flex ? ' style="flex:' + flex + ';"' : '') + '>' +
@@ -1991,6 +1991,11 @@
           bxLpInput('ofertaLabel', 'Destaque da oferta — rótulo', lp.ofertaLabel, '2ª mensalidade') +
           bxLpInput('ofertaValor', 'Destaque da oferta — valor', lp.ofertaValor, 'R$ 79,95') +
         '</div>' +
+        '<div class="bx-grid">' +
+          bxLpInput('vagasTotal', 'Quantidade limitada — total', lp.vagasTotal, 'vazio = sem limite na página') +
+          bxLpInput('vagasRestantes', 'Quantas ainda sobraram', lp.vagasRestantes, 'você atualiza conforme libera') +
+        '</div>' +
+        '<div class="bx-lp-warn" style="margin-top:10px;"><i class="ph ph-warning"></i> <span>Esses números aparecem na página pro visitante — <b>atualize conforme for liberando</b>. Chegando a <b>0</b>, a página avisa que esgotou e desliga o botão de envio (para de entrar cadastro que você não vai conseguir atender). Deixe o total <b>vazio</b> se a campanha não tiver limite.</span></div>' +
         '<div class="bx-grid">' +
           bxLpInput('planoNome', 'Nome do plano (vai pro Bitrix e pro WhatsApp)', lp.planoNome, 'Plano 600 Mega — Campanha Instagram', 2) +
         '</div>' +

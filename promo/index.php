@@ -78,6 +78,20 @@ $formSub    = promo_val($L, 'formSub', $ehCliente
     ? 'Só o CPF do contrato e seu WhatsApp. A gente confere e libera.'
     : 'Preencha e fale com a gente no WhatsApp pra fechar.');
 
+// ── Escassez (opcional) ──
+// Os dois números vêm do admin, digitados por quem sabe quantas sobraram de verdade.
+// Sem total definido, o bloco não existe — campanha sem limite não ganha urgência falsa.
+$vagasTotal = (int) preg_replace('/\D/', '', promo_val($L, 'vagasTotal', '0'));
+$vagasRest  = (int) preg_replace('/\D/', '', promo_val($L, 'vagasRestantes', '0'));
+$temVagas   = $vagasTotal > 0;
+if ($temVagas) $vagasRest = max(0, min($vagasRest, $vagasTotal)); // restante > total seria erro de digitação
+$esgotado   = $temVagas && $vagasRest === 0;
+$vagasUsadas= $temVagas ? $vagasTotal - $vagasRest : 0;
+$vagasPct   = $temVagas ? (int) round(($vagasUsadas / $vagasTotal) * 100) : 0;
+// "Poucas" = 30% ou menos. Só aí o número ganha destaque extra — chamar de urgente
+// enquanto está em 19/20 gasta o recurso antes da hora e ninguém acredita depois.
+$vagasPoucas= $temVagas && !$esgotado && $vagasRest <= max(1, (int) ceil($vagasTotal * 0.3));
+
 // R$ 89,90 → "89" grande + "90" sobrescrito (mesmo tratamento visual da copa).
 $precoNum = $preco;
 $precoCents = '';
@@ -301,6 +315,59 @@ if (is_readable($cfgPath)) {
       flex-shrink: 0;
       background: #fff;
     }
+    /* ── Escassez ──
+       Fica logo abaixo do preço porque é a segunda pergunta de quem já decidiu que
+       quer ("ainda dá tempo?"). Vermelho de propósito: é o único ponto quente da
+       página, e só acende quando as vagas estão de fato acabando. */
+    .estoque {
+      margin: -14px 0 26px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+    }
+    .estoque-linha { display: flex; align-items: center; gap: 12px; }
+    .estoque-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.9rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--yellow);
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .estoque-txt { font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.35; }
+    .estoque-txt b { color: #fff; }
+    .estoque-barra {
+      margin-top: 12px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      overflow: hidden;
+    }
+    .estoque-barra span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: var(--fire);
+      /* Anima só na entrada (largura vem do PHP, não muda depois): dá a leitura de
+         "enchendo" sem nunca sugerir que o número está caindo ao vivo.
+         SEM fill-mode de propósito: assim a largura de repouso é a do style inline,
+         e a barra mostra o valor certo mesmo se a animação não rodar (aba em
+         background é estrangulada pelo browser). Com 'both' ela ficaria presa em 0
+         nesse caso — e barra vazia com 6 de 20 restantes seria informação FALSA. */
+      animation: estoque-encher 900ms var(--ease-out);
+    }
+    @keyframes estoque-encher { from { width: 0; } }
+    .estoque.poucas { border-color: rgba(230,57,70,0.55); background: rgba(230,57,70,0.1); }
+    .estoque.poucas .estoque-num { color: #ff6b6b; }
+    .estoque.poucas .estoque-barra span { background: linear-gradient(135deg, #e63946, #ff7a05); }
+    .estoque.esgotado { opacity: 0.75; }
+    .estoque.esgotado .estoque-linha i { font-size: 1.5rem; color: rgba(255,255,255,0.6); flex-shrink: 0; }
+    @media (prefers-reduced-motion: reduce) {
+      .estoque-barra span { animation: none; }
+    }
+
     .form-card {
       background: #fff;
       color: #1a1a1a;
@@ -596,6 +663,12 @@ if (is_readable($cfgPath)) {
     .preco-oferta { background: rgba(0,188,199,0.1); border-color: rgba(0,188,199,0.5); }
     .preco-oferta .lbl { color: #2fd3dd; }
     .proof-item i { color: #2fd3dd; }
+    /* Escassez no tema: o número usa o gelo (mesma hierarquia do preço). O estado
+       "poucas" mantém o vermelho — é alerta, não decoração, e tem que destoar do
+       ambiente teal pra ser lido como urgência. */
+    .estoque { border-color: rgba(0,188,199,0.3); background: rgba(0,188,199,0.07); }
+    .estoque-num { color: #caecff; }
+    .estoque-barra span { background: linear-gradient(135deg, #00bcc7, #caecff); }
     /* Barra fixa do mobile no petróleo do tema (era azul-royal do tema antigo). */
     .cta-fixo { background: rgba(0,21,48,0.85); border-top-color: rgba(0,188,199,0.22); }
     @media (prefers-reduced-motion: reduce) { .page::after { animation: none; } }
@@ -659,6 +732,36 @@ if (is_readable($cfgPath)) {
 <?php endif; ?>
       </div>
 <?php endif; ?>
+
+<?php if ($temVagas): ?>
+      <!-- Escassez REAL: os números são digitados no admin por quem sabe quantas
+           sobraram. Nada aqui se move sozinho de propósito — ver comentário em
+           bx_landing_fields(). Sem 'vagasTotal' o bloco nem é renderizado. -->
+      <div class="estoque<?= $esgotado ? ' esgotado' : ($vagasPoucas ? ' poucas' : '') ?>">
+<?php if ($esgotado): ?>
+        <div class="estoque-linha">
+          <i class="ph-fill ph-check-circle"></i>
+          <span class="estoque-txt"><strong>As <?= $vagasTotal ?> assinaturas acabaram.</strong> Fica de olho: a gente avisa na próxima.</span>
+        </div>
+<?php else: ?>
+        <div class="estoque-linha">
+          <span class="estoque-num"><?= $vagasRest ?></span>
+          <span class="estoque-txt">
+            de <?= $vagasTotal ?> assinaturas ainda disponíveis
+<?php if ($vagasPoucas): ?>
+            <b>Corre que estão acabando.</b>
+<?php endif; ?>
+          </span>
+        </div>
+        <!-- Barra mostra o CONSUMIDO: encher é mais legível como "está acabando"
+             do que esvaziar. aria-* porque leitor de tela não vê largura de div. -->
+        <div class="estoque-barra" role="progressbar" aria-valuemin="0" aria-valuemax="<?= $vagasTotal ?>"
+             aria-valuenow="<?= $vagasUsadas ?>" aria-label="<?= $vagasUsadas ?> de <?= $vagasTotal ?> assinaturas já resgatadas">
+          <span style="width: <?= max(3, $vagasPct) ?>%"></span>
+        </div>
+<?php endif; ?>
+      </div>
+<?php endif; ?>
       </div><!-- /col-oferta -->
 
       <div class="col-acao">
@@ -696,9 +799,18 @@ if (is_readable($cfgPath)) {
           <input type="text" id="_hp" name="_hp" tabindex="-1" autocomplete="off">
         </div>
 
+<?php if ($esgotado): ?>
+        <!-- Esgotado: botão desligado no SERVIDOR. Continuar recebendo cadastro de
+             quem não vai ser atendido é pior que dizer que acabou — vira promessa
+             quebrada com cliente da casa, o oposto do objetivo da campanha. -->
+        <button type="button" class="submit-btn" disabled>
+          Assinaturas esgotadas
+        </button>
+<?php else: ?>
         <button type="submit" class="submit-btn">
           <?= promo_e($cta) ?> <i class="ph-bold ph-arrow-right"></i>
         </button>
+<?php endif; ?>
 
         <div class="form-trust">
           <i class="ph-fill ph-whatsapp-logo"></i> Você vai falar direto com nosso time
@@ -762,6 +874,10 @@ if (is_readable($cfgPath)) {
     var hp    = document.getElementById('_hp');
     var btn   = form.querySelector('.submit-btn');
     var extra = document.getElementById(CAMPO); // o 2º campo, seja qual for
+
+    // Esgotado: o botão já nasce desligado no HTML. Sai fora antes de ligar máscara,
+    // barra fixa e envio — nada disso tem função sem vaga pra dar.
+    if (btn.disabled) { return; }
 
     // ── Barra de ação fixa ──
     // Aparece enquanto o botão real está fora de vista e some quando ele entra:

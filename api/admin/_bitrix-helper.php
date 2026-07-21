@@ -224,6 +224,12 @@ function bx_landing_fields(): array {
         // já paga soa como venda e derruba a confiança.
         'formTitulo'   => 60,
         'formSub'      => 140,
+        // Escassez REAL. Números digitados por quem sabe a verdade — nunca gerados/
+        // decrementados por script: a campanha fala com a própria base de clientes,
+        // que compara link entre si; contador inventado queima a confiança justo na
+        // campanha feita pra reforçá-la. Total vazio/0 esconde o bloco inteiro.
+        'vagasTotal'     => 6,
+        'vagasRestantes' => 6,
         'whatsappMsg'  => 400,
         'letraMiuda'   => 600,
         'ogTitulo'     => 120,
