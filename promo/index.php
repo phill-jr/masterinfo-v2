@@ -185,11 +185,31 @@ if (is_readable($cfgPath)) {
       color: #fff;
       line-height: 1.5;
       overflow-x: hidden;
+      /* iOS infla o texto ao virar o celular pra paisagem e o layout se desmonta. */
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      /* Tira o flash azul do toque: já existe feedback próprio (:active com scale)
+         e o retângulo azul-padrão aparecia até em toque de rolagem. */
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* Foco visível pra quem navega por teclado. O `outline:none` dos campos é só
+       estético (a borda laranja marca o foco do mouse/toque); sem isto, teclado
+       fica sem NENHUM indicador. :focus-visible não dispara em toque, então não
+       polui a experiência do celular. */
+    :focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 2px;
+      border-radius: 4px;
     }
     .wrap { max-width: 560px; margin: 0 auto; padding: 0 20px; }
     .page {
       position: relative;
+      /* svh, não vh: no celular a barra do navegador some ao rolar e o `vh` muda
+         junto — o fundo "pula" no meio da rolagem. O svh usa a altura com a barra
+         VISÍVEL, que é o pior caso, então nada encolhe depois. vh fica de fallback
+         pra quem não suporta. */
       min-height: 100vh;
+      min-height: 100svh;
       isolation: isolate;
       padding: 32px 0 60px;
     }
@@ -204,7 +224,11 @@ if (is_readable($cfgPath)) {
       z-index: -1;
     }
     .topo { text-align: center; margin-bottom: 26px; }
-    .topo img { height: 38px; width: auto; }
+    /* A logo é link pra home. A imagem tem 38px de altura, mas o alvo de toque
+       precisa de ~44px — abaixo disso o dedo erra. O padding cresce a área
+       clicável sem mexer no desenho. */
+    .topo a { display: inline-block; padding: 6px 10px; }
+    .topo img { height: 38px; width: auto; display: block; }
     .badge {
       display: inline-flex;
       align-items: center;
@@ -216,11 +240,18 @@ if (is_readable($cfgPath)) {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      /* 0.12em de espaçamento em caixa alta empurrava o texto pra 2ª linha no
+         celular; a pílula arredondada com texto quebrado fica desalinhada. Menos
+         espaçamento + quebra equilibrada mantém a pílula inteira em 1 linha na
+         maioria dos textos, e simétrica quando precisa quebrar. */
+      letter-spacing: 0.08em;
+      line-height: 1.35;
+      text-wrap: balance;
       color: #ff9a3c;
       text-transform: uppercase;
     }
-    .badge i { font-size: 0.9rem; }
+    /* O ícone não pode encolher nem subir quando o texto quebra em 2 linhas. */
+    .badge i { font-size: 0.9rem; flex-shrink: 0; align-self: center; }
     .center { text-align: center; }
     h1 {
       font-size: clamp(1.9rem, 7vw, 2.7rem);
@@ -435,6 +466,11 @@ if (is_readable($cfgPath)) {
     .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .submit-btn {
       width: 100%;
+      min-height: 52px; /* alvo de toque confortável mesmo se o texto for curto */
+      /* Toque longo no botão selecionava o texto do CTA e abria o menu de copiar. */
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
       padding: 17px;
       font-size: 1.08rem;
       font-weight: 800;
@@ -504,13 +540,20 @@ if (is_readable($cfgPath)) {
     .form-sucesso i { font-size: 3rem; color: #25d366; }
     .form-sucesso h2 { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.02em; }
     .form-sucesso p { font-size: 0.95rem; color: #555; line-height: 1.5; max-width: 34ch; }
+    /* Letra miúda — legível de verdade. Era 11,5px em itálico a 45% de opacidade:
+       contraste medido 4,44:1, logo abaixo do mínimo de 4,5:1 pra texto pequeno.
+       Agora 12,5px a 62% = 7,43:1. Aqui não é enfeite: é onde estão as condições da
+       campanha (limite de 20, ordem de chegada). Regra ilegível não protege ninguém.
+       Largura travada em 52ch porque linha longa demais também cansa. */
     .fine {
       text-align: center;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.45);
-      margin-top: 20px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.62);
+      max-width: 52ch;
+      margin: 20px auto 0;
       font-style: italic;
-      line-height: 1.5;
+      line-height: 1.6;
+      text-wrap: pretty;
     }
     .proof {
       display: flex;
@@ -589,6 +632,8 @@ if (is_readable($cfgPath)) {
       transition: transform 220ms var(--ease-out);
     }
     .cta-fixo[data-visivel] { transform: translateY(0); }
+    /* Digitando vence o "visível": o teclado abriu, o campo é que importa agora. */
+    .cta-fixo[data-digitando] { transform: translateY(110%); }
     /* O preço só entra na barra quando o card de preço saiu de vista. Com o card
        na tela, repetir "R$ 159,90 · 2ª mensalidade R$ 79,95" logo abaixo dele é
        eco, não reforço: a barra existe pra dar o CTA que sumiu, não o preço que
@@ -612,6 +657,10 @@ if (is_readable($cfgPath)) {
     .cta-fixo-btn {
       flex: 1;
       min-width: 0; /* deixa o flex encolher de verdade (item flex não encolhe abaixo do conteúdo sem isto) */
+      min-height: 46px;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
       padding: 14px 12px;
       font-family: inherit;
       /* Menor que o botão do formulário de propósito: aqui divide a faixa com o
@@ -632,6 +681,13 @@ if (is_readable($cfgPath)) {
       transition: transform 160ms var(--ease-out);
     }
     .cta-fixo-btn:active { transform: scale(0.97); }
+    /* Tela estreita (SE, Androids de entrada): o preço come 120 dos ~290px da barra
+       e o CTA sai cortado com reticências. O preço já está no card logo acima — na
+       barra ele é lembrete; o botão é o que decide. Some o lembrete. */
+    @media (max-width: 360px) {
+      .cta-fixo-preco { display: none; }
+      .cta-fixo { gap: 0; }
+    }
     /* Reserva o espaço da barra: sem isto ela cobre a letra miúda no fim da página. */
     body { padding-bottom: 84px; }
     /* Desliga a barra no desktop. Precisa vir DEPOIS da regra acima: media query não
@@ -829,13 +885,20 @@ if (is_readable($cfgPath)) {
 
         <div class="field">
           <label for="nome">Seu nome</label>
-          <input type="text" id="nome" name="nome" placeholder="Nome completo" required autocomplete="name">
+          <?php /* enterkeyhint: o teclado do celular mostra "Próximo" em vez de "Ir" —
+                   diz que ainda tem campo pela frente. autocapitalize=words poupa o
+                   shift em cada nome; autocorrect/spell off porque sobrenome não é
+                   erro de digitação e o corretor troca por outra palavra. */ ?>
+          <input type="text" id="nome" name="nome" placeholder="Nome completo" required
+                 autocomplete="name" enterkeyhint="next"
+                 autocapitalize="words" autocorrect="off" spellcheck="false">
         </div>
 <?php if ($campoExtra === 'cpf'): ?>
         <div class="field">
           <label for="cpf">Seu CPF</label>
           <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required
-                 inputmode="numeric" autocomplete="off" maxlength="14" aria-describedby="cpfAjuda">
+                 inputmode="numeric" autocomplete="off" maxlength="14" enterkeyhint="next"
+                 autocorrect="off" spellcheck="false" aria-describedby="cpfAjuda">
           <!-- Diz POR QUE o CPF está sendo pedido. Campanha de cliente que pede documento
                sem explicar parece golpe — e é justamente o público que já desconfia. -->
           <small class="field-hint" id="cpfAjuda">O mesmo do seu contrato — é assim que a gente confirma que você é cliente.</small>
@@ -849,7 +912,10 @@ if (is_readable($cfgPath)) {
 <?php endif; ?>
         <div class="field">
           <label for="telefone">Seu WhatsApp</label>
-          <input type="tel" id="telefone" name="telefone" placeholder="(47) 9____-____" required inputmode="numeric" autocomplete="tel">
+          <?php /* enterkeyhint=send: é o último campo, o teclado mostra "Enviar" e o
+                   Enter já submete — evita fechar o teclado só pra achar o botão. */ ?>
+          <input type="tel" id="telefone" name="telefone" placeholder="(47) 9____-____" required
+                 inputmode="numeric" autocomplete="tel" enterkeyhint="send" maxlength="15">
         </div>
 
         <div class="hp" aria-hidden="true">
@@ -1023,6 +1089,27 @@ if (is_readable($cfgPath)) {
           window.promoAtualizarPreco(cardEstaNaTela());
         }, { passive: true });
       }
+
+      // ── Some enquanto a pessoa digita ──
+      // Com o teclado aberto o viewport encolhe e a barra fixa (bottom:0) para
+      // EM CIMA do campo — medido: cobre o campo em tela de 440px de altura. E
+      // mesmo quando não cobre, um CTA gigante piscando ao lado do teclado é ruído
+      // em quem já está preenchendo. Volta sozinha ao sair do campo.
+      form.addEventListener('focusin', function(e) {
+        if (e.target.tagName !== 'INPUT') return;
+        barra.setAttribute('data-digitando', '');
+      });
+      form.addEventListener('focusout', function() {
+        // Espera um tique antes de decidir: o foco só pousa no próximo campo depois
+        // deste evento, e sem a espera a barra piscaria a cada troca de campo.
+        // setTimeout e não requestAnimationFrame — rAF não roda em aba de segundo
+        // plano, e a barra ficaria presa escondida até a aba voltar.
+        setTimeout(function() {
+          var focado = document.activeElement;
+          if (focado && form.contains(focado) && focado.tagName === 'INPUT') return;
+          barra.removeAttribute('data-digitando');
+        }, 0);
+      });
 
       document.getElementById('ctaFixoBtn').addEventListener('click', function() {
         if (typeof window.miTrack === 'function') { try { window.miTrack('cta_click', { label: 'barra fixa promo' }); } catch (e) {} }
