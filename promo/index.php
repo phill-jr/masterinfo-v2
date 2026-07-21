@@ -67,6 +67,16 @@ $appLogo   = promo_val($L, 'appLogo');
 $appTexto  = promo_val($L, 'appTexto');
 $tema      = promo_val($L, 'tema');
 $waMsg     = promo_val($L, 'whatsappMsg', 'Olá! Quero a oferta: ' . $planoNome);
+// 2º campo do form: 'bairro' (captação — diz se tem cobertura) ou 'cpf' (campanha
+// pra quem já é cliente — é o CPF que acha o contrato no IXC). Default bairro.
+$campoExtra = promo_val($L, 'campoExtra', 'bairro') === 'cpf' ? 'cpf' : 'bairro';
+// Campanha de cliente (CPF) x de captação (bairro) fala com gente em situação
+// diferente, então o cabeçalho do form muda junto — mas segue editável no admin.
+$ehCliente  = $campoExtra === 'cpf';
+$formTitulo = promo_val($L, 'formTitulo', $ehCliente ? 'Confirme que é você' : 'Garanta sua vaga');
+$formSub    = promo_val($L, 'formSub', $ehCliente
+    ? 'Só o CPF do contrato e seu WhatsApp. A gente confere e libera.'
+    : 'Preencha e fale com a gente no WhatsApp pra fechar.');
 
 // R$ 89,90 → "89" grande + "90" sobrescrito (mesmo tratamento visual da copa).
 $precoNum = $preco;
@@ -329,6 +339,11 @@ if (is_readable($cfgPath)) {
     }
     .field input:focus { outline: none; border-color: var(--orange); background: #fff; }
     .field input::placeholder { color: #aaa; }
+    .field-hint { display: block; margin-top: 6px; font-size: 0.76rem; color: #888; line-height: 1.35; }
+    /* Erro em vermelho + borda no campo: cor sozinha não basta (daltonismo), então o
+       texto também diz o que houve. Só aparece depois que a pessoa termina de digitar. */
+    .field-erro { display: block; margin-top: 6px; font-size: 0.78rem; font-weight: 700; color: #c62828; }
+    .field input.invalido { border-color: #c62828; background: #fff5f5; }
     /* Honeypot: invisível pro humano, preenchido por bot. Fora da viewport (não display:none,
        que alguns bots detectam). O form-submit.php descarta o envio se vier preenchido. */
     .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
@@ -648,17 +663,29 @@ if (is_readable($cfgPath)) {
 
       <div class="col-acao">
       <form class="form-card" id="leadForm">
-        <h2>Garanta sua vaga</h2>
-        <p class="sub">Preencha e fale com a gente no WhatsApp pra fechar.</p>
+        <h2><?= promo_e($formTitulo) ?></h2>
+        <p class="sub"><?= promo_e($formSub) ?></p>
 
         <div class="field">
           <label for="nome">Seu nome</label>
           <input type="text" id="nome" name="nome" placeholder="Nome completo" required autocomplete="name">
         </div>
+<?php if ($campoExtra === 'cpf'): ?>
+        <div class="field">
+          <label for="cpf">Seu CPF</label>
+          <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required
+                 inputmode="numeric" autocomplete="off" maxlength="14" aria-describedby="cpfAjuda">
+          <!-- Diz POR QUE o CPF está sendo pedido. Campanha de cliente que pede documento
+               sem explicar parece golpe — e é justamente o público que já desconfia. -->
+          <small class="field-hint" id="cpfAjuda">O mesmo do seu contrato — é assim que a gente confirma que você é cliente.</small>
+          <small class="field-erro" id="cpfErro" role="alert" hidden>CPF inválido. Confira os números.</small>
+        </div>
+<?php else: ?>
         <div class="field">
           <label for="bairro">Seu bairro</label>
           <input type="text" id="bairro" name="bairro" placeholder="Ex: Comasa, Boa Vista, Aventureiro..." required>
         </div>
+<?php endif; ?>
         <div class="field">
           <label for="telefone">Seu WhatsApp</label>
           <input type="tel" id="telefone" name="telefone" placeholder="(47) 9____-____" required inputmode="numeric" autocomplete="tel">
@@ -684,11 +711,23 @@ if (is_readable($cfgPath)) {
            formulário eles entravam na conta da altura da coluna, e aí a base do form
            media junto com eles — nunca casava com a do card de preço. No celular a
            ordem na tela não muda (a grade só existe em ≥900px; aqui é fluxo normal). -->
+<?php if ($ehCliente): ?>
+      <!-- Público que JÁ é cliente: nota no Google e "100% Joinville" são argumentos
+           pra quem ainda não comprou — aqui só ocupam espaço. O que trava esse
+           visitante é outra coisa: "vai aparecer cobrança na minha fatura?". Então o
+           lugar da prova social vira tratamento de objeção. -->
+      <div class="proof">
+        <div class="proof-item"><strong>R$ 0</strong> nada muda na sua fatura</div>
+        <div class="proof-item"><strong>1 mês</strong> de Disney+ completo</div>
+        <div class="proof-item"><strong>Você decide</strong> se quer renovar depois</div>
+      </div>
+<?php else: ?>
       <div class="proof">
         <div class="proof-item"><strong><i class="ph-fill ph-star"></i> 4,8</strong> 2.450 avaliações</div>
         <div class="proof-item"><strong>100%</strong> Fibra Óptica</div>
         <div class="proof-item"><strong>100%</strong> Joinville</div>
       </div>
+<?php endif; ?>
 
 <?php if ($letraMiuda !== ''): ?>
       <p class="fine"><?= promo_e($letraMiuda) ?></p>
@@ -716,11 +755,13 @@ if (is_readable($cfgPath)) {
     var VALOR    = <?= promo_js($precoValor) ?>;
     var WA       = <?= promo_js($whatsapp) ?>;
     var WA_MSG   = <?= promo_js($waMsg) ?>;
+    var CAMPO    = <?= promo_js($campoExtra) ?>; // 'bairro' | 'cpf'
 
-    var form = document.getElementById('leadForm');
-    var tel  = document.getElementById('telefone');
-    var hp   = document.getElementById('_hp');
-    var btn  = form.querySelector('.submit-btn');
+    var form  = document.getElementById('leadForm');
+    var tel   = document.getElementById('telefone');
+    var hp    = document.getElementById('_hp');
+    var btn   = form.querySelector('.submit-btn');
+    var extra = document.getElementById(CAMPO); // o 2º campo, seja qual for
 
     // ── Barra de ação fixa ──
     // Aparece enquanto o botão real está fora de vista e some quando ele entra:
@@ -796,10 +837,59 @@ if (is_readable($cfgPath)) {
       tel.value = out;
     });
 
-    function irParaWhatsApp(nome, bairro, telefone) {
+<?php if ($ehCliente): ?>
+    // ── CPF: máscara + dígito verificador ──
+    // Validar de verdade (não só "tem 11 números") porque o CPF existe pra ACHAR o
+    // contrato no IXC: um dígito trocado não acha ninguém e o atendente perde a viagem.
+    // Bloco inteiro sai do HTML quando a campanha usa bairro — página de campanha é
+    // quase toda tráfego de celular, não faz sentido mandar validador que nunca roda.
+    function soDigitos(s) { return String(s || '').replace(/\D/g, ''); }
+
+    function cpfValido(valor) {
+      var c = soDigitos(valor);
+      if (c.length !== 11) return false;
+      if (/^(\d)\1{10}$/.test(c)) return false; // 111.111.111-11 passa na conta, mas não existe
+      function digito(ate) {
+        var soma = 0;
+        for (var i = 0; i < ate; i++) soma += parseInt(c.charAt(i), 10) * (ate + 1 - i);
+        var r = (soma * 10) % 11;
+        return r === 10 || r === 11 ? 0 : r;
+      }
+      return digito(9) === parseInt(c.charAt(9), 10) && digito(10) === parseInt(c.charAt(10), 10);
+    }
+
+    function mascaraCpf(v) {
+      var c = soDigitos(v).slice(0, 11);
+      var out = c.slice(0, 3);
+      if (c.length > 3) out += '.' + c.slice(3, 6);
+      if (c.length > 6) out += '.' + c.slice(6, 9);
+      if (c.length > 9) out += '-' + c.slice(9, 11);
+      return out;
+    }
+
+    var erroCpf = document.getElementById('cpfErro');
+    function marcarErroCpf(mostrar) {
+      if (erroCpf) erroCpf.hidden = !mostrar;
+      if (extra) extra.classList.toggle('invalido', !!mostrar);
+    }
+
+    if (extra) {
+      extra.addEventListener('input', function() {
+        extra.value = mascaraCpf(extra.value);
+        if (erroCpf && !erroCpf.hidden) marcarErroCpf(false); // some assim que corrige
+      });
+      // Só reclama quando a pessoa SAI do campo — avisar "inválido" no 3º dígito
+      // é acusar de errado quem ainda está digitando.
+      extra.addEventListener('blur', function() {
+        if (extra.value.trim() !== '') marcarErroCpf(!cpfValido(extra.value));
+      });
+    }
+<?php endif; ?>
+
+    function irParaWhatsApp(nome, extraVal, telefone) {
       var msg = WA_MSG + '\n\n' +
         'Nome: ' + nome + '\n' +
-        'Bairro: ' + bairro + '\n' +
+        (CAMPO === 'cpf' ? 'CPF: ' : 'Bairro: ') + extraVal + '\n' +
         'WhatsApp: ' + telefone;
       window.location.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
     }
@@ -807,9 +897,19 @@ if (is_readable($cfgPath)) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       var nome = document.getElementById('nome').value.trim();
-      var bairro = document.getElementById('bairro').value.trim();
+      var extraVal = extra ? extra.value.trim() : '';
       var telefone = tel.value.trim();
-      if (!nome || !bairro || !telefone) return;
+      if (!nome || !extraVal || !telefone) return;
+
+<?php if ($ehCliente): ?>
+      // CPF errado não vira lead: sem contrato pra achar, o atendente não consegue
+      // validar a campanha. Foca o campo pra correção em vez de deixar o botão morto.
+      if (!cpfValido(extraVal)) {
+        marcarErroCpf(true);
+        try { extra.focus({ preventScroll: false }); } catch (err) { extra.focus(); }
+        return;
+      }
+<?php endif; ?>
 
       btn.disabled = true;
       btn.innerHTML = 'Enviando... <i class="ph-bold ph-spinner"></i>';
@@ -817,7 +917,8 @@ if (is_readable($cfgPath)) {
       var att = (typeof window.miAttribution === 'function') ? window.miAttribution() : {};
       var dados = {
         nome: nome,
-        bairro: bairro,
+        // A chave acompanha o campo: o mapeamento do Bitrix (admin) aponta 'cpf' ou
+        // 'bairro' pro destino certo, e o form-submit.php só copia o que existir.
         telefone: telefone,
         plano: PLANO,
         origem: SLUG,
@@ -825,6 +926,7 @@ if (is_readable($cfgPath)) {
         jornada: (typeof window.miJourneyText === 'function' ? window.miJourneyText() : ''),
         gclid: att.gclid || '', fbclid: att.fbclid || '', fbp: att.fbp || '', fbc: att.fbc || ''
       };
+      dados[CAMPO] = extraVal;
 
       // Conversão pros pixels (GA4/Ads/Meta) ANTES do redirect — a página é abandonada
       // logo em seguida. A /copa/ não faz isso e por isso não reporta lead nenhum.
@@ -838,7 +940,7 @@ if (is_readable($cfgPath)) {
       function seguir() {
         if (seguiu) return;
         seguiu = true;
-        irParaWhatsApp(nome, bairro, telefone);
+        irParaWhatsApp(nome, extraVal, telefone);
       }
 
       try {

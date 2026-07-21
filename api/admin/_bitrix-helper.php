@@ -218,6 +218,12 @@ function bx_landing_fields(): array {
         'planoNome'    => 120,
         'appTexto'     => 70,
         'cta'          => 60,
+        // Cabeçalho do formulário. Editável porque o tom muda com o público: campanha
+        // de captação convida a contratar ("Garanta sua vaga"); campanha pra quem já é
+        // cliente pede confirmação de identidade — falar em "vaga"/"fechar" com quem
+        // já paga soa como venda e derruba a confiança.
+        'formTitulo'   => 60,
+        'formSub'      => 140,
         'whatsappMsg'  => 400,
         'letraMiuda'   => 600,
         'ogTitulo'     => 120,
@@ -238,6 +244,12 @@ function bx_clean_landing(array $in): array {
     // Tema visual da landing — enum fechado, não texto livre (vira seletor de CSS).
     $tema = strtolower(trim((string) ($in['tema'] ?? '')));
     $out['tema'] = in_array($tema, ['disney'], true) ? $tema : '';
+    // 2º campo do formulário. Campanha de captação pergunta o BAIRRO (é o que diz se
+    // tem cobertura); campanha pra quem JÁ é cliente pergunta o CPF (é o que identifica
+    // o contrato no IXC — bairro ali não serve pra nada). Enum fechado: o valor vira
+    // decisão de renderização, e o default 'bairro' preserva as campanhas existentes.
+    $campo = strtolower(trim((string) ($in['campoExtra'] ?? '')));
+    $out['campoExtra'] = in_array($campo, ['bairro', 'cpf'], true) ? $campo : 'bairro';
     // Imagens só podem ser caminho interno (ex: /imgs/hero/x.png). Sem isso o preview
     // do link no Instagram/WhatsApp poderia ser apontado pra host externo pelo admin.
     foreach (['ogImagem', 'appLogo'] as $k) {

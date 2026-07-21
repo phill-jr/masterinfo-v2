@@ -1926,7 +1926,7 @@
   function bxIsSystemSlug(slug) { return BX_SYSTEM_SLUGS.indexOf(slug) !== -1; }
 
   // Ordem = ordem dos campos na tela. Espelha bx_landing_fields() do _bitrix-helper.php.
-  var BX_LP_KEYS = ['tema','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','planoNome','appLogo','appTexto','cta','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
+  var BX_LP_KEYS = ['tema','campoExtra','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','planoNome','appLogo','appTexto','cta','formTitulo','formSub','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
 
   function bxLpInput(k, label, val, ph, flex) {
     return '<div class="bx-fld"' + (flex ? ' style="flex:' + flex + ';"' : '') + '>' +
@@ -1965,7 +1965,15 @@
               '<option value=""' + (lp.tema === 'disney' ? '' : ' selected') + '>MasterInfo (laranja)</option>' +
               '<option value="disney"' + (lp.tema === 'disney' ? ' selected' : '') + '>Noite Disney (azul)</option>' +
             '</select></div>' +
+          // Campanha de captação precisa do BAIRRO (diz se tem cobertura); campanha
+          // pra quem já é cliente precisa do CPF (acha o contrato no IXC).
+          '<div class="bx-fld" style="max-width:300px;"><label>2º campo do formulário</label>' +
+            '<select class="bxlp-campoExtra">' +
+              '<option value="bairro"' + (lp.campoExtra === 'cpf' ? '' : ' selected') + '>Bairro (cliente novo)</option>' +
+              '<option value="cpf"' + (lp.campoExtra === 'cpf' ? ' selected' : '') + '>CPF (já é cliente)</option>' +
+            '</select></div>' +
         '</div>' +
+        '<div class="bx-lp-warn" style="margin-top:10px;"><i class="ph ph-info"></i> <span>Ao trocar pra <b>CPF</b>, ajuste também o <b>mapeamento</b> lá em cima: a linha <code>bairro</code> vira <code>cpf</code>. E tire o <code>{bairro}</code> do título do negócio (CPF não deve aparecer no nome do card).</span></div>' +
         '<div class="bx-grid">' +
           bxLpInput('titulo', 'Título principal', lp.titulo, 'Internet 600 Mega por R$ 89,90', 2) +
           bxLpInput('badge', 'Selo', lp.badge, 'Oferta do Instagram') +
@@ -1989,6 +1997,10 @@
         '<div class="bx-grid">' +
           bxLpInput('appLogo', 'Logo do app incluso', lp.appLogo, '/imgs/disney-plus.png') +
           bxLpInput('appTexto', 'Texto ao lado do logo', lp.appTexto, 'Disney+ incluso no plano', 2) +
+        '</div>' +
+        '<div class="bx-grid">' +
+          bxLpInput('formTitulo', 'Título acima do formulário', lp.formTitulo, 'vazio = "Garanta sua vaga" (ou "Confirme que é você" no modo CPF)', 2) +
+          bxLpInput('formSub', 'Linha abaixo do título do formulário', lp.formSub, 'vazio = usa o texto padrão do modo escolhido', 2) +
         '</div>' +
         '<div class="bx-grid">' + bxLpArea('whatsappMsg', 'Primeira mensagem do WhatsApp', lp.whatsappMsg, 'Olá! Quero a oferta de 600 Mega por R$ 89,90.') + '</div>' +
         '<div class="bx-grid">' + bxLpArea('letraMiuda', 'Letra miúda', lp.letraMiuda, 'Sujeito a análise de crédito. Valor promocional válido nos 3 primeiros meses.') + '</div>' +
