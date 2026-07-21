@@ -230,6 +230,9 @@ function bx_landing_fields(): array {
         // campanha feita pra reforçá-la. Total vazio/0 esconde o bloco inteiro.
         'vagasTotal'     => 6,
         'vagasRestantes' => 6,
+        // Tela de confirmação (só usada quando posEnvio = 'mensagem').
+        'sucessoTitulo'  => 60,
+        'sucessoTexto'   => 300,
         'whatsappMsg'  => 400,
         'letraMiuda'   => 600,
         'ogTitulo'     => 120,
@@ -256,6 +259,13 @@ function bx_clean_landing(array $in): array {
     // decisão de renderização, e o default 'bairro' preserva as campanhas existentes.
     $campo = strtolower(trim((string) ($in['campoExtra'] ?? '')));
     $out['campoExtra'] = in_array($campo, ['bairro', 'cpf'], true) ? $campo : 'bairro';
+    // O que acontece DEPOIS do envio. 'whatsapp' = abre a conversa já com os dados
+    // (fecha venda na hora — é o certo pra captação). 'mensagem' = confirma na própria
+    // página e o time procura a pessoa depois: jogar cliente da casa no WhatsApp
+    // COMERCIAL é o mesmo erro do funil de vendas, só que no atendimento.
+    // Default 'whatsapp' preserva as campanhas que já existem.
+    $pos = strtolower(trim((string) ($in['posEnvio'] ?? '')));
+    $out['posEnvio'] = in_array($pos, ['whatsapp', 'mensagem'], true) ? $pos : 'whatsapp';
     // Imagens só podem ser caminho interno (ex: /imgs/hero/x.png). Sem isso o preview
     // do link no Instagram/WhatsApp poderia ser apontado pra host externo pelo admin.
     foreach (['ogImagem', 'appLogo'] as $k) {

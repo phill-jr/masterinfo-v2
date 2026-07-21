@@ -92,6 +92,12 @@ $vagasPct   = $temVagas ? (int) round(($vagasUsadas / $vagasTotal) * 100) : 0;
 // enquanto está em 19/20 gasta o recurso antes da hora e ninguém acredita depois.
 $vagasPoucas= $temVagas && !$esgotado && $vagasRest <= max(1, (int) ceil($vagasTotal * 0.3));
 
+// Depois do envio: abrir o WhatsApp (captação, fecha na hora) ou confirmar na página
+// e deixar o time procurar (campanha de cliente — o WhatsApp do site é o COMERCIAL).
+$posEnvio  = promo_val($L, 'posEnvio', 'whatsapp') === 'mensagem' ? 'mensagem' : 'whatsapp';
+$sucTitulo = promo_val($L, 'sucessoTitulo', 'Cadastro confirmado!');
+$sucTexto  = promo_val($L, 'sucessoTexto', 'Recebemos seus dados. Nosso time entra em contato com você em breve.');
+
 // R$ 89,90 → "89" grande + "90" sobrescrito (mesmo tratamento visual da copa).
 $precoNum = $preco;
 $precoCents = '';
@@ -168,6 +174,10 @@ if (is_readable($cfgPath)) {
       --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Trava anti-armadilha: qualquer `display` de autor VENCE o [hidden] do navegador,
+       e o elemento marcado como escondido aparece assim mesmo. Foi o bug do "CPF
+       inválido" visível na página recém-aberta (21/07). Aqui vale pra página toda. */
+    [hidden] { display: none !important; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Outfit', sans-serif;
@@ -466,6 +476,34 @@ if (is_readable($cfgPath)) {
       color: #888;
     }
     .form-trust i { color: #25d366; font-size: 1rem; }
+    .form-erro {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: #fff5f5;
+      border: 1px solid rgba(198,40,40,0.35);
+      border-radius: 12px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #c62828;
+      line-height: 1.4;
+    }
+    .form-erro i { font-size: 1.1rem; flex-shrink: 0; }
+    /* Confirmação: mesmo card do formulário, conteúdo centrado. Ocupa o lugar dele
+       (o form some), então a altura da coluna não muda de forma brusca. */
+    .form-sucesso {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+    }
+    .form-sucesso i { font-size: 3rem; color: #25d366; }
+    .form-sucesso h2 { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.02em; }
+    .form-sucesso p { font-size: 0.95rem; color: #555; line-height: 1.5; max-width: 34ch; }
     .fine {
       text-align: center;
       font-size: 0.72rem;
@@ -833,9 +871,34 @@ if (is_readable($cfgPath)) {
 <?php endif; ?>
 
         <div class="form-trust">
+<?php if ($posEnvio === 'mensagem'): ?>
+          <i class="ph-fill ph-whatsapp-logo"></i> Nosso time fala com você pelo WhatsApp
+<?php else: ?>
           <i class="ph-fill ph-whatsapp-logo"></i> Você vai falar direto com nosso time
+<?php endif; ?>
         </div>
+
+<?php if ($posEnvio === 'mensagem'): ?>
+        <!-- Sem redirect, uma falha de gravação seria INVISÍVEL: a pessoa veria
+             "cadastrado" e o lead não existiria. Por isso o erro é explícito e o
+             botão volta a funcionar pra tentar de novo. -->
+        <div class="form-erro" id="envioErro" role="alert" hidden>
+          <i class="ph-fill ph-warning-circle"></i>
+          <span>Não consegui enviar seu cadastro agora. Confira a internet e tente de novo.</span>
+        </div>
+<?php endif; ?>
       </form>
+
+<?php if ($posEnvio === 'mensagem'): ?>
+      <!-- Confirmação no lugar do formulário. Substitui o redirect pro WhatsApp:
+           mandar cliente da casa pro número COMERCIAL é o mesmo erro do funil de
+           vendas, só que no atendimento. -->
+      <div class="form-card form-sucesso" id="leadSucesso" role="status" hidden>
+        <i class="ph-fill ph-check-circle"></i>
+        <h2><?= promo_e($sucTitulo) ?></h2>
+        <p><?= promo_e($sucTexto) ?></p>
+      </div>
+<?php endif; ?>
       </div><!-- /col-acao -->
       </div><!-- /grade -->
 
@@ -899,6 +962,10 @@ if (is_readable($cfgPath)) {
     var hp    = document.getElementById('_hp');
     var btn   = form.querySelector('.submit-btn');
     var extra = document.getElementById(CAMPO); // o 2º campo, seja qual for
+    // Guardado AQUI, antes de qualquer envio trocar por "Enviando...". Capturar
+    // dentro do handler pegava o próprio "Enviando..." e o botão ficava com esse
+    // texto pra sempre depois de uma falha.
+    var ctaOriginal = btn.innerHTML;
 
     // Esgotado: o botão já nasce desligado no HTML. Sai fora antes de ligar máscara,
     // barra fixa e envio — nada disso tem função sem vaga pra dar.
@@ -1027,6 +1094,7 @@ if (is_readable($cfgPath)) {
     }
 <?php endif; ?>
 
+<?php if ($posEnvio !== 'mensagem'): ?>
     function irParaWhatsApp(nome, extraVal, telefone) {
       var msg = WA_MSG + '\n\n' +
         'Nome: ' + nome + '\n' +
@@ -1034,6 +1102,7 @@ if (is_readable($cfgPath)) {
         'WhatsApp: ' + telefone;
       window.location.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
     }
+<?php endif; ?>
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -1069,32 +1138,64 @@ if (is_readable($cfgPath)) {
       };
       dados[CAMPO] = extraVal;
 
-      // Conversão pros pixels (GA4/Ads/Meta) ANTES do redirect — a página é abandonada
-      // logo em seguida. A /copa/ não faz isso e por isso não reporta lead nenhum.
-      try {
-        if (typeof window.miTrack === 'function') window.miTrack('generate_lead', { plan: PLANO, value: VALOR });
-      } catch (err) {}
+      var envio = fetch('/api/form-submit.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true, // sobrevive ao unload quando o modo é redirect
+        body: JSON.stringify({ form: SLUG, data: dados })
+      });
 
-      // Grava no Bitrix e só então manda pro WhatsApp — sem o lead o resto não serve.
-      // keepalive: a requisição sobrevive ao unload do redirect.
+      function marcarConversao() {
+        try {
+          if (typeof window.miTrack === 'function') window.miTrack('generate_lead', { plan: PLANO, value: VALOR });
+        } catch (err) {}
+      }
+
+<?php if ($posEnvio === 'mensagem'): ?>
+      // ── Confirma na página (sem WhatsApp) ──
+      // Aqui o resultado do envio IMPORTA: não existe atendente pra salvar um lead
+      // que não gravou. Só mostra "confirmado" se o servidor disse ok; senão avisa
+      // e devolve o botão. Conversão também só conta em sucesso real.
+      var erroBox = document.getElementById('envioErro');
+      var sucesso = document.getElementById('leadSucesso');
+
+      function falhou() {
+        if (erroBox) erroBox.hidden = false;
+        btn.disabled = false;
+        btn.innerHTML = ctaOriginal;
+      }
+
+      envio.then(function(r) {
+        return r.json().catch(function() { return null; });
+      }).then(function(d) {
+        if (!d || d.ok !== true) { falhou(); return; }
+        marcarConversao();
+        form.hidden = true;
+        // A barra fixa aponta pro formulário, que acabou de sumir — sem isto ela
+        // reaparece (o observer vê o botão fora de vista) convidando pra um form
+        // que não existe mais.
+        var barraFixa = document.getElementById('ctaFixo');
+        if (barraFixa) barraFixa.hidden = true;
+        if (sucesso) {
+          sucesso.hidden = false;
+          // Leitor de tela e quem rolou a página precisam perceber a troca.
+          try { sucesso.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+        }
+      }).catch(falhou);
+<?php else: ?>
+      // ── Abre o WhatsApp (captação) ──
+      // Conversão ANTES do redirect: a página é abandonada logo em seguida.
+      marcarConversao();
       var seguiu = false;
       function seguir() {
         if (seguiu) return;
         seguiu = true;
         irParaWhatsApp(nome, extraVal, telefone);
       }
-
-      try {
-        fetch('/api/form-submit.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          keepalive: true,
-          body: JSON.stringify({ form: SLUG, data: dados })
-        }).then(seguir).catch(seguir);
-      } catch (err) { seguir(); }
-
+      envio.then(seguir).catch(seguir);
       // Rede lenta/offline: não prende o visitante no formulário.
       setTimeout(seguir, 4000);
+<?php endif; ?>
     });
   })();
   </script>

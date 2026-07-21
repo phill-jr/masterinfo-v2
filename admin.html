@@ -1926,7 +1926,7 @@
   function bxIsSystemSlug(slug) { return BX_SYSTEM_SLUGS.indexOf(slug) !== -1; }
 
   // Ordem = ordem dos campos na tela. Espelha bx_landing_fields() do _bitrix-helper.php.
-  var BX_LP_KEYS = ['tema','campoExtra','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','vagasTotal','vagasRestantes','planoNome','appLogo','appTexto','cta','formTitulo','formSub','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
+  var BX_LP_KEYS = ['tema','campoExtra','posEnvio','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','vagasTotal','vagasRestantes','planoNome','appLogo','appTexto','cta','formTitulo','formSub','sucessoTitulo','sucessoTexto','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
 
   function bxLpInput(k, label, val, ph, flex) {
     return '<div class="bx-fld"' + (flex ? ' style="flex:' + flex + ';"' : '') + '>' +
@@ -1972,6 +1972,16 @@
               '<option value="bairro"' + (lp.campoExtra === 'cpf' ? '' : ' selected') + '>Bairro (cliente novo)</option>' +
               '<option value="cpf"' + (lp.campoExtra === 'cpf' ? ' selected' : '') + '>CPF (já é cliente)</option>' +
             '</select></div>' +
+          '<div class="bx-fld" style="max-width:330px;"><label>Depois de enviar</label>' +
+            '<select class="bxlp-posEnvio">' +
+              '<option value="whatsapp"' + (lp.posEnvio === 'mensagem' ? '' : ' selected') + '>Abre o WhatsApp com os dados</option>' +
+              '<option value="mensagem"' + (lp.posEnvio === 'mensagem' ? ' selected' : '') + '>Só confirma na página (time procura depois)</option>' +
+            '</select></div>' +
+        '</div>' +
+        '<div class="bx-lp-warn" style="margin-top:10px;"><i class="ph ph-info"></i> <span>O WhatsApp do site é o <b>comercial (vendas)</b>. Em campanha pra <b>quem já é cliente</b>, prefira <b>“só confirma na página”</b> — assim o cliente não cai na fila de vendas e seu time procura ele pelo canal certo.</span></div>' +
+        '<div class="bx-grid">' +
+          bxLpInput('sucessoTitulo', 'Confirmação — título', lp.sucessoTitulo, 'vazio = "Cadastro confirmado!"', 2) +
+          bxLpInput('sucessoTexto', 'Confirmação — texto', lp.sucessoTexto, 'o que acontece agora (só aparece no modo “confirma na página”)', 3) +
         '</div>' +
         '<div class="bx-lp-warn" style="margin-top:10px;"><i class="ph ph-info"></i> <span>Ao trocar pra <b>CPF</b>, ajuste também o <b>mapeamento</b> lá em cima: a linha <code>bairro</code> vira <code>cpf</code>. E tire o <code>{bairro}</code> do título do negócio (CPF não deve aparecer no nome do card).</span></div>' +
         '<div class="bx-grid">' +
