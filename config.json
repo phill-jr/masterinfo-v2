@@ -542,14 +542,13 @@
                 "Instalação em até 3 dias",
                 "100% Fibra Óptica"
             ],
-            "badge": null,
-            "wifi6": false
+            "badge": null
         },
         {
             "id": "lite-premium",
             "linha": "LITE",
             "nome": "Lite Premium",
-            "wifi6": true,
+            "wifi6": false,
             "tagline": "Família média \/ vários devices",
             "velocidade": "800",
             "unidade": "Mega",
@@ -570,7 +569,7 @@
             "id": "lite-basic",
             "linha": "LITE",
             "nome": "Lite Basic",
-            "wifi6": true,
+            "wifi6": false,
             "tagline": "1000 Mega sem TV — velocidade pura",
             "velocidade": "1000",
             "unidade": "Mega",
