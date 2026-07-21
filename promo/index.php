@@ -598,7 +598,12 @@ if (is_readable($cfgPath)) {
       .preco-card { margin-top: auto; margin-bottom: 0; }
       .form-card { flex: 1; }
       .proof { justify-content: flex-start; }
-      .fine { text-align: left; }
+      /* margin-left:0 é obrigatório junto com o text-align:left. O `margin: auto`
+         da regra base centraliza o BLOCO de 52ch; com o texto alinhado à esquerda
+         dentro dele, a letra miúda ficava começando 308px à direita dos selos —
+         parecia um bloco solto no meio da página. Aqui o bloco encosta na mesma
+         margem de todo o resto e o limite de linha continua valendo. */
+      .fine { text-align: left; margin-left: 0; }
       /* (sticky removido do .col-acao: com as colunas em stretch o item já ocupa a
          linha inteira e não sobra folga pra deslizar — a regra não fazia nada.) */
       body { padding-bottom: 0; }
