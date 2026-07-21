@@ -1296,6 +1296,11 @@
         .bxlp-estado.off { background:rgba(0,0,0,0.06); color:var(--text-muted); }
         .bx-lp-body { margin-top:14px; }
         .bx-lp-body[hidden] { display:none; }
+        /* Bloco do envio: caixa própria porque a chave muda o COMPORTAMENTO do form
+           (pra onde o cliente vai depois), não só um texto — merece se destacar. */
+        .bx-lp-envio { margin:14px 0; padding:12px 14px; border:1px solid rgba(0,0,0,0.1); border-radius:10px; background:rgba(0,0,0,0.02); }
+        .bx-lp-envio .bx-lp-head i { color:#25d366; font-size:1.05rem; }
+        .bx-envio-wa[hidden], .bx-envio-msg[hidden] { display:none; }
         .bx-fld textarea { width:100%; padding:8px 10px; border:1px solid rgba(0,0,0,0.12); border-radius:7px; font-size:0.87rem; font-family:inherit; background:#fff; resize:vertical; }
         .bx-fld textarea:focus { border-color:var(--orange); outline:none; }
         .bx-lp-link { display:flex; gap:8px; align-items:center; margin-top:12px; padding:10px 12px; background:rgba(255,122,5,0.06); border:1px solid rgba(255,122,5,0.25); border-radius:8px; flex-wrap:wrap; }
@@ -1926,7 +1931,11 @@
   function bxIsSystemSlug(slug) { return BX_SYSTEM_SLUGS.indexOf(slug) !== -1; }
 
   // Ordem = ordem dos campos na tela. Espelha bx_landing_fields() do _bitrix-helper.php.
-  var BX_LP_KEYS = ['tema','campoExtra','posEnvio','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','vagasTotal','vagasRestantes','planoNome','appLogo','appTexto','cta','formTitulo','formSub','sucessoTitulo','sucessoTexto','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
+  // posEnvio NÃO entra aqui: vem de checkbox (.bxlp-envioWa), lido à parte em
+  // bxCollectLanding. Se ficasse na lista, o querySelector não acharia, o valor iria
+  // vazio e o sanitizador cairia no default 'whatsapp' — RELIGANDO o envio pro
+  // WhatsApp em silêncio no primeiro save de uma campanha que estava desligada.
+  var BX_LP_KEYS = ['tema','campoExtra','titulo','badge','subtitulo','velocidade','preco','precoDetalhe','ofertaLabel','ofertaValor','vagasTotal','vagasRestantes','planoNome','appLogo','appTexto','cta','formTitulo','formSub','sucessoTitulo','sucessoTexto','whatsappMsg','letraMiuda','ogTitulo','ogDescricao','ogImagem'];
 
   function bxLpInput(k, label, val, ph, flex) {
     return '<div class="bx-fld"' + (flex ? ' style="flex:' + flex + ';"' : '') + '>' +
@@ -1972,16 +1981,27 @@
               '<option value="bairro"' + (lp.campoExtra === 'cpf' ? '' : ' selected') + '>Bairro (cliente novo)</option>' +
               '<option value="cpf"' + (lp.campoExtra === 'cpf' ? ' selected' : '') + '>CPF (já é cliente)</option>' +
             '</select></div>' +
-          '<div class="bx-fld" style="max-width:330px;"><label>Depois de enviar</label>' +
-            '<select class="bxlp-posEnvio">' +
-              '<option value="whatsapp"' + (lp.posEnvio === 'mensagem' ? '' : ' selected') + '>Abre o WhatsApp com os dados</option>' +
-              '<option value="mensagem"' + (lp.posEnvio === 'mensagem' ? ' selected' : '') + '>Só confirma na página (time procura depois)</option>' +
-            '</select></div>' +
         '</div>' +
-        '<div class="bx-lp-warn" style="margin-top:10px;"><i class="ph ph-info"></i> <span>O WhatsApp do site é o <b>comercial (vendas)</b>. Em campanha pra <b>quem já é cliente</b>, prefira <b>“só confirma na página”</b> — assim o cliente não cai na fila de vendas e seu time procura ele pelo canal certo.</span></div>' +
-        '<div class="bx-grid">' +
-          bxLpInput('sucessoTitulo', 'Confirmação — título', lp.sucessoTitulo, 'vazio = "Cadastro confirmado!"', 2) +
-          bxLpInput('sucessoTexto', 'Confirmação — texto', lp.sucessoTexto, 'o que acontece agora (só aparece no modo “confirma na página”)', 3) +
+        // Chave liga/desliga (não lista de opções): "manda pro WhatsApp?" é sim/não, e
+        // o resto do admin já usa checkbox pros liga/desliga (FABs, Publicar landing).
+        // Ligado = comportamento antigo, então campanha sem o campo continua igual.
+        '<div class="bx-lp-envio">' +
+          '<label class="bx-lp-head">' +
+            '<input type="checkbox" class="bxlp-envioWa"' + (lp.posEnvio === 'mensagem' ? '' : ' checked') + ' onchange="bxToggleEnvioWa(this)">' +
+            '<i class="ph-fill ph-whatsapp-logo"></i> Ao cadastrar, abrir o WhatsApp com os dados' +
+            '<span class="bxlp-estado bxlp-estado-envio ' + (lp.posEnvio === 'mensagem' ? 'off' : 'on') + '">' +
+              (lp.posEnvio === 'mensagem' ? 'desligado — só confirma na página' : 'ligado') +
+            '</span>' +
+          '</label>' +
+          '<div class="bx-lp-warn" style="margin-top:10px;"><i class="ph ph-info"></i> <span>O WhatsApp do site é o <b>comercial (vendas)</b>. Em campanha pra <b>quem já é cliente</b>, deixe <b>desligado</b> — assim o cliente não cai na fila de vendas e seu time procura ele pelo canal certo.</span></div>' +
+          // Só o que serve pro modo escolhido fica na tela: campo morto visível faz a
+          // pessoa preencher texto que nunca vai aparecer no site.
+          '<div class="bx-envio-msg"' + (lp.posEnvio === 'mensagem' ? '' : ' hidden') + '>' +
+            '<div class="bx-grid">' +
+              bxLpInput('sucessoTitulo', 'Confirmação — título', lp.sucessoTitulo, 'vazio = "Cadastro confirmado!"', 2) +
+              bxLpInput('sucessoTexto', 'Confirmação — texto', lp.sucessoTexto, 'o que o cliente lê depois de enviar', 3) +
+            '</div>' +
+          '</div>' +
         '</div>' +
         '<div class="bx-lp-warn" style="margin-top:10px;"><i class="ph ph-info"></i> <span>Ao trocar pra <b>CPF</b>, ajuste também o <b>mapeamento</b> lá em cima: a linha <code>bairro</code> vira <code>cpf</code>. E tire o <code>{bairro}</code> do título do negócio (CPF não deve aparecer no nome do card).</span></div>' +
         '<div class="bx-grid">' +
@@ -2017,7 +2037,11 @@
           bxLpInput('formTitulo', 'Título acima do formulário', lp.formTitulo, 'vazio = "Garanta sua vaga" (ou "Confirme que é você" no modo CPF)', 2) +
           bxLpInput('formSub', 'Linha abaixo do título do formulário', lp.formSub, 'vazio = usa o texto padrão do modo escolhido', 2) +
         '</div>' +
-        '<div class="bx-grid">' + bxLpArea('whatsappMsg', 'Primeira mensagem do WhatsApp', lp.whatsappMsg, 'Olá! Quero a oferta de 600 Mega por R$ 89,90.') + '</div>' +
+        // Só serve com o envio pro WhatsApp LIGADO (é a mensagem que já vai digitada
+        // na conversa). Desligado, some — senão a pessoa escreve um texto que nunca sai.
+        '<div class="bx-envio-wa"' + (lp.posEnvio === 'mensagem' ? ' hidden' : '') + '>' +
+          '<div class="bx-grid">' + bxLpArea('whatsappMsg', 'Primeira mensagem do WhatsApp', lp.whatsappMsg, 'Olá! Quero a oferta de 600 Mega por R$ 89,90.') + '</div>' +
+        '</div>' +
         '<div class="bx-grid">' + bxLpArea('letraMiuda', 'Letra miúda', lp.letraMiuda, 'Sujeito a análise de crédito. Valor promocional válido nos 3 primeiros meses.') + '</div>' +
         '<div class="bx-maps-label" style="margin-top:14px;">Preview do link (o que aparece no Instagram e no WhatsApp)</div>' +
         '<div class="bx-grid">' +
@@ -2044,11 +2068,28 @@
     // (esconder o texto que a pessoa acabou de escrever parece que ele foi perdido).
     var body = lp.querySelector('.bx-lp-body');
     if (body) body.hidden = false;
-    var tag = lp.querySelector('.bxlp-estado');
+    // :not(...) porque o bloco de envio tem um selo próprio dentro deste mesmo .bx-lp —
+    // sem isso, um querySelector solto passaria a pegar o selo errado se a ordem mudar.
+    var tag = lp.querySelector('.bxlp-estado:not(.bxlp-estado-envio)');
     if (tag) {
       tag.className = 'bxlp-estado ' + (cb.checked ? 'on' : 'off');
       tag.textContent = cb.checked ? 'no ar depois de salvar' : 'rascunho — fora do ar';
     }
+  };
+
+  // Liga/desliga o envio pro WhatsApp e mostra só os campos do modo escolhido.
+  window.bxToggleEnvioWa = function(cb) {
+    var bloco = cb.closest('.bx-lp');
+    if (!bloco) return;
+    var tag = bloco.querySelector('.bxlp-estado-envio');
+    if (tag) {
+      tag.className = 'bxlp-estado bxlp-estado-envio ' + (cb.checked ? 'on' : 'off');
+      tag.textContent = cb.checked ? 'ligado' : 'desligado — só confirma na página';
+    }
+    var soWa  = bloco.querySelector('.bx-envio-wa');   // mensagem que já vai digitada
+    var soMsg = bloco.querySelector('.bx-envio-msg');  // textos da confirmação
+    if (soWa)  soWa.hidden  = !cb.checked;
+    if (soMsg) soMsg.hidden =  cb.checked;
   };
 
   window.bxCopyLink = function(btn, url) {
@@ -2074,6 +2115,9 @@
       var el = lp.querySelector('.bxlp-' + k);
       out[k] = el ? el.value.trim() : '';
     });
+    // Checkbox: lido à parte (ver comentário em BX_LP_KEYS). Marcado = abre o WhatsApp.
+    var envioWa = lp.querySelector('.bxlp-envioWa');
+    out.posEnvio = (envioWa && envioWa.checked) ? 'whatsapp' : 'mensagem';
     return out;
   }
 
