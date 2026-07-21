@@ -319,11 +319,15 @@ if (is_readable($cfgPath)) {
        Fica logo abaixo do preço porque é a segunda pergunta de quem já decidiu que
        quer ("ainda dá tempo?"). Vermelho de propósito: é o único ponto quente da
        página, e só acende quando as vagas estão de fato acabando. */
+    /* Âmbar, não a cor do tema: escassez é INFORMAÇÃO QUENTE e tem que se separar do
+       ambiente pra ser vista. Em teal sobre teal o bloco sumia. A página passa a ter
+       3 níveis de cor com função clara — ambiente (tema) · âmbar (escassez) ·
+       laranja (ação) — e o vermelho fica reservado pro alerta de "acabando". */
     .estoque {
-      margin: -14px 0 26px;
-      padding: 14px 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.14);
+      margin: 0 0 18px;
+      padding: 15px 18px;
+      background: rgba(252,195,5,0.1);
+      border: 1px solid rgba(252,195,5,0.45);
       border-radius: 16px;
     }
     .estoque-linha { display: flex; align-items: center; gap: 12px; }
@@ -410,6 +414,11 @@ if (is_readable($cfgPath)) {
     /* Erro em vermelho + borda no campo: cor sozinha não basta (daltonismo), então o
        texto também diz o que houve. Só aparece depois que a pessoa termina de digitar. */
     .field-erro { display: block; margin-top: 6px; font-size: 0.78rem; font-weight: 700; color: #c62828; }
+    /* OBRIGATÓRIO junto com a regra acima: `display` de autor VENCE o [hidden] do
+       navegador, então sem esta linha o "CPF inválido" fica visível o tempo todo —
+       inclusive com o campo vazio (foi exatamente o que foi ao ar em 21/07).
+       Testar com getComputedStyle, não com el.hidden: o atributo estava certo. */
+    .field-erro[hidden] { display: none; }
     .field input.invalido { border-color: #c62828; background: #fff5f5; }
     /* Honeypot: invisível pro humano, preenchido por bot. Fora da viewport (não display:none,
        que alguns bots detectam). O form-submit.php descarta o envio se vier preenchido. */
@@ -663,12 +672,10 @@ if (is_readable($cfgPath)) {
     .preco-oferta { background: rgba(0,188,199,0.1); border-color: rgba(0,188,199,0.5); }
     .preco-oferta .lbl { color: #2fd3dd; }
     .proof-item i { color: #2fd3dd; }
-    /* Escassez no tema: o número usa o gelo (mesma hierarquia do preço). O estado
-       "poucas" mantém o vermelho — é alerta, não decoração, e tem que destoar do
-       ambiente teal pra ser lido como urgência. */
-    .estoque { border-color: rgba(0,188,199,0.3); background: rgba(0,188,199,0.07); }
-    .estoque-num { color: #caecff; }
-    .estoque-barra span { background: linear-gradient(135deg, #00bcc7, #caecff); }
+    /* A escassez NÃO é re-tematizada de propósito: o âmbar existe justamente pra
+       romper o teal. Tingi-la de teal aqui foi o erro da 1ª versão — o bloco sumia
+       no fundo. Só o "esgotado" volta pro ambiente (já não pede atenção). */
+    .estoque.esgotado { border-color: rgba(0,188,199,0.3); background: rgba(0,188,199,0.07); }
     /* Barra fixa do mobile no petróleo do tema (era azul-royal do tema antigo). */
     .cta-fixo { background: rgba(0,21,48,0.85); border-top-color: rgba(0,188,199,0.22); }
     @media (prefers-reduced-motion: reduce) { .page::after { animation: none; } }
@@ -733,10 +740,18 @@ if (is_readable($cfgPath)) {
       </div>
 <?php endif; ?>
 
+      </div><!-- /col-oferta -->
+
+      <div class="col-acao">
 <?php if ($temVagas): ?>
       <!-- Escassez REAL: os números são digitados no admin por quem sabe quantas
            sobraram. Nada aqui se move sozinho de propósito — ver comentário em
-           bx_landing_fields(). Sem 'vagasTotal' o bloco nem é renderizado. -->
+           bx_landing_fields(). Sem 'vagasTotal' o bloco nem é renderizado.
+           Fica na COLUNA DO FORMULÁRIO (não na da oferta) por dois motivos: cola a
+           urgência no botão, que é onde ela decide; e equilibra a altura das duas
+           colunas — com ela na esquerda sobravam 191px de branco morto dentro do
+           card do form, que o `flex:1` esticava pra alinhar as bases. No celular a
+           ordem na tela não muda (as colunas empilham na ordem do DOM). -->
       <div class="estoque<?= $esgotado ? ' esgotado' : ($vagasPoucas ? ' poucas' : '') ?>">
 <?php if ($esgotado): ?>
         <div class="estoque-linha">
@@ -762,9 +777,6 @@ if (is_readable($cfgPath)) {
 <?php endif; ?>
       </div>
 <?php endif; ?>
-      </div><!-- /col-oferta -->
-
-      <div class="col-acao">
       <form class="form-card" id="leadForm">
         <h2><?= promo_e($formTitulo) ?></h2>
         <p class="sub"><?= promo_e($formSub) ?></p>
