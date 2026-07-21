@@ -559,7 +559,7 @@ if (is_readable($cfgPath)) {
       line-height: 1.15;
       flex-shrink: 0;
       overflow: hidden;
-      max-width: 160px;
+      max-width: 120px; /* era 160: devolve espaço pro CTA, que carrega o texto do admin */
       opacity: 1;
       transition: max-width 220ms var(--ease-out), opacity 160ms var(--ease-out), margin 220ms var(--ease-out);
     }
@@ -573,9 +573,17 @@ if (is_readable($cfgPath)) {
     .cta-fixo-preco small { font-size: 0.68rem; color: rgba(255,255,255,0.6); }
     .cta-fixo-btn {
       flex: 1;
-      padding: 14px 18px;
+      min-width: 0; /* deixa o flex encolher de verdade (item flex não encolhe abaixo do conteúdo sem isto) */
+      padding: 14px 12px;
       font-family: inherit;
-      font-size: 0.98rem;
+      /* Menor que o botão do formulário de propósito: aqui divide a faixa com o
+         preço. O texto vem do admin e pode crescer — sem nowrap o botão virava
+         2 linhas e engordava a barra fixa (aconteceu com "Quero meu mês de
+         Disney+"); com ellipsis, CTA muito longo corta em vez de quebrar o layout. */
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       font-weight: 800;
       color: #fff;
       background: var(--fire);
@@ -860,7 +868,9 @@ if (is_readable($cfgPath)) {
     </div>
   </div>
 
-<?php if ($preco !== ''): ?>
+<?php /* Esgotado não tem barra: ela existe pra levar ao botão, e o botão está
+         desligado. Sem isso ficava um CTA convidando pra uma vaga que não existe. */ ?>
+<?php if ($preco !== '' && !$esgotado): ?>
   <div class="cta-fixo" id="ctaFixo" aria-hidden="true">
     <div class="cta-fixo-preco">
       <strong>R$ <?= promo_e($precoNum) ?><?php if ($precoCents !== ''): ?><span>,<?= promo_e($precoCents) ?></span><?php endif; ?></strong>
@@ -868,7 +878,10 @@ if (is_readable($cfgPath)) {
       <small><?= promo_e($ofertaLbl !== '' ? $ofertaLbl : 'depois') ?> <?= promo_e($ofertaVal) ?></small>
 <?php endif; ?>
     </div>
-    <button type="button" class="cta-fixo-btn" id="ctaFixoBtn">Quero contratar</button>
+<?php /* Usa o MESMO texto do botão do formulário. Estava chumbado em "Quero
+         contratar" e por isso a barra do celular ainda falava linguagem de venda
+         numa campanha de cliente — justo na peça que aparece o tempo todo. */ ?>
+    <button type="button" class="cta-fixo-btn" id="ctaFixoBtn"><?= promo_e($cta) ?></button>
   </div>
 <?php endif; ?>
 
