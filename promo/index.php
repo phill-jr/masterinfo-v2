@@ -252,7 +252,11 @@ if (is_readable($cfgPath)) {
     }
     /* O ícone não pode encolher nem subir quando o texto quebra em 2 linhas. */
     .badge i { font-size: 0.9rem; flex-shrink: 0; align-self: center; }
-    .center { text-align: center; }
+    /* A folga até o card vinha da margem do parágrafo de apoio. Campanha sem esse
+       parágrafo (herói só com o título) ficava com 14px e o título colado no card.
+       Pondo a margem no container, os dois casos ficam iguais: com apoio, as margens
+       colapsam e continua 28px; sem apoio, os 28px valem do mesmo jeito. */
+    .center { text-align: center; margin-bottom: 28px; }
     h1 {
       font-size: clamp(1.9rem, 7vw, 2.7rem);
       font-weight: 900;
