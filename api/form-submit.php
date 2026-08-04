@@ -170,6 +170,16 @@ try {
         $leadFields['SOURCE_ID']   = $sourceId;
         $leadFields['OPENED']      = 'Y';
         if ($contactId) $leadFields['CONTACT_ID'] = $contactId; // vincula o lead ao contato criado/encontrado
+        // Telefone/e-mail TAMBEM no card do LEAD, nao so no contato (2026-08-03).
+        // Sem isso o lead nasce "cego": o dedupe por telefone (bitrix-dedupe.php e o
+        // do Sync Hub no ONCRMLEADADD) le lead.PHONE vazio e pula, e a Open Line nao
+        // casa o lead quando o cliente responde no WhatsApp (fork Bertoluci 29/06).
+        if (empty($leadFields['PHONE']) && !empty($contactFields['PHONE'])) {
+            $leadFields['PHONE'] = $contactFields['PHONE'];
+        }
+        if (empty($leadFields['EMAIL']) && !empty($contactFields['EMAIL'])) {
+            $leadFields['EMAIL'] = $contactFields['EMAIL'];
+        }
         $r = bx_request('crm.lead.add.json', ['fields' => $leadFields]);
         $entityId = $r['result'] ?? null;
     }
