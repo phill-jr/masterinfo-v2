@@ -761,6 +761,18 @@ body::before {
   color: #ffffff;
 }
 
+/* ⚠️ HOVER NO CARD (mouse no card, FORA do botao) — 18/08/2026
+   O styles.css (~7217) `.plan-card:hover .btn-plan` pinta o FUNDO de
+   var(--orange) e nao toca na COR DO TEXTO: foi escrito pro dark, onde o
+   .btn-plan ja e branco. No claro o texto e var(--orange-dark) => laranja
+   escuro sobre laranja solido, contraste 1,31:1 — o "Contratar" some.
+   O branco so vinha do `.btn-plan:hover`, que exige o mouse EM CIMA do botao.
+   Especificidade (0,3,0) = a mesma da regra do styles.css, e este arquivo vem
+   depois (styles.css entra por @import no topo) => vence. */
+.plan-card:hover .btn-plan {
+  color: #ffffff;
+}
+
 /* Divisores/detalhes decorativos com o fogo */
 .plans::before,
 .why::before,
