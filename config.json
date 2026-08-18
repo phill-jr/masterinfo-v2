@@ -615,13 +615,12 @@
             "precoCheio": 189.9,
             "categorias": [
                 "top",
-                "advanced",
-                "standard"
+                "premium"
             ],
             "features": [
                 "Mesh Wi-Fi 6 (cobertura total)",
-                "3 apps de TV \/ mês (TOP + Advanced + Standard)",
-                "Kaspersky pra segurança"
+                "Kaspersky pra segurança",
+                "2 apps de TV \/ mês (TOP + Premium)"
             ],
             "badge": "Tudo incluso",
             "upsellTop": true
