@@ -120,47 +120,58 @@
   //   Marketing-> Google Ads + Facebook Pixel
   // Idempotente: cada tag entra uma única vez. Reexecuta quando o consentimento muda.
   var _inited = { gtm: false, ga4: false, ads: false, fb: false };
+
+  // INP: 1 tag por macrotask, com espaçamento. Injetar as 4 de uma vez fazia os
+  // parse/eval dos scripts de terceiro (gtag ~150ms + fbevents ~200ms de long task)
+  // chegarem praticamente juntos e colidirem com as interações do usuário (INP de
+  // campo 251-275ms, causa-raiz apontada no audit 23/08). Espaçar as INJEÇÕES espaça
+  // também a chegada/execução de cada script, quebrando o bloco único de long tasks.
+  // Também tira o trabalho do task do clique quando o init vem do botão de consentimento.
+  function staggerInits(fns) {
+    for (var i = 0; i < fns.length; i++) setTimeout(fns[i], i * 700);
+  }
+
   function initAllowed() {
     if (!cfg || !cfg.enableTracking) return;
     var c = window.miConsent || { analytics: false, marketing: false };
-    if ((c.analytics || c.marketing) && !_inited.gtm) { _inited.gtm = true; initGTM(cfg.gtmId); }
-    if (c.analytics && !_inited.ga4) { _inited.ga4 = true; initGA4(cfg.ga4Id); }
-    if (c.marketing && !_inited.ads) { _inited.ads = true; initGoogleAds(cfg.googleAdsId); }
-    if (c.marketing && !_inited.fb) { _inited.fb = true; initFacebookPixel(cfg.facebookPixelId); }
+    var fns = [];
+    if ((c.analytics || c.marketing) && !_inited.gtm) { _inited.gtm = true; fns.push(function () { initGTM(cfg.gtmId); }); }
+    if (c.analytics && !_inited.ga4) { _inited.ga4 = true; fns.push(function () { initGA4(cfg.ga4Id); }); }
+    if (c.marketing && !_inited.ads) { _inited.ads = true; fns.push(function () { initGoogleAds(cfg.googleAdsId); }); }
+    if (c.marketing && !_inited.fb) { _inited.fb = true; fns.push(function () { initFacebookPixel(cfg.facebookPixelId); }); }
+    staggerInits(fns);
   }
 
-  // SEM gate de consentimento: dispara TODOS os pixels configurados já no load.
+  // SEM gate de consentimento: dispara TODOS os pixels configurados (escalonados).
   // Usado quando cfg.requireConsent === false — o banner (cookie-consent.js) segue
   // aparecendo só como AVISO, mas o pixel não espera o aceite.
   function initAll() {
     if (!cfg || !cfg.enableTracking) return;
-    if (!_inited.gtm) { _inited.gtm = true; initGTM(cfg.gtmId); }
-    if (!_inited.ga4) { _inited.ga4 = true; initGA4(cfg.ga4Id); }
-    if (!_inited.ads) { _inited.ads = true; initGoogleAds(cfg.googleAdsId); }
-    if (!_inited.fb)  { _inited.fb  = true; initFacebookPixel(cfg.facebookPixelId); }
+    var fns = [];
+    if (!_inited.gtm) { _inited.gtm = true; fns.push(function () { initGTM(cfg.gtmId); }); }
+    if (!_inited.ga4) { _inited.ga4 = true; fns.push(function () { initGA4(cfg.ga4Id); }); }
+    if (!_inited.ads) { _inited.ads = true; fns.push(function () { initGoogleAds(cfg.googleAdsId); }); }
+    if (!_inited.fb)  { _inited.fb  = true; fns.push(function () { initFacebookPixel(cfg.facebookPixelId); }); }
+    staggerInits(fns);
   }
 
   // ─── Carregamento ADIADO dos pixels (perf: ↓TBT/INP/LCP) ───
-  // Inicializa GTM/GA4/Ads/FB FORA da janela crítica de load: no 1º gesto do usuário
-  // (pointerdown/keydown/touchstart/scroll) OU em idle após o load — o que vier antes.
-  // Conversão NÃO se perde: ela exige clique, e no 1º gesto os stubs fbq/gtag já existem
-  // (o evento do clique fica enfileirado e é enviado quando o script async carrega).
-  // A jornada 1st-party (gclid/fbclid→Bitrix) e os links wa.me NÃO dependem disto e
-  // continuam IMEDIATOS mais abaixo. requestIdleCallback c/ timeout garante o disparo
-  // (page_view/remarketing) mesmo sem interação, ~3s após o load.
+  // Inicializa GTM/GA4/Ads/FB em IDLE depois do load. SEM gatilho de 1º gesto: a
+  // versão anterior disparava o carregamento no pointerdown/scroll do usuário, ou
+  // seja, o parse/eval do gtag+fbevents (~530ms de main thread somados) aterrissava
+  // exatamente na janela das primeiras interações — era a causa-raiz do INP de campo
+  // em 251-275ms (audit 23/08). requestIdleCallback prefere momentos ociosos; o
+  // timeout de 5s é o teto pra visita curta (bounce) ainda registrar page_view.
+  // Conversão NÃO se perde: os stubs fbq/dataLayer existem desde já e enfileiram
+  // qualquer evento até o script real chegar; a conversão principal do Google Ads é
+  // server-side no Sync Hub e nem depende disto. A jornada 1st-party (gclid/fbclid
+  // →Bitrix) e os links wa.me continuam IMEDIATOS mais abaixo.
   function oncePixelsReady(cb) {
     var done = false;
-    var evs = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
-    var opts = { passive: true, capture: true };
-    function go() {
-      if (done) return; done = true;
-      for (var i = 0; i < evs.length; i++) window.removeEventListener(evs[i], go, opts);
-      cb();
-    }
-    for (var j = 0; j < evs.length; j++) window.addEventListener(evs[j], go, opts);
+    function go() { if (done) return; done = true; cb(); }
     var idle = function () {
-      if ('requestIdleCallback' in window) window.requestIdleCallback(go, { timeout: 3000 });
-      else setTimeout(go, 2500);
+      if ('requestIdleCallback' in window) window.requestIdleCallback(go, { timeout: 5000 });
+      else setTimeout(go, 3000);
     };
     if (document.readyState === 'complete') idle();
     else window.addEventListener('load', idle, { once: true });
