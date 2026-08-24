@@ -28,6 +28,10 @@
     },
     "secoesOrdem": [
         {
+            "key": "indique",
+            "on": false
+        },
+        {
             "key": "hero",
             "on": true
         },
@@ -46,10 +50,6 @@
         {
             "key": "depoimentos",
             "on": true
-        },
-        {
-            "key": "indique",
-            "on": false
         },
         {
             "key": "historia",
@@ -979,15 +979,5 @@
     },
     "homeHero": {
         "usarPaginas": true
-    },
-    "indique": {
-        "video": {
-            "on": false,
-            "url": "",
-            "posicao": "lado",
-            "formato": "horizontal",
-            "titulo": "",
-            "poster": ""
-        }
     }
 }
