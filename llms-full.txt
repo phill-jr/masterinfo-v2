@@ -78,6 +78,7 @@ Novos bairros são adicionados à cobertura com frequência.
 - **O Wi-Fi pega em toda a casa?** Sim. A partir de 800 Mega, os planos já vêm com Wi-Fi 6, e há opções com Mesh e com 2 roteadores para cobrir cada canto da casa, sem ponto cego. Se ainda faltar sinal em algum cômodo, dá para adicionar pontos extras de fibra a partir de R$ 10 por mês.
 
 ## Blog (guias e conteúdo técnico)
+- 600 Mega de internet é bom? O que aguenta na prática: /blog/600-mega-de-internet-e-bom/
 - Quantos Mega de internet você precisa (tabela por perfil): /blog/quantos-mega-de-internet-voce-precisa/
 - Como saber se tem fibra no seu endereço em Joinville (consulta por CEP): /blog/cobertura-fibra-cep-joinville/
 - Como funciona a instalação da fibra (e quanto tempo leva): /blog/como-funciona-instalacao-da-fibra/

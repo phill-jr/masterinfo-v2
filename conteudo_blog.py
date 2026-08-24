@@ -858,6 +858,70 @@ PILARES = [
 # slug → /blog/slug/ (depth 2). author = chave em AUTHORS. image = destaque (og).
 BLOG = [
     {
+        # Post 23/08: ataca a query "600 mega de internet é bom" (GSC: pos ~7 com CTR 0,17%).
+        "slug": "600-mega-de-internet-e-bom",
+        "title": "600 Mega de Internet É Bom? O Que Aguenta na Prática",
+        "desc": "600 Mega de internet é bom pra streaming 4K, home office, jogos e casa cheia? Veja o que essa velocidade aguenta na prática e quando vale ir de 1 Giga.",
+        "h1": "600 Mega de internet é bom? O que essa velocidade aguenta na prática",
+        "lead": "600 Mega virou a velocidade de entrada dos planos de fibra em Joinville. A resposta curta é: pra maioria das casas, sobra. Aqui está a conta na prática, sem enrolação, e os poucos casos em que vale ir de 1 Giga.",
+        "author": "philipe",
+        "date": "2026-08-23",
+        "image": "/imgs/blog/600-mega.jpg",
+        "tags": ["Planos", "Velocidade", "600 Mega"],
+        "body": """
+    <div class="tldr">
+      <strong>Resposta rápida:</strong> sim, <strong>600 Mega é bom</strong> pra grande maioria das casas: aguenta streaming 4K em mais de uma tela, videochamadas, jogos online e vários celulares conectados ao mesmo tempo, sem travar. Só fica pequeno em casas muito cheias, com downloads pesados constantes ou upload profissional. Nesses casos, o caminho é <strong>1 Giga</strong>.
+    </div>
+
+    <h2>O que dá pra fazer com 600 Mega, em números</h2>
+    <p>A conta fica fácil quando você olha o que cada atividade consome de verdade:</p>
+    <table class="article-table">
+      <thead><tr><th>Atividade</th><th>Consumo aproximado</th><th>Quantas cabem em 600 Mega</th></tr></thead>
+      <tbody>
+        <tr><td>Streaming 4K (Netflix, Disney+)</td><td>15 a 25 Mega por tela</td><td>Mais de 20 telas</td></tr>
+        <tr><td>Streaming Full HD</td><td>5 a 8 Mega por tela</td><td>Dezenas de telas</td></tr>
+        <tr><td>Videochamada (Meet, Zoom, Teams)</td><td>4 a 8 Mega</td><td>Dezenas de chamadas</td></tr>
+        <tr><td>Jogo online (a partida em si)</td><td>Menos de 1 Mega</td><td>O que importa é o ping, não a banda</td></tr>
+        <tr><td>Download de jogo de 60 GB</td><td>Usa a banda toda</td><td>Cerca de 14 minutos</td></tr>
+      </tbody>
+    </table>
+    <p>A referência de streaming vem das próprias plataformas: a <a href="https://help.netflix.com/pt/node/306" target="_blank" rel="noopener">Netflix recomenda 15 Mega por tela em 4K</a>. Ou seja, uma família assistindo em 3 TVs 4K ao mesmo tempo usa menos de 10% de um plano de 600 Mega.</p>
+    <p>Sou formado em Sistemas de Informação, trabalhei anos como arquiteto de redes e opero a rede da MasterInfo em Joinville desde o início. O que vejo nos atendimentos é sempre o mesmo padrão: uma casa comum, com 10 a 20 aparelhos conectados, raramente passa de 100 Mega de uso simultâneo real. Quando um cliente de 600 Mega reclama de lentidão, em 9 de cada 10 visitas o problema não é a velocidade do plano, é o Wi-Fi mal posicionado ou um aparelho antigo segurando a rede.</p>
+
+    <h2>Pra quem 600 Mega é o plano certo</h2>
+    <ul>
+      <li><strong>Casal ou casa pequena:</strong> streaming, redes sociais, home office leve. Sobra banda todos os dias.</li>
+      <li><strong>Família com filhos:</strong> TV em 4K, criança no tablet, adolescente jogando e dois celulares ao mesmo tempo. 600 Mega segura tudo junto. Veja a <a href="/familia/">internet pra família</a>.</li>
+      <li><strong>Home office:</strong> videochamada não cai por falta de 600 Mega; cai por instabilidade. Em fibra FTTH, a conexão é dedicada até a sua casa. Veja a <a href="/home-office/">internet pra home office</a>.</li>
+      <li><strong>Quem joga online:</strong> a partida em si consome pouquíssima banda. O que define a experiência é o <strong>ping</strong>, e ping baixo vem da fibra, não de mais Mega. Detalhes na página de <a href="/gamer/">internet pra gamer</a>.</li>
+    </ul>
+
+    <h2>Quando 600 Mega fica pequeno</h2>
+    <p>Existem três perfis em que eu recomendo ir direto pra <strong>1 Giga</strong>:</p>
+    <ul>
+      <li><strong>Casa muito cheia:</strong> 5 ou mais pessoas com uso pesado simultâneo (várias TVs 4K + downloads + chamadas ao mesmo tempo), todo dia.</li>
+      <li><strong>Downloads pesados constantes:</strong> quem baixa jogos de 60 a 150 GB toda semana sente diferença real: em 1 Giga, o download termina quase na metade do tempo.</li>
+      <li><strong>Upload profissional:</strong> criador de conteúdo subindo vídeo pesado, backup de empresa em nuvem, câmeras gravando remoto.</li>
+    </ul>
+    <p>Se você está em dúvida entre os dois, o guia <a href="/blog/quantos-mega-de-internet-voce-precisa/">quantos Mega você precisa</a> tem uma tabela por perfil que resolve a escolha em 2 minutos.</p>
+
+    <h2>600 Mega no papel e no celular: por que o teste mostra menos</h2>
+    <p>Um detalhe que evita frustração: a velocidade do plano é entregue <strong>no cabo</strong>. No Wi-Fi, é normal o teste mostrar menos, porque entram em cena a distância do roteador, as paredes e o limite do próprio aparelho (muitos celulares nem têm rádio pra passar de 300 ou 400 Mega). Tanto que o <a href="https://www.brasilbandalarga.com.br/" target="_blank" rel="noopener">medidor oficial usado pela Anatel</a> orienta o teste por cabo pra aferir a velocidade contratada.</p>
+    <p>Por isso todos os planos da MasterInfo já vêm com <strong>roteador Wi-Fi 6</strong>, que aproveita muito melhor a banda no ar. E se o sinal não chega bem em algum cômodo, o problema tem solução: veja <a href="/blog/como-melhorar-wifi-em-casa/">como melhorar o Wi-Fi em casa</a>.</p>
+
+    <h2>Quanto custa 600 Mega em Joinville</h2>
+    <p>Na MasterInfo, o plano de 600 Mega é o <strong>Lite Casa: R$ 99,99/mês</strong> pagando em dia (R$ 109,99 sem o desconto), com fibra 100% até a sua casa, roteador Wi-Fi 6 e 1 app de TV por mês incluso (categoria Standard, como o SKY+ Light). Instalação em até 3 dias, por equipe daqui de Joinville.</p>
+    <p>Pra conferir se a fibra já chega na sua rua, consulte a cobertura pelo CEP na página de <a href="/internet-joinville/">internet em Joinville</a>, ou <a href="/checkout.html?plano=lite-casa">contrate o Lite Casa</a> direto.</p>
+""",
+        "faq": [
+            ("600 Mega é bom pra jogar online?", "Sim. A partida em si consome menos de 1 Mega; o que define a experiência é o ping, e ping baixo vem da fibra óptica dedicada, não de mais velocidade. Onde 600 Mega ajuda o gamer é no download: um jogo de 60 GB baixa em cerca de 14 minutos."),
+            ("600 Mega aguenta quantos aparelhos ao mesmo tempo?", "Uma casa comum com 10 a 20 aparelhos conectados raramente usa mais de 100 Mega simultâneos de verdade. Na prática, 600 Mega aguenta várias TVs em 4K, videochamadas, jogos e todos os celulares da casa ao mesmo tempo, com folga."),
+            ("Qual a diferença entre 600 Mega e 1 Giga no dia a dia?", "Pra streaming, chamadas e redes sociais, quase nenhuma: as duas sobram. A diferença aparece em downloads muito grandes (um jogo de 100 GB baixa quase na metade do tempo) e em casas muito cheias com uso pesado simultâneo todos os dias."),
+            ("Por que o teste de velocidade não mostra 600 Mega no meu celular?", "Porque o teste no Wi-Fi mede também a distância do roteador, as paredes e o limite do rádio do próprio aparelho, e muitos celulares não passam de 300 ou 400 Mega por hardware. A velocidade contratada é aferida no cabo, como orienta o medidor oficial da Anatel. Com Wi-Fi 6 e o roteador bem posicionado, o resultado no ar melhora bastante."),
+            ("Quanto custa o plano de 600 Mega da MasterInfo?", "O Lite Casa custa R$ 99,99 por mês pagando em dia (R$ 109,99 sem o desconto), com fibra até a casa, roteador Wi-Fi 6 incluso e 1 app de TV por mês na categoria Standard. A instalação leva até 3 dias e a consulta de cobertura é feita pelo CEP no site."),
+        ],
+    },
+    {
         "slug": "quantos-mega-de-internet-voce-precisa",
         "title": "Quantos Mega de Internet Você Precisa? Tabela por Uso",
         "desc": "Quantos Mega contratar? Veja a tabela por perfil (1 pessoa, família, home office e gamer) e descubra a velocidade ideal sem pagar a mais nem travar.",
