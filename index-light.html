@@ -2124,16 +2124,26 @@
       '.coverage-neighborhoods'
     ];
 
-    // Aplicar classes
+    // Nao esconder o que ja nasce dentro do 1o viewport: este script roda antes do
+    // first paint no mobile e deixava o H2 da secao Planos (o elemento LCP) e os
+    // cards LITE em opacity 0 esperando ~2,1s pelo observer (audit 23/08). Animar
+    // o que o usuario ja esta vendo nao tem efeito percebido, so atrasa a pintura.
+    var fold = window.innerHeight * 1.1;
+    function nasceVisivel(el) {
+      var r = el.getBoundingClientRect();
+      return r.top < fold && r.bottom > 0;
+    }
+
+    // Aplicar classes (so em quem esta abaixo da dobra)
     revealSelectors.forEach(function(sel) {
       document.querySelectorAll(sel).forEach(function(el) {
-        el.classList.add('reveal-up');
+        if (!nasceVisivel(el)) el.classList.add('reveal-up');
       });
     });
 
     staggerContainers.forEach(function(sel) {
       document.querySelectorAll(sel).forEach(function(el) {
-        el.classList.add('reveal-stagger');
+        if (!nasceVisivel(el)) el.classList.add('reveal-stagger');
       });
     });
 
