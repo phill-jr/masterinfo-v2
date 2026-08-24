@@ -1243,6 +1243,50 @@
         <div class="section-help"><i class="ph ph-info"></i> Ligue/desligue cada seção da home e arraste (ou use as setas &#9650;&#9660;) para reordenar. <strong>Desligar só esconde</strong> a seção — o conteúdo continua no site e pode ser religado a qualquer momento.</div>
         <div id="secoesOrdemContainer"></div>
       </div>
+
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-play-circle"></i> Vídeo da seção &ldquo;Indique e Ganhe&rdquo;</div>
+        <div class="section-help"><i class="ph ph-info"></i> <span>Cole o link de um vídeo do <strong>YouTube</strong>, <strong>Vimeo</strong> ou de um arquivo <strong>.mp4</strong> hospedado no site. Na home aparece a capa com o botão de play &mdash; o vídeo só carrega quando o visitante clica (não pesa no carregamento da página).</span></div>
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+            <input type="checkbox" id="cfgIndVideoOn" onchange="toggleIndVideo(this.checked)" style="width:auto;">
+            <strong>Mostrar vídeo dentro da seção</strong>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Link do vídeo</label>
+          <input type="text" id="cfgIndVideoUrl" oninput="updateIndVideo('url',this.value)" placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX  ou  imgs/indique.mp4">
+          <div id="cfgIndVideoStatus" style="margin-top:8px;font-size:0.85rem;"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Onde aparece</label>
+            <select id="cfgIndVideoPos" onchange="updateIndVideo('posicao',this.value)">
+              <option value="lado">No lugar da ilustração (ao lado do texto)</option>
+              <option value="abaixo">Abaixo, ocupando a largura toda (mantém a ilustração)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Formato do vídeo</label>
+            <select id="cfgIndVideoFmt" onchange="updateIndVideo('formato',this.value)">
+              <option value="horizontal">Horizontal (16:9)</option>
+              <option value="vertical">Vertical / Reels (9:16)</option>
+              <option value="quadrado">Quadrado (1:1)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Legenda abaixo do vídeo (opcional)</label>
+            <input type="text" id="cfgIndVideoTitulo" oninput="updateIndVideo('titulo',this.value)" placeholder="Veja como funciona em 40 segundos">
+          </div>
+          <div class="form-group">
+            <label>Capa personalizada (opcional)</label>
+            <input type="text" id="cfgIndVideoPoster" oninput="updateIndVideo('poster',this.value)" placeholder="imgs/capa-indique.jpg">
+          </div>
+        </div>
+        <div id="cfgIndVideoPreview" style="margin-top:6px;"></div>
+      </div>
     </div>
 
     <!-- TAB: Integração Bitrix24 -->
@@ -1642,6 +1686,7 @@
     renderTracking();
     renderSeo();
     renderSecoesOrdem();
+    renderIndiqueVideo();
     renderMenuHeader();
     renderMenusRodape();
     renderCopaPopup();
@@ -3518,6 +3563,81 @@
     var t = arr[li]; arr[li] = arr[j]; arr[j] = t;
     renderMenusRodape(); markDirty();
   };
+
+
+  // ─── Vídeo da seção "Indique e Ganhe" ───
+  function indVideoCfg() {
+    if (!config.indique) config.indique = {};
+    if (!config.indique.video) config.indique.video = {};
+    return config.indique.video;
+  }
+  function renderIndiqueVideo() {
+    var v = indVideoCfg();
+    var on = document.getElementById('cfgIndVideoOn');
+    if (on) on.checked = v.on === true;
+    setVal('cfgIndVideoUrl', v.url || '');
+    setVal('cfgIndVideoTitulo', v.titulo || '');
+    setVal('cfgIndVideoPoster', v.poster || '');
+    var pos = document.getElementById('cfgIndVideoPos');
+    if (pos) pos.value = (v.posicao === 'abaixo') ? 'abaixo' : 'lado';
+    var fmt = document.getElementById('cfgIndVideoFmt');
+    if (fmt) fmt.value = (v.formato === 'vertical' || v.formato === 'quadrado') ? v.formato : 'horizontal';
+    renderIndVideoStatus();
+  }
+  // Mesma leitura de URL do site-loader — o admin só antecipa o resultado
+  function parseIndVideoUrl(url) {
+    url = String(url || '').trim();
+    if (!url) return null;
+    if (/\.(mp4|webm|ogv|ogg|mov|m4v)(\?|#|$)/i.test(url)) {
+      if (/^(https?:)?\/\//i.test(url) || url.charAt(0) === '/' || /^[\w.\-]+\//.test(url)) {
+        return { tipo: 'Arquivo de vídeo', rotulo: url.split('/').pop(), thumb: '' };
+      }
+      return null;
+    }
+    if (!/^https?:\/\//i.test(url)) return null;
+    var yt = url.match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/i);
+    if (yt) return { tipo: 'YouTube', rotulo: yt[1], thumb: 'https://i.ytimg.com/vi/' + yt[1] + (/\/shorts\//i.test(url) ? '/oardefault.jpg' : '/hqdefault.jpg') };
+    var vm = url.match(/vimeo\.com\/(?:video\/)?(\d{6,})/i);
+    if (vm) return { tipo: 'Vimeo', rotulo: vm[1], thumb: '' };
+    return null;
+  }
+  function renderIndVideoStatus() {
+    var box = document.getElementById('cfgIndVideoStatus');
+    var prev = document.getElementById('cfgIndVideoPreview');
+    if (!box) return;
+    var v = indVideoCfg();
+    var url = (v.url || '').trim();
+    if (prev) prev.innerHTML = '';
+    if (!url) {
+      box.innerHTML = '<span style="color:#8a8a96;">Sem vídeo. Cole um link acima para ativar.</span>';
+      return;
+    }
+    var m = parseIndVideoUrl(url);
+    if (!m) {
+      box.innerHTML = '<span style="color:#c1121f;font-weight:600;"><i class="ph-fill ph-warning-circle"></i> Link não reconhecido — use YouTube, Vimeo ou um arquivo .mp4/.webm.</span>';
+      return;
+    }
+    box.innerHTML = '<span style="color:#0a8754;font-weight:600;"><i class="ph-fill ph-check-circle"></i> ' + esc(m.tipo) + ' detectado' + (m.rotulo ? ' (' + esc(m.rotulo) + ')' : '') + '</span>';
+    var capa = (v.poster || '').trim() || m.thumb;
+    if (prev && capa) {
+      prev.innerHTML = '<div style="font-size:0.8rem;color:#8a8a96;margin-bottom:6px;">Pré-visualização da capa:</div>' +
+        '<img src="' + esc(capa) + '" alt="" style="max-width:260px;width:100%;border-radius:12px;border:1px solid rgba(0,0,0,0.12);">';
+      var pimg = prev.querySelector('img');
+      // 120x90 = placeholder cinza do YouTube (ID inexistente/privado). No site a
+      // capa some e fica só o play — aqui o admin avisa antes de publicar.
+      var semCapa = function () {
+        prev.innerHTML = '<div style="font-size:0.8rem;color:#c1121f;">Não encontrei a capa desse vídeo — confira o link ou informe uma capa personalizada. (No site aparece só o botão de play.)</div>';
+      };
+      pimg.onerror = semCapa;
+      pimg.onload = function () { if (pimg.naturalWidth <= 120 && pimg.naturalHeight <= 90) semCapa(); };
+    }
+  }
+  window.updateIndVideo = function (key, val) {
+    indVideoCfg()[key] = val;
+    if (key === 'url' || key === 'poster') renderIndVideoStatus();
+    markDirty();
+  };
+  window.toggleIndVideo = function (on) { indVideoCfg().on = !!on; markDirty(); };
 
   // ─── Ordem & visibilidade das secoes da home ───
   var SECOES_NOMES = { hero: 'Slideshow (banner)', planos1: 'Planos — Com 1 Roteador', planos2: 'Planos — Com 2 Roteadores', historia: 'Nossa História', cobertura: 'Cobertura', depoimentos: 'Depoimentos', indique: 'Indique e Ganhe', cta: 'Chamada final (CTA)', faq: 'FAQ' };

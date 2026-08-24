@@ -979,5 +979,15 @@
     },
     "homeHero": {
         "usarPaginas": true
+    },
+    "indique": {
+        "video": {
+            "on": false,
+            "url": "",
+            "posicao": "lado",
+            "formato": "horizontal",
+            "titulo": "",
+            "poster": ""
+        }
     }
 }

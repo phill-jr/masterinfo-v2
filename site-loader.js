@@ -38,6 +38,7 @@
         }
       });
       run('copaPopup', function () { loadCopaPopup(cfg.copaPopup); });
+      run('indique', function () { loadIndique(cfg.indique); });
       run('checkoutLinks', function () { wireCheckoutLinks(); });
     })
     .catch(function (e) {
@@ -772,6 +773,162 @@
       p.classList.add('is-open');
       document.body.classList.add('copa-locked');
     }, 700);
+  }
+
+  // ─── Vídeo da seção "Indique e Ganhe" (config.indique.video) ───
+  // Aceita YouTube (watch/youtu.be/shorts/embed), Vimeo e arquivo de vídeo
+  // (.mp4/.webm/.ogv/.mov — relativo ou absoluto). YouTube/Vimeo entram como
+  // FACADE (capa + botão play; o iframe só nasce no clique) pra não custar
+  // ~700KB de terceiros no load — a home é CWV-sensível.
+  // posicao: 'lado'   → ocupa o lugar da ilustração (amigos → cupom)
+  //          'abaixo' → faixa cheia embaixo, mantendo a ilustração
+  // formato: 'horizontal' (16:9) | 'vertical' (9:16) | 'quadrado' (1:1)
+  function loadIndique(ind) {
+    var sec = document.getElementById('indique');
+    if (!sec) return;
+    var inner = sec.querySelector('.referral-inner');
+    if (!inner) return;
+
+    // Idempotente: limpa render anterior antes de decidir
+    var prev = inner.querySelector('.referral-video');
+    if (prev) prev.parentNode.removeChild(prev);
+    inner.classList.remove('has-video', 'has-video-lado', 'has-video-abaixo');
+
+    var v = ind && ind.video;
+    if (!v || v.on === false || !v.url) return;
+
+    var media = parseVideoUrl(String(v.url).trim());
+    if (!media) {
+      console.warn('[SiteLoader] indique.video.url não reconhecida (use YouTube, Vimeo ou .mp4):', v.url);
+      return;
+    }
+
+    var pos = (v.posicao === 'abaixo') ? 'abaixo' : 'lado';
+    var fmt = (v.formato === 'vertical' || v.formato === 'quadrado') ? v.formato : 'horizontal';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'referral-video is-' + fmt + ' is-' + pos;
+
+    var frame = document.createElement('div');
+    frame.className = 'referral-video-frame';
+    wrap.appendChild(frame);
+
+    if (media.tipo === 'file') {
+      var vid = document.createElement('video');
+      vid.className = 'referral-video-el';
+      vid.setAttribute('controls', '');
+      vid.setAttribute('preload', 'metadata');
+      vid.setAttribute('playsinline', '');
+      vid.setAttribute('src', media.src);
+      if (v.poster) vid.setAttribute('poster', String(v.poster));
+      frame.appendChild(vid);
+    } else {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'referral-video-play';
+      btn.setAttribute('aria-label', 'Assistir ao vídeo' + (v.titulo ? ': ' + v.titulo : ''));
+
+      var capa = v.poster || media.thumb;
+      if (capa) {
+        var img = document.createElement('img');
+        img.className = 'referral-video-thumb';
+        img.setAttribute('alt', '');
+        img.setAttribute('loading', 'lazy');
+        img.setAttribute('decoding', 'async');
+        // Capa que nao existe (Shorts sem oardefault, ID errado, video privado)
+        // cai pro fallback e, se ele tambem falhar, some — sobra o fundo escuro
+        // com o play, em vez do icone de imagem quebrada.
+        function capaFalhou() {
+          if (!img._tentouAlt && media.thumbAlt) { img._tentouAlt = true; img.src = media.thumbAlt; return; }
+          if (img.parentNode) img.parentNode.removeChild(img);
+        }
+        img.onerror = capaFalhou;
+        // O YouTube responde 200 com um placeholder cinza 120x90 quando o ID nao
+        // existe / o video e privado — trata igual a erro (senao vira um borrao).
+        img.onload = function () {
+          if (img.naturalWidth <= 120 && img.naturalHeight <= 90) capaFalhou();
+        };
+        img.setAttribute('src', capa);
+        btn.appendChild(img);
+      }
+
+      var badge = document.createElement('span');
+      badge.className = 'referral-video-btn';
+      badge.innerHTML = '<i class="ph-fill ph-play"></i>';
+      btn.appendChild(badge);
+
+      btn.addEventListener('click', function () {
+        var ifr = document.createElement('iframe');
+        ifr.className = 'referral-video-el';
+        ifr.setAttribute('src', media.embed);
+        ifr.setAttribute('title', v.titulo || 'Vídeo Indique e Ganhe — MasterInfo');
+        ifr.setAttribute('frameborder', '0');
+        ifr.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        ifr.setAttribute('allowfullscreen', '');
+        frame.innerHTML = '';
+        frame.appendChild(ifr);
+      });
+
+      frame.appendChild(btn);
+    }
+
+    if (v.titulo) {
+      var cap = document.createElement('span');
+      cap.className = 'referral-video-cap';
+      cap.textContent = v.titulo;
+      wrap.appendChild(cap);
+    }
+
+    var visual = inner.querySelector('.referral-visual');
+    if (pos === 'lado') {
+      inner.classList.add('has-video', 'has-video-lado');
+      if (visual) visual.parentNode.insertBefore(wrap, visual);
+      else inner.appendChild(wrap);
+    } else {
+      inner.classList.add('has-video', 'has-video-abaixo');
+      inner.appendChild(wrap);
+    }
+  }
+
+  // Reconhece a URL do vídeo e devolve {tipo, embed/src, thumb}. null = não serve.
+  function parseVideoUrl(url) {
+    if (!url) return null;
+
+    // Arquivo de vídeo (aceita caminho relativo do próprio site)
+    if (/\.(mp4|webm|ogv|ogg|mov|m4v)(\?|#|$)/i.test(url)) {
+      if (/^(https?:)?\/\//i.test(url) || url.charAt(0) === '/' || /^[\w.\-]+\//.test(url)) {
+        return { tipo: 'file', src: url };
+      }
+      return null;
+    }
+
+    if (!/^https?:\/\//i.test(url)) return null;
+
+    // YouTube: watch?v= | youtu.be/ | /embed/ | /shorts/ | /live/
+    var yt = url.match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/i);
+    if (yt) {
+      var id = yt[1];
+      var ehShort = /\/shorts\//i.test(url);
+      return {
+        tipo: 'youtube',
+        embed: 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1',
+        // Shorts: oardefault vem no formato original (vertical); demais, hqdefault
+        thumb: 'https://i.ytimg.com/vi/' + id + (ehShort ? '/oardefault.jpg' : '/hqdefault.jpg'),
+        thumbAlt: 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'
+      };
+    }
+
+    // Vimeo: vimeo.com/ID | player.vimeo.com/video/ID (thumb só via API → usa capa do admin)
+    var vm = url.match(/vimeo\.com\/(?:video\/)?(\d{6,})/i);
+    if (vm) {
+      return {
+        tipo: 'vimeo',
+        embed: 'https://player.vimeo.com/video/' + vm[1] + '?autoplay=1&title=0&byline=0&portrait=0',
+        thumb: ''
+      };
+    }
+
+    return null;
   }
 
   // ─── Links de checkout declarativos (CONVENÇÃO data-plano) ───
