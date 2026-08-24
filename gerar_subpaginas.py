@@ -1288,7 +1288,7 @@ def build_schema_data(rel, name, desc, url):
             ]},
             {"@type": "BlogPosting", "headline": post.get("h1", name), "description": desc,
              "url": url, "datePublished": post.get("date", DATE_DEFAULT),
-             "dateModified": post.get("date", DATE_DEFAULT), "image": img_abs, "inLanguage": "pt-BR",
+             "dateModified": post.get("updated", post.get("date", DATE_DEFAULT)), "image": img_abs, "inLanguage": "pt-BR",
              "author": author_node,
              "publisher": {"@type": "Organization", "@id": SITE_URL + "/#org", "name": PUBLISHER["name"],
                            "logo": {"@type": "ImageObject", "url": SITE_URL + PUBLISHER["logo"]}},
