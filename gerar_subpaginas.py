@@ -264,7 +264,7 @@ AJUDA = [
 ]
 
 PLANS_MAP = {
-    # ─── LINHA LITE, 1 Roteador (Wi-Fi 6 a partir do lite-premium) ───
+    # ─── LINHA LITE, 1 Roteador (Wi-Fi 6 SO na linha ULTRA/Mesh) ───
     "lite-casa": {
         "nome": "Lite Casa", "linha": "LITE",
         "speed": "600", "unit": "Mega",
@@ -282,7 +282,7 @@ PLANS_MAP = {
         "preco": "119,90", "preco_cheio": "129,90",
         "apps": [{"logo": "sky.jpg", "nome": "SKY+ Light com Globo"}],
         "features": [
-            "Wi-Fi 6 em 1 ambiente",
+            "Wi-Fi em 1 ambiente",
             "1 app de TV / mês (categoria Advanced)",
             "Velocidade pra família",
         ],
@@ -293,7 +293,7 @@ PLANS_MAP = {
         "preco": "129,00", "preco_cheio": "139,00",
         "apps": [],
         "features": [
-            "Wi-Fi 6 em 1 ambiente",
+            "Wi-Fi em 1 ambiente",
             "Sem app de TV (velocidade pura)",
             "1 Giga pra trabalho remoto",
         ],
@@ -1754,11 +1754,11 @@ def sync_canonical():
 # e melhora o CTR. Title <=60 chars, desc ~150-160. Sem em-dash (pass anti-IA).
 SEO_META = {
     "home-office/index.html": ("Internet para Home Office em Joinville | MasterInfo",
-        "Internet fibra para trabalhar de casa em Joinville: conexão estável para reuniões, upload rápido e Wi-Fi 6. Planos home office com instalação rápida."),
+        "Internet fibra para trabalhar de casa em Joinville: conexão estável para reuniões, upload rápido e estabilidade. Planos home office com instalação rápida."),
     "gamer/index.html": ("Internet para Gamer em Joinville, Baixa Latência | MasterInfo",
         "Internet fibra para jogar online em Joinville: baixa latência, ping estável, 1 Giga e Exitlag. Plano gamer com Wi-Fi 6. Confira a cobertura."),
     "familia/index.html": ("Internet Fibra para Família em Joinville | MasterInfo",
-        "Internet fibra óptica para a família toda em Joinville: 800 Mega a 1 Giga, Wi-Fi 6 e vários aparelhos ao mesmo tempo. Instalação rápida. Veja os planos."),
+        "Internet fibra óptica para a família toda em Joinville: 800 Mega a 1 Giga e vários aparelhos ao mesmo tempo. Instalação rápida. Veja os planos."),
     "com-2-roteadores/index.html": ("Wi-Fi em Toda a Casa em Joinville (2 Roteadores) | MasterInfo",
         "Wi-Fi sem ponto cego em Joinville: kit com 2 roteadores Wi-Fi 6 para sinal forte em todos os cômodos. Cobertura total da casa. Veja os planos."),
     "com-1-roteador/index.html": ("Internet Fibra para Apartamento em Joinville | MasterInfo",

@@ -8,7 +8,7 @@ Este arquivo é a versão completa e detalhada das informações da MasterInfo I
 A MasterInfo é um provedor local de Joinville (SC), fundado por Philipe Alves Medeiros, formado em Sistemas de Informação e arquiteto de redes, que atua com fibra óptica (FTTH) na cidade há mais de 6 anos. Toda a rede é fibra óptica até a casa do cliente, sem rádio nem cabo coaxial compartilhado. O atendimento e o suporte técnico são feitos por equipe da própria cidade, principalmente via WhatsApp, sem call center distante nem atendimento robotizado. A empresa tem mais de 20 mil clientes conectados e nota 4,8 de 5 no Google, com 2.447 avaliações. Sede na Rua Prefeito Baltazar Buschle, 628, no bairro Comasa, Joinville/SC, CEP 89228-000.
 
 ## Planos residenciais
-Os planos seguem duas linhas (Lite e Ultra) e são organizados por perfil de uso. O "preço pontual" é o valor com desconto por pagamento em dia; o "preço cheio" é o valor sem o desconto. Todos incluem fibra óptica e instalação em até 3 dias após a contratação; a partir de 800 Mega, o roteador Wi-Fi 6 já vem incluso.
+Os planos seguem duas linhas (Lite e Ultra) e são organizados por perfil de uso. O "preço pontual" é o valor com desconto por pagamento em dia; o "preço cheio" é o valor sem o desconto. Todos incluem fibra óptica e instalação em até 3 dias após a contratação; nos planos Ultra (1 Giga), o kit Mesh Wi-Fi 6 já vem incluso.
 
 - **Lite Casa, 600 Mega, R$ 99,99/mês** (cheio R$ 109,99): para casal ou casa pequena. 1 app de TV/mês na categoria Standard (ex.: SKY+ Light). Wi-Fi em 1 ambiente (roteador Wi-Fi 6 não incluso neste plano).
 - **Lite Premium, 800 Mega, R$ 119,90/mês** (cheio R$ 129,90): plano mais procurado, para família com vários dispositivos. 1 app de TV/mês na categoria Advanced (ex.: SKY+ Light com Globo).
@@ -75,7 +75,7 @@ Novos bairros são adicionados à cobertura com frequência.
 - **Quanto tempo demora a instalação?** Na maioria dos casos, a instalação acontece em até 3 dias após a contratação. Você consulta a cobertura pelo seu endereço, escolhe o plano e agenda. O técnico leva a fibra até dentro da sua casa (FTTH), instala o roteador Wi-Fi e só sai com tudo funcionando e testado.
 - **Tem fidelidade?** Sim, 12 meses, que é o padrão do mercado para cobrir o custo de levar a fibra até a sua casa. Depois desse período o contrato segue sem fidelidade nenhuma. E pagando em dia você garante R$ 10 de desconto todo mês, em qualquer plano.
 - **A internet é boa para gamer?** Muito boa, uma das melhores da cidade para jogo online. A rede é 100% fibra óptica até a sua casa, sem cabo compartilhado, o que mantém o ping baixo e a latência estável. O plano Ultra Gamer ainda inclui o ExitLag, que otimiza a rota até o servidor do jogo.
-- **O Wi-Fi pega em toda a casa?** Sim. A partir de 800 Mega, os planos já vêm com Wi-Fi 6, e há opções com Mesh e com 2 roteadores para cobrir cada canto da casa, sem ponto cego. Se ainda faltar sinal em algum cômodo, dá para adicionar pontos extras de fibra a partir de R$ 10 por mês.
+- **O Wi-Fi pega em toda a casa?** Sim, nos planos Ultra: o kit Mesh Wi-Fi 6 com 2 roteadores já vem incluso para cobrir cada canto da casa, sem ponto cego. Se ainda faltar sinal em algum cômodo, dá para adicionar pontos extras de fibra a partir de R$ 10 por mês.
 
 ## Blog (guias e conteúdo técnico)
 - 800 Mega de internet é bom? Pra quem vale a pena: /blog/800-mega-de-internet-e-bom/

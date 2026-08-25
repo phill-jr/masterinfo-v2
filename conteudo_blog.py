@@ -54,10 +54,10 @@ PILARES = [
     {
         "slug": "internet-joinville",
         "title": "Internet Fibra em Joinville: Planos, Preços e Cobertura",
-        "desc": "Internet fibra óptica em Joinville de 600 Mega a 1 Giga, Wi-Fi 6 e instalação em até 3 dias. Suporte local de verdade. Veja planos e cobertura no seu bairro.",
+        "desc": "Internet fibra óptica em Joinville de 600 Mega a 1 Giga e instalação em até 3 dias. Suporte local de verdade. Veja planos e cobertura no seu bairro.",
         "tag": "INTERNET · JOINVILLE",
         "h1": "Internet fibra em Joinville, com suporte de gente da região",
-        "lead": "Fibra óptica de verdade na sua casa, do Centro ao Vila Nova, passando por Bom Retiro, América, Glória e Boa Vista. Planos de 600 Mega a 1 Giga, Wi-Fi 6 e atendimento local que resolve.",
+        "lead": "Fibra óptica de verdade na sua casa, do Centro ao Vila Nova, passando por Bom Retiro, América, Glória e Boa Vista. Planos de 600 Mega a 1 Giga e atendimento local que resolve.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -65,7 +65,7 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo é um provedor de <strong>internet 100% fibra óptica em Joinville</strong>com planos a partir de 600 Mega, Wi-Fi 6 a partir de 800 Mega e instalação rápida. O diferencial é o <strong>suporte local</strong>: equipe da região, sem call center distante. Consulte a cobertura no seu endereço e contrate em minutos.
+      <strong>Resumo rápido:</strong> a MasterInfo é um provedor de <strong>internet 100% fibra óptica em Joinville</strong>com planos a partir de 600 Mega, Mesh Wi-Fi 6 nos planos Ultra e instalação rápida. O diferencial é o <strong>suporte local</strong>: equipe da região, sem call center distante. Consulte a cobertura no seu endereço e contrate em minutos.
     </div>
 
     <h2>Por que escolher uma internet fibra em Joinville</h2>
@@ -73,7 +73,7 @@ PILARES = [
     <p>Na prática, isso significa <strong>mesma velocidade de dia e de noite</strong>navegação que não cai quando chove e latência baixa para chamadas de vídeo e jogos. Para entender as diferenças entre as tecnologias, leia <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet em Joinville</h2>
-    <p>Nossos planos vão de 600 Mega (ideal para apartamento e casa pequena) até 1 Giga (para casa cheia, com muita gente conectada ao mesmo tempo). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>. Veja as opções abaixo e escolha pela sua realidade:</p>
+    <p>Nossos planos vão de 600 Mega (ideal para apartamento e casa pequena) até 1 Giga (para casa cheia, com muita gente conectada ao mesmo tempo). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>. Veja as opções abaixo e escolha pela sua realidade:</p>
 
     <!--PLANS_GRID-->
 
@@ -98,7 +98,7 @@ PILARES = [
         "faq": [
             ("A MasterInfo é de Joinville mesmo?", "Sim. Somos um provedor local, nascido e sediado em Joinville, há mais de 6 anos. Nossa equipe técnica e o suporte são todos da região."),
             ("Quais bairros de Joinville têm cobertura?", "Atendemos boa parte da cidade com fibra própria, incluindo Centro, América, Glória, Bom Retiro, Boa Vista, Vila Nova, Costa e Silva e Iririú, entre outros. A maneira mais rápida de confirmar é consultar a cobertura pelo seu CEP aqui no site."),
-            ("Qual a velocidade dos planos?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Qual a velocidade dos planos?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar?", "Após a confirmação de cobertura e contratação, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
         ],
     },
@@ -261,7 +261,7 @@ PILARES = [
         "desc": "Internet fibra óptica no Comasa, Joinville: provedor com sede no próprio bairro, planos de 600 Mega a 1 Giga e Wi-Fi 6. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · COMASA",
         "h1": "Internet fibra no Comasa: o provedor que fica no seu bairro",
-        "lead": "A MasterInfo tem sede no Comasa, em Joinville, fibra óptica de verdade (FTTH) até a sua casa, Wi-Fi 6 e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
+        "lead": "A MasterInfo tem sede no Comasa, em Joinville, fibra óptica de verdade (FTTH) até a sua casa e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -269,7 +269,7 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo é um provedor de <strong>internet 100% fibra óptica</strong> com <strong>sede no próprio Comasa</strong>em Joinville (Rua Prefeito Baltazar Buschle, 628). Planos de 600 Mega a 1 Giga, Wi-Fi 6 a partir de 800 Mega e suporte local de verdade. Consulte a cobertura no seu endereço e contrate em minutos.
+      <strong>Resumo rápido:</strong> a MasterInfo é um provedor de <strong>internet 100% fibra óptica</strong> com <strong>sede no próprio Comasa</strong>em Joinville (Rua Prefeito Baltazar Buschle, 628). Planos de 600 Mega a 1 Giga, Mesh Wi-Fi 6 nos planos Ultra e suporte local de verdade. Consulte a cobertura no seu endereço e contrate em minutos.
     </div>
 
     <h2>Internet fibra no Comasa, em Joinville</h2>
@@ -277,7 +277,7 @@ PILARES = [
     <p>Por estarmos no bairro, o atendimento é próximo e rápido: quando precisar, você fala com quem é da região e conhece o Comasa de perto.</p>
 
     <h2>Planos de internet para o Comasa</h2>
-    <p>Os planos vão de 600 Mega (ideal para apartamento e casa pequena) até 1 Giga (para casa cheia, com muita gente conectada ao mesmo tempo). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (ideal para apartamento e casa pequena) até 1 Giga (para casa cheia, com muita gente conectada ao mesmo tempo). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -303,7 +303,7 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende o Comasa?", "Sim. Nossa sede fica no próprio Comasa (Rua Prefeito Baltazar Buschle, 628) e atendemos o bairro com fibra óptica até a sua casa (FTTH). Como a cobertura varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
-            ("Quais as velocidades dos planos no Comasa?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos no Comasa?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar no Comasa?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
             ("Por que escolher um provedor com sede no bairro?", "Porque o suporte é de quem é da região e está por perto: atendimento mais rápido, sem call center distante. Por isso temos 4,8 de 5 estrelas no Google."),
         ],
@@ -311,7 +311,7 @@ PILARES = [
     {
         "slug": "internet-boa-vista-joinville",
         "title": "Internet Fibra na Boa Vista, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica na Boa Vista (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica na Boa Vista (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · BOA VISTA",
         "h1": "Internet fibra na Boa Vista, em Joinville",
         "lead": "Fibra óptica de verdade (FTTH) na Boa Vista, um dos bairros mais movimentados de Joinville. Wi-Fi 6, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
@@ -322,14 +322,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a Boa Vista, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 a partir de 800 Mega e suporte local de verdade. Consulte a cobertura no seu endereço e contrate em minutos.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a Boa Vista, em Joinville, com planos de 600 Mega a 1 Giga, Mesh Wi-Fi 6 nos planos Ultra e suporte local de verdade. Consulte a cobertura no seu endereço e contrate em minutos.
     </div>
 
     <h2>Internet fibra na Boa Vista, em Joinville</h2>
     <p>A Boa Vista é um dos bairros mais populosos e movimentados de Joinville, muita gente, muitos dispositivos e uso intenso o dia todo. Para isso, a <strong>fibra óptica até a sua casa (FTTH)</strong> é a melhor opção: sinal estável de dia e de noite, sem a instabilidade do rádio ou dos cabos antigos. Entenda as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para a Boa Vista</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia, com muita gente conectada ao mesmo tempo). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia, com muita gente conectada ao mesmo tempo). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -355,7 +355,7 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende a Boa Vista?", "Sim. A Boa Vista está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
-            ("Quais as velocidades dos planos na Boa Vista?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos na Boa Vista?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar na Boa Vista?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
             ("A internet aguenta uma casa com muita gente usando?", "Sim. Os planos de 1 Giga com Mesh Wi-Fi 6 foram pensados justamente para casas cheias, com vários aparelhos conectados ao mesmo tempo sem travar."),
         ],
@@ -363,10 +363,10 @@ PILARES = [
     {
         "slug": "internet-iririu-joinville",
         "title": "Internet Fibra no Iririú, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica no Iririú (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica no Iririú (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · IRIRIÚ",
         "h1": "Internet fibra no Iririú, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) no Iririú, um grande bairro residencial de Joinville. Wi-Fi 6 para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "lead": "Fibra óptica de verdade (FTTH) no Iririú, um grande bairro residencial de Joinville. Wi-Fi forte para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -374,14 +374,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Iririú, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 a partir de 800 Mega e suporte local de verdade. Consulte a cobertura no seu endereço e contrate em minutos.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Iririú, em Joinville, com planos de 600 Mega a 1 Giga, Mesh Wi-Fi 6 nos planos Ultra e suporte local de verdade. Consulte a cobertura no seu endereço e contrate em minutos.
     </div>
 
     <h2>Internet fibra no Iririú, em Joinville</h2>
     <p>O Iririú é um grande bairro residencial de Joinville, de famílias e casas, perfil em que a internet precisa cobrir bem todos os cômodos e aguentar vários aparelhos ao mesmo tempo. A <strong>fibra óptica até a casa (FTTH)</strong> entrega isso com sinal estável e Wi-Fi forte. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para o Iririú</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -407,7 +407,7 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende o Iririú?", "Sim. O Iririú está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
-            ("Quais as velocidades dos planos no Iririú?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos no Iririú?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar no Iririú?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
             ("O Wi-Fi cobre a casa toda no Iririú?", "Sim. Os planos com Mesh Wi-Fi 6 usam dois roteadores em rede mesh para cobrir todos os cômodos, sem ponto cego, ideal para casas maiores."),
         ],
@@ -415,10 +415,10 @@ PILARES = [
     {
         "slug": "internet-espinheiros-joinville",
         "title": "Internet Fibra no Espinheiros, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica no Espinheiros (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica no Espinheiros (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · ESPINHEIROS",
         "h1": "Internet fibra no Espinheiros, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) no Espinheiros, na região norte de Joinville, Wi-Fi 6, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
+        "lead": "Fibra óptica de verdade (FTTH) no Espinheiros, na região norte de Joinville, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -426,14 +426,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Espinheiros, na região norte de Joinville, vizinho do Comasa, onde fica a nossa sede. Planos de 600 Mega a 1 Giga, Wi-Fi 6 e suporte local. Consulte a cobertura no seu endereço.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Espinheiros, na região norte de Joinville, vizinho do Comasa, onde fica a nossa sede. Planos de 600 Mega a 1 Giga e suporte local. Consulte a cobertura no seu endereço.
     </div>
 
     <h2>Internet fibra no Espinheiros, em Joinville</h2>
     <p>O Espinheiros fica na região norte de Joinville, ao lado do Comasa, bairro que a MasterInfo conhece de perto, já que é onde fica a nossa sede. Com <strong>fibra óptica até a sua casa (FTTH)</strong>você tem sinal estável de dia e de noite, sem a instabilidade do rádio ou dos cabos antigos. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para o Espinheiros</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -452,17 +452,17 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende o Espinheiros?", "Sim. O Espinheiros está na nossa área de cobertura de fibra óptica em Joinville e fica ao lado do Comasa, onde fica a nossa sede. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP."),
-            ("Quais as velocidades dos planos no Espinheiros?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos no Espinheiros?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar no Espinheiros?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
         ],
     },
     {
         "slug": "internet-aventureiro-joinville",
         "title": "Internet Fibra no Aventureiro, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica no Aventureiro (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica no Aventureiro (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · AVENTUREIRO",
         "h1": "Internet fibra no Aventureiro, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) no Aventureiro, um dos bairros mais populosos de Joinville, Wi-Fi 6, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "lead": "Fibra óptica de verdade (FTTH) no Aventureiro, um dos bairros mais populosos de Joinville, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -470,14 +470,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Aventureiro, um dos bairros mais populosos de Joinville. Planos de 600 Mega a 1 Giga, Wi-Fi 6 e suporte local. Consulte a cobertura no seu endereço.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Aventureiro, um dos bairros mais populosos de Joinville. Planos de 600 Mega a 1 Giga e suporte local. Consulte a cobertura no seu endereço.
     </div>
 
     <h2>Internet fibra no Aventureiro, em Joinville</h2>
     <p>O Aventureiro é um dos bairros mais populosos de Joinville, muita gente e muitos aparelhos conectados ao mesmo tempo. A <strong>fibra óptica até a casa (FTTH)</strong> dá conta desse uso intenso, com sinal estável e Wi-Fi forte. Entenda as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para o Aventureiro</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -496,17 +496,17 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende o Aventureiro?", "Sim. O Aventureiro está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
-            ("Quais as velocidades dos planos no Aventureiro?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos no Aventureiro?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("A internet aguenta uma casa com muita gente usando?", "Sim. Os planos de 1 Giga com Mesh Wi-Fi 6 foram pensados para casas cheias, com vários aparelhos conectados ao mesmo tempo sem travar."),
         ],
     },
     {
         "slug": "internet-itinga-joinville",
         "title": "Internet Fibra na Itinga, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica na Itinga (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica na Itinga (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · ITINGA",
         "h1": "Internet fibra na Itinga, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) na Itinga, um grande bairro da região sul de Joinville, Wi-Fi 6 para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "lead": "Fibra óptica de verdade (FTTH) na Itinga, um grande bairro da região sul de Joinville, Wi-Fi forte para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -514,14 +514,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a Itinga, um grande bairro da região sul de Joinville. Planos de 600 Mega a 1 Giga, Wi-Fi 6 e suporte local. Consulte a cobertura no seu endereço.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a Itinga, um grande bairro da região sul de Joinville. Planos de 600 Mega a 1 Giga e suporte local. Consulte a cobertura no seu endereço.
     </div>
 
     <h2>Internet fibra na Itinga, em Joinville</h2>
     <p>A Itinga é um grande bairro da região sul de Joinville, com muitas famílias e casas. É um perfil em que a internet precisa cobrir bem todos os cômodos, e a <strong>fibra óptica até a casa (FTTH)</strong> entrega isso com Wi-Fi forte e estável. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para a Itinga</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -540,17 +540,17 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende a Itinga?", "Sim. A Itinga está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
-            ("Quais as velocidades dos planos na Itinga?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos na Itinga?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("O Wi-Fi cobre a casa toda na Itinga?", "Sim. Os planos com Mesh Wi-Fi 6 usam dois roteadores em rede mesh para cobrir todos os cômodos, sem ponto cego, ideal para casas maiores."),
         ],
     },
     {
         "slug": "internet-jardim-paraiso-joinville",
         "title": "Internet Fibra no Jardim Paraíso, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica no Jardim Paraíso (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica no Jardim Paraíso (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · JARDIM PARAÍSO",
         "h1": "Internet fibra no Jardim Paraíso, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) no Jardim Paraíso, em Joinville, Wi-Fi 6 para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "lead": "Fibra óptica de verdade (FTTH) no Jardim Paraíso, em Joinville, Wi-Fi forte para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -558,14 +558,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Jardim Paraíso, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 a partir de 800 Mega e suporte local. Consulte a cobertura no seu endereço.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Jardim Paraíso, em Joinville, com planos de 600 Mega a 1 Giga, Mesh Wi-Fi 6 nos planos Ultra e suporte local. Consulte a cobertura no seu endereço.
     </div>
 
     <h2>Internet fibra no Jardim Paraíso, em Joinville</h2>
     <p>No Jardim Paraíso, a <strong>fibra óptica até a sua casa (FTTH)</strong> garante sinal estável de dia e de noite, com Wi-Fi forte para a família toda, sem a instabilidade do rádio ou dos cabos antigos. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para o Jardim Paraíso</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -584,17 +584,17 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende o Jardim Paraíso?", "Sim. O Jardim Paraíso está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
-            ("Quais as velocidades dos planos no Jardim Paraíso?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos no Jardim Paraíso?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar no Jardim Paraíso?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
         ],
     },
     {
         "slug": "internet-jardim-sofia-joinville",
         "title": "Internet Fibra no Jardim Sofia, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica no Jardim Sofia (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica no Jardim Sofia (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · JARDIM SOFIA",
         "h1": "Internet fibra no Jardim Sofia, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) no Jardim Sofia, em Joinville, estabilidade para trabalho remoto, Wi-Fi 6 e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "lead": "Fibra óptica de verdade (FTTH) no Jardim Sofia, em Joinville, estabilidade para trabalho remoto e suporte de gente da região. Consulte a cobertura no seu endereço.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -602,14 +602,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Jardim Sofia, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 a partir de 800 Mega e suporte local. Consulte a cobertura no seu endereço.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Jardim Sofia, em Joinville, com planos de 600 Mega a 1 Giga, Mesh Wi-Fi 6 nos planos Ultra e suporte local. Consulte a cobertura no seu endereço.
     </div>
 
     <h2>Internet fibra no Jardim Sofia, em Joinville</h2>
     <p>Para quem trabalha ou estuda de casa no Jardim Sofia, estabilidade é tudo. A <strong>fibra óptica até a casa (FTTH)</strong> entrega conexão constante para reuniões em vídeo e upload rápido, sem quedas. Entenda as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para o Jardim Sofia</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -628,17 +628,17 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende o Jardim Sofia?", "Sim. O Jardim Sofia está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
-            ("A internet é boa para trabalhar de casa no Jardim Sofia?", "Sim. A fibra óptica oferece estabilidade e upload rápido, ideais para reuniões em vídeo e home office. Os planos de 1 Giga com Wi-Fi 6 dão folga até com a casa toda conectada."),
+            ("A internet é boa para trabalhar de casa no Jardim Sofia?", "Sim. A fibra óptica oferece estabilidade e upload rápido, ideais para reuniões em vídeo e home office. Os planos Ultra, com Mesh Wi-Fi 6, dão folga até com a casa toda conectada."),
             ("Quanto tempo leva para instalar no Jardim Sofia?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
         ],
     },
     {
         "slug": "internet-cubatao-joinville",
         "title": "Internet Fibra no Cubatão, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica no Cubatão (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica no Cubatão (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · CUBATÃO",
         "h1": "Internet fibra no Cubatão, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) no Cubatão, em Joinville, Wi-Fi 6, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
+        "lead": "Fibra óptica de verdade (FTTH) no Cubatão, em Joinville, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço e contrate em minutos.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -646,14 +646,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Cubatão, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 a partir de 800 Mega e suporte local. Consulte a cobertura no seu endereço.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Cubatão, em Joinville, com planos de 600 Mega a 1 Giga, Mesh Wi-Fi 6 nos planos Ultra e suporte local. Consulte a cobertura no seu endereço.
     </div>
 
     <h2>Internet fibra no Cubatão, em Joinville</h2>
     <p>No Cubatão, a <strong>fibra óptica até a casa (FTTH)</strong> entrega sinal estável e Wi-Fi forte para streaming, estudo e trabalho, a mesma velocidade chova ou faça sol. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para o Cubatão</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -672,17 +672,17 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende o Cubatão?", "Sim. O Cubatão está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
-            ("Quais as velocidades dos planos no Cubatão?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos no Cubatão?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar no Cubatão?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
         ],
     },
     {
         "slug": "internet-nova-brasilia-joinville",
         "title": "Internet Fibra na Nova Brasília, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica na Nova Brasília (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica na Nova Brasília (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · NOVA BRASÍLIA",
         "h1": "Internet fibra na Nova Brasília, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) na Nova Brasília, em Joinville, Wi-Fi 6 para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "lead": "Fibra óptica de verdade (FTTH) na Nova Brasília, em Joinville, Wi-Fi forte para a casa toda, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -690,14 +690,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a Nova Brasília, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 a partir de 800 Mega e suporte local. Consulte a cobertura no seu endereço.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a Nova Brasília, em Joinville, com planos de 600 Mega a 1 Giga, Mesh Wi-Fi 6 nos planos Ultra e suporte local. Consulte a cobertura no seu endereço.
     </div>
 
     <h2>Internet fibra na Nova Brasília, em Joinville</h2>
     <p>Na Nova Brasília, a <strong>fibra óptica até a casa (FTTH)</strong> garante Wi-Fi forte em todos os cômodos e sinal estável para a família toda usar ao mesmo tempo. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para a Nova Brasília</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -716,17 +716,17 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende a Nova Brasília?", "Sim. A Nova Brasília está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
-            ("Quais as velocidades dos planos na Nova Brasília?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos na Nova Brasília?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar na Nova Brasília?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
         ],
     },
     {
         "slug": "internet-rio-bonito-joinville",
         "title": "Internet Fibra no Rio Bonito, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica no Rio Bonito (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica no Rio Bonito (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · RIO BONITO",
         "h1": "Internet fibra no Rio Bonito, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) no Rio Bonito, em Joinville, fibra de verdade até a sua casa, Wi-Fi 6 e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "lead": "Fibra óptica de verdade (FTTH) no Rio Bonito, em Joinville, fibra de verdade até a sua casa e suporte de gente da região. Consulte a cobertura no seu endereço.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -734,14 +734,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Rio Bonito, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 a partir de 800 Mega e suporte local. Consulte a cobertura no seu endereço.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Rio Bonito, em Joinville, com planos de 600 Mega a 1 Giga, Mesh Wi-Fi 6 nos planos Ultra e suporte local. Consulte a cobertura no seu endereço.
     </div>
 
     <h2>Internet fibra no Rio Bonito, em Joinville</h2>
     <p>No Rio Bonito, a <strong>fibra óptica até a casa (FTTH)</strong> faz diferença: leva conexão estável e Wi-Fi forte, com a mesma velocidade de dia e de noite, sem a instabilidade do rádio. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para o Rio Bonito</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -760,17 +760,17 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende o Rio Bonito?", "Sim. O Rio Bonito está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de rua para rua, confirme no seu endereço pelo CEP aqui no site."),
-            ("Quais as velocidades dos planos no Rio Bonito?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos no Rio Bonito?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar no Rio Bonito?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
         ],
     },
     {
         "slug": "internet-estrada-timbe-joinville",
         "title": "Internet Fibra na Estrada Timbé, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica na Estrada Timbé (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica na Estrada Timbé (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · ESTRADA TIMBÉ",
         "h1": "Internet fibra na Estrada Timbé, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) na região da Estrada Timbé, em Joinville, fibra de verdade até a sua casa, Wi-Fi 6 e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "lead": "Fibra óptica de verdade (FTTH) na região da Estrada Timbé, em Joinville, fibra de verdade até a sua casa e suporte de gente da região. Consulte a cobertura no seu endereço.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -778,14 +778,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a região da Estrada Timbé, em Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 a partir de 800 Mega e suporte local. Consulte a cobertura no seu endereço.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para a região da Estrada Timbé, em Joinville, com planos de 600 Mega a 1 Giga, Mesh Wi-Fi 6 nos planos Ultra e suporte local. Consulte a cobertura no seu endereço.
     </div>
 
     <h2>Internet fibra na Estrada Timbé, em Joinville</h2>
     <p>Na região da Estrada Timbé, ter <strong>fibra óptica de verdade até a casa (FTTH)</strong> faz toda a diferença frente às alternativas instáveis: sinal constante e Wi-Fi forte, chova ou faça sol. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para a Estrada Timbé</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -804,17 +804,17 @@ PILARES = [
 """,
         "faq": [
             ("A MasterInfo atende a Estrada Timbé?", "Sim. A região da Estrada Timbé está na nossa área de cobertura de fibra óptica em Joinville. Como a disponibilidade varia de trecho para trecho, confirme no seu endereço pelo CEP aqui no site."),
-            ("Quais as velocidades dos planos na Estrada Timbé?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com roteador Wi-Fi 6 incluso a partir de 800 Mega. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
+            ("Quais as velocidades dos planos na Estrada Timbé?", "Os planos vão de 600 Mega a 1 Giga, todos em fibra óptica, com Mesh Wi-Fi 6 incluso nos planos Ultra. A escolha ideal depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo."),
             ("Quanto tempo leva para instalar na Estrada Timbé?", "Após confirmar a cobertura e contratar, a instalação costuma ser agendada para os próximos dias úteis, feita pela nossa equipe técnica local."),
         ],
     },
     {
         "slug": "internet-paranaguamirim-joinville",
         "title": "Internet Fibra no Paranaguamirim, Joinville | MasterInfo",
-        "desc": "Internet fibra óptica no Paranaguamirim (Joinville): planos de 600 Mega a 1 Giga, Wi-Fi 6, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
+        "desc": "Internet fibra óptica no Paranaguamirim (Joinville): planos de 600 Mega a 1 Giga, instalação rápida e suporte local. Veja a cobertura pelo seu CEP.",
         "tag": "INTERNET · PARANAGUAMIRIM",
         "h1": "Internet fibra no Paranaguamirim, em Joinville",
-        "lead": "Fibra óptica de verdade (FTTH) no Paranaguamirim, um grande bairro da região sul de Joinville, Wi-Fi 6, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
+        "lead": "Fibra óptica de verdade (FTTH) no Paranaguamirim, um grande bairro da região sul de Joinville, instalação rápida e suporte de gente da região. Consulte a cobertura no seu endereço.",
         "hero_img": "/imgs/hero/sub/familia-1.jpg",
         "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
         "cta": "Ver planos e cobertura",
@@ -822,14 +822,14 @@ PILARES = [
         "plans": ["lite-casa", "lite-premium", "ultra-familia"],
         "body": """
     <div class="tldr">
-      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Paranaguamirim, um grande bairro da região sul de Joinville, com planos de 600 Mega a 1 Giga, Wi-Fi 6 a partir de 800 Mega e suporte local. Consulte a cobertura no seu endereço.
+      <strong>Resumo rápido:</strong> a MasterInfo leva <strong>internet 100% fibra óptica (FTTH)</strong> para o Paranaguamirim, um grande bairro da região sul de Joinville, com planos de 600 Mega a 1 Giga, Mesh Wi-Fi 6 nos planos Ultra e suporte local. Consulte a cobertura no seu endereço.
     </div>
 
     <h2>Internet fibra no Paranaguamirim, em Joinville</h2>
     <p>O Paranaguamirim é um grande bairro da região sul de Joinville, com muitas famílias. A <strong>fibra óptica até a casa (FTTH)</strong> entrega Wi-Fi forte para todos os cômodos e aguenta vários aparelhos ao mesmo tempo. Veja as diferenças em <a href="/blog/fibra-vs-radio-vs-cabo/">fibra óptica vs rádio vs cabo</a>.</p>
 
     <h2>Planos de internet para o Paranaguamirim</h2>
-    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, a partir de 800 Mega, <strong>roteador Wi-Fi 6</strong>:</p>
+    <p>Os planos vão de 600 Mega (casa pequena) até 1 Giga (casa cheia). Todos incluem pelo menos 1 app de TV ou streaming por mês e, nos planos Ultra, <strong>Mesh Wi-Fi 6</strong>:</p>
 
     <!--PLANS_GRID-->
 
@@ -889,18 +889,18 @@ BLOG = [
     <p>E o 1 Giga? Vale em três cenários: uso pesado simultâneo diário, downloads gigantes frequentes e upload profissional (backup em nuvem, criação de conteúdo). O comparativo por perfil está no guia <a href="/blog/quantos-mega-de-internet-voce-precisa/">quantos Mega você precisa</a>.</p>
 
     <h2>O teste de velocidade e o Wi-Fi</h2>
-    <p>Vale o mesmo aviso de sempre: a velocidade contratada é entregue <strong>no cabo</strong>. No Wi-Fi, a distância do roteador, as paredes e o limite do rádio do próprio aparelho reduzem o número do teste, e muitos celulares nem passam de 300 ou 400 Mega por hardware. O <a href="https://www.brasilbandalarga.com.br/" target="_blank" rel="noopener">medidor oficial usado pela Anatel</a> orienta o teste por cabo. Com o Wi-Fi 6 incluso e o roteador bem posicionado, a diferença no ar diminui bastante; se algum cômodo sofre, veja <a href="/blog/como-melhorar-wifi-em-casa/">como melhorar o Wi-Fi em casa</a>.</p>
+    <p>Vale o mesmo aviso de sempre: a velocidade contratada é entregue <strong>no cabo</strong>. No Wi-Fi, a distância do roteador, as paredes e o limite do rádio do próprio aparelho reduzem o número do teste, e muitos celulares nem passam de 300 ou 400 Mega por hardware. O <a href="https://www.brasilbandalarga.com.br/" target="_blank" rel="noopener">medidor oficial usado pela Anatel</a> orienta o teste por cabo. Com um bom roteador bem posicionado a diferença no ar diminui bastante, e nos planos Ultra o kit Mesh Wi-Fi 6 cobre a casa toda; se algum cômodo sofre, veja <a href="/blog/como-melhorar-wifi-em-casa/">como melhorar o Wi-Fi em casa</a>.</p>
 
     <h2>Quanto custa 800 Mega em Joinville</h2>
-    <p>Na MasterInfo, o plano de 800 Mega é o <strong>Lite Premium: R$ 119,90/mês</strong> pagando em dia (R$ 129,90 sem o desconto), com fibra 100% até a sua casa (FTTH), roteador Wi-Fi 6 e 1 app de TV por mês incluso na categoria Advanced, como o SKY+ Light com Globo. Instalação em até 3 dias, feita por equipe daqui de Joinville. É o plano ideal pra <a href="/familia/">família com vários aparelhos</a> e pra quem trabalha de <a href="/home-office/">home office</a>.</p>
+    <p>Na MasterInfo, o plano de 800 Mega é o <strong>Lite Premium: R$ 119,90/mês</strong> pagando em dia (R$ 129,90 sem o desconto), com fibra 100% até a sua casa (FTTH), Wi-Fi pra 1 ambiente e 1 app de TV por mês incluso na categoria Advanced, como o SKY+ Light com Globo. Instalação em até 3 dias, feita por equipe daqui de Joinville. É o plano ideal pra <a href="/familia/">família com vários aparelhos</a> e pra quem trabalha de <a href="/home-office/">home office</a>.</p>
     <p>Pra conferir se a fibra já chega na sua rua, consulte a cobertura pelo CEP na página de <a href="/internet-joinville/">internet em Joinville</a>, ou <a href="/checkout.html?plano=lite-premium">contrate o Lite Premium</a> direto.</p>
 """,
         "faq": [
             ("800 Mega de internet é bom pra quantas pessoas?", "Com folga, uma casa de 4 a 6 pessoas com uso pesado simultâneo: várias TVs em 4K, videochamadas, jogos e todos os celulares ao mesmo tempo. Uma família típica com 15 a 20 aparelhos conectados raramente usa mais de 100 Mega simultâneos de verdade, então 800 Mega garante que nunca falte."),
             ("Qual a diferença entre 800 Mega e 600 Mega no dia a dia?", "Pra streaming, chamadas e redes sociais, quase nenhuma: as duas sobram. A diferença aparece na folga pra simultaneidade em casa cheia e nos downloads grandes, que terminam mais rápido no 800. Se a casa tem até 3 ou 4 pessoas com uso normal, o 600 Mega resolve por menos."),
             ("800 Mega é bom pra jogar online?", "Sim. A partida em si consome menos de 1 Mega; o que define a experiência é o ping, e ping baixo vem da fibra dedicada. A vantagem do 800 pro gamer está no download: um jogo de 60 GB baixa em cerca de 10 minutos, sem atrapalhar quem está usando a internet na casa."),
-            ("Por que o teste de velocidade não mostra 800 Mega no celular?", "Porque o teste no Wi-Fi soma a distância do roteador, as paredes e o limite do rádio do aparelho, e muitos celulares não passam de 300 ou 400 Mega por hardware. A velocidade contratada é aferida no cabo, como orienta o medidor oficial da Anatel. Com Wi-Fi 6 bem posicionado, o resultado no ar melhora bastante."),
-            ("Quanto custa o plano de 800 Mega da MasterInfo?", "O Lite Premium custa R$ 119,90 por mês pagando em dia (R$ 129,90 sem o desconto), com fibra até a casa, roteador Wi-Fi 6 e 1 app de TV por mês na categoria Advanced, como o SKY+ Light com Globo. É o plano mais procurado da MasterInfo, e a instalação leva até 3 dias."),
+            ("Por que o teste de velocidade não mostra 800 Mega no celular?", "Porque o teste no Wi-Fi soma a distância do roteador, as paredes e o limite do rádio do aparelho, e muitos celulares não passam de 300 ou 400 Mega por hardware. A velocidade contratada é aferida no cabo, como orienta o medidor oficial da Anatel. Com o roteador bem posicionado, o resultado no ar melhora bastante."),
+            ("Quanto custa o plano de 800 Mega da MasterInfo?", "O Lite Premium custa R$ 119,90 por mês pagando em dia (R$ 129,90 sem o desconto), com fibra até a casa, Wi-Fi pra 1 ambiente e 1 app de TV por mês na categoria Advanced, como o SKY+ Light com Globo. É o plano mais procurado da MasterInfo, e a instalação leva até 3 dias."),
         ],
     },
     {
@@ -953,7 +953,7 @@ BLOG = [
 
     <h2>600 Mega no papel e no celular: por que o teste mostra menos</h2>
     <p>Um detalhe que evita frustração: a velocidade do plano é entregue <strong>no cabo</strong>. No Wi-Fi, é normal o teste mostrar menos, porque entram em cena a distância do roteador, as paredes e o limite do próprio aparelho (muitos celulares nem têm rádio pra passar de 300 ou 400 Mega). Tanto que o <a href="https://www.brasilbandalarga.com.br/" target="_blank" rel="noopener">medidor oficial usado pela Anatel</a> orienta o teste por cabo pra aferir a velocidade contratada.</p>
-    <p>Por isso, nos planos a partir de 800 Mega o <strong>roteador Wi-Fi 6</strong> já vem incluso, aproveitando muito melhor a banda no ar; no Lite Casa (600 Mega), o Wi-Fi cobre 1 ambiente. E se o sinal não chega bem em algum cômodo, o problema tem solução: veja <a href="/blog/como-melhorar-wifi-em-casa/">como melhorar o Wi-Fi em casa</a>.</p>
+    <p>Por isso, nos planos Ultra o <strong>Mesh Wi-Fi 6</strong> já vem incluso, aproveitando muito melhor a banda no ar; nos planos Lite, o Wi-Fi cobre 1 ambiente. E se o sinal não chega bem em algum cômodo, o problema tem solução: veja <a href="/blog/como-melhorar-wifi-em-casa/">como melhorar o Wi-Fi em casa</a>.</p>
 
     <h2>Quanto custa 600 Mega em Joinville</h2>
     <p>Na MasterInfo, o plano de 600 Mega é o <strong>Lite Casa: R$ 99,99/mês</strong> pagando em dia (R$ 109,99 sem o desconto), com fibra 100% até a sua casa (FTTH), Wi-Fi pra 1 ambiente e 1 app de TV por mês incluso (categoria Standard, como o SKY+ Light). Instalação em até 3 dias, por equipe daqui de Joinville.</p>
@@ -1391,7 +1391,7 @@ PERSONAS_CONTENT = {
  },
  "familia": {
   "lead": "Fibra óptica que aguenta tablet de criança, streaming na TV, home office e jogo online, tudo ao mesmo tempo, sem ninguém reclamar de lentidão.",
-  "body": "<h2>Quantos aparelhos a sua casa usa de verdade?</h2>\n<p>Pense num fim de tarde normal: as crianças no tablet assistindo YouTube ou Disney+, a TV da sala com GloboPlay no ar, você em uma videochamada do trabalho e o adolescente no quarto em algum jogo online. São facilmente cinco a oito aparelhos ativos ao mesmo tempo, e todos precisando de conexão boa, agora.</p>\n<p>É exatamente nessa hora que a qualidade da internet aparece. Com fibra óptica até a casa (FTTH), o sinal não é compartilhado com outros vizinhos da rua, não depende de clima e tende a variar menos no horário de pico. A conexão que você contrata é a que chega até o seu roteador, sem divisão com a rua.</p>\n<p>Se quiser entender melhor quantos Mega a sua família realmente precisa, temos um guia prático: <a href=\"/blog/quantos-mega-de-internet-voce-precisa/\">Quantos Mega de internet você precisa?</a></p>\n\n<h2>Wi-Fi forte na casa toda, não só perto do roteador</h2>\n<p>Velocidade alta na contratação não resolve se o sinal não chega no quarto do fundo ou no quintal. É um problema comum em casas maiores, de dois andares ou com paredes grossas.</p>\n<p>A partir de 800 Mega, os planos da MasterInfo já incluem <strong>Wi-Fi 6</strong>padrão com melhor gerenciamento de múltiplos aparelhos conectados ao mesmo tempo do que as gerações anteriores. Para casas onde um único roteador não cobre tudo, o plano <strong>com 2 roteadores</strong> forma uma rede Mesh: os dois aparelhos trabalham juntos e criam uma cobertura única, sem ponto cego.</p>\n<ul>\n  <li>Criança no quarto mais distante: sinal cheio, sem buffering.</li>\n  <li>TV na sala com streaming em alta definição: sem tela de carregamento no meio do episódio.</li>\n  <li>Notebook no escritório: videochamada estável durante o expediente.</li>\n  <li>Celular no quintal: conexão mantida sem cair para dados móveis.</li>\n</ul>\n<p>Veja como funciona a opção de <a href=\"/com-2-roteadores/\">internet com 2 roteadores</a> para cobertura Mesh na casa toda.</p>\n\n<h2>O que muda na prática com fibra dedicada</h2>\n<p>Muitos provedores entregam fibra até um ponto da rua e, depois, distribuem por cabo coaxial ou rádio entre os clientes do bairro. Isso divide a banda disponível entre vizinhos e é por isso que a internet fica mais lenta quando todo mundo chega em casa ao mesmo tempo.</p>\n<p>A MasterInfo usa <strong>fibra óptica direto até a casa</strong> (FTTH puro), sem cabo coaxial compartilhado nem rádio. Cada cliente tem o seu próprio trajeto de fibra. Se quiser entender a diferença técnica de forma simples, o post <a href=\"/blog/fibra-vs-radio-vs-cabo/\">Fibra vs Rádio vs Cabo</a> explica o que muda no dia a dia.</p>\n<p>Para a família, isso significa que a velocidade contratada fica disponível mesmo quando o bairro está com alta demanda, como num feriado ou fim de semana chuvoso.</p>\n\n<h2>Qual plano faz sentido para a sua família?</h2>\n<p>Para famílias com vários aparelhos ativos e consumo intenso de streaming, o <strong>Plano Ultra Família</strong> é o mais indicado: velocidade para todos ao mesmo tempo, Wi-Fi 6 incluso e possibilidade de expandir para dois roteadores Mesh sem trocar o plano. O suporte é feito por uma equipe aqui em Joinville, via WhatsApp, sem fila de 0800.</p>\n<p>Se a casa tem menos aparelhos simultâneos ou o uso é mais casual, o <strong>Plano Lite Premium</strong> cobre streaming em HD, tablets e navegação no dia a dia sem apertar.</p>\n<p>Instalação em até 3 dias úteis após a confirmação de cobertura no seu endereço.</p>\n<p><a href=\"/checkout.html?plano=ultra-familia\"><strong>Ver o Plano Ultra Família e contratar</strong></a></p>",
+  "body": "<h2>Quantos aparelhos a sua casa usa de verdade?</h2>\n<p>Pense num fim de tarde normal: as crianças no tablet assistindo YouTube ou Disney+, a TV da sala com GloboPlay no ar, você em uma videochamada do trabalho e o adolescente no quarto em algum jogo online. São facilmente cinco a oito aparelhos ativos ao mesmo tempo, e todos precisando de conexão boa, agora.</p>\n<p>É exatamente nessa hora que a qualidade da internet aparece. Com fibra óptica até a casa (FTTH), o sinal não é compartilhado com outros vizinhos da rua, não depende de clima e tende a variar menos no horário de pico. A conexão que você contrata é a que chega até o seu roteador, sem divisão com a rua.</p>\n<p>Se quiser entender melhor quantos Mega a sua família realmente precisa, temos um guia prático: <a href=\"/blog/quantos-mega-de-internet-voce-precisa/\">Quantos Mega de internet você precisa?</a></p>\n\n<h2>Wi-Fi forte na casa toda, não só perto do roteador</h2>\n<p>Velocidade alta na contratação não resolve se o sinal não chega no quarto do fundo ou no quintal. É um problema comum em casas maiores, de dois andares ou com paredes grossas.</p>\n<p>Nos planos Ultra, a MasterInfo já inclui <strong>Mesh Wi-Fi 6</strong>, padrão com melhor gerenciamento de múltiplos aparelhos conectados ao mesmo tempo do que as gerações anteriores. Para casas onde um único roteador não cobre tudo, o plano <strong>com 2 roteadores</strong> forma uma rede Mesh: os dois aparelhos trabalham juntos e criam uma cobertura única, sem ponto cego.</p>\n<ul>\n  <li>Criança no quarto mais distante: sinal cheio, sem buffering.</li>\n  <li>TV na sala com streaming em alta definição: sem tela de carregamento no meio do episódio.</li>\n  <li>Notebook no escritório: videochamada estável durante o expediente.</li>\n  <li>Celular no quintal: conexão mantida sem cair para dados móveis.</li>\n</ul>\n<p>Veja como funciona a opção de <a href=\"/com-2-roteadores/\">internet com 2 roteadores</a> para cobertura Mesh na casa toda.</p>\n\n<h2>O que muda na prática com fibra dedicada</h2>\n<p>Muitos provedores entregam fibra até um ponto da rua e, depois, distribuem por cabo coaxial ou rádio entre os clientes do bairro. Isso divide a banda disponível entre vizinhos e é por isso que a internet fica mais lenta quando todo mundo chega em casa ao mesmo tempo.</p>\n<p>A MasterInfo usa <strong>fibra óptica direto até a casa</strong> (FTTH puro), sem cabo coaxial compartilhado nem rádio. Cada cliente tem o seu próprio trajeto de fibra. Se quiser entender a diferença técnica de forma simples, o post <a href=\"/blog/fibra-vs-radio-vs-cabo/\">Fibra vs Rádio vs Cabo</a> explica o que muda no dia a dia.</p>\n<p>Para a família, isso significa que a velocidade contratada fica disponível mesmo quando o bairro está com alta demanda, como num feriado ou fim de semana chuvoso.</p>\n\n<h2>Qual plano faz sentido para a sua família?</h2>\n<p>Para famílias com vários aparelhos ativos e consumo intenso de streaming, o <strong>Plano Ultra Família</strong> é o mais indicado: velocidade para todos ao mesmo tempo e, nos planos Ultra, Mesh Wi-Fi 6 pra cobrir a casa toda sem trocar o plano. O suporte é feito por uma equipe aqui em Joinville, via WhatsApp, sem fila de 0800.</p>\n<p>Se a casa tem menos aparelhos simultâneos ou o uso é mais casual, o <strong>Plano Lite Premium</strong> cobre streaming em HD, tablets e navegação no dia a dia sem apertar.</p>\n<p>Instalação em até 3 dias úteis após a confirmação de cobertura no seu endereço.</p>\n<p><a href=\"/checkout.html?plano=ultra-familia\"><strong>Ver o Plano Ultra Família e contratar</strong></a></p>",
   "faq": [
    {
     "q": "Quantos aparelhos conseguem ficar conectados ao mesmo tempo sem travar?",
@@ -1413,7 +1413,7 @@ PERSONAS_CONTENT = {
  },
  "home-office": {
   "lead": "Quem trabalha em casa sabe: uma reunião caindo no meio da apresentação custa mais do que a mensalidade de qualquer plano de internet.",
-  "body": "<h2>O que derruba uma reunião não é a velocidade, é a instabilidade</h2>\n<p>Planos de rádio ou cabo coaxial aparecem bem no papel, mas dividem a banda com dezenas de vizinhos. Nas horas de pico, das 8h às 10h e das 18h às 21h, essa concorrência se traduz em travamentos no Google Meet, tela congelada no Zoom e upload de arquivos que demora o dobro.</p>\n<p>A MasterInfo usa fibra óptica dedicada até a porta da sua casa (FTTH), em Joinville. O sinal não passa por cabo coaxial compartilhado nem por rádio sujeito a interferência de chuva ou obstáculos. A banda contratada é sua, nas horas em que você mais precisa dela.</p>\n<p>Para entender a diferença entre as tecnologias disponíveis na cidade, vale ler <a href=\"/blog/fibra-vs-radio-vs-cabo/\">fibra vs rádio vs cabo, qual tecnologia escolher</a>.</p>\n\n<h2>Upload importa tanto quanto download para quem trabalha remoto</h2>\n<p>A maioria das pessoas olha só para o download. Mas home office exige upload constante: enviar arquivos para o cliente, compartilhar tela, fazer backup em nuvem, transmitir vídeo na chamada. Com fibra simétrica, upload e download andam juntos, sem gargalo na hora de enviar uma apresentação de 50 MB ou subir um relatório no Drive.</p>\n<p>Latência é outro ponto que muda o dia a dia. O atraso entre falar e ser ouvido em chamadas de vídeo, o \"delay\", depende da latência da conexão, não da velocidade em si. Fibra entrega latências consistentemente mais baixas do que rádio ou cabo coaxial, o que faz diferença real em reuniões com times internacionais ou clientes em outros estados.</p>\n\n<h2>Quantos Mega seu home office realmente precisa</h2>\n<p>A conta é simples: quanto mais gente e mais atividades simultâneas, mais banda você consome. Reunião em vídeo, compartilhamento de tela, backup em nuvem rodando em paralelo e mais alguém em casa usando streaming, tudo isso compete pela mesma conexão ao mesmo tempo.</p>\n<p>Para home office com uso intenso de nuvem e chamadas simultâneas, 1 Giga entrega folga de banda e estabilidade, mesmo com Wi-Fi 6 distribuindo sinal para notebook, celular e outros dispositivos. Se quiser entender melhor o consumo por atividade, veja <a href=\"/blog/quantos-mega-de-internet-voce-precisa/\">quantos Mega de internet você precisa</a>.</p>\n<p>Quem trabalha com mais de um monitor, videoconferência simultânea ou tem família em casa durante o expediente pode também considerar <a href=\"/com-2-roteadores/\">a opção com dois roteadores</a> para separar a rede do trabalho da rede doméstica.</p>\n\n<h2>Por que a instalação e o suporte locais fazem diferença no dia a dia</h2>\n<p>Quando a internet cai no meio do expediente, ligar para uma central em outro estado e ficar em fila de espera não é uma opção. A MasterInfo tem equipe técnica em Joinville, atende por WhatsApp e resolve chamados sem 0800 ou robô.</p>\n<p>A instalação é feita em até 3 dias, sem esperar semanas por uma visita técnica. O roteador Wi-Fi 6 já vem incluso no plano, sem taxa de aluguel separada.</p>\n<p>Se você trabalha em casa e precisa de uma conexão que não te deixa na mão, o plano <strong>Ultra Home Office</strong> foi pensado com essa prioridade. Veja todos os detalhes em <a href=\"/home-office/\">internet para home office em Joinville</a>.</p>\n<p style=\"margin-top:1.5rem\"><a href=\"/checkout.html?plano=ultra-home-office\"><strong>Ver plano Ultra Home Office e contratar</strong></a></p>",
+  "body": "<h2>O que derruba uma reunião não é a velocidade, é a instabilidade</h2>\n<p>Planos de rádio ou cabo coaxial aparecem bem no papel, mas dividem a banda com dezenas de vizinhos. Nas horas de pico, das 8h às 10h e das 18h às 21h, essa concorrência se traduz em travamentos no Google Meet, tela congelada no Zoom e upload de arquivos que demora o dobro.</p>\n<p>A MasterInfo usa fibra óptica dedicada até a porta da sua casa (FTTH), em Joinville. O sinal não passa por cabo coaxial compartilhado nem por rádio sujeito a interferência de chuva ou obstáculos. A banda contratada é sua, nas horas em que você mais precisa dela.</p>\n<p>Para entender a diferença entre as tecnologias disponíveis na cidade, vale ler <a href=\"/blog/fibra-vs-radio-vs-cabo/\">fibra vs rádio vs cabo, qual tecnologia escolher</a>.</p>\n\n<h2>Upload importa tanto quanto download para quem trabalha remoto</h2>\n<p>A maioria das pessoas olha só para o download. Mas home office exige upload constante: enviar arquivos para o cliente, compartilhar tela, fazer backup em nuvem, transmitir vídeo na chamada. Com fibra simétrica, upload e download andam juntos, sem gargalo na hora de enviar uma apresentação de 50 MB ou subir um relatório no Drive.</p>\n<p>Latência é outro ponto que muda o dia a dia. O atraso entre falar e ser ouvido em chamadas de vídeo, o \"delay\", depende da latência da conexão, não da velocidade em si. Fibra entrega latências consistentemente mais baixas do que rádio ou cabo coaxial, o que faz diferença real em reuniões com times internacionais ou clientes em outros estados.</p>\n\n<h2>Quantos Mega seu home office realmente precisa</h2>\n<p>A conta é simples: quanto mais gente e mais atividades simultâneas, mais banda você consome. Reunião em vídeo, compartilhamento de tela, backup em nuvem rodando em paralelo e mais alguém em casa usando streaming, tudo isso compete pela mesma conexão ao mesmo tempo.</p>\n<p>Para home office com uso intenso de nuvem e chamadas simultâneas, 1 Giga entrega folga de banda e estabilidade, mesmo com Wi-Fi 6 distribuindo sinal para notebook, celular e outros dispositivos. Se quiser entender melhor o consumo por atividade, veja <a href=\"/blog/quantos-mega-de-internet-voce-precisa/\">quantos Mega de internet você precisa</a>.</p>\n<p>Quem trabalha com mais de um monitor, videoconferência simultânea ou tem família em casa durante o expediente pode também considerar <a href=\"/com-2-roteadores/\">a opção com dois roteadores</a> para separar a rede do trabalho da rede doméstica.</p>\n\n<h2>Por que a instalação e o suporte locais fazem diferença no dia a dia</h2>\n<p>Quando a internet cai no meio do expediente, ligar para uma central em outro estado e ficar em fila de espera não é uma opção. A MasterInfo tem equipe técnica em Joinville, atende por WhatsApp e resolve chamados sem 0800 ou robô.</p>\n<p>A instalação é feita em até 3 dias, sem esperar semanas por uma visita técnica. O roteador já vem incluso no plano, sem taxa de aluguel separada (nos planos Ultra, é o kit Mesh Wi-Fi 6).</p>\n<p>Se você trabalha em casa e precisa de uma conexão que não te deixa na mão, o plano <strong>Ultra Home Office</strong> foi pensado com essa prioridade. Veja todos os detalhes em <a href=\"/home-office/\">internet para home office em Joinville</a>.</p>\n<p style=\"margin-top:1.5rem\"><a href=\"/checkout.html?plano=ultra-home-office\"><strong>Ver plano Ultra Home Office e contratar</strong></a></p>",
   "faq": [
    {
     "q": "A internet fibra da MasterInfo cai durante chuva?",
@@ -1421,7 +1421,7 @@ PERSONAS_CONTENT = {
    },
    {
     "q": "O plano inclui Wi-Fi 6 ou preciso comprar roteador separado?",
-    "a": "Os planos MasterInfo a partir de 800 Mega já incluem roteador Wi-Fi 6. Não há taxa de aluguel mensal separada, o equipamento vem com a instalação."
+    "a": "Os planos Ultra da MasterInfo já incluem o kit Mesh Wi-Fi 6; nos planos Lite, o roteador incluso cobre 1 ambiente. Não há taxa de aluguel mensal separada, o equipamento vem com a instalação."
    },
    {
     "q": "Qual a diferença entre o plano lite e o ultra-home-office para quem trabalha remoto?",
@@ -1522,7 +1522,7 @@ BLOG_DEEP = {
   ]
  },
  "cobertura-fibra-cep-joinville": {
-  "body": "    <div class=\"tldr\">\n      <strong>Resposta rápida:</strong> a forma mais rápida de saber se tem fibra no seu endereço em Joinville é <strong>consultar a cobertura pelo CEP</strong> aqui no site. Você informa o CEP e o número do imóvel, e o sistema confirma na hora se a rede já atende o local. Se ainda não chegou, dá para registrar interesse e ser avisado quando a fibra expandir para a sua região.\n    </div>\n\n    <h2>Por que confirmar a cobertura antes de contratar</h2>\n    <p>Internet fibra óptica (FTTH, fibra até a casa) não funciona como um sinal de rádio que você capta de qualquer ponto. Ela depende de um cabo físico que já passa pela sua rua e chega até o seu imóvel. Mesmo em uma cidade com expansão ativa como Joinville, a rede cresce por etapas: novos bairros e ruas são habilitados conforme os postes e caixas de distribuição são instalados.</p>\n    <p>Confirmar a viabilidade técnica antes de qualquer coisa evita frustração. E quando o endereço já tem cobertura, agiliza tudo: você sabe na hora que pode contratar, escolhe o plano e agenda a instalação sem precisar esperar ligações ou visitas prévias.</p>\n\n    <h2>Passo a passo para consultar pelo CEP</h2>\n    <ol>\n      <li><strong>Tenha o CEP e o número do imóvel em mãos.</strong> O CEP garante que o sistema identifique a rua correta; o número refina a consulta para o seu trecho específico. Não sabe o CEP? Pesquise pelo nome da rua no site dos Correios ou no Google Maps, o CEP aparece ao digitar qualquer endereço.</li>\n      <li><strong>Abra a consulta de cobertura no site da MasterInfo.</strong> O botão de verificação fica visível na página principal. Não é preciso criar conta nem preencher nenhum formulário antes disso.</li>\n      <li><strong>Digite o CEP e o número e confirme.</strong> O sistema verifica a viabilidade técnica em tempo real, consultando o mapa de rede ativo.</li>\n      <li><strong>Leia o resultado.</strong> Dois cenários possíveis:\n        <ul>\n          <li><strong>Cobertura confirmada:</strong> você já pode escolher o plano e seguir para a contratação. A instalação é agendada e feita pela equipe técnica local.</li>\n          <li><strong>Endereço ainda fora da cobertura:</strong> deixe seu contato para ser avisado quando a fibra expandir para a sua rua. Veja mais sobre esse caso na seção abaixo.</li>\n        </ul>\n      </li>\n    </ol>\n\n    <h2>Tem cobertura: como escolher o plano</h2>\n    <p>Com a viabilidade confirmada, a próxima decisão é o plano. O tamanho ideal depende principalmente de <strong>quantos aparelhos usam a internet ao mesmo tempo</strong> na sua casa, não só de uma atividade específica. Streaming em 4K, chamada de trabalho, celular e videogame funcionando juntos somam a demanda; é esse total que define o que você precisa.</p>\n    <ul>\n      <li><strong>Uma ou duas pessoas</strong> com uso comum (redes sociais, streaming, navegação): planos a partir de 600 Mega atendem sem folga.</li>\n      <li><strong>Família com vários aparelhos</strong>streaming em 4K e crianças no tablet: 600 Mega a 1 Giga garantem tudo simultâneo sem travar.</li>\n      <li><strong>Home office</strong> com reuniões de vídeo que não podem cair e upload de arquivos pesados: estabilidade é prioridade; 600 Mega a 1 Giga com fibra dedicada até a casa resolvem bem.</li>\n      <li><strong>Gamer:</strong> o ping (latência) importa tanto quanto a velocidade. A fibra FTTH entrega latência baixa por ser dedicada, sem concorrer com vizinhos. Veja os detalhes na página de <a href=\"/gamer/\">internet para gamer</a>.</li>\n    </ul>\n    <p>Se ainda tiver dúvida sobre o número de Mega certo para o seu caso, o guia <a href=\"/blog/quantos-mega-de-internet-voce-precisa/\">quantos Mega você realmente precisa</a> explica por perfil de uso e número de aparelhos.</p>\n\n    <h2>Como funciona a instalação depois de contratar</h2>\n    <p>Confirmada a cobertura e escolhido o plano, o processo é feito inteiramente pela equipe técnica local da MasterInfo. Não há visita de pré-vistoria nem taxa de visita: você agenda, o técnico vem e só vai embora com a internet funcionando.</p>\n    <ol>\n      <li><strong>Agendamento:</strong> você escolhe um horário conveniente dentro dos próximos dias úteis.</li>\n      <li><strong>Passagem do cabo de fibra:</strong> o técnico leva a fibra do ponto de distribuição na rua até dentro do imóvel, seguindo o trajeto mais limpo e seguro. Vale deixar o acesso à caixa de entrada do imóvel livre antes da visita.</li>\n      <li><strong>Instalação do equipamento (ONT):</strong> o aparelho que converte o sinal de luz em sinal de internet é instalado e configurado na hora. O técnico testa a velocidade no local antes de qualquer outra etapa.</li>\n      <li><strong>Configuração do Wi-Fi:</strong> o roteador é configurado, o sinal é testado nos cômodos principais e o técnico só encerra a visita com tudo funcionando do jeito que deve.</li>\n    </ol>\n    <p>Quer entender o processo com mais detalhe? O post <a href=\"/blog/como-funciona-instalacao-da-fibra/\">como funciona a instalação da fibra óptica</a> explica cada etapa, inclusive o que preparar no imóvel antes da visita técnica.</p>\n\n    <h2>E se ainda não tem fibra na minha rua?</h2>\n    <p>Se o seu endereço ainda não tem cobertura, há duas coisas práticas a fazer:</p>\n    <ul>\n      <li><strong>Registre seu interesse pelo site.</strong> O sistema guarda seu contato e, assim que a fibra chegar à sua região, você é avisado. Não precisa ficar verificando manualmente toda semana.</li>\n      <li><strong>Entre em contato para perguntar a previsão.</strong> Em alguns casos a equipe já tem cronograma de expansão para ruas específicas e pode dar uma estimativa. Fale pelo <a href=\"/contato/\">formulário de contato</a> ou pelo WhatsApp.</li>\n    </ul>\n    <p>Um detalhe importante: mesmo que o endereço vizinho tenha cobertura, isso não garante automaticamente que o seu também tem. A viabilidade depende do trecho de cabo instalado e da capacidade da caixa de distribuição mais próxima. Em ruas longas, por exemplo, um lado pode já estar atendido enquanto o outro aguarda a próxima etapa de expansão. A consulta pelo CEP mais o número do imóvel é sempre a forma mais precisa de confirmar.</p>\n\n    <h2>Bairros atendidos em Joinville</h2>\n    <p>A rede da MasterInfo já atende boa parte da cidade. Entre os bairros com cobertura estão Centro, América, Glória, Bom Retiro, <a href=\"/internet-boa-vista-joinville/\">Boa Vista</a>, Vila Nova, Costa e Silva e <a href=\"/internet-iririu-joinville/\">Iririú</a>, além de outros que seguem sendo habilitados conforme a expansão avança. A lista não é estática: novos trechos são ativados com frequência, então vale sempre consultar pelo CEP mesmo que alguém da mesma região tenha dito que ainda não tinha fibra há alguns meses.</p>\n    <p>Para uma visão completa do atendimento na cidade, acesse a página de <a href=\"/internet-joinville/\">internet fibra em Joinville</a>. O detalhe por região está nas páginas de bairro, como <a href=\"/internet-comasa-joinville/\">Comasa</a> e <a href=\"/internet-paranaguamirim-joinville/\">Paranaguamirim</a>. Se quiser entender o que diferencia os provedores disponíveis na cidade antes de decidir, o guia <a href=\"/melhor-internet-joinville/\">melhor internet de Joinville</a> traz os pontos principais a considerar.</p>\n\n    <h2>Pronto para verificar o seu endereço?</h2>\n    <p>Use a consulta de CEP aqui no site para checar a cobertura agora. Se já tiver fibra disponível, o processo de contratação é rápido e a instalação é agendada para os próximos dias úteis. A equipe técnica é local, o suporte é direto, e os planos vão de 600 Mega a 1 Giga, com Wi-Fi 6 incluso a partir de 800 Mega. <a href=\"/internet-joinville/\">Veja os planos disponíveis para Joinville</a> e fale com a gente.</p>",
+  "body": "    <div class=\"tldr\">\n      <strong>Resposta rápida:</strong> a forma mais rápida de saber se tem fibra no seu endereço em Joinville é <strong>consultar a cobertura pelo CEP</strong> aqui no site. Você informa o CEP e o número do imóvel, e o sistema confirma na hora se a rede já atende o local. Se ainda não chegou, dá para registrar interesse e ser avisado quando a fibra expandir para a sua região.\n    </div>\n\n    <h2>Por que confirmar a cobertura antes de contratar</h2>\n    <p>Internet fibra óptica (FTTH, fibra até a casa) não funciona como um sinal de rádio que você capta de qualquer ponto. Ela depende de um cabo físico que já passa pela sua rua e chega até o seu imóvel. Mesmo em uma cidade com expansão ativa como Joinville, a rede cresce por etapas: novos bairros e ruas são habilitados conforme os postes e caixas de distribuição são instalados.</p>\n    <p>Confirmar a viabilidade técnica antes de qualquer coisa evita frustração. E quando o endereço já tem cobertura, agiliza tudo: você sabe na hora que pode contratar, escolhe o plano e agenda a instalação sem precisar esperar ligações ou visitas prévias.</p>\n\n    <h2>Passo a passo para consultar pelo CEP</h2>\n    <ol>\n      <li><strong>Tenha o CEP e o número do imóvel em mãos.</strong> O CEP garante que o sistema identifique a rua correta; o número refina a consulta para o seu trecho específico. Não sabe o CEP? Pesquise pelo nome da rua no site dos Correios ou no Google Maps, o CEP aparece ao digitar qualquer endereço.</li>\n      <li><strong>Abra a consulta de cobertura no site da MasterInfo.</strong> O botão de verificação fica visível na página principal. Não é preciso criar conta nem preencher nenhum formulário antes disso.</li>\n      <li><strong>Digite o CEP e o número e confirme.</strong> O sistema verifica a viabilidade técnica em tempo real, consultando o mapa de rede ativo.</li>\n      <li><strong>Leia o resultado.</strong> Dois cenários possíveis:\n        <ul>\n          <li><strong>Cobertura confirmada:</strong> você já pode escolher o plano e seguir para a contratação. A instalação é agendada e feita pela equipe técnica local.</li>\n          <li><strong>Endereço ainda fora da cobertura:</strong> deixe seu contato para ser avisado quando a fibra expandir para a sua rua. Veja mais sobre esse caso na seção abaixo.</li>\n        </ul>\n      </li>\n    </ol>\n\n    <h2>Tem cobertura: como escolher o plano</h2>\n    <p>Com a viabilidade confirmada, a próxima decisão é o plano. O tamanho ideal depende principalmente de <strong>quantos aparelhos usam a internet ao mesmo tempo</strong> na sua casa, não só de uma atividade específica. Streaming em 4K, chamada de trabalho, celular e videogame funcionando juntos somam a demanda; é esse total que define o que você precisa.</p>\n    <ul>\n      <li><strong>Uma ou duas pessoas</strong> com uso comum (redes sociais, streaming, navegação): planos a partir de 600 Mega atendem sem folga.</li>\n      <li><strong>Família com vários aparelhos</strong>streaming em 4K e crianças no tablet: 600 Mega a 1 Giga garantem tudo simultâneo sem travar.</li>\n      <li><strong>Home office</strong> com reuniões de vídeo que não podem cair e upload de arquivos pesados: estabilidade é prioridade; 600 Mega a 1 Giga com fibra dedicada até a casa resolvem bem.</li>\n      <li><strong>Gamer:</strong> o ping (latência) importa tanto quanto a velocidade. A fibra FTTH entrega latência baixa por ser dedicada, sem concorrer com vizinhos. Veja os detalhes na página de <a href=\"/gamer/\">internet para gamer</a>.</li>\n    </ul>\n    <p>Se ainda tiver dúvida sobre o número de Mega certo para o seu caso, o guia <a href=\"/blog/quantos-mega-de-internet-voce-precisa/\">quantos Mega você realmente precisa</a> explica por perfil de uso e número de aparelhos.</p>\n\n    <h2>Como funciona a instalação depois de contratar</h2>\n    <p>Confirmada a cobertura e escolhido o plano, o processo é feito inteiramente pela equipe técnica local da MasterInfo. Não há visita de pré-vistoria nem taxa de visita: você agenda, o técnico vem e só vai embora com a internet funcionando.</p>\n    <ol>\n      <li><strong>Agendamento:</strong> você escolhe um horário conveniente dentro dos próximos dias úteis.</li>\n      <li><strong>Passagem do cabo de fibra:</strong> o técnico leva a fibra do ponto de distribuição na rua até dentro do imóvel, seguindo o trajeto mais limpo e seguro. Vale deixar o acesso à caixa de entrada do imóvel livre antes da visita.</li>\n      <li><strong>Instalação do equipamento (ONT):</strong> o aparelho que converte o sinal de luz em sinal de internet é instalado e configurado na hora. O técnico testa a velocidade no local antes de qualquer outra etapa.</li>\n      <li><strong>Configuração do Wi-Fi:</strong> o roteador é configurado, o sinal é testado nos cômodos principais e o técnico só encerra a visita com tudo funcionando do jeito que deve.</li>\n    </ol>\n    <p>Quer entender o processo com mais detalhe? O post <a href=\"/blog/como-funciona-instalacao-da-fibra/\">como funciona a instalação da fibra óptica</a> explica cada etapa, inclusive o que preparar no imóvel antes da visita técnica.</p>\n\n    <h2>E se ainda não tem fibra na minha rua?</h2>\n    <p>Se o seu endereço ainda não tem cobertura, há duas coisas práticas a fazer:</p>\n    <ul>\n      <li><strong>Registre seu interesse pelo site.</strong> O sistema guarda seu contato e, assim que a fibra chegar à sua região, você é avisado. Não precisa ficar verificando manualmente toda semana.</li>\n      <li><strong>Entre em contato para perguntar a previsão.</strong> Em alguns casos a equipe já tem cronograma de expansão para ruas específicas e pode dar uma estimativa. Fale pelo <a href=\"/contato/\">formulário de contato</a> ou pelo WhatsApp.</li>\n    </ul>\n    <p>Um detalhe importante: mesmo que o endereço vizinho tenha cobertura, isso não garante automaticamente que o seu também tem. A viabilidade depende do trecho de cabo instalado e da capacidade da caixa de distribuição mais próxima. Em ruas longas, por exemplo, um lado pode já estar atendido enquanto o outro aguarda a próxima etapa de expansão. A consulta pelo CEP mais o número do imóvel é sempre a forma mais precisa de confirmar.</p>\n\n    <h2>Bairros atendidos em Joinville</h2>\n    <p>A rede da MasterInfo já atende boa parte da cidade. Entre os bairros com cobertura estão Centro, América, Glória, Bom Retiro, <a href=\"/internet-boa-vista-joinville/\">Boa Vista</a>, Vila Nova, Costa e Silva e <a href=\"/internet-iririu-joinville/\">Iririú</a>, além de outros que seguem sendo habilitados conforme a expansão avança. A lista não é estática: novos trechos são ativados com frequência, então vale sempre consultar pelo CEP mesmo que alguém da mesma região tenha dito que ainda não tinha fibra há alguns meses.</p>\n    <p>Para uma visão completa do atendimento na cidade, acesse a página de <a href=\"/internet-joinville/\">internet fibra em Joinville</a>. O detalhe por região está nas páginas de bairro, como <a href=\"/internet-comasa-joinville/\">Comasa</a> e <a href=\"/internet-paranaguamirim-joinville/\">Paranaguamirim</a>. Se quiser entender o que diferencia os provedores disponíveis na cidade antes de decidir, o guia <a href=\"/melhor-internet-joinville/\">melhor internet de Joinville</a> traz os pontos principais a considerar.</p>\n\n    <h2>Pronto para verificar o seu endereço?</h2>\n    <p>Use a consulta de CEP aqui no site para checar a cobertura agora. Se já tiver fibra disponível, o processo de contratação é rápido e a instalação é agendada para os próximos dias úteis. A equipe técnica é local, o suporte é direto, e os planos vão de 600 Mega a 1 Giga, com Mesh Wi-Fi 6 incluso nos planos Ultra. <a href=\"/internet-joinville/\">Veja os planos disponíveis para Joinville</a> e fale com a gente.</p>",
   "faq": [
    {
     "q": "Como sei se tem fibra no meu endereço em Joinville?",
