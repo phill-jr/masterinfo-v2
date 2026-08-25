@@ -14,7 +14,7 @@ Os planos seguem duas linhas (Lite e Ultra) e são organizados por perfil de uso
 - **Lite Premium, 800 Mega, R$ 119,90/mês** (cheio R$ 129,90): plano mais procurado, para família com vários dispositivos. 1 app de TV/mês na categoria Advanced (ex.: SKY+ Light com Globo).
 - **Lite Basic, 1 Giga (1000 Mega), R$ 119,00/mês** (cheio R$ 129,00): 1 Giga "puro" para trabalho remoto, sem app de TV incluso, foco em velocidade.
 - **Ultra Família, 1 Giga (1000 Mega), R$ 149,90/mês** (cheio R$ 159,90): Mesh Wi-Fi 6 (cobertura total da casa), 1 app de TV/mês na categoria Premium (Disney+, HBO Max e GloboPlay).
-- **Ultra Home Office, 1 Giga (1000 Mega), R$ 179,90/mês** (cheio R$ 189,90): Mesh Wi-Fi 6, 3 apps de TV/mês (categorias TOP, Advanced e Standard) e Kaspersky (segurança) inclusos.
+- **Ultra Home Office, 1 Giga (1000 Mega), R$ 179,90/mês** (cheio R$ 189,90): Mesh Wi-Fi 6, 2 apps de TV/mês (categorias TOP e Premium) e Kaspersky (segurança) inclusos.
 - **Ultra Gamer, 1 Giga (1000 Mega), R$ 189,90/mês** (cheio R$ 199,90): Mesh Wi-Fi 6, 2 apps de TV/mês (TOP e Premium) e ExitLag (otimizador de ping para jogos online) inclusos.
 
 Todos os planos têm fidelidade de 12 meses, padrão do mercado para cobrir o custo da instalação. Planos empresariais (link dedicado, IP fixo, SLA) sob consulta pelo WhatsApp ou em /internet-empresarial/.
