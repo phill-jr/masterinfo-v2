@@ -157,7 +157,9 @@ APLICATIVOS = [
     {"slug": "sky-light", "name": "SKY+ Light", "tag": "TV ao vivo",
      "desc": "Canais de TV no celular, smart TV ou computador. Esportes, jornalismo, novelas, onde você estiver.",
      "logo": "sky.jpg",
-     "highlights": ["50+ canais ao vivo", "App pra smart TV, celular e PC", "Sem antena, sem parabólica"],
+     # grade verificada 23/08 (catalogo oficial skymais.com.br): Light = abertos + CazeTV/GE TV/Xsports; SKY+ = 90+
+     "highlights": ["Canais abertos ao vivo + CazéTV, GE TV e Xsports", "App pra smart TV, celular e PC", "Sem antena, sem parabólica"],
+     "saiba_mais": {"href": "/blog/sky-light-playhub-como-funciona/#quais-canais", "label": "Veja a lista de canais do SKY+ Light"},
      "cats": ["standard", "advanced", "top"]},  # SKY+ Light (std), c/ Globo (adv), SKY+ (top)
     {"slug": "deezer", "name": "Deezer", "tag": "Música sem anúncios",
      "desc": "Mais de 90 milhões de músicas em alta qualidade. Sem propaganda, modo offline, playlists personalizadas.",
@@ -810,6 +812,7 @@ def page_app(a, depth=2):
       <ul class="sub-app-features">{highlights_html}
       </ul>
 {escolher_html}
+{(chr(10) + '      <p class="sub-app-saiba" style="margin-top:18px"><a href="' + a["saiba_mais"]["href"] + '">' + a["saiba_mais"]["label"] + ' <i class="ph ph-arrow-right"></i></a></p>') if a.get("saiba_mais") else ''}
     </div>
   </section>
 
