@@ -316,7 +316,6 @@ PLANS_MAP = {
         "preco": "179,90", "preco_cheio": "189,90",
         "apps": [
             {"logo": "globoplay.png", "nome": "GloboPlay"},
-            {"logo": "sky.jpg", "nome": "SKY+ Light com Globo"},
             {"logo": "kaspersky.webp", "nome": "Kaspersky"},
         ],
         "apps_sep": "+",
@@ -342,6 +341,95 @@ PLANS_MAP = {
         ],
     },
 }
+
+# ─── FICHA TÉCNICA (v1, 25/08): o config.json (admin) é a FONTE DA VERDADE dos planos ───
+# O PLANS_MAP acima vira DECORAÇÃO (logos/apps por id): nome, linha, velocidade,
+# preços e features são SOBRESCRITOS a partir do config a cada execução. Mudou o
+# plano no admin → rodar o gerador realinha o estático. (wifi6 + categorias já
+# eram estruturados no config desde 16/07; isto fecha o resto do circuito.)
+def _fmt_preco(v):
+    return f"{float(v):.2f}".replace(".", ",")
+
+_CFG_FICHA = json.load(open(os.path.join(BASE_DIR, "config.json"), encoding="utf-8"))
+for _p in _CFG_FICHA.get("planos", []):
+    _m = PLANS_MAP.get(_p.get("id"))
+    if not _m:
+        print(f"  ! ficha: plano '{_p.get('id')}' do config sem decoração no PLANS_MAP")
+        continue
+    _m["nome"] = _p.get("nome", _m["nome"])
+    _m["linha"] = _p.get("linha", _m["linha"])
+    if _p.get("velocidade"): _m["speed"] = str(_p["velocidade"])
+    if _p.get("unidade"): _m["unit"] = _p["unidade"]
+    if _p.get("precoPontual") is not None: _m["preco"] = _fmt_preco(_p["precoPontual"])
+    if _p.get("precoCheio") is not None: _m["preco_cheio"] = _fmt_preco(_p["precoCheio"])
+    if _p.get("features"): _m["features"] = list(_p["features"])
+for _mid in list(PLANS_MAP):
+    if not any(_q.get("id") == _mid for _q in _CFG_FICHA.get("planos", [])):
+        print(f"  ! ficha: PLANS_MAP '{_mid}' não existe mais no config (plano removido?)")
+
+
+def check_ficha():
+    """Guarda-costas da ficha técnica: compara os claims dos textos com o config
+    (planos[]: wifi6, categorias, preços). SÓ AVISA, não bloqueia. Roda em todo regen."""
+    planos = _CFG_FICHA.get("planos", [])
+    warns = []
+    # 1) llms.txt / llms-full.txt: a linha de cada plano deve bater com a ficha
+    for fn in ("llms.txt", "llms-full.txt"):
+        try:
+            txt = open(os.path.join(BASE_DIR, fn), encoding="utf-8").read()
+        except OSError:
+            continue
+        for p in planos:
+            nome = p["nome"]
+            linhas = [l for l in txt.splitlines() if nome in l and "R$" in l]
+            if not linhas:
+                warns.append(f"{fn}: plano '{nome}' sem linha de preço")
+                continue
+            l = linhas[0]
+            for preco, rot in ((p.get("precoPontual"), "pontual"), (p.get("precoCheio"), "cheio")):
+                if preco is not None and _fmt_preco(preco) not in l:
+                    warns.append(f"{fn}: '{nome}' sem o preço {rot} R$ {_fmt_preco(preco)}")
+            n_apps = len(p.get("categorias") or [])
+            if n_apps == 0:
+                if "app" in l.lower() and "sem app" not in l.lower():
+                    warns.append(f"{fn}: '{nome}' menciona app, mas a ficha diz 0 categorias")
+            elif f"{n_apps} app" not in l:
+                warns.append(f"{fn}: '{nome}' deveria dizer '{n_apps} app de TV/mês' (ficha: {p.get('categorias')})")
+            if p.get("wifi6") is False and "Wi-Fi 6" in l and "não incluso" not in l:
+                warns.append(f"{fn}: '{nome}' cita Wi-Fi 6, mas a ficha diz wifi6=false")
+            if p.get("wifi6") is True and "Wi-Fi 6" not in l:
+                warns.append(f"{fn}: '{nome}' tem wifi6=true mas a linha não menciona Mesh Wi-Fi 6")
+    # 2) claims genéricos proibidos na MESMA linha/frase que "Wi-Fi 6" nos fontes.
+    # (mesma linha, não janela de chars: "Todos os planos têm fidelidade" na linha
+    # seguinte a um "Mesh Wi-Fi 6" legítimo era falso positivo)
+    proibidos = ["todos os planos", "a partir de 800 mega", "todos os nossos planos"]
+    for fn in ("conteudo_blog.py", "index.html", "index-light.html", "llms.txt", "llms-full.txt"):
+        txt = open(os.path.join(BASE_DIR, fn), encoding="utf-8").read()
+        for ln in txt.splitlines():
+            if "Wi-Fi 6" not in ln and "WiFi 6" not in ln:
+                continue
+            low = ln.lower()
+            for a in proibidos:
+                if a in low:
+                    warns.append(f"{fn}: claim suspeito '{a}' na mesma linha que 'Wi-Fi 6': {ln.strip()[:90]}...")
+                    break
+    # 3) o próprio config coerente consigo (features vs wifi6/categorias)
+    for p in planos:
+        feats = " | ".join(p.get("features") or [])
+        if p.get("wifi6") is False and "Wi-Fi 6" in feats:
+            warns.append(f"config: features de '{p['nome']}' citam Wi-Fi 6 com wifi6=false")
+        n_apps = len(p.get("categorias") or [])
+        m = re.search(r"(\d+) apps? de TV", feats)
+        if m and int(m.group(1)) != n_apps:
+            warns.append(f"config: features de '{p['nome']}' dizem {m.group(1)} app(s), categorias têm {n_apps}")
+    if warns:
+        print(f"\n⚠ FICHA TÉCNICA: {len(warns)} inconsistência(s) entre textos e o config:")
+        for w in warns:
+            print("   ⚠", w)
+        print("   → corrija os textos OU ajuste o plano no admin (aviso; não bloqueia).")
+    else:
+        print("\n✓ Ficha técnica: textos consistentes com o config (planos).")
+
 
 # ─── HEADER + FOOTER COMUNS ──────────────────────────────────────────
 
@@ -2234,6 +2322,69 @@ def gerar_internet_hero():
     print(f"  internet-hero.json: {len(out)} pagina(s).")
 
 
+# ─── Pilula "Wi-Fi 6" das homes (a faixa acima dos cards de plano) ───
+# O site-loader.js reescreve esse texto em runtime; aqui deixamos o HTML ESTATICO com
+# a MESMA frase, porque crawler de busca/IA nao roda JS e leria a versao velha.
+_WIFI6_PILL_RE = re.compile(r'<div class="plans-wifi6"[^>]*>.*?</div>', re.S)
+
+
+def _md_bold(txt):
+    """Escapa HTML e reabilita **negrito** — espelho do mdBold() do site-loader.js."""
+    out = txt.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+    return re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", out)
+
+
+def _wifi6_pill_inner(cfg):
+    """(inner_html, visivel) da pilula. inner_html=None => nao mexer no estatico.
+    Mesma cascata do loadPlanos(): texto do admin > derivacao dos toggles > estatico."""
+    custom = (cfg.get("planosWifi6Texto") or "").strip()
+    if custom:
+        return _md_bold(custom), True
+    planos = cfg.get("planos") or []
+    if not any(isinstance(p.get("wifi6"), bool) for p in planos):
+        return None, True                      # config antigo: HTML estatico manda
+    com = [p for p in planos if p.get("wifi6") is not False]
+    if not com:
+        return "", False                       # ninguem com selo: esconde a faixa
+    if len(com) == len(planos):
+        return "Todos os planos já vêm com <strong>Wi-Fi 6</strong>", True
+    menor = None
+    for p in com:
+        try:
+            v = float(str(p.get("velocidade", "")).replace(",", "."))
+        except ValueError:
+            continue
+        mega = v * 1000 if "giga" in (p.get("unidade") or "").lower() else v
+        label = "%s %s" % (p.get("velocidade"), p.get("unidade") or "Mega")
+        if menor is None or mega < menor[0]:
+            menor = (mega, label)
+    if menor:
+        return "<strong>Wi-Fi 6</strong> incluso nos planos a partir de " + _md_bold(menor[1]), True
+    return "<strong>Wi-Fi 6</strong> incluso nos planos com o selo", True
+
+
+def sync_plans_wifi6():
+    cfg = json.load(open(os.path.join(BASE_DIR, "config.json"), encoding="utf-8"))
+    inner, visivel = _wifi6_pill_inner(cfg)
+    if inner is None:
+        print("  pilula Wi-Fi 6: nenhum plano define o toggle — estatico intacto")
+        return
+    novo = '<div class="plans-wifi6"%s><i class="ph-fill ph-wifi-high"></i> <span>%s</span></div>' % (
+        "" if visivel else ' style="display:none"', inner)
+    n = 0
+    for fn in ("index.html", "index-light.html"):
+        fp = os.path.join(BASE_DIR, fn)
+        txt = open(fp, encoding="utf-8", newline="").read()
+        novo_txt, c = _WIFI6_PILL_RE.subn(lambda m: novo, txt, count=1)
+        if not c:
+            print("  ! %s: <div class=\"plans-wifi6\"> nao encontrado (pulado)" % fn)
+            continue
+        if novo_txt != txt:
+            open(fp, "w", encoding="utf-8", newline="").write(novo_txt)
+            n += 1
+    print('  pilula Wi-Fi 6 -> "%s" (%d home(s) reescritas)' % (re.sub("<[^>]+>", "", inner), n))
+
+
 def sync_hero_preload():
     """Aponta o <link id="hero-preload"> das 2 homes pra imagem REAL do 1o slide do hero.
     Bug 01/07: com config.homeHero.usarPaginas LIGADO, o renderHero (site-loader) reescreve o
@@ -2353,10 +2504,13 @@ if __name__ == "__main__":
     sync_payment()
     print("\nPlanos em runtime (config.planos) → subpáginas…")
     sync_plans_runtime()
+    print("\nPilula Wi-Fi 6 (texto do admin / toggles) → homes...")
+    sync_plans_wifi6()
     print("\nCTAs das subpáginas Internet → checkout…")
     sync_subpage_ctas()
     print("\nHero da home por páginas (internet-hero.json)…")
     gerar_internet_hero()
     print("\nPreload do hero (LCP) → homes…")
     sync_hero_preload()
+    check_ficha()
     print("\n✓ Concluído.")

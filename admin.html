@@ -959,6 +959,21 @@
         <h3 style="font-size:1.1rem;font-weight:700;">Planos</h3>
         <button class="btn btn-primary" onclick="addPlano()"><i class="ph ph-plus"></i> Novo plano</button>
       </div>
+      <div class="item-card" style="margin-bottom:20px;">
+        <div class="item-card-header"><h4>Pilula Wi-Fi 6 (faixa acima dos cards)</h4></div>
+        <div class="section-help">
+          <i class="ph ph-info"></i>
+          <span>Deixe <strong>vazio</strong> para o texto automatico: ele e montado a partir dos seletores
+          "Selo Wi-Fi 6 no card" de cada plano (todos com selo &rarr; "Todos os planos ja vem com Wi-Fi 6";
+          so alguns &rarr; "a partir de &lt;menor velocidade&gt;"; nenhum &rarr; a faixa some).
+          Preencha para escrever a frase que voce quiser &mdash; ai ela manda, independente dos seletores.
+          Use <strong>**asteriscos duplos**</strong> para deixar um trecho em negrito.</span>
+        </div>
+        <div class="form-group">
+          <label>Texto da pilula</label>
+          <input type="text" id="cfgWifi6Texto" placeholder="Vazio = automatico. Ex: **Mesh Wi-Fi 6** incluso nos planos Ultra" oninput="updateWifi6Texto(this.value)">
+        </div>
+      </div>
       <div id="planosContainer"></div>
     </div>
 
@@ -2976,6 +2991,7 @@
 
   // ─── Planos ───
   function renderPlanos() {
+    setVal('cfgWifi6Texto', config.planosWifi6Texto);
     var container = document.getElementById('planosContainer');
     var html = '';
 
@@ -3062,6 +3078,13 @@
 
     container.innerHTML = html;
   }
+
+  // Texto livre da pilula Wi-Fi 6 (acima dos cards). Vazio = o site volta a derivar
+  // a frase dos seletores "Selo Wi-Fi 6 no card". Ver loadPlanos() no site-loader.js.
+  window.updateWifi6Texto = function(val) {
+    config.planosWifi6Texto = (val || '').trim();
+    markDirty();
+  };
 
   window.updatePlano = function(i, key, val) {
     config.planos[i][key] = val;

@@ -21,7 +21,7 @@
       run('footer', function () { loadFooter(cfg.empresa); });
       run('faq', function () { loadFaq(cfg.faq); });
       run('faqSchema', function () { loadFaqSchema(cfg.faq); });
-      run('planos', function () { loadPlanos(cfg.planos); });
+      run('planos', function () { loadPlanos(cfg.planos, cfg.planosWifi6Texto); });
       run('bairros', function () { loadBairros(cfg.bairros); });
       run('footerMenus', function () { loadFooterMenus(cfg.menus && cfg.menus.footer); });
       run('formasPagamento', function () { loadFormasPagamento(cfg.formasPagamento); });
@@ -259,7 +259,7 @@
   // Casa cada card pelo ID do link de checkout e atualiza nome, velocidade,
   // unidade, preços, features e o TEXTO do badge (preservando o ícone bespoke).
   // O layout e a faixa de apps inclusos continuam bespoke do redesign.
-  function loadPlanos(planos) {
+  function loadPlanos(planos, wifi6Texto) {
     if (!planos || !planos.length) return;
     // alias do link de checkout -> id nominal do config (mesmo mapa do checkout.js)
     var ALIAS = { '600': 'lite-casa', '800': 'lite-familia', '1000': 'lite-home-office', 'ultra-800': 'ultra-familia', 'ultra-1000': 'ultra-home-office' };
@@ -341,13 +341,20 @@
       }
     });
 
-    // Pílula "Wi-Fi 6" acima dos planos: reflete o estado real dos toggles.
-    // Todos com selo → "Todos os planos..."; parcial → "a partir de <menor velocidade>";
-    // nenhum → esconde a pílula. Se NENHUM plano define wifi6 (config antigo),
-    // deixa o texto estático como está.
+    // Pílula "Wi-Fi 6" acima dos planos.
+    // 1º) config.planosWifi6Texto (admin > aba Planos) preenchido: manda, escrito à mão.
+    // 2º) vazio: deriva dos toggles wifi6 de cada plano — todos com selo → "Todos os
+    //     planos..."; parcial → "a partir de <menor velocidade>"; nenhum → esconde.
+    // 3º) se NENHUM plano define wifi6 (config antigo), deixa o texto estático como está.
     var pill = document.querySelector('.plans-wifi6');
     var algumDefinido = planos.some(function (p) { return typeof p.wifi6 === 'boolean'; });
-    if (pill && algumDefinido) {
+    var textoProprio = typeof wifi6Texto === 'string' ? wifi6Texto.trim() : '';
+    if (pill && textoProprio) {
+      // Texto livre do admin: escapa HTML e reabilita só **negrito** (ver mdBold).
+      var spanLivre = pill.querySelector('span');
+      pill.style.display = '';
+      if (spanLivre) spanLivre.innerHTML = mdBold(textoProprio);
+    } else if (pill && algumDefinido) {
       var span = pill.querySelector('span');
       var comWifi = planos.filter(function (p) { return p.wifi6 !== false; });
       if (!comWifi.length) {
@@ -979,6 +986,11 @@
     var d = document.createElement('div');
     d.textContent = str;
     return d.innerHTML;
+  }
+  // Markdown mínimo para os textos livres do admin: escapa tudo e reabilita **negrito**.
+  // Assim o Philipe controla a ênfase sem que o campo vire um vetor de HTML solto.
+  function mdBold(str) {
+    return esc(str).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   }
   // Normaliza link interno de diretorio p/ terminar em "/" (evita o redirect 301
   // que o nginx faz de /familia -> /familia/). Deixa intactos: externos, ancoras (#),
