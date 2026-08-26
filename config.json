@@ -523,7 +523,7 @@
             "resposta": "<strong>Sim, nos planos Ultra:<\/strong> o kit <strong>Mesh Wi-Fi 6<\/strong> com 2 roteadores já vem incluso pra cobrir cada canto da casa, sem ponto cego. Nos planos Lite, o Wi-Fi incluso cobre bem 1 ambiente. Se faltar sinal em algum cômodo, dá pra adicionar pontos extras de fibra a partir de <strong>R$ 10 por mês<\/strong>."
         }
     ],
-    "planosWifi6Texto": "**Mesh Wi-Fi 6** incluso nos planos Ultra",
+    "planosWifi6Texto": "",
     "planos": [
         {
             "id": "lite-casa",
@@ -980,5 +980,8 @@
     },
     "homeHero": {
         "usarPaginas": true
+    },
+    "indique": {
+        "video": []
     }
 }
