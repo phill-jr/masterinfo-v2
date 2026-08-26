@@ -969,9 +969,18 @@
           Preencha para escrever a frase que voce quiser &mdash; ai ela manda, independente dos seletores.
           Use <strong>**asteriscos duplos**</strong> para deixar um trecho em negrito.</span>
         </div>
-        <div class="form-group">
-          <label>Texto da pilula</label>
-          <input type="text" id="cfgWifi6Texto" placeholder="Vazio = automatico. Ex: **Mesh Wi-Fi 6** incluso nos planos Ultra" oninput="updateWifi6Texto(this.value)">
+        <div class="form-row">
+          <div class="form-group" style="flex:0 0 200px;">
+            <label>Mostrar a faixa no site?</label>
+            <select id="cfgWifi6On" onchange="updateWifi6On(this.value==='true')">
+              <option value="true">Sim (faixa visivel)</option>
+              <option value="false">Nao (esconde a faixa)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Texto da pilula</label>
+            <input type="text" id="cfgWifi6Texto" placeholder="Vazio = automatico. Ex: **Mesh Wi-Fi 6** incluso nos planos Ultra" oninput="updateWifi6Texto(this.value)">
+          </div>
         </div>
       </div>
       <div id="planosContainer"></div>
@@ -2992,6 +3001,8 @@
   // ─── Planos ───
   function renderPlanos() {
     setVal('cfgWifi6Texto', config.planosWifi6Texto);
+    var _w6on = document.getElementById('cfgWifi6On');
+    if (_w6on) _w6on.value = config.planosWifi6On === false ? 'false' : 'true';
     var container = document.getElementById('planosContainer');
     var html = '';
 
@@ -3083,6 +3094,13 @@
   // a frase dos seletores "Selo Wi-Fi 6 no card". Ver loadPlanos() no site-loader.js.
   window.updateWifi6Texto = function(val) {
     config.planosWifi6Texto = (val || '').trim();
+    markDirty();
+  };
+
+  // Liga/desliga a faixa inteira. Independente do texto e dos seletores de card:
+  // "Nao" esconde a pilula e mantem os selos Wi-Fi 6 nos cards como estao.
+  window.updateWifi6On = function(on) {
+    config.planosWifi6On = !!on;
     markDirty();
   };
 

@@ -2337,6 +2337,8 @@ def _md_bold(txt):
 def _wifi6_pill_inner(cfg):
     """(inner_html, visivel) da pilula. inner_html=None => nao mexer no estatico.
     Mesma cascata do loadPlanos(): texto do admin > derivacao dos toggles > estatico."""
+    if cfg.get("planosWifi6On") is False:
+        return "", False                       # desligada no admin: faixa escondida
     custom = (cfg.get("planosWifi6Texto") or "").strip()
     if custom:
         return _md_bold(custom), True

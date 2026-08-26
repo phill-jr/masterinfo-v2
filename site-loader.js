@@ -21,7 +21,7 @@
       run('footer', function () { loadFooter(cfg.empresa); });
       run('faq', function () { loadFaq(cfg.faq); });
       run('faqSchema', function () { loadFaqSchema(cfg.faq); });
-      run('planos', function () { loadPlanos(cfg.planos, cfg.planosWifi6Texto); });
+      run('planos', function () { loadPlanos(cfg.planos, cfg.planosWifi6Texto, cfg.planosWifi6On); });
       run('bairros', function () { loadBairros(cfg.bairros); });
       run('footerMenus', function () { loadFooterMenus(cfg.menus && cfg.menus.footer); });
       run('formasPagamento', function () { loadFormasPagamento(cfg.formasPagamento); });
@@ -259,7 +259,7 @@
   // Casa cada card pelo ID do link de checkout e atualiza nome, velocidade,
   // unidade, preços, features e o TEXTO do badge (preservando o ícone bespoke).
   // O layout e a faixa de apps inclusos continuam bespoke do redesign.
-  function loadPlanos(planos, wifi6Texto) {
+  function loadPlanos(planos, wifi6Texto, wifi6On) {
     if (!planos || !planos.length) return;
     // alias do link de checkout -> id nominal do config (mesmo mapa do checkout.js)
     var ALIAS = { '600': 'lite-casa', '800': 'lite-familia', '1000': 'lite-home-office', 'ultra-800': 'ultra-familia', 'ultra-1000': 'ultra-home-office' };
@@ -342,6 +342,7 @@
     });
 
     // Pílula "Wi-Fi 6" acima dos planos.
+    // 0º) config.planosWifi6On === false (admin > aba Planos): esconde a faixa, ponto.
     // 1º) config.planosWifi6Texto (admin > aba Planos) preenchido: manda, escrito à mão.
     // 2º) vazio: deriva dos toggles wifi6 de cada plano — todos com selo → "Todos os
     //     planos..."; parcial → "a partir de <menor velocidade>"; nenhum → esconde.
@@ -349,7 +350,9 @@
     var pill = document.querySelector('.plans-wifi6');
     var algumDefinido = planos.some(function (p) { return typeof p.wifi6 === 'boolean'; });
     var textoProprio = typeof wifi6Texto === 'string' ? wifi6Texto.trim() : '';
-    if (pill && textoProprio) {
+    if (pill && wifi6On === false) {
+      pill.style.display = 'none';
+    } else if (pill && textoProprio) {
       // Texto livre do admin: escapa HTML e reabilita só **negrito** (ver mdBold).
       var spanLivre = pill.querySelector('span');
       pill.style.display = '';
