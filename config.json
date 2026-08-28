@@ -985,7 +985,7 @@
         "video": {
             "on": true,
             "url": "videos/indique-ganhe-masterinfo.mp4",
-            "posicao": "abaixo",
+            "posicao": "lado",
             "formato": "vertical",
             "titulo": "Veja como funciona o Indique e Ganhe",
             "poster": "videos/indique-ganhe-masterinfo-capa.webp",
