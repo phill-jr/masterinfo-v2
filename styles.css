@@ -5691,13 +5691,18 @@ body.copa-locked {
   margin-top: 8px;
 }
 .referral-video.is-abaixo .referral-video-frame { max-width: 760px; margin: 0 auto; }
+/* Na faixa o vertical/quadrado ganha corpo (o limite de 300px vale só na coluna
+   estreita da posição "lado"); 2 classes = vence o .is-vertical genérico. */
+.referral-video.is-abaixo.is-vertical,
+.referral-video.is-abaixo.is-quadrado { max-width: 420px; }
 .referral-video.is-abaixo.is-vertical .referral-video-frame,
-.referral-video.is-abaixo.is-quadrado .referral-video-frame { max-width: 340px; }
+.referral-video.is-abaixo.is-quadrado .referral-video-frame { max-width: 420px; }
 
 /* Empilhado (1 coluna) o vertical pode respirar mais que os 300px do desktop */
 @media (max-width: 860px) {
   .referral-video.is-vertical,
-  .referral-video.is-abaixo.is-vertical .referral-video-frame { max-width: 360px; }
+  .referral-video.is-abaixo.is-vertical,
+  .referral-video.is-abaixo.is-vertical .referral-video-frame { max-width: 380px; }
 }
 
 @media (max-width: 480px) {
