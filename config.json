@@ -29,7 +29,7 @@
     "secoesOrdem": [
         {
             "key": "indique",
-            "on": false
+            "on": true
         },
         {
             "key": "hero",
@@ -982,7 +982,17 @@
         "usarPaginas": true
     },
     "indique": {
-        "video": []
+        "video": {
+            "on": true,
+            "url": "videos/indique-ganhe-masterinfo.mp4",
+            "posicao": "lado",
+            "formato": "vertical",
+            "titulo": "Veja como funciona o Indique e Ganhe",
+            "poster": "videos/indique-ganhe-masterinfo-capa.webp",
+            "descricao": "Cliente da MasterInfo Internet conta como funciona o Indique e Ganhe: cada amigo indicado que fecha plano de fibra vira um mês grátis na fatura.",
+            "data": "2026-08-28",
+            "duracao": "PT35S"
+        }
     },
     "planosWifi6On": false
 }
