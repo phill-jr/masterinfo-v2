@@ -5694,6 +5694,12 @@ body.copa-locked {
 .referral-video.is-abaixo.is-vertical .referral-video-frame,
 .referral-video.is-abaixo.is-quadrado .referral-video-frame { max-width: 340px; }
 
+/* Empilhado (1 coluna) o vertical pode respirar mais que os 300px do desktop */
+@media (max-width: 860px) {
+  .referral-video.is-vertical,
+  .referral-video.is-abaixo.is-vertical .referral-video-frame { max-width: 360px; }
+}
+
 @media (max-width: 480px) {
   .referral-video-btn { width: 62px; height: 62px; font-size: 1.7rem; }
 }

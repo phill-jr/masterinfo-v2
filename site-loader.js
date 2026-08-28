@@ -38,7 +38,7 @@
         }
       });
       run('copaPopup', function () { loadCopaPopup(cfg.copaPopup); });
-      run('indique', function () { loadIndique(cfg.indique); });
+      run('indique', function () { loadIndique(cfg.indique, cfg.empresa, cfg.seo); });
       run('checkoutLinks', function () { wireCheckoutLinks(); });
     })
     .catch(function (e) {
@@ -793,7 +793,7 @@
   // posicao: 'lado'   → ocupa o lugar da ilustração (amigos → cupom)
   //          'abaixo' → faixa cheia embaixo, mantendo a ilustração
   // formato: 'horizontal' (16:9) | 'vertical' (9:16) | 'quadrado' (1:1)
-  function loadIndique(ind) {
+  function loadIndique(ind, emp, seo) {
     var sec = document.getElementById('indique');
     if (!sec) return;
     var inner = sec.querySelector('.referral-inner');
@@ -803,6 +803,8 @@
     var prev = inner.querySelector('.referral-video');
     if (prev) prev.parentNode.removeChild(prev);
     inner.classList.remove('has-video', 'has-video-lado', 'has-video-abaixo');
+    var ldAntigo = document.getElementById('schema-video-indique');
+    if (ldAntigo) ldAntigo.parentNode.removeChild(ldAntigo);
 
     var v = ind && ind.video;
     if (!v || v.on === false || !v.url) return;
@@ -823,64 +825,65 @@
     frame.className = 'referral-video-frame';
     wrap.appendChild(frame);
 
-    if (media.tipo === 'file') {
-      var vid = document.createElement('video');
-      vid.className = 'referral-video-el';
-      vid.setAttribute('controls', '');
-      vid.setAttribute('preload', 'metadata');
-      vid.setAttribute('playsinline', '');
-      vid.setAttribute('src', media.src);
-      if (v.poster) vid.setAttribute('poster', String(v.poster));
-      frame.appendChild(vid);
-    } else {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'referral-video-play';
-      btn.setAttribute('aria-label', 'Assistir ao vídeo' + (v.titulo ? ': ' + v.titulo : ''));
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'referral-video-play';
+    btn.setAttribute('aria-label', 'Assistir ao vídeo' + (v.titulo ? ': ' + v.titulo : ''));
 
-      var capa = v.poster || media.thumb;
-      if (capa) {
-        var img = document.createElement('img');
-        img.className = 'referral-video-thumb';
-        img.setAttribute('alt', '');
-        img.setAttribute('loading', 'lazy');
-        img.setAttribute('decoding', 'async');
-        // Capa que nao existe (Shorts sem oardefault, ID errado, video privado)
-        // cai pro fallback e, se ele tambem falhar, some — sobra o fundo escuro
-        // com o play, em vez do icone de imagem quebrada.
-        function capaFalhou() {
-          if (!img._tentouAlt && media.thumbAlt) { img._tentouAlt = true; img.src = media.thumbAlt; return; }
-          if (img.parentNode) img.parentNode.removeChild(img);
-        }
-        img.onerror = capaFalhou;
-        // O YouTube responde 200 com um placeholder cinza 120x90 quando o ID nao
-        // existe / o video e privado — trata igual a erro (senao vira um borrao).
-        img.onload = function () {
-          if (img.naturalWidth <= 120 && img.naturalHeight <= 90) capaFalhou();
-        };
-        img.setAttribute('src', capa);
-        btn.appendChild(img);
-      }
-
-      var badge = document.createElement('span');
-      badge.className = 'referral-video-btn';
-      badge.innerHTML = '<i class="ph-fill ph-play"></i>';
-      btn.appendChild(badge);
-
-      btn.addEventListener('click', function () {
-        var ifr = document.createElement('iframe');
-        ifr.className = 'referral-video-el';
-        ifr.setAttribute('src', media.embed);
-        ifr.setAttribute('title', v.titulo || 'Vídeo Indique e Ganhe — MasterInfo');
-        ifr.setAttribute('frameborder', '0');
-        ifr.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-        ifr.setAttribute('allowfullscreen', '');
-        frame.innerHTML = '';
-        frame.appendChild(ifr);
-      });
-
-      frame.appendChild(btn);
+    var capa = v.poster || media.thumb || '';
+    if (capa) {
+      var img = document.createElement('img');
+      img.className = 'referral-video-thumb';
+      img.setAttribute('alt', '');
+      img.setAttribute('loading', 'lazy');
+      img.setAttribute('decoding', 'async');
+      // Capa que nao existe (Shorts sem oardefault, ID errado, video privado)
+      // cai pro fallback e, se ele tambem falhar, some — sobra o fundo escuro
+      // com o play, em vez do icone de imagem quebrada.
+      var capaFalhou = function () {
+        if (!img._tentouAlt && media.thumbAlt) { img._tentouAlt = true; img.src = media.thumbAlt; return; }
+        if (img.parentNode) img.parentNode.removeChild(img);
+      };
+      img.onerror = capaFalhou;
+      // O YouTube responde 200 com um placeholder cinza 120x90 quando o ID nao
+      // existe / o video e privado — trata igual a erro (senao vira um borrao).
+      img.onload = function () {
+        if (img.naturalWidth <= 120 && img.naturalHeight <= 90) capaFalhou();
+      };
+      img.setAttribute('src', capa);
+      btn.appendChild(img);
     }
+
+    var badge = document.createElement('span');
+    badge.className = 'referral-video-btn';
+    badge.innerHTML = '<i class="ph-fill ph-play"></i>';
+    btn.appendChild(badge);
+
+    btn.addEventListener('click', function () {
+      var el;
+      if (media.tipo === 'file') {
+        el = document.createElement('video');
+        el.className = 'referral-video-el';
+        el.setAttribute('controls', '');
+        el.setAttribute('playsinline', '');
+        el.setAttribute('preload', 'auto');
+        if (capa) el.setAttribute('poster', capa);
+        el.setAttribute('src', media.src);
+      } else {
+        el = document.createElement('iframe');
+        el.className = 'referral-video-el';
+        el.setAttribute('src', media.embed);
+        el.setAttribute('title', v.titulo || 'Vídeo Indique e Ganhe — MasterInfo');
+        el.setAttribute('frameborder', '0');
+        el.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        el.setAttribute('allowfullscreen', '');
+      }
+      frame.innerHTML = '';
+      frame.appendChild(el);
+      if (media.tipo === 'file') { var pl = el.play(); if (pl && pl.catch) pl.catch(function () {}); }
+    });
+
+    frame.appendChild(btn);
 
     if (v.titulo) {
       var cap = document.createElement('span');
@@ -888,6 +891,8 @@
       cap.textContent = v.titulo;
       wrap.appendChild(cap);
     }
+
+    injetarSchemaVideo(v, media, emp, seo);
 
     var visual = inner.querySelector('.referral-visual');
     if (pos === 'lado') {
@@ -897,6 +902,40 @@
     } else {
       inner.classList.add('has-video', 'has-video-abaixo');
       inner.appendChild(wrap);
+    }
+  }
+
+  // VideoObject do vídeo da seção — é o que habilita rich result de vídeo pra
+  // ESTA página (o vídeo self-hosted conta pro domínio; YouTube/Vimeo viram
+  // embedUrl). Sem uploadDate o Google descarta o rich result, então o admin
+  // carimba a data ao ligar/trocar o vídeo.
+  function injetarSchemaVideo(v, media, emp, seo) {
+    try {
+      var abs = function (u) { return u ? new URL(u, location.href).href : ''; };
+      var capa = abs(v.poster || media.thumb);
+      var d = {
+        '@context': 'https://schema.org',
+        '@type': 'VideoObject',
+        'name': v.titulo || 'Indique e Ganhe — MasterInfo Internet',
+        'description': v.descricao || 'Cliente MasterInfo conta como funciona o Indique e Ganhe: cada amigo indicado que fecha plano vira um mês grátis na fatura.'
+      };
+      if (capa) d.thumbnailUrl = [capa];
+      if (v.data) d.uploadDate = v.data;
+      if (v.duracao) d.duration = v.duracao;
+      if (media.tipo === 'file') d.contentUrl = abs(media.src);
+      else d.embedUrl = media.embed.split('?')[0];
+      d.publisher = {
+        '@type': 'Organization',
+        'name': (emp && emp.nome) || 'MasterInfo Internet',
+        'logo': { '@type': 'ImageObject', 'url': abs((seo && seo.ogImage) || 'imgs/logo.png') }
+      };
+      var el = document.createElement('script');
+      el.type = 'application/ld+json';
+      el.id = 'schema-video-indique';
+      el.textContent = JSON.stringify(d, null, 2);
+      document.head.appendChild(el);
+    } catch (e) {
+      console.warn('[SiteLoader] falha no JSON-LD do vídeo:', e);
     }
   }
 

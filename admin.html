@@ -1309,6 +1309,10 @@
             <input type="text" id="cfgIndVideoPoster" oninput="updateIndVideo('poster',this.value)" placeholder="imgs/capa-indique.jpg">
           </div>
         </div>
+        <div class="form-group">
+          <label>Descrição do vídeo (aparece pro Google, não no site)</label>
+          <input type="text" id="cfgIndVideoDesc" oninput="updateIndVideo('descricao',this.value)" placeholder="Cliente conta como funciona o Indique e Ganhe da MasterInfo.">
+        </div>
         <div id="cfgIndVideoPreview" style="margin-top:6px;"></div>
       </div>
     </div>
@@ -3619,6 +3623,7 @@
     setVal('cfgIndVideoUrl', v.url || '');
     setVal('cfgIndVideoTitulo', v.titulo || '');
     setVal('cfgIndVideoPoster', v.poster || '');
+    setVal('cfgIndVideoDesc', v.descricao || '');
     var pos = document.getElementById('cfgIndVideoPos');
     if (pos) pos.value = (v.posicao === 'abaixo') ? 'abaixo' : 'lado';
     var fmt = document.getElementById('cfgIndVideoFmt');
@@ -3674,11 +3679,21 @@
     }
   }
   window.updateIndVideo = function (key, val) {
-    indVideoCfg()[key] = val;
+    var v = indVideoCfg();
+    var mudouUrl = (key === 'url' && String(val || '').trim() !== String(v.url || '').trim());
+    v[key] = val;
+    // uploadDate do JSON-LD: carimba na troca do video (sem data o Google
+    // descarta o rich result de video).
+    if (mudouUrl && String(val || '').trim()) v.data = new Date().toISOString().slice(0, 10);
     if (key === 'url' || key === 'poster') renderIndVideoStatus();
     markDirty();
   };
-  window.toggleIndVideo = function (on) { indVideoCfg().on = !!on; markDirty(); };
+  window.toggleIndVideo = function (on) {
+    var v = indVideoCfg();
+    v.on = !!on;
+    if (v.on && !v.data && (v.url || '').trim()) v.data = new Date().toISOString().slice(0, 10);
+    markDirty();
+  };
 
   // ─── Ordem & visibilidade das secoes da home ───
   var SECOES_NOMES = { hero: 'Slideshow (banner)', planos1: 'Planos — Com 1 Roteador', planos2: 'Planos — Com 2 Roteadores', historia: 'Nossa História', cobertura: 'Cobertura', depoimentos: 'Depoimentos', indique: 'Indique e Ganhe', cta: 'Chamada final (CTA)', faq: 'FAQ' };
