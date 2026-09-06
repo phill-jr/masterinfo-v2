@@ -32,8 +32,8 @@
   // traduz os IDs legados/do site para o ID canonico do config.
   var PLAN_ALIASES = {
     '600': 'lite-casa',
-    '800': 'lite-familia',
-    '1000': 'lite-home-office',
+    '800': 'lite-premium',
+    '1000': 'lite-basic',
     'ultra-800': 'ultra-familia',
     'ultra-1000': 'ultra-home-office'
   };

@@ -22,6 +22,7 @@
       run('faq', function () { loadFaq(cfg.faq); });
       run('faqSchema', function () { loadFaqSchema(cfg.faq); });
       run('planos', function () { loadPlanos(cfg.planos, cfg.planosWifi6Texto, cfg.planosWifi6On); });
+      run('promoBar', function () { loadPromoBar(cfg.planos); });
       run('bairros', function () { loadBairros(cfg.bairros); });
       run('footerMenus', function () { loadFooterMenus(cfg.menus && cfg.menus.footer); });
       run('formasPagamento', function () { loadFormasPagamento(cfg.formasPagamento); });
@@ -259,10 +260,31 @@
   // Casa cada card pelo ID do link de checkout e atualiza nome, velocidade,
   // unidade, preços, features e o TEXTO do badge (preservando o ícone bespoke).
   // O layout e a faixa de apps inclusos continuam bespoke do redesign.
+  // A faixa usa o mesmo cadastro do checkout; sem plano valido, fica neutra.
+  function loadPromoBar(planos) {
+    var bar = document.getElementById('promoBar');
+    if (!bar) return;
+    var id = bar.getAttribute('data-promo-plano');
+    var p = Array.isArray(planos) && planos.find(function (plan) { return plan.id === id; });
+    var offer = bar.querySelector('.promo-bar-offer');
+    var note = bar.querySelector('.promo-bar-cta-text');
+    var link = bar.querySelector('.promo-bar-btn');
+    if (!offer || !note || !link) return;
+    var price = p && (p.precoPontual != null ? p.precoPontual : p.precoCheio);
+    if (!p || typeof price !== 'number' || !isFinite(price) || price <= 0 || !p.velocidade || !p.unidade) return;
+    offer.textContent = p.velocidade + ' ' + p.unidade + ' por R$ ' + formatBRL(price) + '/mês' +
+      (p.precoPontual != null ? ' pagando em dia' : '');
+    note.textContent = Array.isArray(p.categorias) && p.categorias.length === 0
+      ? 'Sem app de TV incluso' : 'Confira os benefícios do plano';
+    link.setAttribute('href', 'checkout.html?plano=' + encodeURIComponent(p.id));
+    link.setAttribute('data-plano', p.id);
+    link.textContent = 'Quero esse plano';
+  }
+
   function loadPlanos(planos, wifi6Texto, wifi6On) {
     if (!planos || !planos.length) return;
     // alias do link de checkout -> id nominal do config (mesmo mapa do checkout.js)
-    var ALIAS = { '600': 'lite-casa', '800': 'lite-familia', '1000': 'lite-home-office', 'ultra-800': 'ultra-familia', 'ultra-1000': 'ultra-home-office' };
+    var ALIAS = { '600': 'lite-casa', '800': 'lite-premium', '1000': 'lite-basic', 'ultra-800': 'ultra-familia', 'ultra-1000': 'ultra-home-office' };
     var byId = {};
     planos.forEach(function (p) { byId[p.id] = p; });
 
