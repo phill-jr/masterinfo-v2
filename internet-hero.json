@@ -27,6 +27,15 @@
     "href": "#planos"
   },
   {
+    "slug": "planos-residenciais",
+    "title": "Plano de internet residencial em Joinville, 100% fibra",
+    "tag": "INTERNET · PLANOS RESIDENCIAIS",
+    "img": "imgs/hero/sub/familia-1.jpg",
+    "plano": "lite-casa",
+    "cta": "Quero contratar meu plano",
+    "href": "#planos"
+  },
+  {
     "slug": "com-2-roteadores",
     "title": "Wi-Fi em toda a casa, sem ponto cego",
     "tag": "INTERNET · WI-FI EM TODA A CASA",
