@@ -28,10 +28,6 @@
     },
     "secoesOrdem": [
         {
-            "key": "indique",
-            "on": true
-        },
-        {
             "key": "hero",
             "on": true
         },
@@ -45,6 +41,10 @@
         },
         {
             "key": "cobertura",
+            "on": true
+        },
+        {
+            "key": "indique",
             "on": true
         },
         {
@@ -198,7 +198,7 @@
                 "label": "Indique e Ganhe",
                 "tipo": "link",
                 "href": "#indique",
-                "on": false
+                "on": true
             },
             {
                 "key": "ajuda",
@@ -984,11 +984,11 @@
     "indique": {
         "video": {
             "on": true,
-            "url": "videos/indique-ganhe-masterinfo.mp4",
+            "url": "videos\/indique-ganhe-masterinfo.mp4",
             "posicao": "lado",
             "formato": "vertical",
             "titulo": "Veja como funciona o Indique e Ganhe",
-            "poster": "videos/indique-ganhe-masterinfo-capa.webp",
+            "poster": "videos\/indique-ganhe-masterinfo-capa.webp",
             "descricao": "Cliente da MasterInfo Internet conta como funciona o Indique e Ganhe: cada amigo indicado que fecha plano de fibra vira um mês grátis na fatura.",
             "data": "2026-08-28",
             "duracao": "PT35S"
