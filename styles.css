@@ -7899,3 +7899,19 @@ body.copa-locked {
     align-items: center;
   }
 }
+
+/* ========================================
+   PERF MOBILE / INP (23/09/2026): backdrop-filter e caro na GPU de celular e aqui
+   e visualmente INVISIVEL, porque os fundos sao ~opacos: .plan-card (#fff no claro,
+   0.95-0.98 no escuro), .nav drawer (0.97/0.98) e .sticky-cta (0.85-0.98). No mobile,
+   cada toque/scroll recompunha essas camadas com blur(12-20px) -> presentation delay
+   alto no INP de campo (265ms). Mesmo padrao do .header em junho (containing block).
+   ======================================== */
+@media (max-width: 768px) {
+  /* .header: as homes ja tinham isto inline (jun/2026, containing block do menu);
+     subpaginas nunca receberam e seguiam com blur(20px) sticky em todo scroll. */
+  .header, .nav, .plan-card, .sticky-cta {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}

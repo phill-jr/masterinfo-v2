@@ -477,7 +477,7 @@ def head(title, depth, extra_head=""):
   <link rel="icon" type="image/png" sizes="96x96" href="{base}favicon-96x96.png">
   <link rel="icon" href="{base}favicon.ico" sizes="any">
   <link rel="apple-touch-icon" sizes="180x180" href="{base}apple-touch-icon.png">
-  <link rel="stylesheet" href="{base}styles.css?v=20260531-e">
+  <link rel="stylesheet" href="{base}styles.css?v=20260923a">
   <link rel="stylesheet" href="{base}modal.css?v=20260531-e">
   {extra_head}
   <style>:root{{--site-scale:{SITE_SCALE}}}</style>
