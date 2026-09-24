@@ -81,7 +81,6 @@ DirectoryIndex index-light.html index.html index.php
 # Destinos sao paginas v2 indexaveis (nao mandar equity p/ checkout noindex).
 # ========================================
 <IfModule mod_alias.c>
-    RedirectMatch 301 ^/planos-residenciais/?$   /familia/
     RedirectMatch 301 ^/planos-empresariais/?$   /internet-empresarial/
     RedirectMatch 301 ^/fale-conosco/?$          /contato/
     RedirectMatch 301 ^/trabalheconosco/?$       /contato/

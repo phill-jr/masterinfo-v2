@@ -95,6 +95,24 @@ INTERNET = [
         "cta": "Quero internet pra família",
     },
     {
+        # Landing dedicada ao termo "plano de internet residencial" (grupo Residencial e Plano
+        # do Google Ads apontava para a home/familia e tinha nota de pagina "media").
+        # URL /planos-residenciais/ (o redirect antigo para /familia/ saiu do .htaccess).
+        "slug": "planos-residenciais",
+        "tag": "INTERNET · PLANOS RESIDENCIAIS",
+        "title": "Plano de internet residencial em Joinville, 100% fibra",
+        "subtitle": "Planos de 600 Mega a 1 Giga a partir de R$ 99,99 por mês, com Wi-Fi e app de TV inclusos. Instalação em até 3 dias e atendimento local pelo WhatsApp.",
+        "ico": "ph-house-line",
+        "gradient": "linear-gradient(135deg, #c1121f 0%, #ff7a05 50%, #fcc305 100%)",
+        "highlights": [
+            ("💸", "A partir de R$ 99,99 por mês", "600 Mega de fibra com Wi-Fi e 1 app de TV por mês. R$ 10 de desconto pagando em dia, sem letra miúda."),
+            ("⚡", "Instalação em até 3 dias", "Técnico da própria MasterInfo. Fibra até dentro da sua casa, sem cabo compartilhado com a rua."),
+            ("📍", "Atendimento em Joinville", "Suporte local pelo WhatsApp e telefone, com gente que conhece o seu bairro."),
+        ],
+        "plans": ["lite-casa", "lite-premium", "ultra-familia"],
+        "cta": "Quero contratar meu plano",
+    },
+    {
         "slug": "com-2-roteadores",
         "tag": "INTERNET · WI-FI EM TODA A CASA",
         "title": "Wi-Fi em toda a casa, sem ponto cego",
@@ -692,6 +710,7 @@ IMG_BG = {
     "home-office":      "home-office",
     "gamer":            "gamer",
     "familia":          "familia",
+    "planos-residenciais": "familia",   # reusa o slideshow da familia ate ter fotos proprias
     "com-2-roteadores": "2-roteadores",
     "com-1-roteador":   "1-roteador",
 }
@@ -1847,6 +1866,8 @@ SEO_META = {
         "Internet fibra para jogar online em Joinville: baixa latência, ping estável, 1 Giga e Exitlag. Plano gamer com Wi-Fi 6. Confira a cobertura."),
     "familia/index.html": ("Internet Fibra para Família em Joinville | MasterInfo",
         "Internet fibra óptica para a família toda em Joinville: 800 Mega a 1 Giga e vários aparelhos ao mesmo tempo. Instalação rápida. Veja os planos."),
+    "planos-residenciais/index.html": ("Plano de Internet Residencial em Joinville | MasterInfo",
+        "Plano de internet residencial 100% fibra em Joinville: 600 Mega a 1 Giga a partir de R$ 99,99 por mês, Wi-Fi e app de TV inclusos. Instalação em até 3 dias."),
     "com-2-roteadores/index.html": ("Wi-Fi em Toda a Casa em Joinville (2 Roteadores) | MasterInfo",
         "Wi-Fi sem ponto cego em Joinville: kit com 2 roteadores Wi-Fi 6 para sinal forte em todos os cômodos. Cobertura total da casa. Veja os planos."),
     "com-1-roteador/index.html": ("Internet Fibra para Apartamento em Joinville | MasterInfo",

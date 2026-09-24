@@ -1881,3 +1881,51 @@ _SKY_TABLE = "<h2>Resumo das categorias do PlayHub</h2>\n<p>Para comparar rápid
 _SKY_ANCHOR = '<h2>Como assistir ao SKY+ Light</h2>'
 if 'sky-light-playhub-como-funciona' in BLOG_DEEP and 'Resumo das categorias' not in BLOG_DEEP['sky-light-playhub-como-funciona']['body']:
     BLOG_DEEP['sky-light-playhub-como-funciona']['body'] = BLOG_DEEP['sky-light-playhub-como-funciona']['body'].replace(_SKY_ANCHOR, _SKY_TABLE + _SKY_ANCHOR, 1)
+
+
+# Landing "plano de internet residencial" (/planos-residenciais/): conteudo editorial + FAQ.
+# Mesma estrutura das outras personas (lead, body, faq). Precos e prazos vem do catalogo
+# vigente (config.json): 600 Mega R$ 99,99, 800 Mega R$ 119,90, 1 Giga R$ 149,90, pagando em dia.
+PERSONAS_CONTENT["planos-residenciais"] = {
+    "lead": "Fibra óptica de verdade para a sua casa em Joinville, com preço fechado, Wi-Fi incluso e instalação em até 3 dias.",
+    "body": """<h2>Qual plano de internet residencial escolher?</h2>
+<p>A escolha depende de quantas pessoas e aparelhos usam a internet ao mesmo tempo na sua casa. Para casal ou casa pequena, o <strong>Lite Casa</strong> (600 Mega) resolve com folga e é o plano mais em conta. Para família com vários celulares, TV em streaming e alguém trabalhando de casa, o <strong>Lite Premium</strong> (800 Mega) é o mais procurado. Para casa cheia, streaming premium e Wi-Fi forte em todos os cômodos, o <strong>Ultra Família</strong> (1 Giga) já vem com Mesh Wi-Fi 6.</p>
+<p>Todos os planos são 100% fibra óptica até dentro da casa. Não é rádio nem cabo compartilhado com a rua: a velocidade que você contrata é a que chega no seu roteador.</p>
+<p>Na dúvida sobre quantos Mega você precisa, este guia ajuda: <a href="/blog/quantos-mega-de-internet-voce-precisa/">Quantos Mega de internet você precisa?</a></p>
+
+<h2>O que está incluso em todo plano residencial</h2>
+<ul>
+  <li>Fibra óptica 100% até a sua casa, sem cabo de rua compartilhado.</li>
+  <li>Roteador Wi-Fi incluso, sem comprar equipamento. Nos planos Ultra, Mesh Wi-Fi 6 para cobrir a casa toda.</li>
+  <li>1 app de TV ou streaming por mês, conforme a categoria do plano. Veja as opções no <a href="/playhub/">PlayHub</a>.</li>
+  <li>Instalação em até 3 dias, feita por técnico da própria MasterInfo.</li>
+  <li>Suporte local em Joinville, pelo WhatsApp e por telefone.</li>
+  <li>R$ 10 de desconto por mês pagando em dia.</li>
+</ul>
+
+<h2>Onde a MasterInfo atende em Joinville</h2>
+<p>A rede de fibra da MasterInfo cobre 13 bairros da zona norte e leste de Joinville: <a href="/internet-comasa-joinville/">Comasa</a>, <a href="/internet-boa-vista-joinville/">Boa Vista</a>, <a href="/internet-espinheiros-joinville/">Espinheiros</a>, <a href="/internet-aventureiro-joinville/">Aventureiro</a>, <a href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a>, <a href="/internet-jardim-sofia-joinville/">Jardim Sofia</a>, <a href="/internet-cubatao-joinville/">Cubatão</a>, <a href="/internet-itinga-joinville/">Itinga</a>, <a href="/internet-nova-brasilia-joinville/">Nova Brasília</a>, <a href="/internet-rio-bonito-joinville/">Rio Bonito</a>, <a href="/internet-estrada-timbe-joinville/">Estrada Timbé</a>, <a href="/internet-paranaguamirim-joinville/">Paranaguamirim</a> e <a href="/internet-iririu-joinville/">Iririú</a>.</p>
+<p>Mora em outro bairro? Mande o seu endereço pelo WhatsApp que a gente confere se a fibra já chega até você.</p>
+
+<h2>Como contratar</h2>
+<ol>
+  <li><strong>Escolha o plano</strong> aqui na página ou peça ajuda pelo WhatsApp (47) 98921-2991.</li>
+  <li><strong>Confirme a cobertura</strong> do seu endereço e faça o cadastro. A análise é rápida.</li>
+  <li><strong>Agende a instalação</strong>: em até 3 dias o técnico instala a fibra e configura o Wi-Fi.</li>
+</ol>
+<p>Se a sua casa é grande ou tem dois andares, vale conhecer o plano <a href="/com-2-roteadores/">com 2 roteadores</a>. Para apartamento e casa pequena, veja a opção <a href="/com-1-roteador/">com 1 roteador</a>.</p>""",
+    "faq": [
+        {"q": "Qual é o plano de internet residencial mais barato da MasterInfo?",
+         "a": "O Lite Casa, de 600 Mega, por R$ 99,99 por mês pagando em dia (R$ 109,99 no preço cheio). Já vem com roteador Wi-Fi e 1 app de TV por mês."},
+        {"q": "Quanto tempo leva para instalar?",
+         "a": "Em até 3 dias depois da aprovação do cadastro. A instalação é feita por técnico da própria MasterInfo, que puxa a fibra até dentro da casa e configura o Wi-Fi."},
+        {"q": "Preciso comprar roteador?",
+         "a": "Não. O roteador Wi-Fi vem incluso no plano, em comodato. Nos planos Ultra ele é Mesh Wi-Fi 6, com cobertura para a casa toda."},
+        {"q": "Os planos têm fidelidade?",
+         "a": "Sim, os planos residenciais têm fidelidade de 12 meses. O desconto de R$ 10 por mês vale sempre que a fatura é paga em dia."},
+        {"q": "A MasterInfo atende o meu bairro?",
+         "a": "A fibra cobre 13 bairros de Joinville: Comasa, Boa Vista, Espinheiros, Aventureiro, Jardim Paraíso, Jardim Sofia, Cubatão, Itinga, Nova Brasília, Rio Bonito, Estrada Timbé, Paranaguamirim e Iririú. Para outros endereços, mande a rua pelo WhatsApp e a gente confere."},
+        {"q": "Como faço para contratar?",
+         "a": "Pelo site, clicando no plano que você quer, ou pelo WhatsApp (47) 98921-2991. Você confirma o endereço, faz o cadastro e agenda a instalação."},
+    ],
+}
