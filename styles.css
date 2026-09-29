@@ -2547,6 +2547,15 @@ img.dropdown-logo.dropdown-logo-real {
   z-index: 500;
 }
 
+/* Container do Leaflet (criado no initCoverageMap): desfaz o body{zoom:--site-scale}
+   pro mapa renderizar 1:1 — em escala fracionaria o Chrome deixa linhas brancas
+   entre os tiles. inset:0 mantem o tamanho visual do .coverage-map-real. */
+.cov-map-canvas {
+  position: absolute;
+  inset: 0;
+  zoom: calc(1 / var(--site-scale, 1));
+}
+
 /* Leaflet overrides para dark theme */
 .coverage-map-real .leaflet-container {
   background: var(--black);
@@ -2560,6 +2569,26 @@ img.dropdown-logo.dropdown-logo-real {
 .coverage-map-real .leaflet-tile {
   image-rendering: auto;
   outline: none !important;
+}
+
+/* Tiles OSM (coloridos) convertidos pro dark: cinza invertido, no clima do antigo Dark Matter */
+.coverage-map-real .cov-tiles-osm {
+  filter: grayscale(1) invert(1) brightness(0.8) contrast(0.9);
+}
+
+/* Atribuicao do mapa (obrigatoria pro OSM): discreta no canto */
+.coverage-map-real .leaflet-control-attribution {
+  background: rgba(10,10,11,0.6);
+  color: rgba(255,255,255,0.65);
+  font-size: 10px;
+  line-height: 1.5;
+  padding: 1px 6px;
+  border-top-left-radius: 4px;
+}
+
+.coverage-map-real .leaflet-control-attribution a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 /* Botao voltar ao zoom original */
