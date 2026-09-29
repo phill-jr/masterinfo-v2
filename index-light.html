@@ -1633,9 +1633,10 @@
     // (dashboard.basemaps.carto.com) — por isso os tiles dao 403 no localhost.
     L.tileLayer('https://basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png?key=cb1_43c2_1_7b504a433a9e1c0a1e34bd66', {
       maxZoom: 19,
-      attribution: '&copy; Colaboradores do <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attribution/" target="_blank" rel="noopener">CARTO</a>',
     }).addTo(map);
-    // Atribuicao visivel: exigida pelos termos da CARTO
+    // Atribuicao visivel: exigida pelos termos da CARTO e pela licenca do OSM (sem ela a
+    // CARTO pode suspender a chave). Forma curta, a menor que as duas regras aceitam.
     L.control.attribution({ prefix: false }).addTo(map);
 
     // Enquadrar todos os bairros com padding
