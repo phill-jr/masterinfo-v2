@@ -1,4 +1,4 @@
-@import url('styles.css?v=20260929a');
+@import url('styles.css?v=20260929b');
 
 /* ========================================
    MASTERINFO INTERNET - LIGHT THEME
@@ -409,11 +409,6 @@ body {
 /* Leaflet background for light tiles */
 .coverage-map-real .leaflet-container {
   background: #f2f2f5;
-}
-
-/* Tiles OSM dessaturados e clareados, no clima do antigo Positron */
-.coverage-map-real .cov-tiles-osm {
-  filter: grayscale(1) contrast(0.52) brightness(1.34);
 }
 
 .coverage-map-real .leaflet-control-attribution {

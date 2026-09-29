@@ -179,8 +179,8 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles-light.css?v=20260929a" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="styles-light.css?v=20260929a"></noscript>
+  <link rel="stylesheet" href="styles-light.css?v=20260929b" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles-light.css?v=20260929b"></noscript>
   <link rel="stylesheet" href="modal-light.css?v=20260601-c" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="modal-light.css?v=20260601-c"></noscript>
   <!-- Pass 1 Impeccable "anti-cara-de-IA": tipografia (Bricolage+Hanken) + remoção de gradient-text/glows. Carrega por último. -->
@@ -1614,13 +1614,7 @@
     // Calcular bounds para enquadrar todos os pins
     var bounds = L.latLngBounds(bairros.map(function(b) { return [b.lat, b.lng]; }));
 
-    // O Leaflet roda num filho com zoom inverso ao body{zoom} (.cov-map-canvas):
-    // na escala fracionaria do site (0.85) o Chrome desenhava linhas brancas entre os tiles.
-    var mapCanvas = document.createElement('div');
-    mapCanvas.className = 'cov-map-canvas';
-    mapEl.appendChild(mapCanvas);
-
-    var map = L.map(mapCanvas, {
+    var map = L.map(mapEl, {
       center: bounds.getCenter(),
       zoom: 12,
       zoomControl: false,
@@ -1633,20 +1627,19 @@
       zoomAnimation: true,
     });
 
-    // Tiles OSM padrao (sem chave), dessaturados no CSS (.cov-tiles-osm) pro tom claro.
-    // Era CARTO Positron, mas a CARTO passou a exigir chave em 23/09/2026 e sem ela
-    // todo tile vinha com a marca "API KEY REQUIRED".
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // CartoDB Positron tiles (mapa CLARO, versao light do site). Desde 23/09/2026 a CARTO
+    // exige chave: sem ela todo tile vem com a marca "API KEY REQUIRED". A chave e publica
+    // por natureza e esta restrita por Referer a masterinfointernet.com no painel da CARTO
+    // (dashboard.basemaps.carto.com) — por isso os tiles dao 403 no localhost.
+    L.tileLayer('https://basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png?key=cb1_43c2_1_7b504a433a9e1c0a1e34bd66', {
       maxZoom: 19,
-      className: 'cov-tiles-osm',
-      attribution: '&copy; Colaboradores do <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+      attribution: '&copy; Colaboradores do <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
     }).addTo(map);
-    // Atribuicao visivel e exigencia da politica de uso dos tiles do OSM
+    // Atribuicao visivel: exigida pelos termos da CARTO
     L.control.attribution({ prefix: false }).addTo(map);
 
-    // Enquadrar todos os bairros com padding (30, nao 40: com o mapa em 1:1 o 40
-    // derrubava o celular do zoom 10 pro 9)
-    map.fitBounds(bounds, { padding: [30, 30] });
+    // Enquadrar todos os bairros com padding
+    map.fitBounds(bounds, { padding: [40, 40] });
     var initialBounds = map.getBounds();
     var initialZoom = map.getZoom();
     var isZoomed = false;
