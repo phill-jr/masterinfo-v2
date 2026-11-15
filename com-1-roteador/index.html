@@ -157,9 +157,9 @@
   <!-- HERO da subpágina -->
   <section class="sub-hero sub-hero-slideshow" data-interval="5000" style="background: linear-gradient(135deg, #6b3d00 0%, #c19000 50%, #fcc305 100%);">
       <div class="sub-hero-slide is-active" style="background-image: url('../imgs/hero/sub/1-roteador-1.jpg');"></div>
-      <div class="sub-hero-slide" style="background-image: url('../imgs/hero/sub/1-roteador-2.jpg');"></div>
-      <div class="sub-hero-slide" style="background-image: url('../imgs/hero/sub/1-roteador-3.jpg');"></div>
-      <div class="sub-hero-slide" style="background-image: url('../imgs/hero/sub/1-roteador-4.jpg');"></div>
+      <div class="sub-hero-slide" data-bg="../imgs/hero/sub/1-roteador-2.jpg"></div>
+      <div class="sub-hero-slide" data-bg="../imgs/hero/sub/1-roteador-3.jpg"></div>
+      <div class="sub-hero-slide" data-bg="../imgs/hero/sub/1-roteador-4.jpg"></div>
       <div class="sub-hero-overlay"></div>
     <div class="container sub-hero-inner">
       <span class="sub-hero-tag">INTERNET · ENTRADA</span>
@@ -378,10 +378,34 @@
       var interval = parseInt(slideshow.getAttribute('data-interval'), 10) || 5000;
       if (slides.length > 1) {
         var current = 0;
+        // So o 1o slide nasce com a foto. Os demais guardam a URL em data-bg e sao
+        // preparados um por vez, pouco antes de entrar: a foto e pre-carregada e so
+        // entao vira o fundo, pra rotacao nunca mostrar slide vazio.
+        var prep = function(k) {
+          var s = slides[k];
+          if (!s || s.miPrep) return;
+          s.miPrep = 1;
+          var u = s.getAttribute('data-bg');
+          if (!u) { s.miOk = 1; return; }
+          var im = new Image();
+          im.onload = im.onerror = function() {
+            s.style.backgroundImage = "url('" + u + "')";
+            s.miOk = 1;
+          };
+          im.src = u;
+        };
+        prep(0);
+        var prepProximo = function() { prep((current + 1) % slides.length); };
+        if (document.readyState === 'complete') prepProximo();
+        else window.addEventListener('load', prepProximo);
         setInterval(function() {
+          var nx = (current + 1) % slides.length;
+          prep(nx);
+          if (!slides[nx].miOk) return; // foto ainda baixando: tenta no proximo ciclo
           slides[current].classList.remove('is-active');
-          current = (current + 1) % slides.length;
+          current = nx;
           slides[current].classList.add('is-active');
+          prepProximo();
         }, interval);
       }
     }

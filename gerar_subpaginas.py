@@ -685,10 +685,34 @@ def footer(depth, boleto=True, extra_scripts=""):
       var interval = parseInt(slideshow.getAttribute('data-interval'), 10) || 5000;
       if (slides.length > 1) {{
         var current = 0;
+        // So o 1o slide nasce com a foto. Os demais guardam a URL em data-bg e sao
+        // preparados um por vez, pouco antes de entrar: a foto e pre-carregada e so
+        // entao vira o fundo, pra rotacao nunca mostrar slide vazio.
+        var prep = function(k) {{
+          var s = slides[k];
+          if (!s || s.miPrep) return;
+          s.miPrep = 1;
+          var u = s.getAttribute('data-bg');
+          if (!u) {{ s.miOk = 1; return; }}
+          var im = new Image();
+          im.onload = im.onerror = function() {{
+            s.style.backgroundImage = "url('" + u + "')";
+            s.miOk = 1;
+          }};
+          im.src = u;
+        }};
+        prep(0);
+        var prepProximo = function() {{ prep((current + 1) % slides.length); }};
+        if (document.readyState === 'complete') prepProximo();
+        else window.addEventListener('load', prepProximo);
         setInterval(function() {{
+          var nx = (current + 1) % slides.length;
+          prep(nx);
+          if (!slides[nx].miOk) return; // foto ainda baixando: tenta no proximo ciclo
           slides[current].classList.remove('is-active');
-          current = (current + 1) % slides.length;
+          current = nx;
           slides[current].classList.add('is-active');
+          prepProximo();
         }}, interval);
       }}
     }}
@@ -811,8 +835,11 @@ def page_internet(p, depth=1):
 
     imgs = find_imgs(IMG_BG.get(p["slug"], ""), BASE_DIR)
     if len(imgs) >= 2:
+        # So o 1o slide leva a foto no style; os demais em data-bg (o script do carrossel
+        # prepara um por vez). Antes, todas as fotos baixavam na abertura da pagina.
         slides_html = "\n      ".join(
-            f'<div class="sub-hero-slide{" is-active" if i == 0 else ""}" style="background-image: url(\'../{img}\');"></div>'
+            (f'<div class="sub-hero-slide is-active" style="background-image: url(\'../{img}\');"></div>' if i == 0
+             else f'<div class="sub-hero-slide" data-bg="../{img}"></div>')
             for i, img in enumerate(imgs)
         )
         hero_open = f'<section class="sub-hero sub-hero-slideshow" data-interval="5000" style="background: {p["gradient"]};">\n      {slides_html}\n      <div class="sub-hero-overlay"></div>'
@@ -1279,7 +1306,7 @@ def page_playhub(depth=1):
 # ─── PÁGINAS-PILAR + BLOG (camada de conteúdo SEO/GEO) ────────────────────
 # Geradas por funções (usam head()/header()/footer() → nascem compatíveis com os
 # syncs cirúrgicos) e registradas em MENU_PAGES + SEO_META. Flag: --content / --blog.
-BLOGCSS_VER = "20260618-b"
+BLOGCSS_VER = "20261114a"
 BLOG_BY_REL = {f'blog/{_p["slug"]}/index.html': _p for _p in BLOG}
 # og:image por página (preview social correto): imagem do próprio pilar/post (rel; SITE_URL no sync_og).
 OG_IMG_BY_REL = {}
@@ -1546,14 +1573,69 @@ def page_pilar(p, depth=1):
             + plans_after + faq_html + vizinhos + cta_band + faq_jsonld + lb + plans_script + footer(depth))
 
 
+THUMB_DIR = "imgs/thumbs"
+THUMB_WIDTHS = (480, 800)
+# Largura do card do /blog/ na tela: 1 coluna no celular, 2 no tablet, 3 no desktop.
+CARD_SIZES = "(min-width: 1100px) 350px, (min-width: 700px) 50vw, 100vw"
+
+
+def card_thumbs(image):
+    """Miniaturas webp (480 e 800 px de largura) da capa de um card do /blog/, em
+    imgs/thumbs/. O card tem ~350 px de largura e a capa original chega a 1920 px.
+    O nome leva um trecho do hash do arquivo original: se a foto for trocada mantendo o
+    nome, a miniatura antiga deixa de valer e uma nova e criada (nao ha como ficar velha).
+    Cria as que faltam quando o Pillow existe; sem Pillow usa so as que ja estao em disco.
+    Nunca amplia (largura >= a do original e pulada). Devolve [(url, largura)]."""
+    rel_src = image.lstrip("/")
+    src = os.path.join(BASE_DIR, *rel_src.split("/"))
+    if not os.path.exists(src):
+        return []
+    import hashlib
+    h = hashlib.md5(open(src, "rb").read()).hexdigest()[:6]
+    nome = re.sub(r"^imgs/", "", re.sub(r"\.(jpe?g|png)$", "", rel_src, flags=re.I)).replace("/", "-")
+    out = []
+    for w in THUMB_WIDTHS:
+        rel = f"{THUMB_DIR}/{nome}-{h}-{w}.webp"
+        dst = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(dst):
+            try:
+                from PIL import Image, ImageOps
+                with Image.open(src) as im:
+                    if im.width <= w:
+                        continue
+                    im = ImageOps.exif_transpose(im)
+                    im = im.convert("RGBA" if im.mode in ("RGBA", "LA", "P") else "RGB")
+                    os.makedirs(os.path.dirname(dst), exist_ok=True)
+                    im.resize((w, round(im.height * w / im.width)), Image.LANCZOS).save(dst, "WEBP", quality=80, method=6)
+                print(f"  miniatura criada: {rel} ({os.path.getsize(dst) // 1024} KB)")
+            except Exception as e:
+                print(f"  ! miniatura de {image} ({w}px) nao criada: {type(e).__name__}: {e}")
+                continue
+        out.append(("/" + rel, w))
+    return out
+
+
+def card_img(image, i):
+    """<img> da capa do card. Era fundo em CSS, que o navegador nao consegue adiar: o
+    /blog/ baixava as 11 capas em tamanho cheio na abertura. As 3 primeiras (1a fileira
+    no desktop) carregam direto; as demais so quando o card se aproxima da tela.
+    alt vazio de proposito: o card inteiro e um link cujo texto ja e o titulo do post."""
+    img = f'<img src="{image}" alt="" loading="{"eager" if i < 3 else "lazy"}" decoding="async">'
+    thumbs = card_thumbs(image)
+    if thumbs:
+        srcset = ", ".join(f"{u} {w}w" for u, w in thumbs)
+        img = f'<picture><source type="image/webp" srcset="{srcset}" sizes="{CARD_SIZES}">{img}</picture>'
+    return img
+
+
 def page_blog_index(depth=1):
     extra = f'<link rel="stylesheet" href="/blog.css?v={BLOGCSS_VER}">'
     cards = ""
-    for p in BLOG:
+    for i, p in enumerate(BLOG):
         a = AUTHORS.get(p.get("author"), AUTHORS["equipe"])
         tag0 = p["tags"][0] if p.get("tags") else "Blog"
         cards += (f'\n        <a href="/blog/{p["slug"]}/" class="blog-card">'
-                  f'\n          <div class="blog-card-img" style="background-image:url(\'{p["image"]}\');"></div>'
+                  f'\n          <div class="blog-card-img">{card_img(p["image"], i)}</div>'
                   f'\n          <div class="blog-card-body">'
                   f'\n            <span class="blog-card-tag">{tag0}</span>'
                   f'\n            <h2 class="blog-card-title">{p["h1"]}</h2>'

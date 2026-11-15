@@ -401,9 +401,9 @@
         <div class="hero-slide-content"><span class="hero-slide-tag hero-slide-tag-fire">INTERNET · TRABALHO</span><h2 class="hero-slide-title">Internet pra trabalhar de casa</h2><a class="hero-slide-cta" href="checkout.html?plano=lite-premium" data-plano="lite-premium">Quero internet pra home office <i class="ph ph-arrow-right"></i></a></div>
       </div>
       <!-- /hero-slide1-sync -->
-      <a href="/aplicativos/sky-light/" class="hero-slide hero-bg-essencial" data-slide="1" aria-label="Lite Casa 600 Mega">
-        <picture><source type="image/webp" srcset="imgs/hero/banner-aplicativos.webp"><img class="hero-slide-img" src="imgs/hero/banner-aplicativos.png" alt="Combo SKY Light + internet de 600 Mega da MasterInfo" loading="lazy" onerror="this.style.display='none'" width="1920" height="1080"></picture>
-      </a>
+      <!-- Os demais slides sao montados pelo renderHero (site-loader.js) e so baixam a
+           imagem pouco antes de aparecer. Nao recolocar slide estatico com <img src> aqui:
+           ele era baixado (106 KB) e descartado em toda abertura da home. -->
 
       <!-- Setas suaves -->
       <button class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Slide anterior">
@@ -416,7 +416,6 @@
       <!-- Dots -->
       <div class="hero-dots" id="heroDots">
         <button class="hero-dot is-active" data-go="0" aria-label="Slide 1"></button>
-        <button class="hero-dot" data-go="1" aria-label="Slide 2"></button>
       </div>
 
     </div>
@@ -1581,7 +1580,7 @@
   <!-- Marina: chat flutuante de boletos / 2a via (abre no proprio botao .boleto-float, sem trocar de pagina) -->
   <script src="marina-widget.js?v=20260617-a" defer></script>
   <!-- site-loader com cache-busting: garante sempre a versao mais recente (evita menu antigo em cache) -->
-  <script src="site-loader.js?v=20260906-oferta"></script>
+  <script src="site-loader.js?v=20261114-hero"></script>
   <script src="playhub.js?v=20260618"></script>
 
   <!-- Mapa de Cobertura Leaflet -->
@@ -2070,6 +2069,14 @@
     var i = 0;
     var n = slides.length;
     var timer;
+    // Reserva com 1 slide so (o renderHero monta os demais): sem setas nem bolinhas ate
+    // ele assumir. O renderHero devolve o display quando ha mais de um slide.
+    if (n < 2) {
+      if (prev) prev.style.display = 'none';
+      if (next) next.style.display = 'none';
+      var dotsBox0 = document.getElementById('heroDots');
+      if (dotsBox0) dotsBox0.style.display = 'none';
+    }
 
     function show(idx) {
       i = ((idx % n) + n) % n;

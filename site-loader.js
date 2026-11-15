@@ -597,12 +597,15 @@
     var slidesHtml = arr.map(function (s, i) {
       var bg = s.bgClass || (i === 0 ? 'hero-bg-home' : 'hero-bg-essencial');
       var active = i === 0 ? ' is-active' : '';
-      var loading = i === 0 ? 'eager' : 'lazy';
-      var imgTag = '<img class="hero-slide-img" src="' + esc(s.img) + '" alt="" loading="' + loading + '"' + (i === 0 ? ' fetchpriority="high"' : '') + ' onerror="var p=this.parentNode,so=p&&p.querySelector&&p.querySelector(\'source\');if(so){so.parentNode.removeChild(so);var j=this.getAttribute(\'src\');this.src=\'\';this.src=j;}else{this.onerror=null;this.style.display=\'none\';}">';
+      // So o slide 0 nasce com a imagem. Os demais nascem com data-src/data-srcset e sao
+      // hidratados (hydrate) pouco antes de aparecer. Empilhados no hero, o loading="lazy"
+      // nao adiava nada: a abertura da home baixava os 6 slides (587 KB fora da tela).
+      var at = i === 0 ? '' : 'data-';
+      var imgTag = '<img class="hero-slide-img" ' + at + 'src="' + esc(s.img) + '" alt="" loading="eager"' + (i === 0 ? ' fetchpriority="high"' : '') + ' onerror="var p=this.parentNode,so=p&&p.querySelector&&p.querySelector(\'source\');if(so){so.parentNode.removeChild(so);var j=this.getAttribute(\'src\');this.src=\'\';this.src=j;}else{this.onerror=null;this.style.display=\'none\';}">';
       // WebP (mesma img + .webp, convencao gen_webp.py) servido via <picture>; se o
       // .webp faltar (404), o onerror remove o <source> e recarrega o jpg/png original.
       var img = /\.(jpe?g|png)$/i.test(s.img)
-        ? '<picture><source type="image/webp" srcset="' + esc(s.img + '.webp') + '">' + imgTag + '</picture>'
+        ? '<picture><source type="image/webp" ' + at + 'srcset="' + esc(s.img + '.webp') + '">' + imgTag + '</picture>'
         : imgTag;
       var aria = esc(s.ariaLabel || s.title || ('Slide ' + (i + 1)));
 
@@ -665,14 +668,50 @@
 
     var slidesEls = sl.querySelectorAll('.hero-slide');
     var dotsEls = dotsBox ? dotsBox.querySelectorAll('.hero-dot') : [];
-    var i = 0, n = slidesEls.length, timer;
+    var i = 0, n = slidesEls.length, timer, pre, espera = null;
 
-    function show(idx) {
-      i = ((idx % n) + n) % n;
+    // Hidrata o slide j: troca data-srcset/data-src pelos atributos reais. O <source> vai
+    // ANTES do <img>, senao o navegador comecaria a baixar o jpg e depois trocaria pelo webp.
+    function hydrate(j) {
+      var el = slidesEls[((j % n) + n) % n];
+      if (!el) return null;
+      var im = el.querySelector('.hero-slide-img');
+      var so = el.querySelector('source[data-srcset]');
+      if (so) { so.setAttribute('srcset', so.getAttribute('data-srcset')); so.removeAttribute('data-srcset'); }
+      if (im && im.hasAttribute('data-src')) { im.setAttribute('src', im.getAttribute('data-src')); im.removeAttribute('data-src'); }
+      return im;
+    }
+    // Roda fn depois do load da pagina, em momento ocioso (nao disputa banda com o 1o paint).
+    function quandoOcioso(fn) {
+      var run = function () {
+        if (window.requestIdleCallback) window.requestIdleCallback(fn, { timeout: 3000 });
+        else setTimeout(fn, 600);
+      };
+      if (document.readyState === 'complete') run();
+      else window.addEventListener('load', run, { once: true });
+    }
+    function aplica(t) {
+      i = t;
       for (var j = 0; j < n; j++) {
         slidesEls[j].classList.toggle('is-active', j === i);
         if (dotsEls[j]) dotsEls[j].classList.toggle('is-active', j === i);
       }
+      // Busca o proximo slide 4 s antes da rotacao (que e de 10 s): da folga pra foto
+      // chegar e quem sai da pagina nos primeiros segundos nao paga por ela.
+      clearTimeout(pre);
+      if (n > 1) pre = setTimeout(function () { quandoOcioso(function () { hydrate(i + 1); }); }, 6000);
+    }
+    function show(idx) {
+      var t = ((idx % n) + n) % n;
+      var im = hydrate(t);
+      if (t === i || !im || im.complete) { espera = null; aplica(t); return; }
+      // Imagem do destino ainda baixando (clique em seta/bolinha ou rede lenta): troca
+      // quando ela chegar, com teto de 2,5 s, pra nunca exibir o degrade de reserva.
+      var tok = espera = {};
+      var vai = function () { if (espera === tok) { espera = null; aplica(t); } };
+      im.addEventListener('load', vai, { once: true });
+      im.addEventListener('error', vai, { once: true });
+      setTimeout(vai, 2500);
     }
     function play() { clearInterval(timer); if (n > 1) timer = setInterval(function () { show(i + 1); }, 10000); }
 
@@ -682,8 +721,12 @@
       if (dotsBox) dotsBox.style.display = '';
       if (next) next.onclick = function (e) { e.preventDefault(); e.stopPropagation(); show(i + 1); play(); };
       if (prev) prev.onclick = function (e) { e.preventDefault(); e.stopPropagation(); show(i - 1); play(); };
+      // Mouse chegando na seta/bolinha: adianta o download do slide de destino.
+      if (prev) prev.onpointerenter = function () { hydrate(i - 1); };
+      if (next) next.onpointerenter = function () { hydrate(i + 1); };
       for (var d = 0; d < dotsEls.length; d++) {
         (function (dot) {
+          dot.onpointerenter = function () { hydrate(parseInt(dot.getAttribute('data-go'), 10)); };
           dot.onclick = function (e) {
             e.preventDefault(); e.stopPropagation();
             show(parseInt(dot.getAttribute('data-go'), 10));

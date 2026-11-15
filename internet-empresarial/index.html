@@ -19,7 +19,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css?v=20261114a">
   <link rel="stylesheet" href="../modal.css?v=20260531-e">
-  <link rel="stylesheet" href="/blog.css?v=20260618-b">
+  <link rel="stylesheet" href="/blog.css?v=20261114a">
   <style>:root{--site-scale:0.85}</style>
   <link rel="canonical" href="https://masterinfointernet.com/internet-empresarial/">
   <!-- og:auto -->
@@ -362,10 +362,34 @@
       var interval = parseInt(slideshow.getAttribute('data-interval'), 10) || 5000;
       if (slides.length > 1) {
         var current = 0;
+        // So o 1o slide nasce com a foto. Os demais guardam a URL em data-bg e sao
+        // preparados um por vez, pouco antes de entrar: a foto e pre-carregada e so
+        // entao vira o fundo, pra rotacao nunca mostrar slide vazio.
+        var prep = function(k) {
+          var s = slides[k];
+          if (!s || s.miPrep) return;
+          s.miPrep = 1;
+          var u = s.getAttribute('data-bg');
+          if (!u) { s.miOk = 1; return; }
+          var im = new Image();
+          im.onload = im.onerror = function() {
+            s.style.backgroundImage = "url('" + u + "')";
+            s.miOk = 1;
+          };
+          im.src = u;
+        };
+        prep(0);
+        var prepProximo = function() { prep((current + 1) % slides.length); };
+        if (document.readyState === 'complete') prepProximo();
+        else window.addEventListener('load', prepProximo);
         setInterval(function() {
+          var nx = (current + 1) % slides.length;
+          prep(nx);
+          if (!slides[nx].miOk) return; // foto ainda baixando: tenta no proximo ciclo
           slides[current].classList.remove('is-active');
-          current = (current + 1) % slides.length;
+          current = nx;
           slides[current].classList.add('is-active');
+          prepProximo();
         }, interval);
       }
     }
