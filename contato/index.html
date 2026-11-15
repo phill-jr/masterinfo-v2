@@ -258,17 +258,17 @@
 
     .ct-field { margin-bottom: 18px; }
     .ct-field label { display: block; font-size: 0.84rem; font-weight: 700; color: #44444f; margin-bottom: 7px; }
-    .ct-field input.ct-field textarea {
+    .ct-field input, .ct-field textarea {
       width: 100%; padding: 15px 16px; font-size: 1rem; font-family: inherit; color: #16161c;
       border: 2px solid #e6e6ee; border-radius: 14px; background: #fafafb;
       transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
     }
     .ct-field textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
-    .ct-field input:focus.ct-field textarea:focus {
+    .ct-field input:focus, .ct-field textarea:focus {
       outline: none; border-color: var(--orange, #ff7a05); background: #fff;
       box-shadow: 0 0 0 4px rgba(255,122,5,0.12);
     }
-    .ct-field input::placeholder.ct-field textarea::placeholder { color: #aeaeba; }
+    .ct-field input::placeholder, .ct-field textarea::placeholder { color: #aeaeba; }
     .ct-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
     .ct-submit {
@@ -356,12 +356,12 @@
 
     /* ---------- responsivo ---------- */
     @media (max-width: 900px) {
-      .ct-form-wrap.ct-local-grid.ct-split-grid { grid-template-columns: 1fr; }
+      .ct-form-wrap, .ct-local-grid, .ct-split-grid { grid-template-columns: 1fr; }
       .ct-channels { grid-template-columns: 1fr; }
     }
     @media (max-width: 560px) {
       .ct-hero { padding: 120px 0 70px; }
-      .ct-card.ct-aside-card { padding: 26px; }
+      .ct-card, .ct-aside-card { padding: 26px; }
       .ct-channel { padding: 20px; gap: 14px; }
       .ct-channel-ico { width: 52px; height: 52px; font-size: 1.5rem; }
       .ct-channel-value { font-size: 1.12rem; }
@@ -369,7 +369,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .ct-reveal { transition: none; opacity: 1; transform: none; }
-      .ct-hero-tag .ct-dot.ct-wa-badge .ct-dot { animation: none; }
+      .ct-hero-tag .ct-dot, .ct-wa-badge .ct-dot { animation: none; }
     }
   </style>
   <style>:root{--site-scale:0.85}</style>
