@@ -89,6 +89,7 @@ PILARES = [
       <li><a href="/home-office/">Internet para home office</a>: estabilidade para reuniões e upload rápido.</li>
       <li><a href="/gamer/">Internet para gamer</a>: baixa latência e zero perda de pacote.</li>
       <li><a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>: dois roteadores em mesh, sem ponto cego.</li>
+      <li><a href="/planos-residenciais/">Planos residenciais</a>: como escolher entre os planos para casa, com preço e o que está incluso.</li>
     </ul>
     <p>Não sabe quantos Mega contratar? O guia <a href="/blog/quantos-mega-de-internet-voce-precisa/">quantos Mega você precisa</a> ajuda a decidir em 2 minutos.</p>
 
@@ -295,6 +296,7 @@ PILARES = [
       <li><a href="/home-office/">Internet para home office</a>: estabilidade para reuniões e upload rápido.</li>
       <li><a href="/gamer/">Internet para gamer</a>: baixa latência e zero perda de pacote.</li>
       <li><a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>: dois roteadores em mesh, sem ponto cego.</li>
+      <li><a href="/planos-residenciais/">Planos residenciais</a>: como escolher entre os planos para casa, com preço e o que está incluso.</li>
     </ul>
     <p>Quer ver a cidade toda? Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
@@ -347,6 +349,7 @@ PILARES = [
       <li><a href="/home-office/">Internet para home office</a>: estabilidade para reuniões e upload rápido.</li>
       <li><a href="/gamer/">Internet para gamer</a>: baixa latência e zero perda de pacote.</li>
       <li><a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>: dois roteadores em mesh, sem ponto cego.</li>
+      <li><a href="/planos-residenciais/">Planos residenciais</a>: como escolher entre os planos para casa, com preço e o que está incluso.</li>
     </ul>
     <p>Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
@@ -399,6 +402,7 @@ PILARES = [
       <li><a href="/home-office/">Internet para home office</a>: estabilidade para reuniões e upload rápido.</li>
       <li><a href="/gamer/">Internet para gamer</a>: baixa latência e zero perda de pacote.</li>
       <li><a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>: dois roteadores em mesh, sem ponto cego.</li>
+      <li><a href="/planos-residenciais/">Planos residenciais</a>: como escolher entre os planos para casa, com preço e o que está incluso.</li>
     </ul>
     <p>Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
@@ -445,7 +449,7 @@ PILARES = [
     </div>
 
     <h2>Internet para cada necessidade</h2>
-    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a><a href="/home-office/">home office</a><a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Compare os <a href="/planos-residenciais/">planos residenciais</a> e veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
     <h2>O diferencial: suporte local</h2>
     <p>Somos <strong>de Joinville, para Joinville</strong>há mais de 6 anos, com sede no Comasa, bem ao lado do Espinheiros. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
@@ -489,7 +493,7 @@ PILARES = [
     </div>
 
     <h2>Internet para cada necessidade</h2>
-    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a><a href="/home-office/">home office</a><a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Compare os <a href="/planos-residenciais/">planos residenciais</a> e veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
     <h2>O diferencial: suporte local</h2>
     <p>Somos <strong>de Joinville, para Joinville</strong>há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> e milhares de avaliações no Google.</p>
@@ -533,7 +537,7 @@ PILARES = [
     </div>
 
     <h2>Internet para cada necessidade</h2>
-    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a><a href="/home-office/">home office</a><a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Compare os <a href="/planos-residenciais/">planos residenciais</a> e veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
     <h2>O diferencial: suporte local</h2>
     <p>Somos <strong>de Joinville, para Joinville</strong>há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> e milhares de avaliações no Google.</p>
@@ -577,7 +581,7 @@ PILARES = [
     </div>
 
     <h2>Internet para cada necessidade</h2>
-    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a><a href="/home-office/">home office</a><a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Compare os <a href="/planos-residenciais/">planos residenciais</a> e veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
     <h2>O diferencial: suporte local</h2>
     <p>Somos <strong>de Joinville, para Joinville</strong>há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
@@ -621,7 +625,7 @@ PILARES = [
     </div>
 
     <h2>Internet para cada necessidade</h2>
-    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a><a href="/home-office/">home office</a><a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Compare os <a href="/planos-residenciais/">planos residenciais</a> e veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
     <h2>O diferencial: suporte local</h2>
     <p>Somos <strong>de Joinville, para Joinville</strong>há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
@@ -665,7 +669,7 @@ PILARES = [
     </div>
 
     <h2>Internet para cada necessidade</h2>
-    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a><a href="/home-office/">home office</a><a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Compare os <a href="/planos-residenciais/">planos residenciais</a> e veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
     <h2>O diferencial: suporte local</h2>
     <p>Somos <strong>de Joinville, para Joinville</strong>há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
@@ -709,7 +713,7 @@ PILARES = [
     </div>
 
     <h2>Internet para cada necessidade</h2>
-    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a><a href="/home-office/">home office</a><a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Compare os <a href="/planos-residenciais/">planos residenciais</a> e veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
     <h2>O diferencial: suporte local</h2>
     <p>Somos <strong>de Joinville, para Joinville</strong>há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
@@ -753,7 +757,7 @@ PILARES = [
     </div>
 
     <h2>Internet para cada necessidade</h2>
-    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a><a href="/home-office/">home office</a><a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Compare os <a href="/planos-residenciais/">planos residenciais</a> e veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
     <h2>O diferencial: suporte local</h2>
     <p>Somos <strong>de Joinville, para Joinville</strong>há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
@@ -797,7 +801,7 @@ PILARES = [
     </div>
 
     <h2>Internet para cada necessidade</h2>
-    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a><a href="/home-office/">home office</a><a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Compare os <a href="/planos-residenciais/">planos residenciais</a> e veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
     <h2>O diferencial: suporte local</h2>
     <p>Somos <strong>de Joinville, para Joinville</strong>há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> no Google.</p>
@@ -841,7 +845,7 @@ PILARES = [
     </div>
 
     <h2>Internet para cada necessidade</h2>
-    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a><a href="/home-office/">home office</a><a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
+    <p>Escolha a página que combina com o seu perfil: <a href="/familia/">família</a>, <a href="/home-office/">home office</a>, <a href="/gamer/">gamer</a> ou <a href="/com-2-roteadores/">Wi-Fi em toda a casa</a>. Compare os <a href="/planos-residenciais/">planos residenciais</a> e veja também <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 
     <h2>O diferencial: suporte local</h2>
     <p>Somos <strong>de Joinville, para Joinville</strong>há mais de 6 anos. Atendimento próximo, de quem é da região, com <strong>4,8 de 5 estrelas</strong> e milhares de avaliações no Google.</p>
@@ -1898,14 +1902,14 @@ PERSONAS_CONTENT["planos-residenciais"] = {
 <ul>
   <li>Fibra óptica 100% até a sua casa, sem cabo de rua compartilhado.</li>
   <li>Roteador Wi-Fi incluso, sem comprar equipamento. Nos planos Ultra, Mesh Wi-Fi 6 para cobrir a casa toda.</li>
-  <li>1 app de TV ou streaming por mês, conforme a categoria do plano. Veja as opções no <a href="/playhub/">PlayHub</a>.</li>
+  <li>1 app de TV ou streaming por mês, conforme a categoria do plano (o Lite Basic não inclui app). Veja as opções no <a href="/playhub/">PlayHub</a>.</li>
   <li>Instalação em até 3 dias, feita por técnico da própria MasterInfo.</li>
   <li>Suporte local em Joinville, pelo WhatsApp e por telefone.</li>
   <li>R$ 10 de desconto por mês pagando em dia.</li>
 </ul>
 
 <h2>Onde a MasterInfo atende em Joinville</h2>
-<p>A rede de fibra da MasterInfo cobre 13 bairros da zona norte e leste de Joinville: <a href="/internet-comasa-joinville/">Comasa</a>, <a href="/internet-boa-vista-joinville/">Boa Vista</a>, <a href="/internet-espinheiros-joinville/">Espinheiros</a>, <a href="/internet-aventureiro-joinville/">Aventureiro</a>, <a href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a>, <a href="/internet-jardim-sofia-joinville/">Jardim Sofia</a>, <a href="/internet-cubatao-joinville/">Cubatão</a>, <a href="/internet-itinga-joinville/">Itinga</a>, <a href="/internet-nova-brasilia-joinville/">Nova Brasília</a>, <a href="/internet-rio-bonito-joinville/">Rio Bonito</a>, <a href="/internet-estrada-timbe-joinville/">Estrada Timbé</a>, <a href="/internet-paranaguamirim-joinville/">Paranaguamirim</a> e <a href="/internet-iririu-joinville/">Iririú</a>.</p>
+<p>A rede de fibra da MasterInfo cobre 13 bairros da zona norte e leste de Joinville: <a href="/internet-comasa-joinville/">Comasa</a>, <a href="/internet-boa-vista-joinville/">Boa Vista</a>, <a href="/internet-espinheiros-joinville/">Espinheiros</a>, <a href="/internet-aventureiro-joinville/">Aventureiro</a>, <a href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a>, <a href="/internet-jardim-sofia-joinville/">Jardim Sofia</a>, <a href="/internet-cubatao-joinville/">Cubatão</a>, <a href="/internet-itinga-joinville/">Itinga</a>, <a href="/internet-nova-brasilia-joinville/">Nova Brasília</a>, <a href="/internet-rio-bonito-joinville/">Rio Bonito</a>, <a href="/internet-estrada-timbe-joinville/">Estrada Timbé</a>, <a href="/internet-paranaguamirim-joinville/">Paranaguamirim</a> e <a href="/internet-iririu-joinville/">Iririú</a>. Veja o panorama da cidade em <a href="/internet-joinville/">internet fibra em Joinville</a>.</p>
 <p>Mora em outro bairro? Mande o seu endereço pelo WhatsApp que a gente confere se a fibra já chega até você.</p>
 
 <h2>Como contratar</h2>

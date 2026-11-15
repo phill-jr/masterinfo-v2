@@ -99,7 +99,9 @@ DirectoryIndex index-light.html index.html index.php
     RedirectMatch 301 ^/sobre/?$                    /
     RedirectMatch 301 ^/sobre-nos/?$                /
     RedirectMatch 301 ^/quem-somos/?$               /
-    RedirectMatch 301 ^/planos/?$                   /
+    RedirectMatch 301 ^/planos/?$                   /planos-residenciais/
+    # Campanha da Copa 2026 encerrada: landing aposentada (14/11/2026)
+    RedirectMatch 301 ^/copa/?$                     /
 </IfModule>
 
 # ========================================

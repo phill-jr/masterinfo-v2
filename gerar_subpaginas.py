@@ -477,7 +477,7 @@ def head(title, depth, extra_head=""):
   <link rel="icon" type="image/png" sizes="96x96" href="{base}favicon-96x96.png">
   <link rel="icon" href="{base}favicon.ico" sizes="any">
   <link rel="apple-touch-icon" sizes="180x180" href="{base}apple-touch-icon.png">
-  <link rel="stylesheet" href="{base}styles.css?v=20260923a">
+  <link rel="stylesheet" href="{base}styles.css?v=20261114a">
   <link rel="stylesheet" href="{base}modal.css?v=20260531-e">
   {extra_head}
   <style>:root{{--site-scale:{SITE_SCALE}}}</style>
@@ -1588,7 +1588,7 @@ def page_blog_post(post, depth=2):
     short_title = post["title"].split(" | ")[0]
     img = post.get("image", "")
     if img and not img.endswith(".svg"):
-        hero_style = (f"background-image: linear-gradient(rgba(12,12,24.62), rgba(12,12,24.62)), "
+        hero_style = (f"background-image: linear-gradient(rgba(12,12,24,.62), rgba(12,12,24,.62)), "
                       f"url('{img}'); background-size:cover; background-position:center;")
     else:
         hero_style = "background:linear-gradient(135deg,#0a1f44 0%,#14366b 55%,#1f5fa8 100%);"

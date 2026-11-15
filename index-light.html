@@ -179,8 +179,8 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles-light.css?v=20260929b" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="styles-light.css?v=20260929b"></noscript>
+  <link rel="stylesheet" href="styles-light.css?v=20261114a" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles-light.css?v=20261114a"></noscript>
   <link rel="stylesheet" href="modal-light.css?v=20260601-c" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="modal-light.css?v=20260601-c"></noscript>
   <!-- Pass 1 Impeccable "anti-cara-de-IA": tipografia (Bricolage+Hanken) + remoção de gradient-text/glows. Carrega por último. -->
@@ -192,7 +192,7 @@
 <body>
   <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Internet fibra óptica 100% em Joinville, planos de 600 Mega a 1 Giga</h1>
 
-  <!-- ========== POPUP COPA DO MUNDO 2026 ========== -->
+  <!-- ========== POPUP DE OFERTA (config.copaPopup: liga/desliga e textos vem do admin) ========== -->
   <div class="copa-popup" id="copaPopup" aria-hidden="true">
     <div class="copa-popup-overlay" onclick="closeCopaPopup()"></div>
     <div class="copa-popup-card" role="dialog" aria-labelledby="copaTitle">
@@ -204,26 +204,23 @@
 
       <div class="copa-popup-flag">
         <i class="ph-fill ph-soccer-ball"></i>
-        <span>PLANO COPA DO MUNDO 2026</span>
+        <span></span>
       </div>
 
-      <h2 id="copaTitle" class="copa-popup-title">
-        Vai vibrar com a Seleção?<br>
-        <span class="copa-popup-highlight">Vibra com 1000 Mega.</span>
-      </h2>
+      <div id="copaTitle" class="copa-popup-title" role="heading" aria-level="2"></div>
 
       <div class="copa-popup-speed">
-        <span class="copa-popup-speed-num">1000</span>
-        <span class="copa-popup-speed-unit">Mega</span>
+        <span class="copa-popup-speed-num"></span>
+        <span class="copa-popup-speed-unit"></span>
       </div>
 
       <div class="copa-popup-price">
-        <span class="copa-popup-price-prefix">de <s>R$ 129,90</s> por apenas</span>
+        <span class="copa-popup-price-prefix"></span>
         <div class="copa-popup-price-main">
           <span class="copa-popup-currency">R$</span>
-          <strong class="copa-popup-amount">119</strong>
+          <strong class="copa-popup-amount"></strong>
           <span class="copa-popup-side">
-            <sup>90</sup>
+            <sup></sup>
             <em>/mês</em>
           </span>
         </div>
@@ -418,8 +415,8 @@
 
       <!-- Dots -->
       <div class="hero-dots" id="heroDots">
-        <button class="hero-dot is-active" data-go="0" aria-label="Copa do Mundo"></button>
-        <button class="hero-dot" data-go="1" aria-label="Lite Casa 600 Mega"></button>
+        <button class="hero-dot is-active" data-go="0" aria-label="Slide 1"></button>
+        <button class="hero-dot" data-go="1" aria-label="Slide 2"></button>
       </div>
 
     </div>
@@ -803,7 +800,7 @@
             <span class="neighborhood-tag neighborhood-new">+ Novos bairros em breve</span>
           </div>
           <p class="coverage-pages"><span class="coverage-pages-label">Páginas por bairro:</span> <a class="coverage-page-link" href="/internet-comasa-joinville/">Comasa</a>, <a class="coverage-page-link" href="/internet-boa-vista-joinville/">Boa Vista</a>, <a class="coverage-page-link" href="/internet-iririu-joinville/">Iririú</a>, <a class="coverage-page-link" href="/internet-espinheiros-joinville/">Espinheiros</a>, <a class="coverage-page-link" href="/internet-aventureiro-joinville/">Aventureiro</a>, <a class="coverage-page-link" href="/internet-itinga-joinville/">Itinga</a>, <a class="coverage-page-link" href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a>, <a class="coverage-page-link" href="/internet-jardim-sofia-joinville/">Jardim Sofia</a>, <a class="coverage-page-link" href="/internet-cubatao-joinville/">Cubatão</a>, <a class="coverage-page-link" href="/internet-nova-brasilia-joinville/">Nova Brasília</a>, <a class="coverage-page-link" href="/internet-rio-bonito-joinville/">Rio Bonito</a>, <a class="coverage-page-link" href="/internet-estrada-timbe-joinville/">Estrada Timbé</a> e <a class="coverage-page-link" href="/internet-paranaguamirim-joinville/">Paranaguamirim</a>.</p>
-          <p class="coverage-pages"><span class="coverage-pages-label">Guias:</span> <a class="coverage-page-link" href="/internet-joinville/">Internet fibra em Joinville</a>, <a class="coverage-page-link" href="/melhor-internet-joinville/">Qual a melhor internet de Joinville</a> e <a class="coverage-page-link" href="/blog/">Blog da MasterInfo</a>.</p>
+          <p class="coverage-pages"><span class="coverage-pages-label">Guias:</span> <a class="coverage-page-link" href="/internet-joinville/">Internet fibra em Joinville</a>, <a class="coverage-page-link" href="/planos-residenciais/">Planos residenciais</a>, <a class="coverage-page-link" href="/melhor-internet-joinville/">Qual a melhor internet de Joinville</a> e <a class="coverage-page-link" href="/blog/">Blog da MasterInfo</a>.</p>
           <a href="#" onclick="openLeadModal(); return false;" class="btn btn-primary btn-lg">
             <i class="ph ph-map-pin"></i> Consultar meu endereço
           </a>
@@ -2039,7 +2036,7 @@
   })();
   </script>
 
-  <!-- POPUP COPA DO MUNDO, abre ao carregar a página -->
+  <!-- POPUP DE OFERTA: fechar (a abertura e do site-loader, conforme o admin) -->
   <script>
   function closeCopaPopup() {
     var p = document.getElementById('copaPopup');

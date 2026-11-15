@@ -175,14 +175,14 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20260929b">
+  <link rel="stylesheet" href="styles.css?v=20261114a">
   <link rel="stylesheet" href="modal.css?v=20260531-b">
   <link rel="stylesheet" href="playhub.css?v=20260617-playhub2">
 </head>
 <body>
   <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Internet fibra óptica 100% em Joinville, planos de 600 Mega a 1 Giga</h1>
 
-  <!-- ========== POPUP COPA DO MUNDO 2026 ========== -->
+  <!-- ========== POPUP DE OFERTA (config.copaPopup: liga/desliga e textos vem do admin) ========== -->
   <div class="copa-popup" id="copaPopup" aria-hidden="true">
     <div class="copa-popup-overlay" onclick="closeCopaPopup()"></div>
     <div class="copa-popup-card" role="dialog" aria-labelledby="copaTitle">
@@ -194,26 +194,23 @@
 
       <div class="copa-popup-flag">
         <i class="ph-fill ph-soccer-ball"></i>
-        <span>PLANO COPA DO MUNDO 2026</span>
+        <span></span>
       </div>
 
-      <h2 id="copaTitle" class="copa-popup-title">
-        Vai vibrar com a Seleção?<br>
-        <span class="copa-popup-highlight">Vibra com 1000 Mega.</span>
-      </h2>
+      <div id="copaTitle" class="copa-popup-title" role="heading" aria-level="2"></div>
 
       <div class="copa-popup-speed">
-        <span class="copa-popup-speed-num">1000</span>
-        <span class="copa-popup-speed-unit">Mega</span>
+        <span class="copa-popup-speed-num"></span>
+        <span class="copa-popup-speed-unit"></span>
       </div>
 
       <div class="copa-popup-price">
-        <span class="copa-popup-price-prefix">de <s>R$ 129,90</s> por apenas</span>
+        <span class="copa-popup-price-prefix"></span>
         <div class="copa-popup-price-main">
           <span class="copa-popup-currency">R$</span>
-          <strong class="copa-popup-amount">119</strong>
+          <strong class="copa-popup-amount"></strong>
           <span class="copa-popup-side">
-            <sup>90</sup>
+            <sup></sup>
             <em>/mês</em>
           </span>
         </div>
@@ -848,7 +845,7 @@
             <span class="neighborhood-tag neighborhood-new">+ Novos bairros em breve</span>
           </div>
           <p style="margin-top:16px;font-size:0.95rem;">Páginas por bairro: <a style="color:#e06800;font-weight:600" href="/internet-comasa-joinville/">Comasa</a>, <a style="color:#e06800;font-weight:600" href="/internet-boa-vista-joinville/">Boa Vista</a>, <a style="color:#e06800;font-weight:600" href="/internet-iririu-joinville/">Iririú</a>, <a style="color:#e06800;font-weight:600" href="/internet-espinheiros-joinville/">Espinheiros</a>, <a style="color:#e06800;font-weight:600" href="/internet-aventureiro-joinville/">Aventureiro</a>, <a style="color:#e06800;font-weight:600" href="/internet-itinga-joinville/">Itinga</a>, <a style="color:#e06800;font-weight:600" href="/internet-jardim-paraiso-joinville/">Jardim Paraíso</a>, <a style="color:#e06800;font-weight:600" href="/internet-jardim-sofia-joinville/">Jardim Sofia</a>, <a style="color:#e06800;font-weight:600" href="/internet-cubatao-joinville/">Cubatão</a>, <a style="color:#e06800;font-weight:600" href="/internet-nova-brasilia-joinville/">Nova Brasília</a>, <a style="color:#e06800;font-weight:600" href="/internet-rio-bonito-joinville/">Rio Bonito</a>, <a style="color:#e06800;font-weight:600" href="/internet-estrada-timbe-joinville/">Estrada Timbé</a> e <a style="color:#e06800;font-weight:600" href="/internet-paranaguamirim-joinville/">Paranaguamirim</a>.</p>
-          <p style="margin-top:10px;font-size:0.95rem;">Guias: <a style="color:#e06800;font-weight:600" href="/internet-joinville/">Internet fibra em Joinville</a>, <a style="color:#e06800;font-weight:600" href="/melhor-internet-joinville/">Qual a melhor internet de Joinville</a> e <a style="color:#e06800;font-weight:600" href="/blog/">Blog da MasterInfo</a>.</p>
+          <p style="margin-top:10px;font-size:0.95rem;">Guias: <a style="color:#e06800;font-weight:600" href="/internet-joinville/">Internet fibra em Joinville</a>, <a style="color:#e06800;font-weight:600" href="/planos-residenciais/">Planos residenciais</a>, <a style="color:#e06800;font-weight:600" href="/melhor-internet-joinville/">Qual a melhor internet de Joinville</a> e <a style="color:#e06800;font-weight:600" href="/blog/">Blog da MasterInfo</a>.</p>
           <a href="#" onclick="openLeadModal(); return false;" class="btn btn-primary btn-lg">
             <i class="ph ph-map-pin"></i> Consultar meu endereço
           </a>
@@ -2062,7 +2059,7 @@
   })();
   </script>
 
-  <!-- POPUP COPA DO MUNDO, abre ao carregar a página -->
+  <!-- POPUP DE OFERTA: fechar (a abertura e do site-loader, conforme o admin) -->
   <script>
   function closeCopaPopup() {
     var p = document.getElementById('copaPopup');
