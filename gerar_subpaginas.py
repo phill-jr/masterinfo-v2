@@ -486,13 +486,106 @@ def head(title, depth, extra_head=""):
 <body>'''
 
 
+# width/height das <img>: o navegador reserva o espaco antes de a imagem chegar (menos CLS).
+# O tamanho e lido do cabecalho do proprio arquivo, SEM Pillow: o servidor de producao nao
+# tem Pillow e roda este gerador a cada "salvar" do admin, entao o HTML tem de sair igual
+# la e aqui. Cobre os formatos que o upload do admin aceita (PNG, JPEG, WebP e GIF).
+_img_size_memo = {}
+
+
+def _img_size(fp):
+    """(largura, altura) em px de um PNG, JPEG, WebP ou GIF, ou None (arquivo ausente,
+    ilegivel ou de outro formato). Decide pelo conteudo, nao pela extensao. No JPEG e o
+    tamanho gravado, sem aplicar a rotacao do EXIF (o mesmo numero que o Pillow devolve)."""
+    if fp not in _img_size_memo:
+        d = None
+        if os.path.isfile(fp):
+            motivo = "formato nao reconhecido"
+            try:
+                with open(fp, "rb") as f:
+                    d = _img_size_read(f)
+            except Exception as e:
+                motivo = f"{type(e).__name__}: {e}"
+            if not d:
+                print(f"  ! img sem width/height: {fp} ({motivo})")
+        _img_size_memo[fp] = d
+    return _img_size_memo[fp]
+
+
+def _img_size_read(f):
+    b = f.read(30)
+    if b[:8] == b"\x89PNG\r\n\x1a\n" and b[12:16] == b"IHDR":
+        return int.from_bytes(b[16:20], "big"), int.from_bytes(b[20:24], "big")
+    if b[:6] in (b"GIF87a", b"GIF89a"):
+        return int.from_bytes(b[6:8], "little"), int.from_bytes(b[8:10], "little")
+    if b[:4] == b"RIFF" and b[8:12] == b"WEBP" and len(b) == 30:
+        tipo = b[12:16]
+        if tipo == b"VP8X":                                    # estendido (alfa, animacao): tela
+            return int.from_bytes(b[24:27], "little") + 1, int.from_bytes(b[27:30], "little") + 1
+        if tipo == b"VP8L" and b[20] == 0x2F:                  # sem perda: 14 + 14 bits
+            n = int.from_bytes(b[21:25], "little")
+            return (n & 0x3FFF) + 1, (n >> 14 & 0x3FFF) + 1
+        if tipo == b"VP8 " and b[23:26] == b"\x9d\x01\x2a":    # com perda
+            return int.from_bytes(b[26:28], "little") & 0x3FFF, int.from_bytes(b[28:30], "little") & 0x3FFF
+        return None
+    if b[:2] != b"\xff\xd8":
+        return None
+    f.seek(2)                                                  # JPEG: anda pelos segmentos ate o SOFn
+    while True:
+        m = f.read(1)
+        if m and m != b"\xff":                                 # lixo entre segmentos
+            continue
+        while m == b"\xff":                                    # o ultimo FF e seguido do marcador
+            m = f.read(1)
+        if not m:
+            return None
+        k = m[0]
+        if k in (0xD9, 0xDA):                                  # fim, ou dados da imagem sem SOFn antes
+            return None
+        if k <= 0x01 or 0xD0 <= k <= 0xD8:                     # FF00 e marcadores sem corpo
+            continue
+        n = int.from_bytes(f.read(2), "big")
+        if 0xC0 <= k <= 0xCF and k not in (0xC4, 0xC8, 0xCC):  # SOFn: precisao, altura, largura
+            d = f.read(5)
+            return (int.from_bytes(d[3:5], "big"), int.from_bytes(d[1:3], "big")) if len(d) == 5 else None
+        if n < 2:
+            return None
+        f.seek(n - 2, 1)
+
+
+def img_com_dims(tag, pasta):
+    """Devolve a <img> com width/height no fim da tag, se ela ainda nao tem e o arquivo e
+    local e legivel; senao devolve a tag igual. `pasta` = pasta da pagina (resolve o src
+    relativo); src com / na frente parte da raiz do site. SVG, data: e URL externa nao
+    ganham dimensoes."""
+    if re.search(r'\bwidth\s*=', tag) or re.search(r'\bheight\s*=', tag):
+        return tag
+    sm = re.search(r'\bsrc="([^"]+)"', tag)
+    if not sm:
+        return tag
+    s = sm.group(1).split('?')[0]
+    if not s or s.startswith('data:') or s.lower().endswith('.svg'):
+        return tag
+    if s.startswith('/'):
+        fp = os.path.join(BASE_DIR, *s.lstrip('/').split('/'))
+    else:
+        fp = os.path.normpath(os.path.join(pasta, *s.split('/')))
+    d = _img_size(fp)
+    if not d:
+        return tag
+    return tag[:-1].rstrip() + ' width="%d" height="%d">' % d
+
+
 def build_header(depth):
     """Monta o <header> a partir de config.menuHeader, o MESMO resultado que o
     site-loader.loadMenuHeader produz na home: UMA lista (.nav-list-sales) na
     ordem do config, itens com on=False OMITIDOS (ex.: TV e Streaming), dropdowns
     (com logos/filhos) e botao do cliente do config. hrefs traduzidos por
-    profundidade. Sem o divisor / a lista da direita (menu vira uma linha unica)."""
+    profundidade. Sem o divisor / a lista da direita (menu vira uma linha unica).
+    As <img> (logo e logos dos dropdowns) ja saem com width/height (img_com_dims):
+    o sync_menus regrava este bloco em toda rodada e nao pode tirar as dimensoes."""
     base = "../" * depth
+    pasta = os.path.join(BASE_DIR, *["_"] * depth)  # so pra resolver o ../ dos src; nao precisa existir
     mh = CONFIG.get("menuHeader") or {}
     lis = []
     for it in (mh.get("itens") or []):
@@ -502,7 +595,7 @@ def build_header(depth):
             kids = []
             for c in (it.get("children") or []):
                 tgt = f' target="{c["target"]}" rel="noopener"' if c.get("target") else ''
-                logo = (f'<img class="dropdown-logo dropdown-logo-real" src="{footer_href(c["logo"], base)}" alt="{c.get("label", "")}" loading="lazy">'
+                logo = (img_com_dims(f'<img class="dropdown-logo dropdown-logo-real" src="{footer_href(c["logo"], base)}" alt="{c.get("label", "")}" loading="lazy">', pasta)
                         if c.get("logo") else '')
                 kids.append(f'                  <li><a href="{footer_href(c.get("href", "#"), base)}"{tgt} class="dropdown-link">{logo}{c.get("label", "")}</a></li>')
             lis.append("\n".join([
@@ -522,11 +615,12 @@ def build_header(depth):
             lis.append(f'          <li class="nav-item"><a href="{footer_href(it.get("href", "#"), base)}"{tgt} class="nav-link">{it.get("label", "")}</a></li>')
 
     cb = mh.get("clientButton") or {}
+    logo_img = img_com_dims(f'<img src="{base}imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img">', pasta)
     return "\n".join([
         '<header class="header" id="header">',
         '    <div class="container header-inner">',
         f'      <a href="{base}" class="logo">',
-        f'        <img src="{base}imgs/logo-masterinfo.png" alt="MasterInfo Internet" class="logo-img">',
+        f'        {logo_img}',
         '      </a>',
         '      <nav class="nav" id="nav">',
         '        <ul class="nav-list nav-list-sales">',
@@ -2102,36 +2196,9 @@ _IMG_TAG_RE = re.compile(r'<img\b[^>]*?>', re.S)
 
 
 def sync_img_dims():
-    """Adiciona width/height (medidos via Pillow) nas <img> sem dimensões → reduz CLS.
+    """Adiciona width/height nas <img> sem dimensões (img_com_dims) → reduz CLS.
     Idempotente, CRLF-safe. Resolve src relativo (../) à pasta da página e root-absolute (/).
-    Se Pillow ausente (ex.: servidor de produção), PULA sem erro (não quebra o admin)."""
-    try:
-        from PIL import Image
-    except Exception:
-        print("\n  Img dims: Pillow ausente, pulado (HTML já versionado mantém as dimensões).")
-        return
-    cache = {}
-
-    def measure(page_path, src):
-        s = src.split('?')[0]
-        if not s or s.startswith('data:') or s.lower().endswith('.svg'):
-            return None
-        if s.startswith('/'):
-            fp = os.path.join(BASE_DIR, *s.lstrip('/').split('/'))
-        else:
-            fp = os.path.normpath(os.path.join(os.path.dirname(page_path), *s.split('/')))
-        if fp in cache:
-            return cache[fp]
-        d = None
-        if os.path.exists(fp):
-            try:
-                with Image.open(fp) as im:
-                    d = im.size
-            except Exception:
-                d = None
-        cache[fp] = d
-        return d
-
+    Não usa Pillow: o resultado é o mesmo nesta máquina e no servidor de produção."""
     changed = total = 0
     for rel in PHOSPHOR_PAGES:
         path = os.path.join(BASE_DIR, *rel.split("/"))
@@ -2139,20 +2206,13 @@ def sync_img_dims():
             continue
         with open(path, encoding="utf-8", newline="") as f:
             orig = f.read()
+        pasta = os.path.dirname(path)
         cnt = [0]
 
         def repl(m):
-            tag = m.group(0)
-            if re.search(r'\bwidth\s*=', tag) or re.search(r'\bheight\s*=', tag):
-                return tag
-            sm = re.search(r'\bsrc="([^"]+)"', tag)
-            if not sm:
-                return tag
-            d = measure(path, sm.group(1))
-            if not d:
-                return tag
-            cnt[0] += 1
-            return tag[:-1].rstrip() + ' width="%d" height="%d">' % (d[0], d[1])
+            tag = img_com_dims(m.group(0), pasta)
+            cnt[0] += tag != m.group(0)
+            return tag
 
         new = _IMG_TAG_RE.sub(repl, orig)
         if new != orig:
