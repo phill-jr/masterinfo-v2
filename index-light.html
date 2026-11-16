@@ -48,7 +48,8 @@
        (descoberta tardia: com homeHero.usarPaginas ligado o hero e reescrito via JS). Este href e
        SINCRONIZADO pelo gerar_subpaginas.py (sync_hero_preload): usarPaginas ON -> 1o slide do
        internet-hero.json; OFF -> banner estatico. NAO editar a mao. -->
-  <link id="hero-preload" rel="preload" href="imgs/hero/sub/home-office-1.jpg.webp" as="image" type="image/webp" fetchpriority="high">
+  <link id="hero-preload" rel="preload" href="imgs/hero/sub/home-office-1.jpg.webp" as="image" type="image/webp" fetchpriority="high" media="not all and (max-width: 440px) and (max-aspect-ratio: 76/100)">
+  <link id="hero-preload-m" rel="preload" href="imgs/mobile/hero-sub-home-office-1-c98-670c98.jpg.webp" as="image" type="image/webp" fetchpriority="high" media="(max-width: 440px) and (max-aspect-ratio: 76/100)">
   <style>@font-face{font-family:'Archivo';font-style:normal;font-weight:500 900;font-display:optional;src:url('/vendor/fonts/archivo.woff2') format('woff2')}@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:400 800;font-display:optional;src:url('/vendor/fonts/hanken-grotesk.woff2') format('woff2')}@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500 700;font-display:optional;src:url('/vendor/fonts/jetbrains-mono.woff2') format('woff2')}</style>
 
   <!-- Phosphor Icons -->
@@ -386,7 +387,7 @@
 
   <!-- ========== HERO (slideshow só imagem) ========== -->
   <section class="hero" id="hero">
-    <div class="hero-slideshow" id="heroSlideshow">
+    <div class="hero-slideshow" id="heroSlideshow" data-mq-m="(max-width: 440px) and (max-aspect-ratio: 76/100)">
 
       <!-- Cada slide carrega imagem REAL de imgs/hero/.
            Se a imagem nao existir/quebrar, o gradient bg do .hero-bg-* aparece como fallback. -->
@@ -396,7 +397,7 @@
            renderHero re-renderiza depois com a MESMA imagem (cache hit, sem novo LCP).
            NAO editar o conteudo entre os marcadores a mao. -->
       <div class="hero-slide is-active hero-bg-home" data-slide="0" aria-label="Internet pra trabalhar de casa">
-        <picture><source type="image/webp" srcset="imgs/hero/sub/home-office-1.jpg.webp"><img class="hero-slide-img" src="imgs/hero/sub/home-office-1.jpg" alt="" loading="eager" fetchpriority="high" width="1600" height="1067"></picture>
+        <picture><source media="(max-width: 440px) and (max-aspect-ratio: 76/100)" type="image/webp" srcset="imgs/mobile/hero-sub-home-office-1-c98-670c98.jpg.webp"><source type="image/webp" srcset="imgs/hero/sub/home-office-1.jpg.webp"><img class="hero-slide-img" src="imgs/hero/sub/home-office-1.jpg" alt="" loading="eager" fetchpriority="high" width="1600" height="1067"></picture>
         <div class="hero-slide-shade"></div>
         <div class="hero-slide-content"><span class="hero-slide-tag hero-slide-tag-fire">INTERNET · TRABALHO</span><h2 class="hero-slide-title">Internet pra trabalhar de casa</h2><a class="hero-slide-cta" href="checkout.html?plano=lite-premium" data-plano="lite-premium">Quero internet pra home office <i class="ph ph-arrow-right"></i></a></div>
       </div>
@@ -1580,7 +1581,7 @@
   <!-- Marina: chat flutuante de boletos / 2a via (abre no proprio botao .boleto-float, sem trocar de pagina) -->
   <script src="marina-widget.js?v=20260617-a" defer></script>
   <!-- site-loader com cache-busting: garante sempre a versao mais recente (evita menu antigo em cache) -->
-  <script src="site-loader.js?v=20261114-hero"></script>
+  <script src="site-loader.js?v=20261115-herom"></script>
   <script src="playhub.js?v=20260618"></script>
 
   <!-- Mapa de Cobertura Leaflet -->

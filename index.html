@@ -39,7 +39,8 @@
 
   <!-- Preload do hero (LCP): href sincronizado pelo gerar_subpaginas.py (sync_hero_preload),
        segue o 1o slide real (usarPaginas ON -> internet-hero.json; OFF -> banner estatico). NAO editar a mao. -->
-  <link id="hero-preload" rel="preload" href="imgs/hero/sub/home-office-1.jpg.webp" as="image" type="image/webp" fetchpriority="high">
+  <link id="hero-preload" rel="preload" href="imgs/hero/sub/home-office-1.jpg.webp" as="image" type="image/webp" fetchpriority="high" media="not all and (max-width: 440px) and (max-aspect-ratio: 76/100)">
+  <link id="hero-preload-m" rel="preload" href="imgs/mobile/hero-sub-home-office-1-c98-670c98.jpg.webp" as="image" type="image/webp" fetchpriority="high" media="(max-width: 440px) and (max-aspect-ratio: 76/100)">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -376,7 +377,7 @@
 
   <!-- ========== HERO (slideshow só imagem) ========== -->
   <section class="hero" id="hero">
-    <div class="hero-slideshow" id="heroSlideshow">
+    <div class="hero-slideshow" id="heroSlideshow" data-mq-m="(max-width: 440px) and (max-aspect-ratio: 76/100)">
       <!-- Slides + dots renderizados pelo site-loader.js a partir de config.heroSlides.
            Editar no admin (aba Slideshow). Setas ficam aqui porque o CSS depende delas. -->
       <button class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Slide anterior">
@@ -1604,7 +1605,7 @@
   <script src="/cookie-consent.js?v=20260603-cc"></script>
   <script src="tracking.js?v=20260824a" defer></script>
   <!-- site-loader com cache-busting: garante sempre a versao mais recente (evita menu antigo em cache) -->
-  <script src="site-loader.js?v=20261114-hero"></script>
+  <script src="site-loader.js?v=20261115-herom"></script>
   <script src="playhub.js?v=20260618"></script>
 
   <!-- Mapa de Cobertura Leaflet -->

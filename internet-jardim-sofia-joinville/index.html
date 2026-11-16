@@ -79,6 +79,7 @@
 }
   </script>
   <!-- /schema:auto -->
+  <style id="hero-m">@media (max-width: 440px){.sub-hero{background-image:linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.42)), url('/imgs/mobile/hero-sub-familia-1-c98-c1589e.jpg')!important}}</style>
 </head>
 <body>
   <!-- HEADER -->
@@ -492,19 +493,64 @@
         // So o 1o slide nasce com a foto. Os demais guardam a URL em data-bg e sao
         // preparados um por vez, pouco antes de entrar: a foto e pre-carregada e so
         // entao vira o fundo, pra rotacao nunca mostrar slide vazio.
+        // Celular: se o slide tem data-bg-m (recorte central da mesma foto) e a tela casa
+        // com o data-mq-m do carrossel, usa o recorte. O 1o slide faz o mesmo por CSS
+        // (style id="hero-m" no head). Quem escreve os tres e o sync_hero_mobile do gerador.
+        var mqTxt = slideshow.getAttribute('data-mq-m');
+        var mq = (mqTxt && window.matchMedia) ? window.matchMedia(mqTxt) : null;
+        var urlDe = function(s) {
+          return (mq && mq.matches && s.getAttribute('data-bg-m')) || s.getAttribute('data-bg');
+        };
         var prep = function(k) {
           var s = slides[k];
           if (!s || s.miPrep) return;
           s.miPrep = 1;
-          var u = s.getAttribute('data-bg');
+          var u = urlDe(s);
           if (!u) { s.miOk = 1; return; }
+          // senha do preparo: se a tela mudar de faixa no meio do download, este preparo
+          // deixa de valer e a resposta dele e ignorada
+          var g = s.miGen = (s.miGen || 0) + 1;
           var im = new Image();
-          im.onload = im.onerror = function() {
+          im.onload = function() {
+            if (s.miGen !== g) return;
+            s.style.backgroundImage = "url('" + u + "')";
+            s.miOk = 1;
+          };
+          im.onerror = function() {
+            if (s.miGen !== g) return;
+            // recorte de celular fora do ar: usa a foto inteira em vez de slide vazio
+            if (s.getAttribute('data-bg-m') && u !== s.getAttribute('data-bg')) {
+              s.removeAttribute('data-bg-m');
+              s.miPrep = 0;
+              prep(k);
+              return;
+            }
             s.style.backgroundImage = "url('" + u + "')";
             s.miOk = 1;
           };
           im.src = u;
         };
+        // Tela ficou larga (celular virado de lado): o recorte nao serve mais. Os slides
+        // ja preparados com recorte voltam a ser preparados com a foto inteira: o da tela
+        // e o proximo buscam na hora (o da tela segura a foto antiga ate a nova chegar),
+        // os outros esperam a vez. Tela ficou estreita: nada a fazer, a foto inteira ja
+        // carregada aparece igual; so os slides ainda nao preparados pegam o recorte.
+        var aoMudar = function() {
+          if (mq.matches) return;
+          for (var k = 0; k < slides.length; k++) {
+            var s = slides[k];
+            if (!s.miPrep || !s.getAttribute('data-bg-m')) continue;
+            s.miGen = (s.miGen || 0) + 1;
+            s.miPrep = 0;
+            s.miOk = 0;
+            if (k === current) prep(k);
+          }
+          prep((current + 1) % slides.length);
+        };
+        if (mq) {
+          if (mq.addEventListener) mq.addEventListener('change', aoMudar);
+          else if (mq.addListener) mq.addListener(aoMudar);
+        }
         prep(0);
         var prepProximo = function() { prep((current + 1) % slides.length); };
         if (document.readyState === 'complete') prepProximo();
@@ -519,6 +565,64 @@
           prepProximo();
         }, interval);
       }
+    }
+
+    // Foto de hero que nasce no HTML (1o slide do carrossel ou foto unica das paginas-pilar)
+    // e que o celular troca pelo recorte via CSS: a regra fica no style id="hero-m" do head,
+    // escrita pelo sync_hero_mobile do gerador. Tres cuidados que o CSS sozinho nao da:
+    // 1) recorte fora do ar: tira a regra, e a foto inteira do style inline volta a valer;
+    // 2) celular virado de lado (tela estreita -> larga): o CSS trocaria a foto na hora e o
+    //    hero ficaria sem imagem ate a inteira baixar. O recorte fica preso ate ela chegar;
+    // 3) foto inteira ja carregada: fica presa de vez. Ela aparece igual ao recorte na tela
+    //    estreita, entao ninguem precisa baixar o recorte depois (janela que estreita, celular
+    //    que volta a ficar em pe).
+    var heroM = document.getElementById('hero-m');
+    var heroMq = heroM && /@media ([^{]+)[{]/.exec(heroM.textContent || '');
+    var heroEl = document.querySelector('.sub-hero-slideshow > .sub-hero-slide') || document.querySelector('section.sub-hero');
+    if (heroMq && heroEl && heroEl.style.backgroundImage && window.matchMedia) {
+      var mqCss = window.matchMedia(heroMq[1]);
+      var inteira = heroEl.style.backgroundImage; // valor do style inline: a foto inteira
+      var urlDentro = function(v) { var m = /url[(]["']?([^"')]+)/.exec(v || ''); return m ? m[1] : ''; };
+      var recorte = '';                // valor completo (com o degrade) que a regra de celular pinta
+      var inteiraOk = !mqCss.matches;  // fora do celular a inteira ja e a foto da tela
+      // "Prende" = grava no style inline com important, que vence a regra do head.
+      // Remove antes de gravar: trocar so a prioridade no lugar faz o Chrome manter o estilo
+      // antigo sem refazer a cascata, e a regra do head deixava de valer (hero sem foto).
+      var fixa = function(valor, forte) {
+        heroEl.style.removeProperty('background-image');
+        heroEl.style.setProperty('background-image', valor, forte ? 'important' : '');
+      };
+      if (mqCss.matches) {
+        recorte = getComputedStyle(heroEl).backgroundImage;
+        var teste = new Image();
+        teste.onerror = function() {
+          recorte = '';
+          if (heroM.parentNode) heroM.parentNode.removeChild(heroM);
+          fixa(inteira, false);
+        };
+        if (urlDentro(recorte)) teste.src = urlDentro(recorte);
+      } else {
+        // Tela larga: a inteira ja fica presa. Se a tela estreitar, o navegador refaz o estilo
+        // ANTES de avisar o matchMedia; sem isto a regra de celular valeria por um instante e
+        // o recorte seria baixado a toa.
+        fixa(inteira, true);
+      }
+      var aoMudarCss = function() {
+        if (!heroM.parentNode) return; // regra ja retirada: so existe a foto inteira
+        if (inteiraOk) { fixa(inteira, true); return; }
+        // inteira ainda nao carregada: na tela estreita vale a regra do head (recorte)
+        if (mqCss.matches || !recorte) { fixa(inteira, false); return; }
+        // ficou larga: o recorte fica na tela ate a inteira chegar
+        fixa(recorte, true);
+        var im = new Image();
+        im.onload = im.onerror = function() {
+          inteiraOk = true;
+          fixa(inteira, !!heroM.parentNode);
+        };
+        if (urlDentro(inteira)) im.src = urlDentro(inteira); else im.onload();
+      };
+      if (mqCss.addEventListener) mqCss.addEventListener('change', aoMudarCss);
+      else if (mqCss.addListener) mqCss.addListener(aoMudarCss);
     }
   })();
   </script>

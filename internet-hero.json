@@ -6,7 +6,8 @@
     "img": "imgs/hero/sub/home-office-1.jpg",
     "plano": "lite-premium",
     "cta": "Quero internet pra home office",
-    "href": "#planos"
+    "href": "#planos",
+    "imgM": "imgs/mobile/hero-sub-home-office-1-c98-670c98.jpg"
   },
   {
     "slug": "gamer",
@@ -15,7 +16,8 @@
     "img": "imgs/hero/sub/gamer-1.jpg",
     "plano": "ultra-gamer",
     "cta": "Quero internet de gamer",
-    "href": "#planos"
+    "href": "#planos",
+    "imgM": "imgs/mobile/hero-sub-gamer-1-c98-306fe6.jpg"
   },
   {
     "slug": "familia",
@@ -24,7 +26,8 @@
     "img": "imgs/hero/sub/familia-1.jpg",
     "plano": "lite-premium",
     "cta": "Quero internet pra família",
-    "href": "#planos"
+    "href": "#planos",
+    "imgM": "imgs/mobile/hero-sub-familia-1-c98-c1589e.jpg"
   },
   {
     "slug": "planos-residenciais",
@@ -33,7 +36,8 @@
     "img": "imgs/hero/sub/familia-1.jpg",
     "plano": "lite-casa",
     "cta": "Quero contratar meu plano",
-    "href": "#planos"
+    "href": "#planos",
+    "imgM": "imgs/mobile/hero-sub-familia-1-c98-c1589e.jpg"
   },
   {
     "slug": "com-2-roteadores",
@@ -42,7 +46,8 @@
     "img": "imgs/hero/sub/2-roteadores-1.jpg",
     "plano": "ultra-familia",
     "cta": "Quero Wi-Fi em toda a casa",
-    "href": "#planos"
+    "href": "#planos",
+    "imgM": "imgs/mobile/hero-sub-2-roteadores-1-c98-9cefbe.jpg"
   },
   {
     "slug": "com-1-roteador",
@@ -51,6 +56,7 @@
     "img": "imgs/hero/sub/1-roteador-1.jpg",
     "plano": "lite-casa",
     "cta": "Quero plano com 1 roteador",
-    "href": "#planos"
+    "href": "#planos",
+    "imgM": "imgs/mobile/hero-sub-1-roteador-1-c98-0a3f61.jpg"
   }
 ]

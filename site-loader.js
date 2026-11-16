@@ -594,6 +594,13 @@
     if (!arr.length) { sl.style.display = 'none'; sl.classList.add('hero-ready'); return; }
     sl.style.display = '';
 
+    // Foto recortada pra celular (s.imgM, vem do internet-hero.json). A condicao de tela e
+    // lida do data-mq-m que o gerador (sync_hero_preload) escreve no #heroSlideshow: e a
+    // MESMA string do par de preloads e do slide estatico, entao os tres escolhem sempre o
+    // mesmo arquivo (se divergissem, o celular baixaria a foto duas vezes). Sem o atributo
+    // (modo banner ou HTML antigo em cache), nenhum slide ganha a fonte de celular.
+    var mqM = sl.getAttribute('data-mq-m') || '';
+
     var slidesHtml = arr.map(function (s, i) {
       var bg = s.bgClass || (i === 0 ? 'hero-bg-home' : 'hero-bg-essencial');
       var active = i === 0 ? ' is-active' : '';
@@ -604,8 +611,12 @@
       var imgTag = '<img class="hero-slide-img" ' + at + 'src="' + esc(s.img) + '" alt="" loading="eager"' + (i === 0 ? ' fetchpriority="high"' : '') + ' onerror="var p=this.parentNode,so=p&&p.querySelector&&p.querySelector(\'source\');if(so){so.parentNode.removeChild(so);var j=this.getAttribute(\'src\');this.src=\'\';this.src=j;}else{this.onerror=null;this.style.display=\'none\';}">';
       // WebP (mesma img + .webp, convencao gen_webp.py) servido via <picture>; se o
       // .webp faltar (404), o onerror remove o <source> e recarrega o jpg/png original.
+      // A fonte de celular vem ANTES da geral: o navegador usa a primeira que casar.
+      var srcM = (mqM && s.imgM && /\.jpe?g$/i.test(s.imgM))
+        ? '<source media="' + esc(mqM) + '" type="image/webp" ' + at + 'srcset="' + esc(s.imgM + '.webp') + '">'
+        : '';
       var img = /\.(jpe?g|png)$/i.test(s.img)
-        ? '<picture><source type="image/webp" ' + at + 'srcset="' + esc(s.img + '.webp') + '">' + imgTag + '</picture>'
+        ? '<picture>' + srcM + '<source type="image/webp" ' + at + 'srcset="' + esc(s.img + '.webp') + '">' + imgTag + '</picture>'
         : imgTag;
       var aria = esc(s.ariaLabel || s.title || ('Slide ' + (i + 1)));
 
@@ -668,16 +679,21 @@
 
     var slidesEls = sl.querySelectorAll('.hero-slide');
     var dotsEls = dotsBox ? dotsBox.querySelectorAll('.hero-dot') : [];
-    var i = 0, n = slidesEls.length, timer, pre, espera = null;
+    var i = 0, n = slidesEls.length, timer, pre, espera = null, alvo = -1;
 
-    // Hidrata o slide j: troca data-srcset/data-src pelos atributos reais. O <source> vai
+    // Hidrata o slide j: troca data-srcset/data-src pelos atributos reais. Os <source> vao
     // ANTES do <img>, senao o navegador comecaria a baixar o jpg e depois trocaria pelo webp.
+    // TODOS os <source> de uma vez e na ordem do HTML (celular, depois geral): se so o
+    // primeiro fosse hidratado, o desktop cairia no jpg e baixaria a foto duas vezes.
     function hydrate(j) {
       var el = slidesEls[((j % n) + n) % n];
       if (!el) return null;
       var im = el.querySelector('.hero-slide-img');
-      var so = el.querySelector('source[data-srcset]');
-      if (so) { so.setAttribute('srcset', so.getAttribute('data-srcset')); so.removeAttribute('data-srcset'); }
+      var sos = el.querySelectorAll('source[data-srcset]');
+      for (var q = 0; q < sos.length; q++) {
+        sos[q].setAttribute('srcset', sos[q].getAttribute('data-srcset'));
+        sos[q].removeAttribute('data-srcset');
+      }
       if (im && im.hasAttribute('data-src')) { im.setAttribute('src', im.getAttribute('data-src')); im.removeAttribute('data-src'); }
       return im;
     }
@@ -704,16 +720,45 @@
     function show(idx) {
       var t = ((idx % n) + n) % n;
       var im = hydrate(t);
-      if (t === i || !im || im.complete) { espera = null; aplica(t); return; }
+      if (t === i || !im || im.complete) { espera = null; alvo = -1; aplica(t); return; }
       // Imagem do destino ainda baixando (clique em seta/bolinha ou rede lenta): troca
       // quando ela chegar, com teto de 2,5 s, pra nunca exibir o degrade de reserva.
+      // alvo = slide que esta sendo esperado: a desidratacao (mais abaixo) nao mexe nele, e
+      // ele e hidratado de novo antes de entrar, pra nunca virar o slide ativo sem foto.
       var tok = espera = {};
-      var vai = function () { if (espera === tok) { espera = null; aplica(t); } };
+      alvo = t;
+      var vai = function () { if (espera === tok) { espera = null; alvo = -1; hydrate(t); aplica(t); } };
       im.addEventListener('load', vai, { once: true });
       im.addEventListener('error', vai, { once: true });
       setTimeout(vai, 2500);
     }
     function play() { clearInterval(timer); if (n > 1) timer = setInterval(function () { show(i + 1); }, 10000); }
+
+    // Tela mudou de faixa (celular virado de lado, janela redimensionada): o <picture> de
+    // TODO slide ja hidratado trocaria de fonte e baixaria a outra foto de uma vez. Os
+    // slides fora da tela voltam ao estado nao hidratado e buscam a foto certa quando
+    // chegar a vez deles. Ficam de fora: o slide visivel (troca na hora, segurando a foto
+    // atual ate a nova chegar), o proximo (ja pre-buscado, entra em segundos) e o que o
+    // show() esta esperando.
+    if (mqM && n > 1 && window.matchMedia) {
+      var mqHero = window.matchMedia(mqM);
+      var desidrata = function () {
+        for (var j = 0; j < n; j++) {
+          if (j === i || j === (i + 1) % n || j === alvo) continue;
+          var im = slidesEls[j].querySelector('.hero-slide-img');
+          if (!im || !im.hasAttribute('src') || !slidesEls[j].querySelector('source[media]')) continue;
+          var sos = slidesEls[j].querySelectorAll('source[srcset]');
+          for (var q = 0; q < sos.length; q++) {
+            sos[q].setAttribute('data-srcset', sos[q].getAttribute('srcset'));
+            sos[q].removeAttribute('srcset');
+          }
+          im.setAttribute('data-src', im.getAttribute('src'));
+          im.removeAttribute('src');
+        }
+      };
+      if (mqHero.addEventListener) mqHero.addEventListener('change', desidrata);
+      else if (mqHero.addListener) mqHero.addListener(desidrata);
+    }
 
     if (n > 1) {
       if (prev) prev.style.display = '';
@@ -774,6 +819,7 @@
         renderHero(arr.map(function (p) {
           return {
             img: p.img,
+            imgM: p.imgM || '',
             href: p.href || '#planos',
             plano: p.plano || null,
             cta: p.cta || 'Quero esse plano',

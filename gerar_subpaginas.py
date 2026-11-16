@@ -10,6 +10,7 @@ import os
 import re
 import sys
 import json
+import math
 
 # Conteúdo (páginas-pilar + blog), fonte única do texto dessas páginas. Ver conteudo_blog.py.
 from conteudo_blog import AUTHORS, PUBLISHER, PILARES, BLOG, DATE_DEFAULT, CONTENT_LAST_UPDATED, PERSONAS_CONTENT, BLOG_DEEP, BAIRROS_DEEP
@@ -688,19 +689,64 @@ def footer(depth, boleto=True, extra_scripts=""):
         // So o 1o slide nasce com a foto. Os demais guardam a URL em data-bg e sao
         // preparados um por vez, pouco antes de entrar: a foto e pre-carregada e so
         // entao vira o fundo, pra rotacao nunca mostrar slide vazio.
+        // Celular: se o slide tem data-bg-m (recorte central da mesma foto) e a tela casa
+        // com o data-mq-m do carrossel, usa o recorte. O 1o slide faz o mesmo por CSS
+        // (style id="hero-m" no head). Quem escreve os tres e o sync_hero_mobile do gerador.
+        var mqTxt = slideshow.getAttribute('data-mq-m');
+        var mq = (mqTxt && window.matchMedia) ? window.matchMedia(mqTxt) : null;
+        var urlDe = function(s) {{
+          return (mq && mq.matches && s.getAttribute('data-bg-m')) || s.getAttribute('data-bg');
+        }};
         var prep = function(k) {{
           var s = slides[k];
           if (!s || s.miPrep) return;
           s.miPrep = 1;
-          var u = s.getAttribute('data-bg');
+          var u = urlDe(s);
           if (!u) {{ s.miOk = 1; return; }}
+          // senha do preparo: se a tela mudar de faixa no meio do download, este preparo
+          // deixa de valer e a resposta dele e ignorada
+          var g = s.miGen = (s.miGen || 0) + 1;
           var im = new Image();
-          im.onload = im.onerror = function() {{
+          im.onload = function() {{
+            if (s.miGen !== g) return;
+            s.style.backgroundImage = "url('" + u + "')";
+            s.miOk = 1;
+          }};
+          im.onerror = function() {{
+            if (s.miGen !== g) return;
+            // recorte de celular fora do ar: usa a foto inteira em vez de slide vazio
+            if (s.getAttribute('data-bg-m') && u !== s.getAttribute('data-bg')) {{
+              s.removeAttribute('data-bg-m');
+              s.miPrep = 0;
+              prep(k);
+              return;
+            }}
             s.style.backgroundImage = "url('" + u + "')";
             s.miOk = 1;
           }};
           im.src = u;
         }};
+        // Tela ficou larga (celular virado de lado): o recorte nao serve mais. Os slides
+        // ja preparados com recorte voltam a ser preparados com a foto inteira: o da tela
+        // e o proximo buscam na hora (o da tela segura a foto antiga ate a nova chegar),
+        // os outros esperam a vez. Tela ficou estreita: nada a fazer, a foto inteira ja
+        // carregada aparece igual; so os slides ainda nao preparados pegam o recorte.
+        var aoMudar = function() {{
+          if (mq.matches) return;
+          for (var k = 0; k < slides.length; k++) {{
+            var s = slides[k];
+            if (!s.miPrep || !s.getAttribute('data-bg-m')) continue;
+            s.miGen = (s.miGen || 0) + 1;
+            s.miPrep = 0;
+            s.miOk = 0;
+            if (k === current) prep(k);
+          }}
+          prep((current + 1) % slides.length);
+        }};
+        if (mq) {{
+          if (mq.addEventListener) mq.addEventListener('change', aoMudar);
+          else if (mq.addListener) mq.addListener(aoMudar);
+        }}
         prep(0);
         var prepProximo = function() {{ prep((current + 1) % slides.length); }};
         if (document.readyState === 'complete') prepProximo();
@@ -715,6 +761,64 @@ def footer(depth, boleto=True, extra_scripts=""):
           prepProximo();
         }}, interval);
       }}
+    }}
+
+    // Foto de hero que nasce no HTML (1o slide do carrossel ou foto unica das paginas-pilar)
+    // e que o celular troca pelo recorte via CSS: a regra fica no style id="hero-m" do head,
+    // escrita pelo sync_hero_mobile do gerador. Tres cuidados que o CSS sozinho nao da:
+    // 1) recorte fora do ar: tira a regra, e a foto inteira do style inline volta a valer;
+    // 2) celular virado de lado (tela estreita -> larga): o CSS trocaria a foto na hora e o
+    //    hero ficaria sem imagem ate a inteira baixar. O recorte fica preso ate ela chegar;
+    // 3) foto inteira ja carregada: fica presa de vez. Ela aparece igual ao recorte na tela
+    //    estreita, entao ninguem precisa baixar o recorte depois (janela que estreita, celular
+    //    que volta a ficar em pe).
+    var heroM = document.getElementById('hero-m');
+    var heroMq = heroM && /@media ([^{{]+)[{{]/.exec(heroM.textContent || '');
+    var heroEl = document.querySelector('.sub-hero-slideshow > .sub-hero-slide') || document.querySelector('section.sub-hero');
+    if (heroMq && heroEl && heroEl.style.backgroundImage && window.matchMedia) {{
+      var mqCss = window.matchMedia(heroMq[1]);
+      var inteira = heroEl.style.backgroundImage; // valor do style inline: a foto inteira
+      var urlDentro = function(v) {{ var m = /url[(]["']?([^"')]+)/.exec(v || ''); return m ? m[1] : ''; }};
+      var recorte = '';                // valor completo (com o degrade) que a regra de celular pinta
+      var inteiraOk = !mqCss.matches;  // fora do celular a inteira ja e a foto da tela
+      // "Prende" = grava no style inline com important, que vence a regra do head.
+      // Remove antes de gravar: trocar so a prioridade no lugar faz o Chrome manter o estilo
+      // antigo sem refazer a cascata, e a regra do head deixava de valer (hero sem foto).
+      var fixa = function(valor, forte) {{
+        heroEl.style.removeProperty('background-image');
+        heroEl.style.setProperty('background-image', valor, forte ? 'important' : '');
+      }};
+      if (mqCss.matches) {{
+        recorte = getComputedStyle(heroEl).backgroundImage;
+        var teste = new Image();
+        teste.onerror = function() {{
+          recorte = '';
+          if (heroM.parentNode) heroM.parentNode.removeChild(heroM);
+          fixa(inteira, false);
+        }};
+        if (urlDentro(recorte)) teste.src = urlDentro(recorte);
+      }} else {{
+        // Tela larga: a inteira ja fica presa. Se a tela estreitar, o navegador refaz o estilo
+        // ANTES de avisar o matchMedia; sem isto a regra de celular valeria por um instante e
+        // o recorte seria baixado a toa.
+        fixa(inteira, true);
+      }}
+      var aoMudarCss = function() {{
+        if (!heroM.parentNode) return; // regra ja retirada: so existe a foto inteira
+        if (inteiraOk) {{ fixa(inteira, true); return; }}
+        // inteira ainda nao carregada: na tela estreita vale a regra do head (recorte)
+        if (mqCss.matches || !recorte) {{ fixa(inteira, false); return; }}
+        // ficou larga: o recorte fica na tela ate a inteira chegar
+        fixa(recorte, true);
+        var im = new Image();
+        im.onload = im.onerror = function() {{
+          inteiraOk = true;
+          fixa(inteira, !!heroM.parentNode);
+        }};
+        if (urlDentro(inteira)) im.src = urlDentro(inteira); else im.onload();
+      }};
+      if (mqCss.addEventListener) mqCss.addEventListener('change', aoMudarCss);
+      else if (mqCss.addListener) mqCss.addListener(aoMudarCss);
     }}
   }})();
   </script>
@@ -762,6 +866,191 @@ def find_imgs(slug, base_path):
     # fallback: imagem única
     single = find_img(slug, base_path)
     return [single] if single else []
+
+
+# ─── Fotos de hero pra celular (recorte central) ───
+MOBILE_DIR = "imgs/mobile"
+MOBILE_ASPECT = 9 / 8              # largura do recorte = altura x 9/8 (ou um pouco mais)
+MOBILE_TAG = "c98"                 # entra no nome do arquivo; trocar junto com MOBILE_ASPECT
+MOBILE_LARGURA = 440               # maior largura de tela (px) que pode receber o recorte
+MOBILE_GANHO_MIN = 0.05            # so vale se o arquivo ficar pelo menos 5% menor
+_MOBILE_SEM = "_sem-ganho.json"    # fotos ja avaliadas e sem recorte (nao reavalia a cada rodada)
+_mobile_memo = {}
+# Medidas do styles.css de que as contas abaixo dependem (check_hero_mobile_css avisa se mudarem):
+_SUB_HERO_MIN_H = 560              # .sub-hero { min-height: 560px }
+_HOME_HERO_VH = 0.8                # .hero-slideshow no celular: aspect-ratio 4/5 + max-height: 80vh
+
+
+def mobile_mq():
+    """Condicao de tela das SUBPAGINAS que recebem o recorte, ou None se nenhuma recebe.
+    O hero das subpaginas tem no minimo 560px de altura (x a escala do site, que entra
+    como zoom no body), entao a caixa tem proporcao largura/altura <= largura / (560 x
+    escala). O recorte so e identico a foto inteira enquanto a caixa for mais estreita
+    que ele (9:8): largura <= 630 x escala. Na escala 85 isso da 535, e o teto de 440
+    vale; so abaixo de 70% a largura maxima encolhe (65% -> 409)."""
+    n = min(MOBILE_LARGURA, int(_SUB_HERO_MIN_H * SITE_SCALE * MOBILE_ASPECT))
+    return f"(max-width: {n}px)" if n >= 320 else None
+
+
+def mobile_mq_home():
+    """Condicao de tela da HOME. La a altura do hero e min(1,25 x largura, 80vh x escala),
+    entao em tela estreita e BAIXA (tela dividida, teclado que encolhe a pagina) a caixa
+    fica mais larga que o recorte e ele mudaria o enquadramento. A caixa e mais estreita
+    que 9:8 enquanto largura/altura da tela <= 9/8 x 0,8 x escala (0,765 na escala 85).
+    Por isso a home tem tambem um teto de proporcao da tela; fora dele o navegador usa a
+    foto inteira, que e o visual de sempre. Celular em pe fica em no maximo 0,70 mesmo
+    com a barra do navegador visivel, entao a condicao nao alterna durante o uso."""
+    r = int(MOBILE_ASPECT * _HOME_HERO_VH * SITE_SCALE * 100)
+    return f"(max-width: {MOBILE_LARGURA}px) and (max-aspect-ratio: {r}/100)"
+
+
+def check_hero_mobile_css():
+    """Avisa se o styles.css deixou de ter as medidas em que mobile_mq/mobile_mq_home se
+    apoiam (so leitura, nao altera nada)."""
+    try:
+        css = open(os.path.join(BASE_DIR, "styles.css"), encoding="utf-8").read()
+    except Exception as e:
+        print(f"  ! check_hero_mobile_css: nao li o styles.css ({type(e).__name__})")
+        return
+    com_min = [b for b in re.findall(r"\.sub-hero\s*\{([^}]*)\}", css) if "min-height" in b]
+    if len(com_min) != 1 or not re.search(r"min-height:\s*%dpx" % _SUB_HERO_MIN_H, com_min[0]):
+        print(f"  ! styles.css: o min-height do .sub-hero nao e mais so {_SUB_HERO_MIN_H}px. Rever mobile_mq() (recorte de celular).")
+    vh = round(_HOME_HERO_VH * 100)
+    if not any(re.search(r"aspect-ratio:\s*4\s*/\s*5", b) and re.search(r"max-height:\s*%dvh" % vh, b)
+               for b in re.findall(r"\.hero-slideshow\s*\{([^}]*)\}", css)):
+        print("  ! styles.css: .hero-slideshow do celular nao e mais 4/5 com max-height 80vh. Rever mobile_mq_home().")
+
+
+def hero_mobile(image):
+    """Versao pra celular de uma foto de hero: recorte CENTRAL em 9:8, com a MESMA altura
+    e a MESMA qualidade do original (jpg com as tabelas de quantizacao da fonte; webp Q80
+    method 6, igual aos .jpg.webp que ja existem). Nada e encolhido.
+
+    Por que recorte e nao foto menor: no celular o hero e alto e a foto entra com
+    cover/center, entao a tela so mostra a faixa central (50 a 62% da largura). O recorte
+    deixa de baixar as laterais que nunca aparecem; o que aparece fica identico, na mesma
+    escala. Encolher a foto economizaria mais, so que amolece a imagem (medido em
+    15/11/2026: mesmo limitando a 2x de densidade a tela renderizada ja difere da atual).
+
+    O recorte so vale enquanto a caixa do hero for mais estreita que ele. Quem garante
+    isso e a condicao de tela: mobile_mq() nas subpaginas e mobile_mq_home() na home.
+
+    Arquivos em imgs/mobile/<caminho-com-hifens>-c98-<hash>.jpg + .jpg.webp (o .htaccess
+    entrega o .webp pra quem aceita). O hash e do arquivo original: foto trocada com o
+    mesmo nome ganha recorte novo. O recorte antigo NAO e apagado aqui: o HTML fica em
+    cache ate 24 h e ainda aponta pra ele. So apagar da pasta, dias depois, arquivo que
+    nenhum *.html ou *.json cite mais.
+    Cria o que falta quando ha Pillow; sem Pillow (servidor) usa so o que ja esta em disco.
+    Aceita o caminho com ou sem ./, ../ ou / na frente. Devolve o caminho relativo do .jpg
+    (imgs/mobile/...) ou None se nao ha versao (foto em pe, ganho menor que 5%, original
+    ausente)."""
+    rel_src = re.sub(r"^(?:\.{1,2}/)+|^/", "", image)
+    if rel_src not in _mobile_memo:
+        _mobile_memo[rel_src] = _hero_mobile_resolve(rel_src)
+    return _mobile_memo[rel_src]
+
+
+def _hero_mobile_resolve(rel_src):
+    import hashlib
+    src = os.path.join(BASE_DIR, *rel_src.split("/"))
+    if not re.search(r"\.jpe?g$", rel_src, re.I) or not os.path.isfile(src):
+        return None
+    try:
+        with open(src, "rb") as f:
+            h = hashlib.md5(f.read()).hexdigest()[:6]
+    except Exception as e:
+        print(f"  ! recorte pra celular: nao li {rel_src} ({type(e).__name__}: {e})")
+        return None
+    nome = re.sub(r"^imgs/", "", re.sub(r"\.jpe?g$", "", rel_src, flags=re.I)).replace("/", "-")
+    chave = f"{nome}-{MOBILE_TAG}-{h}"
+    rel = f"{MOBILE_DIR}/{chave}.jpg"
+    dst = os.path.join(BASE_DIR, *rel.split("/"))
+    # O ganho e medido contra o arquivo que o celular baixa hoje (o .jpg.webp vizinho).
+    ref = src + ".webp" if os.path.isfile(src + ".webp") else src
+    ref_bytes = os.path.getsize(ref)
+    if os.path.isfile(dst) and os.path.isfile(dst + ".webp"):
+        # recorte pronto: so e usado enquanto continuar menor que esse arquivo
+        return rel if os.path.getsize(dst + ".webp") <= ref_bytes * (1 - MOBILE_GANHO_MIN) else None
+    pasta = os.path.dirname(dst)
+    sem_path = os.path.join(pasta, _MOBILE_SEM)
+    try:
+        with open(sem_path, encoding="utf-8") as f:
+            sem = json.load(f)
+    except Exception:
+        sem = {}
+    if not isinstance(sem, dict):
+        sem = {}
+    # O veredito "sem recorte" vale enquanto o arquivo de comparacao for o mesmo (se o
+    # .jpg.webp vizinho for regerado, reavalia).
+    ant = sem.get(chave)
+    if isinstance(ant, dict) and ant.get("ref") == ref_bytes:
+        return None
+    try:
+        from PIL import Image, ImageOps, JpegImagePlugin
+    except Exception:
+        return None
+    tmp = dst + ".webp.tmp"
+    try:
+        with Image.open(src) as orig:
+            qt = getattr(orig, "quantization", None)
+            ss = JpegImagePlugin.get_sampling(orig) if orig.format == "JPEG" else -1
+            girada = (orig.getexif() or {}).get(0x0112, 1) not in (None, 1)
+            icc = orig.info.get("icc_profile")
+            progressivo = bool(orig.info.get("progressive") or orig.info.get("progression"))
+            im = ImageOps.exif_transpose(orig).convert("RGB")
+        w, alt = im.size
+        # Corta o mesmo tanto dos dois lados (o centro do recorte e o centro da foto), em
+        # multiplo de 16 px: o recorte comeca numa borda de bloco do JPEG e o .jpg de
+        # reserva sai praticamente sem perda em relacao ao original.
+        x0 = max(0, (w - int(math.ceil(alt * MOBILE_ASPECT))) // 2 // 16 * 16)
+        wc = w - 2 * x0
+        os.makedirs(pasta, exist_ok=True)
+        motivo = None
+        if x0 == 0:
+            motivo = f"foto em pe ou quase quadrada ({w}x{alt})"
+        else:
+            rec = im.crop((x0, 0, x0 + wc, alt))
+            rec.save(tmp, "WEBP", quality=80, method=6)
+            ganho = 1 - os.path.getsize(tmp) / ref_bytes
+            if ganho < MOBILE_GANHO_MIN:
+                os.remove(tmp)
+                motivo = f"recorte nao compensa ({ganho * 100:+.0f}% frente a {os.path.basename(ref)})"
+            else:
+                kw = {"optimize": True, "progressive": progressivo}
+                if icc:
+                    kw["icc_profile"] = icc
+                if qt and ss in (0, 1, 2) and not girada:
+                    kw.update(qtables=qt, subsampling=ss)
+                else:
+                    kw.update(quality=85)
+                rec.save(dst, "JPEG", **kw)
+                os.replace(tmp, dst + ".webp")
+                # webp com data igual ou posterior a do jpg: o temporarios/gen_webp.py regera
+                # todo .webp mais antigo que o jpg, e reencodaria este a partir do jpg recortado
+                t = os.stat(dst).st_mtime_ns
+                os.utime(dst + ".webp", ns=(t, t))
+        # anotacoes "sem recorte" de versoes anteriores da mesma foto deixam de valer
+        velhas = [k for k in sem if k.startswith(f"{nome}-{MOBILE_TAG}-")]
+        for k in velhas:
+            del sem[k]
+        if motivo:
+            sem[chave] = {"motivo": motivo, "ref": ref_bytes}
+        if motivo or velhas:
+            with open(sem_path, "w", encoding="utf-8") as f:
+                json.dump(sem, f, ensure_ascii=False, indent=1, sort_keys=True)
+        if motivo:
+            print(f"  sem recorte pra celular: {rel_src} ({motivo})")
+            return None
+        print(f"  recorte pra celular criado: {rel} ({wc}x{alt}, webp {os.path.getsize(dst + '.webp') // 1024} KB, {ganho * 100:.0f}% menor)")
+        return rel
+    except Exception as e:
+        print(f"  ! recorte pra celular de {rel_src} nao criado: {type(e).__name__}: {e}")
+        try:
+            if os.path.exists(tmp):
+                os.remove(tmp)
+        except Exception:
+            pass
+        return None
 
 
 # Patcher de runtime das subpaginas: le config.json e atualiza os .sub-plan-card
@@ -2399,18 +2688,109 @@ def gerar_bodies():
     write_file(os.path.join(BASE_DIR, "playhub", "index.html"), page_playhub(depth=1))
 
 
+# Hero das subpaginas no celular. Tres marcacoes, todas escritas so por sync_hero_mobile:
+#   <style id="hero-m"> no head  -> troca por CSS a foto que ja nasce no HTML (1o slide do
+#                                   carrossel ou a foto unica das paginas-pilar)
+#   data-bg-m nos demais slides  -> recorte que o script do carrossel usa no lugar do data-bg
+#   data-mq-m no carrossel       -> a condicao de tela que o script consulta (matchMedia)
+_HERO_M_RE = re.compile(r'[ \t]*<style id="hero-m">.*?</style>')
+_HERO_M_LINHA_RE = re.compile(r'[ \t]*<style id="hero-m">.*?</style>[ \t]*\r?\n?')
+_HERO_SLIDE0_RE = re.compile(r'''<div class="sub-hero-slide is-active" style="background-image: url\('([^'"]+)'\);"></div>''')
+_HERO_SLIDEN_RE = re.compile(r'<div class="sub-hero-slide" data-bg="([^"]+)"(?: data-bg-m="[^"]*")?></div>')
+_HERO_FOTO_RE = re.compile(r'''<section class="sub-hero" style="background-image: ([^"]*?), url\('([^'"]+)'\);[^"]*">''')
+_HERO_SHOW_RE = re.compile(r'(<section class="sub-hero sub-hero-slideshow" data-interval="\d+")(?: data-mq-m="[^"]*")?')
+
+
+def _url_mobile(url):
+    """URL do recorte pra celular com o MESMO prefixo (../ ou /) da URL original, ou None."""
+    m = re.match(r"((?:\.\./)+|/)?(imgs/.+)$", url)
+    rel = hero_mobile(m.group(2)) if m else None
+    return (m.group(1) or "") + rel if rel else None
+
+
+def sync_hero_mobile():
+    """Liga o recorte pra celular (hero_mobile) no hero de TODAS as subpaginas (MENU_PAGES):
+    carrossel das paginas de persona e foto unica das paginas-pilar. So escreve a marcacao
+    quando o arquivo do recorte existe; se nao existe (foto sem recorte, ou servidor sem
+    Pillow e sem o arquivo), remove a marcacao e a pagina volta a usar a foto inteira.
+    O style inline do HTML nao muda: e a versao de desktop e a reserva.
+    Cirurgico, idempotente, CRLF-safe. Roda em todo modo, depois da geracao das paginas
+    (o head() nao escreve nada disso)."""
+    changed = same = com = 0
+    # sobra de rodada interrompida no meio da gravacao de um recorte (nao pode ir pro deploy)
+    pasta_m = os.path.join(BASE_DIR, *MOBILE_DIR.split("/"))
+    if os.path.isdir(pasta_m):
+        for sobra in os.listdir(pasta_m):
+            if sobra.endswith(".tmp"):
+                try:
+                    os.remove(os.path.join(pasta_m, sobra))
+                except Exception:
+                    pass
+    mq = mobile_mq()
+    if not mq:
+        print("  ! escala do site baixa demais pro recorte de celular: marcacao removida das subpaginas")
+    for rel, depth in MENU_PAGES:
+        path = os.path.join(BASE_DIR, *rel.split("/"))
+        if not os.path.exists(path):
+            continue
+        with open(path, encoding="utf-8", newline="") as f:
+            orig = f.read()
+        nl = "\r\n" if "\r\n" in orig else "\n"
+        regras = []
+        m0 = _HERO_SLIDE0_RE.search(orig)
+        um = _url_mobile(m0.group(1)) if (m0 and mq) else None
+        if um:
+            regras.append(".sub-hero-slideshow>.sub-hero-slide:first-child{background-image:url('%s')!important}" % um)
+        mf = _HERO_FOTO_RE.search(orig)
+        um = _url_mobile(mf.group(2)) if (mf and mq) else None
+        if um:
+            # mesma camada de degrade do style inline, so a foto muda
+            regras.append(".sub-hero{background-image:%s, url('%s')!important}" % (mf.group(1), um))
+
+        tem_m = [False]
+
+        def slide_n(m):
+            u = _url_mobile(m.group(1)) if mq else None
+            tem_m[0] = tem_m[0] or bool(u)
+            return '<div class="sub-hero-slide" data-bg="%s"%s></div>' % (m.group(1), ' data-bg-m="%s"' % u if u else "")
+
+        html = _HERO_SLIDEN_RE.sub(slide_n, orig)
+        html = _HERO_SHOW_RE.sub(lambda m: m.group(1) + (' data-mq-m="%s"' % mq if tem_m[0] else ""), html)
+        if regras:
+            style = '<style id="hero-m">@media %s{%s}</style>' % (mq, "".join(regras))
+            if _HERO_M_RE.search(html):
+                html = _HERO_M_RE.sub(lambda m: "  " + style, html, count=1)
+            elif "</head>" in html:
+                html = html.replace("</head>", "  " + style + nl + "</head>", 1)
+        else:
+            html = _HERO_M_LINHA_RE.sub("", html)
+        if (regras or tem_m[0]) and "getElementById('hero-m')" not in html:
+            print(f"  ! {rel}: tem recorte de celular, mas o script da pagina e antigo (rodar temporarios/fix_hero_mobile.py)")
+        if regras or tem_m[0]:
+            com += 1
+        if html != orig:
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(html)
+            print(f"  ~ hero celular: {rel}")
+            changed += 1
+        else:
+            same += 1
+    print(f"\n  Hero pra celular: {com} pagina(s) com recorte, {changed} atualizada(s), {same} já em dia.")
+
+
 def gerar_internet_hero():
     """Gera internet-hero.json: 1 entrada por pagina de Internet (slug, title, tag,
     1a imagem do slideshow da pagina, href). A home (site-loader.loadHeroPaginas) le
     esse arquivo quando config.homeHero.usarPaginas = true e mostra 1 slide por pagina
-    com o titulo por cima. Paths ROOT-relative (a home esta na raiz, sem ../)."""
+    com o titulo por cima. Paths ROOT-relative (a home esta na raiz, sem ../).
+    imgM = recorte pra celular da mesma foto (hero_mobile), so quando existe."""
     out = []
     for p in INTERNET:
         imgs = find_imgs(IMG_BG.get(p["slug"], ""), BASE_DIR)
         if not imgs:
             print(f"  ! '{p['slug']}' sem imagem em imgs/hero/sub, pulando")
             continue
-        out.append({
+        item = {
             "slug": p["slug"],
             "title": p["title"],
             "tag": p["tag"],
@@ -2418,7 +2798,11 @@ def gerar_internet_hero():
             "plano": (p["plans"][0] if p.get("plans") else None),  # plano primário → checkout
             "cta": p.get("cta") or "Quero esse plano",
             "href": "#planos",  # fallback se o plano não existir
-        })
+        }
+        img_m = hero_mobile(imgs[0])
+        if img_m:
+            item["imgM"] = img_m
+        out.append(item)
     path = os.path.join(BASE_DIR, "internet-hero.json")
     with open(path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
@@ -2496,28 +2880,60 @@ def sync_hero_preload():
     hero via JS a partir do internet-hero.json, e o LCP vira o 1o slide de la; o preload
     estatico apontava pro banner-copa (nunca pintado) -> resource load delay de ~2,3s e
     download desperdicado. Este sync le o toggle do config e escolhe o alvo certo a cada
-    regen. Se o Philipe trocar o toggle/hero no admin, basta rodar o gerador + deploy."""
+    regen. Se o Philipe trocar o toggle/hero no admin, basta rodar o gerador + deploy.
+
+    Celular: quando o 1o slide tem recorte (imgM no internet-hero.json), o preload vira um
+    PAR com condicoes de tela complementares: id="hero-preload" (foto inteira, fora do
+    celular) e id="hero-preload-m" (recorte, no celular). Cada tela baixa so uma. Sem
+    recorte no 1o slide (ou no modo banner) fica um link so, sem media, como era antes.
+    A condicao (mobile_mq_home) tambem vai no data-mq-m do #heroSlideshow das 2 homes
+    sempre que ALGUM slide tem recorte: e de la que o site-loader.js a le pra montar o
+    <source> de celular de cada slide. Preload, slide estatico e slide em runtime usam a
+    mesma string, escrita aqui, entao nunca divergem."""
     cfg = json.load(open(os.path.join(BASE_DIR, "config.json"), encoding="utf-8"))
     usar = bool((cfg.get("homeHero") or {}).get("usarPaginas"))
     target = "imgs/hero/banner-copa.webp"
+    target_m = None
+    algum_m = False
+    mq_home = mobile_mq_home()
     if usar:
         try:
             items = json.load(open(os.path.join(BASE_DIR, "internet-hero.json"), encoding="utf-8"))
             if items and items[0].get("img"):
                 target = items[0]["img"] + ".webp"  # renderHero usa <source srcset="img+.webp">
+                if items[0].get("imgM"):
+                    target_m = items[0]["imgM"] + ".webp"
+            algum_m = any(it.get("imgM") for it in items)
         except Exception as e:
             print(f"  ! sync_hero_preload: falha lendo internet-hero.json ({e}), mantendo banner estatico")
-    pat = re.compile(r'(<link id="hero-preload" rel="preload" href=")[^"]*(")')
+    attrs = 'as="image" type="image/webp" fetchpriority="high"'
+    pat = re.compile(r'([ \t]*)<link id="hero-preload" rel="preload" href="[^"]*"[^>]*>(?:\s*<link id="hero-preload-m" [^>]*>)?')
+    pat_sl = re.compile(r'(<div class="hero-slideshow" id="heroSlideshow")(?: data-mq-m="[^"]*")?')
     n = 0
     for fn in ("index.html", "index-light.html"):
         p = os.path.join(BASE_DIR, fn)
         s = open(p, encoding="utf-8", newline="").read()
-        s2, c = pat.subn(lambda m: m.group(1) + target + m.group(2), s)
+        nl = "\r\n" if "\r\n" in s else "\n"
+
+        def links(m):
+            ind = m.group(1)
+            if not target_m:
+                return f'{ind}<link id="hero-preload" rel="preload" href="{target}" {attrs}>'
+            return (f'{ind}<link id="hero-preload" rel="preload" href="{target}" {attrs} media="not all and {mq_home}">'
+                    f'{nl}{ind}<link id="hero-preload-m" rel="preload" href="{target_m}" {attrs} media="{mq_home}">')
+
+        s2, c = pat.subn(links, s)
+        if not c:
+            print(f"  ! sync_hero_preload: <link id=\"hero-preload\"> nao encontrado em {fn}")
+        s2, c2 = pat_sl.subn(lambda m: m.group(1) + (f' data-mq-m="{mq_home}"' if algum_m else ""), s2)
+        if not c2:
+            print(f"  ! sync_hero_preload: #heroSlideshow nao encontrado em {fn}")
         if c and s2 != s:
             open(p, "w", encoding="utf-8", newline="").write(s2)
             n += 1
-    print(f"  hero-preload -> {target} (usarPaginas={'ON' if usar else 'OFF'}, {n} home(s) reescritas)")
-    sync_hero_static_slide(usar)
+    print(f"  hero-preload -> {target}" + (f" + celular {target_m}" if target_m else "")
+          + f" (usarPaginas={'ON' if usar else 'OFF'}, {n} home(s) reescritas)")
+    sync_hero_static_slide(usar, mq_home)
 
 
 # Slide 0 canonico do modo BANNER (copia fiel do estatico original da home light).
@@ -2526,7 +2942,7 @@ _HERO_SLIDE1_BANNER = '''<a href="#planos" class="hero-slide is-active hero-bg-h
       </a>'''
 
 
-def sync_hero_static_slide(usar_paginas):
+def sync_hero_static_slide(usar_paginas, mq_home):
     """Mantem o slide 0 ESTATICO da home light igual ao 1o slide que o renderHero vai
     montar em runtime. Motivo (LCP): com usarPaginas ON o hero e reescrito via JS, e sem
     slide estatico correspondente o elemento LCP so existe depois de site-loader + 2
@@ -2542,10 +2958,13 @@ def sync_hero_static_slide(usar_paginas):
             tag, cta = s0.get("tag", ""), s0.get("cta", "")
             plano = s0.get("plano") or ""
             cta_href = ("checkout.html?plano=" + plano) if plano else s0.get("href", "#planos")
+            # recorte pra celular: mesma fonte, mesma condicao e mesma ordem do renderHero
+            src_m = (f'<source media="{mq_home}" type="image/webp" srcset="{s0["imgM"]}.webp">'
+                     if s0.get("imgM") else '')
             # espelho do renderHero (site-loader.js) p/ i=0 no modo paginas + width/height (CLS)
             slide = (
                 f'<div class="hero-slide is-active hero-bg-home" data-slide="0" aria-label="{title}">'
-                f'\n        <picture><source type="image/webp" srcset="{img}.webp">'
+                f'\n        <picture>{src_m}<source type="image/webp" srcset="{img}.webp">'
                 f'<img class="hero-slide-img" src="{img}" alt="" loading="eager" fetchpriority="high" width="1600" height="1067"></picture>'
                 f'\n        <div class="hero-slide-shade"></div>'
                 f'\n        <div class="hero-slide-content">'
@@ -2613,6 +3032,9 @@ if __name__ == "__main__":
     sync_plans_wifi6()
     print("\nCTAs das subpáginas Internet → checkout…")
     sync_subpage_ctas()
+    print("\nHero pra celular (recorte central) → subpáginas…")
+    sync_hero_mobile()
+    check_hero_mobile_css()
     print("\nHero da home por páginas (internet-hero.json)…")
     gerar_internet_hero()
     print("\nPreload do hero (LCP) → homes…")
